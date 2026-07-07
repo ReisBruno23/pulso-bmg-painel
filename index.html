@@ -84,6 +84,14 @@
   .version-tile.version-unavailable { border-style: dashed; background: var(--page); }
   .version-tile.version-unavailable .version-tile-note { line-height: 1.5; }
   .version-tile-head { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+
+  .single-period { padding: 12px 0 4px; }
+  .sp-row { display: grid; grid-template-columns: 72px 1fr 56px; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .sp-label { font-size: 12px; color: var(--text-secondary); }
+  .sp-track { background: var(--gridline); border-radius: 999px; height: 14px; overflow: hidden; }
+  .sp-fill { height: 100%; border-radius: 999px; }
+  .sp-value { font-size: 14px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+  .sp-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
   .version-bar-track { background: var(--gridline); border-radius: 999px; height: 8px; overflow: hidden; margin-bottom: 6px; }
   .version-bar-fill { height: 100%; border-radius: 999px; }
   .version-tile-note { font-size: 11px; color: var(--text-muted); }
@@ -982,13 +990,32 @@ function drawSentimentPanel(container, sourceKey, src) {
     { key: 'negativo', label: 'Negativo', color: colors.critical },
     { key: 'neutro', label: 'Neutro', color: colors.neutral },
   ];
-  drawMiniChart(`chart-${sourceKey}`, src.monthly, series, 100, m => `${src.label} · ${m.month} · ${m.total} comentários`, '%');
-  let legendHtml =
-    series.map(s => `<div class="legend-item"><span class="legend-swatch" style="background:${s.color}"></span>${s.label}</div>`).join('');
+  // Com um único período, gráfico de linha vira pontos soltos num quadro vazio — barras horizontais
+  // comunicam o mesmo dado de forma completa. Com 2+ períodos, volta a ser linha de tendência.
   if (src.monthly.length === 1) {
-    legendHtml += `<div class="legend-item" style="color:var(--text-muted)">· primeiro período da série — a linha de tendência aparece com os próximos</div>`;
+    const m = src.monthly[0];
+    const rows = series.map(s => `
+      <div class="sp-row">
+        <span class="sp-label">${s.label}</span>
+        <div class="sp-track"><div class="sp-fill" style="width:${m[s.key]}%; background:${s.color}"></div></div>
+        <span class="sp-value" style="color:${s.color}">${m[s.key]}%</span>
+      </div>
+    `).join('');
+    document.getElementById(`chart-${sourceKey}`).outerHTML = `
+      <div class="single-period">
+        ${rows}
+        <div class="sp-note">${m.total} comentários em ${m.month} — primeiro mês da série; a evolução mês a mês aparece a partir do próximo mês.</div>
+      </div>
+    `;
+    document.getElementById(`legend-${sourceKey}`).style.display = 'none';
+    document.getElementById(`table-${sourceKey}`).innerHTML =
+      `<tr><th>Período</th><th>Positivo</th><th>Negativo</th><th>Neutro</th><th>Total</th></tr>` +
+      `<tr><td>${m.month}</td><td>${m.positivo}%</td><td>${m.negativo}%</td><td>${m.neutro}%</td><td>${m.total}</td></tr>`;
+    return;
   }
-  document.getElementById(`legend-${sourceKey}`).innerHTML = legendHtml;
+  drawMiniChart(`chart-${sourceKey}`, src.monthly, series, 100, m => `${src.label} · ${m.month} · ${m.total} comentários`, '%');
+  document.getElementById(`legend-${sourceKey}`).innerHTML =
+    series.map(s => `<div class="legend-item"><span class="legend-swatch" style="background:${s.color}"></span>${s.label}</div>`).join('');
   document.getElementById(`table-${sourceKey}`).innerHTML =
     `<tr><th>Mês</th><th>Positivo</th><th>Negativo</th><th>Neutro</th><th>Total</th></tr>` +
     src.monthly.map(m => `<tr><td>${m.month}</td><td>${m.positivo}%</td><td>${m.negativo}%</td><td>${m.neutro}%</td><td>${m.total}</td></tr>`).join('');
