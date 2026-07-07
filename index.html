@@ -57,6 +57,15 @@
   .alert-banner { display: none; background: rgba(208,59,59,0.08); border: 1px solid var(--critical); color: var(--critical); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 20px; }
   .alert-banner.show { display: block; }
 
+  .methodology-banner { background: rgba(12,163,12,0.08); border: 1px solid var(--good); color: var(--text-primary); border-radius: 8px; padding: 12px 14px; font-size: 12px; margin-bottom: 20px; }
+  .methodology-banner strong { color: #0a7a0a; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat-tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; }
+  .stat-value { font-size: 22px; font-weight: 600; }
+  .stat-note { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
   .exec-summary { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; background: var(--surface-1); }
   .exec-summary h2 { margin-bottom: 10px; }
   .exec-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
@@ -155,6 +164,10 @@
     <h2>Resumo executivo</h2>
     <ul class="exec-list" id="execList"></ul>
   </div>
+
+  <div class="methodology-banner" id="methodologyBanner" style="display:none"></div>
+
+  <div class="stat-row" id="statRow"></div>
 
   <div class="global-filter">
     <label for="themeFilter">Explorar:</label>
@@ -331,7 +344,14 @@ const themes = [
         "date": "2026-06-17",
         "store": "google_play"
       }
-    ]
+    ],
+    "platformCompare": {
+      "androidPct": 23.7,
+      "androidPeriod": "2026-06",
+      "iosPct": 47.4,
+      "iosPeriod": "2026-Q2",
+      "note": "proporcionalmente mais comum no iOS"
+    }
   },
   {
     "label": "Não aumenta limite de crédito",
@@ -356,7 +376,12 @@ const themes = [
         "date": "2026-06-19",
         "store": "google_play"
       }
-    ]
+    ],
+    "platformCompare": {
+      "androidPct": 2.6,
+      "androidPeriod": "2026-06",
+      "note": "tema por enquanto visto só no Android"
+    }
   },
   {
     "label": "Login / autenticação (facial, token, senha)",
@@ -421,7 +446,14 @@ const themes = [
         "date": "2026-06-05",
         "store": "google_play"
       }
-    ]
+    ],
+    "platformCompare": {
+      "androidPct": 2.6,
+      "androidPeriod": "2026-06",
+      "iosPct": 5.3,
+      "iosPeriod": "2026-Q2",
+      "note": "frequência parecida nos dois sistemas"
+    }
   },
   {
     "label": "Falha em Pix/pagamentos/resgates",
@@ -486,7 +518,14 @@ const themes = [
         "date": "2026-06-29",
         "store": "google_play"
       }
-    ]
+    ],
+    "platformCompare": {
+      "androidPct": 5.3,
+      "androidPeriod": "2026-06",
+      "iosPct": 5.3,
+      "iosPeriod": "2026-Q2",
+      "note": "frequência parecida nos dois sistemas"
+    }
   },
   {
     "label": "Atendimento/suporte não resolve",
@@ -545,7 +584,14 @@ const themes = [
         "date": "2026-06-24",
         "store": "google_play"
       }
-    ]
+    ],
+    "platformCompare": {
+      "androidPct": 2.6,
+      "androidPeriod": "2026-06",
+      "iosPct": 5.3,
+      "iosPeriod": "2026-Q2",
+      "note": "frequência parecida nos dois sistemas"
+    }
   },
   {
     "label": "Erro no cadastro/abertura de conta (selfie, documentos)",
@@ -604,7 +650,14 @@ const themes = [
         "date": "2026-06-21",
         "store": "google_play"
       }
-    ]
+    ],
+    "platformCompare": {
+      "androidPct": 3.9,
+      "androidPeriod": "2026-06",
+      "iosPct": 0,
+      "iosPeriod": "2026-Q2",
+      "note": "só aparece no Android neste período"
+    }
   },
   {
     "label": "Não consegue cancelar/encerrar a conta",
@@ -739,6 +792,36 @@ const execSummary = [
 ];
 
 const generatedAt = "07/07/2026";
+
+const statTiles = [
+  {
+    "label": "App Store (iOS) — trimestre atual (2026-Q2)",
+    "value": "95% negativo",
+    "note": "20 comentários do trimestre · cobertura 100%"
+  },
+  {
+    "label": "App Store (iOS) — variação vs. trim. anterior",
+    "value": "-12.6pp positivo",
+    "note": "2026-Q1 → 2026-Q2"
+  },
+  {
+    "label": "App Store (iOS) — volume de comentários",
+    "value": "20 no trimestre",
+    "note": "vs. 34 no trimestre anterior (-41%) — queda de volume, não só de sentimento"
+  },
+  {
+    "label": "Google Play (Android) — 2026-06 (mês completo)",
+    "value": "45.8% negativo",
+    "note": "166 comentários"
+  },
+  {
+    "label": "Total de comentários analisados",
+    "value": "166 + 135",
+    "note": "Google Play (2026-06) + App Store (4 trimestres, 100% de cobertura)"
+  }
+];
+
+const methodologyNote = "✅ <strong>Cobertura de dados.</strong> App Store: <strong>100% dos comentários</strong> dos últimos 4 trimestres. Google Play: <strong>últimos 30 dias</strong> — limitação da fonte de coleta nessa loja, que só disponibiliza uma janela de 30 dias por vez. Por isso o Google Play é atualizado <strong>mensalmente</strong> e o App Store <strong>trimestralmente</strong>.";
 
 const versionCompare = {
   "sourceLabel": "Google Play (Android)",
@@ -968,6 +1051,8 @@ function themeCardHtml(theme) {
   const lastPeriod = theme.monthly.length ? theme.monthly[theme.monthly.length - 1].month : '';
   const splitStr = Object.entries(theme.byStore || {}).filter(([,v]) => v > 0).map(([k,v]) => `${storeLabel[k] || k} (${lastPeriod}): ${v} ${v === 1 ? 'citação' : 'citações'}`).join(' · ');
   const allQuotes = [...(theme.quotes || []), ...(theme.gpQuotes || [])];
+  const pc = theme.platformCompare;
+  const pcHtml = pc ? `<div class="platform-compare">📱 Por plataforma — Android (${pc.androidPeriod}): <strong>${pc.androidPct}%</strong> dos comentários negativos${pc.iosPct !== undefined ? ` · iOS (${pc.iosPeriod}): <strong>${pc.iosPct}%</strong>` : ''} — ${pc.note}</div>` : '';
   return `
     <div class="theme-card">
       <div class="theme-head">
@@ -982,6 +1067,7 @@ function themeCardHtml(theme) {
       </div>
       ${splitStr ? `<div class="source-split">${splitStr}</div>` : ''}
       ${theme.gpCurrent ? `<div class="gp-note">${storeLabel[theme.gpCurrent.source] || 'Outra fonte'} (${theme.gpCurrent.period}): ${theme.gpCurrent.count} citações${theme.gpCurrent.isNew ? ' — tema novo' : ''}</div>` : ''}
+      ${pcHtml}
       ${allQuotes.map(q => `
         <div class="quote">
           "${q.text}"
@@ -1126,6 +1212,24 @@ renderVersionCompare();
 // ---- Data da última atualização ----
 if (typeof generatedAt !== 'undefined' && generatedAt) {
   document.getElementById('lastUpdated').textContent = ' · dados de ' + generatedAt;
+}
+
+// ---- Cards grandes de números no topo ----
+if (typeof statTiles !== 'undefined' && statTiles.length) {
+  const statRow = document.getElementById('statRow');
+  statTiles.forEach(s => {
+    const tile = document.createElement('div');
+    tile.className = 'stat-tile';
+    tile.innerHTML = `<div class="stat-label">${s.label}</div><div class="stat-value">${s.value}</div><div class="stat-note">${s.note}</div>`;
+    statRow.appendChild(tile);
+  });
+}
+
+// ---- Banner de cobertura ----
+if (typeof methodologyNote !== 'undefined' && methodologyNote) {
+  const banner = document.getElementById('methodologyBanner');
+  banner.innerHTML = methodologyNote;
+  banner.style.display = 'block';
 }
 
 document.addEventListener('click', (e) => {
