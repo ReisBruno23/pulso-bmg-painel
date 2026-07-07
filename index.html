@@ -291,6 +291,7 @@ const themes = [
     ],
     "quotes": [],
     "gpCurrent": {
+      "source": "google_play",
       "period": "2026-06",
       "count": 18,
       "isNew": false
@@ -315,6 +316,7 @@ const themes = [
     "monthly": [],
     "quotes": [],
     "gpCurrent": {
+      "source": "google_play",
       "period": "2026-06",
       "count": 2,
       "isNew": true
@@ -372,6 +374,7 @@ const themes = [
     ],
     "quotes": [],
     "gpCurrent": {
+      "source": "google_play",
       "period": "2026-06",
       "count": 2,
       "isNew": false
@@ -429,6 +432,7 @@ const themes = [
     ],
     "quotes": [],
     "gpCurrent": {
+      "source": "google_play",
       "period": "2026-06",
       "count": 4,
       "isNew": false
@@ -486,6 +490,7 @@ const themes = [
     ],
     "quotes": [],
     "gpCurrent": {
+      "source": "google_play",
       "period": "2026-06",
       "count": 2,
       "isNew": false
@@ -537,6 +542,7 @@ const themes = [
     ],
     "quotes": [],
     "gpCurrent": {
+      "source": "google_play",
       "period": "2026-06",
       "count": 3,
       "isNew": false
@@ -594,7 +600,7 @@ const coverage = [
   {
     "store": "Google Play",
     "totalRatings": "416.718",
-    "textAccessible": "~214/rodada (teto técnico da rota \"newest\")",
+    "textAccessible": "214 (últimos 30 dias)",
     "extracted": "166",
     "periodCoverage": "Últimos 30 dias — janela mais recente disponível"
   },
@@ -878,7 +884,7 @@ function themeCardHtml(theme) {
         </div>
       </div>
       ${splitStr ? `<div class="source-split">${splitStr}</div>` : ''}
-      ${theme.gpCurrent ? `<div class="gp-note">${storeLabel[theme.gpCurrent.source] || 'Outra fonte'} (${theme.gpCurrent.period}): ${theme.gpCurrent.count} citações${theme.gpCurrent.isNew ? ' — tema identificado nesta atualização' : ''}</div>` : ''}
+      ${theme.gpCurrent ? `<div class="gp-note">${storeLabel[theme.gpCurrent.source] || 'Outra fonte'} (${theme.gpCurrent.period}): ${theme.gpCurrent.count} citações${theme.gpCurrent.isNew ? ' — tema novo' : ''}</div>` : ''}
       ${allQuotes.map(q => `
         <div class="quote">
           "${q.text}"
