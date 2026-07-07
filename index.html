@@ -1,3 +1,10 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Painel de sentimento das avaliações do app Banco Bmg no Google Play e na App Store, atualizado mensalmente.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
 <title>Pulso BMG — Painel de Sentimento</title>
 <style>
   .viz-root {
@@ -134,10 +141,12 @@
   .quote { background: var(--page); border-left: 3px solid var(--border); border-radius: 0 6px 6px 0; padding: 8px 12px; margin-top: 8px; font-size: 13px; font-style: italic; color: var(--text-primary); }
   .quote-meta { font-size: 11px; color: var(--text-muted); font-style: normal; margin-top: 4px; display: flex; gap: 8px; }
 </style>
+</head>
+<body>
 
 <div class="viz-root">
   <h1>Pulso BMG — Painel de Sentimento</h1>
-  <p class="subtitle">Banco Bmg: Cartão e Empréstimo · avaliações de clientes no Google Play e na App Store</p>
+  <p class="subtitle">Banco Bmg: Cartão e Empréstimo · avaliações de clientes no Google Play e na App Store<span id="lastUpdated"></span></p>
 
   <!-- Sofia/Paula: 3-5 bullets, achado mais grave primeiro, cada um com o número que sustenta ele.
        Classe risk/watch/info em cada <li> controla a cor do marcador. Reescrever a cada rodada — nunca deixar
@@ -289,7 +298,20 @@ const themes = [
         }
       }
     ],
-    "quotes": [],
+    "quotes": [
+      {
+        "text": "Sempre que eu preciso desse app, ele trava, dá problema, agora estou tentando cadastrar minha conta novamente, e ele tá dando erro de novo",
+        "rating": 1,
+        "date": "2026-06-30",
+        "store": "app_store"
+      },
+      {
+        "text": "Nao e acessível, nao funciona as funções. Nem consigo pagar a fatura direito.",
+        "rating": 1,
+        "date": "2026-06-17",
+        "store": "app_store"
+      }
+    ],
     "gpCurrent": {
       "source": "google_play",
       "period": "2026-06",
@@ -372,7 +394,14 @@ const themes = [
         }
       }
     ],
-    "quotes": [],
+    "quotes": [
+      {
+        "text": "Sempre que vou acessar o app, informa que está com senha incorreta, aí tenho que desinstalar e instalar novamente",
+        "rating": 1,
+        "date": "2026-04-07",
+        "store": "app_store"
+      }
+    ],
     "gpCurrent": {
       "source": "google_play",
       "period": "2026-06",
@@ -430,7 +459,14 @@ const themes = [
         }
       }
     ],
-    "quotes": [],
+    "quotes": [
+      {
+        "text": "O app funciona bem, exceto quando você quer usar o seu próprio dinheiro! Há semanas tento resgatar meus investimentos de liquidez diária e o app SEMPRE TRAVA numa tela cinza.",
+        "rating": 2,
+        "date": "2026-04-07",
+        "store": "app_store"
+      }
+    ],
     "gpCurrent": {
       "source": "google_play",
       "period": "2026-06",
@@ -488,7 +524,14 @@ const themes = [
         }
       }
     ],
-    "quotes": [],
+    "quotes": [
+      {
+        "text": "Não tem suporte de nada",
+        "rating": 1,
+        "date": "2026-05-15",
+        "store": "app_store"
+      }
+    ],
     "gpCurrent": {
       "source": "google_play",
       "period": "2026-06",
@@ -540,7 +583,14 @@ const themes = [
         }
       }
     ],
-    "quotes": [],
+    "quotes": [
+      {
+        "text": "Fazem dois meses que venho tentando compartilhar meus dados do BMG via open finance para o Banco do Brasil e simplesmente não consigo pois o app apresenta erro e não finaliza a solicitação.",
+        "rating": 1,
+        "date": "2026-02-03",
+        "store": "app_store"
+      }
+    ],
     "gpCurrent": {
       "source": "google_play",
       "period": "2026-06",
@@ -592,7 +642,14 @@ const themes = [
         }
       }
     ],
-    "quotes": []
+    "quotes": [
+      {
+        "text": "Horrível, quero excluir minha conta. E o app não deixa",
+        "rating": 1,
+        "date": "2026-01-23",
+        "store": "app_store"
+      }
+    ]
   }
 ];
 
@@ -673,9 +730,15 @@ const execSummary = [
   },
   {
     "type": "watch",
-    "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\"."
+    "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 18 no Android (2026-06) e 9 no iOS (2026-Q2)."
+  },
+  {
+    "type": "info",
+    "html": "<strong>Sinal positivo no iOS:</strong> \"Erro no cadastro/abertura de conta (selfie, documentos)\" e \"Não consegue cancelar/encerrar a conta\" zeraram em 2026-Q2, depois de aparecer nos trimestres anteriores."
   }
 ];
+
+const generatedAt = "07/07/2026";
 
 const versionCompare = {
   "sourceLabel": "Google Play (Android)",
@@ -693,7 +756,19 @@ const versionCompare = {
       "total": 85,
       "negativo": 51.8,
       "positivo": 43.5,
-      "dateRange": "18/06–04/07"
+      "dateRange": "18/06–04/07",
+      "quotes": [
+        {
+          "text": "muita instabilidade ultimamente para fazer transferências para entrar no aplicativo tudo isso está muito RUIM PESSIMO MELHOREM",
+          "rating": 1,
+          "date": "2026-06-28"
+        },
+        {
+          "text": "Pensa num aplicativo que só vive de instabilidades... Pra pagar a fatura do cartão é uma luta!!!",
+          "rating": 1,
+          "date": "2026-06-26"
+        }
+      ]
     }
   ],
   "unavailable": {
@@ -701,7 +776,20 @@ const versionCompare = {
     "icon": "🍎",
     "reason": "A Apple libera atualizações com mais frequência do que o volume de comentários do iOS consegue acompanhar — nenhuma versão costuma acumular os 30 comentários mínimos usados nesta comparação."
   },
-  "quotes": []
+  "quotes": [
+    {
+      "text": "muita instabilidade ultimamente para fazer transferências para entrar no aplicativo tudo isso está muito RUIM PESSIMO MELHOREM",
+      "rating": 1,
+      "date": "2026-06-28",
+      "store": "google_play"
+    },
+    {
+      "text": "Pensa num aplicativo que só vive de instabilidades... Pra pagar a fatura do cartão é uma luta!!!",
+      "rating": 1,
+      "date": "2026-06-26",
+      "store": "google_play"
+    }
+  ]
 };
 // ===== DATA-INJECTION-END =====
 
@@ -804,16 +892,20 @@ function panelShell(container, key, icon, label, totalText) {
 
 function drawSentimentPanel(container, sourceKey, src) {
   const last = src.monthly[src.monthly.length - 1];
-  panelShell(container, sourceKey, src.icon, src.label, last ? last.total + ' reviews em ' + last.month : 'sem dados ainda');
+  panelShell(container, sourceKey, src.icon, src.label, last ? last.total + ' comentários em ' + last.month : 'sem dados ainda');
   if (!src.monthly.length) return;
   const series = [
     { key: 'positivo', label: 'Positivo', color: colors.good },
     { key: 'negativo', label: 'Negativo', color: colors.critical },
     { key: 'neutro', label: 'Neutro', color: colors.neutral },
   ];
-  drawMiniChart(`chart-${sourceKey}`, src.monthly, series, 100, m => `${src.label} · ${m.month} · ${m.total} reviews`, '%');
-  document.getElementById(`legend-${sourceKey}`).innerHTML =
+  drawMiniChart(`chart-${sourceKey}`, src.monthly, series, 100, m => `${src.label} · ${m.month} · ${m.total} comentários`, '%');
+  let legendHtml =
     series.map(s => `<div class="legend-item"><span class="legend-swatch" style="background:${s.color}"></span>${s.label}</div>`).join('');
+  if (src.monthly.length === 1) {
+    legendHtml += `<div class="legend-item" style="color:var(--text-muted)">· primeiro período da série — a linha de tendência aparece com os próximos</div>`;
+  }
+  document.getElementById(`legend-${sourceKey}`).innerHTML = legendHtml;
   document.getElementById(`table-${sourceKey}`).innerHTML =
     `<tr><th>Mês</th><th>Positivo</th><th>Negativo</th><th>Neutro</th><th>Total</th></tr>` +
     src.monthly.map(m => `<tr><td>${m.month}</td><td>${m.positivo}%</td><td>${m.negativo}%</td><td>${m.neutro}%</td><td>${m.total}</td></tr>`).join('');
@@ -842,15 +934,19 @@ function drawThemeBySourcePanel(container, sourceKey, srcMeta, theme) {
   document.getElementById(`chart-${sourceKey}`).outerHTML = `<div class="theme-trend-empty">${theme.gpCurrent.count} citações em ${theme.gpCurrent.period}. Comparação disponível a partir da próxima atualização.</div>`;
 }
 
+// Regra de prioridade: o tema de maior volume NUNCA fica verde/"Estável", mesmo com tendência de
+// queda — ele continua sendo o principal motivo de reclamação e precisa de atenção (corrige o caso
+// real em que "App trava" com 27 citações aparecia verde abaixo de um tema com 3 citações).
 function priorityFor(theme) {
-  if (theme.asCountPrev === null) {
-    return theme.gpCount >= 4 ? { level: 'warning', label: 'Observar' } : { level: 'good', label: 'Estável' };
-  }
-  const delta = theme.asCountLast - theme.asCountPrev;
   const maxVol = Math.max(...themes.map(t => t.countTotal), 1);
   const isTopVolume = theme.countTotal >= maxVol * 0.7;
-  if (delta > 0 && isTopVolume) return { level: 'critical', label: 'Urgente' };
-  if (delta > 0) return { level: 'warning', label: 'Observar' };
+  const delta = theme.asCountPrev === null ? null : theme.asCountLast - theme.asCountPrev;
+  if (delta !== null && delta > 0 && isTopVolume) return { level: 'critical', label: 'Urgente' };
+  if (isTopVolume) return { level: 'warning', label: 'Observar' };
+  if (delta !== null && delta > 0) return { level: 'warning', label: 'Observar' };
+  if (delta === null) {
+    return theme.gpCount >= 4 ? { level: 'warning', label: 'Observar' } : { level: 'good', label: 'Estável' };
+  }
   return { level: 'good', label: 'Estável' };
 }
 function trendHtml(theme) {
@@ -869,7 +965,8 @@ const sortedThemes = [...themes].sort((a, b) => {
 
 function themeCardHtml(theme) {
   const p = priorityFor(theme);
-  const splitStr = Object.entries(theme.byStore || {}).filter(([,v]) => v > 0).map(([k,v]) => `${v} ${storeLabel[k] || k}`).join(' · ');
+  const lastPeriod = theme.monthly.length ? theme.monthly[theme.monthly.length - 1].month : '';
+  const splitStr = Object.entries(theme.byStore || {}).filter(([,v]) => v > 0).map(([k,v]) => `${storeLabel[k] || k} (${lastPeriod}): ${v} ${v === 1 ? 'citação' : 'citações'}`).join(' · ');
   const allQuotes = [...(theme.quotes || []), ...(theme.gpQuotes || [])];
   return `
     <div class="theme-card">
@@ -1026,6 +1123,11 @@ function renderVersionCompare() {
 }
 renderVersionCompare();
 
+// ---- Data da última atualização ----
+if (typeof generatedAt !== 'undefined' && generatedAt) {
+  document.getElementById('lastUpdated').textContent = ' · dados de ' + generatedAt;
+}
+
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('table-toggle')) {
     const table = document.getElementById(e.target.dataset.target);
@@ -1034,3 +1136,5 @@ document.addEventListener('click', (e) => {
   }
 });
 </script>
+</body>
+</html>
