@@ -1,0 +1,1030 @@
+<title>Pulso BMG — Painel de Sentimento</title>
+<style>
+  .viz-root {
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --good:           #0ca30c;
+    --critical:       #d03b3b;
+    --warning:        #fab219;
+    --neutral:        #898781;
+  }
+  :root[data-theme="dark"] .viz-root {
+    --surface-1:      #1a1a19;
+    --page:           #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --gridline:       #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --neutral:        #c3c2b7;
+  }
+  @media (prefers-color-scheme: dark) {
+    .viz-root:not([data-theme="light"]) {
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --neutral:        #c3c2b7;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page); color: var(--text-primary); }
+  .viz-root { padding: 32px 24px 64px; max-width: 1040px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 15px; margin: 0 0 2px; }
+  .subtitle { color: var(--text-secondary); font-size: 14px; margin: 0 0 18px; }
+  .desc { font-size: 12px; color: var(--text-muted); margin: 0 0 14px; }
+
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 12px; margin-bottom: 24px; overflow-x: auto; }
+
+  .alert-banner { display: none; background: rgba(208,59,59,0.08); border: 1px solid var(--critical); color: var(--critical); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 20px; }
+  .alert-banner.show { display: block; }
+
+  .exec-summary { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; background: var(--surface-1); }
+  .exec-summary h2 { margin-bottom: 10px; }
+  .exec-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .exec-list li { font-size: 13px; line-height: 1.5; padding-left: 22px; position: relative; }
+  .exec-list li::before { content: "●"; position: absolute; left: 0; font-size: 10px; top: 4px; }
+  .exec-list li.risk::before { color: var(--critical); }
+  .exec-list li.watch::before { color: var(--warning); }
+  .exec-list li.info::before { color: var(--text-muted); }
+
+  .platform-compare { font-size: 11px; color: var(--text-secondary); background: var(--page); border-radius: 6px; padding: 6px 10px; margin-bottom: 8px; }
+  .version-platform-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin: 14px 0 8px; padding-top: 10px; border-top: 1px solid var(--gridline); }
+  .version-platform-label:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+  .version-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 14px; }
+  .version-tile { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .version-tile.is-current { border-color: var(--critical); }
+  .version-tile.version-unavailable { border-style: dashed; background: var(--page); }
+  .version-tile.version-unavailable .version-tile-note { line-height: 1.5; }
+  .version-tile-head { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .version-bar-track { background: var(--gridline); border-radius: 999px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+  .version-bar-fill { height: 100%; border-radius: 999px; }
+  .version-tile-note { font-size: 11px; color: var(--text-muted); }
+
+  .global-filter { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .global-filter label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+  .theme-select {
+    font-size: 13px; font-family: inherit; color: var(--text-primary); background: var(--surface-1);
+    border: 1px solid var(--border); border-radius: 6px; padding: 7px 12px; cursor: pointer; min-width: 220px;
+  }
+  .filter-hint { font-size: 11px; color: var(--text-muted); }
+  .clear-filter-btn { font-size: 12px; color: var(--text-secondary); background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+  .clear-filter-btn:hover { background: var(--page); }
+
+  .source-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .source-panel { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .source-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .source-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .source-total { font-size: 11px; color: var(--text-muted); }
+  .source-future { border-style: dashed; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 12px; min-height: 180px; text-align: center; padding: 20px; }
+  .theme-trend-empty { font-size: 12px; color: var(--text-muted); font-style: italic; padding: 20px 0; }
+  .low-volume-tag { font-size: 10px; color: var(--warning); border: 1px solid var(--warning); border-radius: 999px; padding: 1px 7px; margin-left: 6px; }
+  .gp-note { font-size: 11px; color: var(--text-muted); font-style: italic; margin-bottom: 6px; }
+
+  .legend { display: flex; gap: 14px; font-size: 11px; color: var(--text-secondary); margin-bottom: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-swatch { width: 9px; height: 9px; border-radius: 2px; }
+
+  svg { display: block; overflow: visible; font-family: inherit; }
+  .axis-label { fill: var(--text-muted); font-size: 9px; }
+  .gridline { stroke: var(--gridline); stroke-width: 1; }
+  .baseline { stroke: var(--baseline); stroke-width: 1; }
+  .line-series { fill: none; stroke-width: 2px; }
+  .dot { stroke: var(--surface-1); stroke-width: 2px; }
+  .hover-target { fill: transparent; }
+  .crosshair { stroke: var(--baseline); stroke-width: 1; stroke-dasharray: 2 2; opacity: 0; }
+  .bar-value { font-size: 10px; fill: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+  .tooltip { position: absolute; pointer-events: none; background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); opacity: 0; transition: opacity 0.1s; white-space: nowrap; z-index: 10; }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .t-title { font-weight: 600; margin-bottom: 4px; }
+  .tooltip .t-row { display: flex; justify-content: space-between; gap: 12px; }
+
+  .table-toggle { font-size: 12px; color: var(--text-secondary); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; cursor: pointer; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; display: none; margin-top: 8px; }
+  table.visible { display: table; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--gridline); font-variant-numeric: tabular-nums; }
+  th { color: var(--text-muted); font-weight: 500; }
+
+  .theme-card { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .theme-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+  .theme-title-row { display: flex; align-items: center; gap: 8px; }
+  .theme-title { font-size: 14px; font-weight: 600; }
+  .priority-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; }
+  .priority-critical { background: rgba(208,59,59,0.12); color: var(--critical); }
+  .priority-warning { background: rgba(250,178,25,0.16); color: #9a6b00; }
+  .priority-good { background: rgba(12,163,12,0.12); color: var(--good); }
+  .theme-meta { font-size: 12px; color: var(--text-secondary); display: flex; gap: 14px; }
+  .theme-meta .trend-up { color: var(--critical); }
+  .theme-meta .trend-down { color: var(--good); }
+  .theme-meta .trend-flat { color: var(--text-muted); }
+  .source-split { font-size: 11px; color: var(--text-muted); }
+
+  .quote { background: var(--page); border-left: 3px solid var(--border); border-radius: 0 6px 6px 0; padding: 8px 12px; margin-top: 8px; font-size: 13px; font-style: italic; color: var(--text-primary); }
+  .quote-meta { font-size: 11px; color: var(--text-muted); font-style: normal; margin-top: 4px; display: flex; gap: 8px; }
+</style>
+
+<div class="viz-root">
+  <h1>Pulso BMG — Painel de Sentimento</h1>
+  <p class="subtitle">Banco Bmg: Cartão e Empréstimo · avaliações de clientes no Google Play e na App Store</p>
+
+  <!-- Sofia/Paula: 3-5 bullets, achado mais grave primeiro, cada um com o número que sustenta ele.
+       Classe risk/watch/info em cada <li> controla a cor do marcador. Reescrever a cada rodada — nunca deixar
+       o resumo de uma rodada anterior no ar. Linguagem de negócio, sem jargão técnico (mesma regra do resto do painel). -->
+  <div class="exec-summary">
+    <h2>Resumo executivo</h2>
+    <ul class="exec-list" id="execList"></ul>
+  </div>
+
+  <div class="global-filter">
+    <label for="themeFilter">Explorar:</label>
+    <select class="theme-select" id="themeFilter">
+      <option value="__all__">Sentimento geral (todos os temas)</option>
+    </select>
+    <button class="clear-filter-btn" id="clearFilterBtn" style="display:none">✕ Limpar filtro</button>
+    <span class="filter-hint">Escolher um tema filtra o gráfico de tendência e a lista abaixo pra só esse tema.</span>
+  </div>
+
+  <div class="alert-banner" id="alertBanner">⚠ Alerta crítico: queda de sentimento positivo acima de 15pp detectada num dos meses, numa das fontes.</div>
+
+  <div class="card">
+    <h2>Cobertura de dados — quanto do universo real estamos vendo</h2>
+    <!-- Paula Painel: preencher só com números reais (total de avaliações da loja, total com comentário escrito, quantidade analisada) — nunca estimar/inventar. Texto abaixo é visível ao time de Design, manter em linguagem de negócio. -->
+    <p class="desc">A maioria das avaliações nas lojas é só uma nota, sem comentário escrito — não dá pra analisar sentimento nelas. Esta tabela mostra quanto do que tem comentário foi analisado, e qual período está coberto.</p>
+    <table class="visible" id="coverageTable"></table>
+  </div>
+
+  <div class="card">
+    <h2 id="sourceGridTitle">Sentimento ao longo do tempo — por fonte</h2>
+    <p class="desc" id="sourceGridDesc">Cada fonte é medida e mostrada separadamente, pra não esconder um problema específico de uma loja/rede na média geral. Novas fontes entram aqui como mais um painel.</p>
+    <div class="source-grid" id="sourceGrid"></div>
+  </div>
+
+  <!-- Só incluir esta seção se houver pelo menos 2 versões com volume comparável (≥30 reviews cada) em alguma
+       loja — normalmente só dá em Android; na Apple a versão exibida muda quase a cada review. Remover o card
+       inteiro se não houver dado suficiente, não deixar vazio. -->
+  <div class="card">
+    <h2>Sentimento por versão do app</h2>
+    <p class="desc" id="versionCompareDesc">Compara as versões mais recentes com volume suficiente pra comparação ser confiável.</p>
+    <div id="versionCompare"></div>
+  </div>
+
+  <div class="card">
+    <h2>Temas negativos — priorizados pra ação</h2>
+    <p class="desc">Ordenado por prioridade (volume + tendência). Cada tema traz exemplo real de cliente.</p>
+    <div id="themeList"></div>
+  </div>
+
+  <div class="card">
+    <h2>Exemplos reais por classificação</h2>
+    <p class="desc">Não só os temas negativos — um recorte de como fica cada categoria com as palavras reais do cliente.</p>
+    <div id="classificationExamples"></div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ===== DATA-INJECTION-START =====
+const bySource = {
+  "google_play": {
+    "label": "Google Play (Android)",
+    "icon": "🤖",
+    "monthly": [
+      {
+        "month": "2026-06",
+        "positivo": 50.6,
+        "negativo": 45.8,
+        "neutro": 3.6,
+        "total": 166
+      }
+    ]
+  },
+  "app_store": {
+    "label": "App Store (iOS)",
+    "icon": "🍎",
+    "monthly": [
+      {
+        "quarter": "2025-Q3",
+        "positivo": 27.5,
+        "negativo": 70,
+        "neutro": 2.5,
+        "total": 40,
+        "month": "2025-Q3"
+      },
+      {
+        "quarter": "2025-Q4",
+        "positivo": 22,
+        "negativo": 70.7,
+        "neutro": 7.3,
+        "total": 41,
+        "month": "2025-Q4"
+      },
+      {
+        "quarter": "2026-Q1",
+        "positivo": 17.6,
+        "negativo": 79.4,
+        "neutro": 2.9,
+        "total": 34,
+        "month": "2026-Q1"
+      },
+      {
+        "quarter": "2026-Q2",
+        "positivo": 5,
+        "negativo": 95,
+        "neutro": 0,
+        "total": 20,
+        "month": "2026-Q2"
+      }
+    ]
+  }
+};
+const futureSources = [];
+
+const themes = [
+  {
+    "label": "App trava / não abre / fica fora do ar / instabilidade",
+    "monthly": [
+      {
+        "month": "2025-Q3",
+        "count": 11,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 11
+        }
+      },
+      {
+        "month": "2025-Q4",
+        "count": 17,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 17
+        }
+      },
+      {
+        "month": "2026-Q1",
+        "count": 17,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 17
+        }
+      },
+      {
+        "month": "2026-Q2",
+        "count": 9,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 9
+        }
+      }
+    ],
+    "quotes": [],
+    "gpCurrent": {
+      "period": "2026-06",
+      "count": 18,
+      "isNew": false
+    },
+    "gpQuotes": [
+      {
+        "text": "App está horrível, sempre com instabilidade, vou encerrar a conta, nunca consigo resolver nada, e sempre instável",
+        "rating": 1,
+        "date": "2026-06-30",
+        "store": "google_play"
+      },
+      {
+        "text": "app nao abre quando precisa, mesmo limpando o cache. App sempre em manutençao e inconsistencia pedindo para tentar novamente mais tarde.",
+        "rating": 1,
+        "date": "2026-06-17",
+        "store": "google_play"
+      }
+    ]
+  },
+  {
+    "label": "Não aumenta limite de crédito",
+    "monthly": [],
+    "quotes": [],
+    "gpCurrent": {
+      "period": "2026-06",
+      "count": 2,
+      "isNew": true
+    },
+    "gpQuotes": [
+      {
+        "text": "péssimo cartão nunca aumenta o limite já tenho esse cartão a 2 anos com mesmo limite vou quitar minha fatura e cancelar esse cartão",
+        "rating": 1,
+        "date": "2026-06-25",
+        "store": "google_play"
+      },
+      {
+        "text": "nunca vi um banco com app tão complicado, nunca vi colocar limite demonstrativo, só o BMG mesmo",
+        "rating": 1,
+        "date": "2026-06-19",
+        "store": "google_play"
+      }
+    ]
+  },
+  {
+    "label": "Login / autenticação (facial, token, senha)",
+    "monthly": [
+      {
+        "month": "2025-Q3",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
+      },
+      {
+        "month": "2025-Q4",
+        "count": 2,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 2
+        }
+      },
+      {
+        "month": "2026-Q1",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
+      },
+      {
+        "month": "2026-Q2",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
+      }
+    ],
+    "quotes": [],
+    "gpCurrent": {
+      "period": "2026-06",
+      "count": 2,
+      "isNew": false
+    },
+    "gpQuotes": [
+      {
+        "text": "Fazia a validação do token para transferências no aplicativo, agora nao aparece mais, onde foi parar o token? Central de atendimento nao resolve.",
+        "rating": 1,
+        "date": "2026-06-10",
+        "store": "google_play"
+      },
+      {
+        "text": "simplesmente, não consigo acessar. não aceita código enviado e na opção acessar depois de ter criado conta digital, não consigo criar senha!",
+        "rating": 1,
+        "date": "2026-06-05",
+        "store": "google_play"
+      }
+    ]
+  },
+  {
+    "label": "Falha em Pix/pagamentos/resgates",
+    "monthly": [
+      {
+        "month": "2025-Q3",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      },
+      {
+        "month": "2025-Q4",
+        "count": 3,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 3
+        }
+      },
+      {
+        "month": "2026-Q1",
+        "count": 3,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 3
+        }
+      },
+      {
+        "month": "2026-Q2",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
+      }
+    ],
+    "quotes": [],
+    "gpCurrent": {
+      "period": "2026-06",
+      "count": 4,
+      "isNew": false
+    },
+    "gpQuotes": [
+      {
+        "text": "BANCO LADRÃO SUMIU COM 3200 REAIS DA MINHA CONTA E NAO DÃO SATISFAÇÃO DO PARADEIRO DO DINHEIRO. NAO ABRAM CONTA NESSE BANCO.",
+        "rating": 1,
+        "date": "2026-06-19",
+        "store": "google_play"
+      },
+      {
+        "text": "Guardei dinheiro no cofrinho e o dinheiro foi debitado do saldo e simplesmente sumiu. Sempre um problema, mas o dinheiro sumiu e até agora nada.",
+        "rating": 1,
+        "date": "2026-06-29",
+        "store": "google_play"
+      }
+    ]
+  },
+  {
+    "label": "Atendimento/suporte não resolve",
+    "monthly": [
+      {
+        "month": "2025-Q3",
+        "count": 2,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 2
+        }
+      },
+      {
+        "month": "2025-Q4",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
+      },
+      {
+        "month": "2026-Q1",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      },
+      {
+        "month": "2026-Q2",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
+      }
+    ],
+    "quotes": [],
+    "gpCurrent": {
+      "period": "2026-06",
+      "count": 2,
+      "isNew": false
+    },
+    "gpQuotes": [
+      {
+        "text": "Banco com burocracias inacreditáveis! Atendimento ruim, informações dúbias que nos fazem perder tempo. Encerrando a conta!",
+        "rating": 1,
+        "date": "2026-06-24",
+        "store": "google_play"
+      }
+    ]
+  },
+  {
+    "label": "Erro no cadastro/abertura de conta (selfie, documentos)",
+    "monthly": [
+      {
+        "month": "2025-Q3",
+        "count": 4,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 4
+        }
+      },
+      {
+        "month": "2025-Q4",
+        "count": 3,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 3
+        }
+      },
+      {
+        "month": "2026-Q1",
+        "count": 3,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 3
+        }
+      },
+      {
+        "month": "2026-Q2",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      }
+    ],
+    "quotes": [],
+    "gpCurrent": {
+      "period": "2026-06",
+      "count": 3,
+      "isNew": false
+    },
+    "gpQuotes": [
+      {
+        "text": "Não libera abertura de conta para novos clientes, tentei e não cosegui.",
+        "rating": 1,
+        "date": "2026-06-21",
+        "store": "google_play"
+      }
+    ]
+  },
+  {
+    "label": "Não consegue cancelar/encerrar a conta",
+    "monthly": [
+      {
+        "month": "2025-Q3",
+        "count": 3,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 3
+        }
+      },
+      {
+        "month": "2025-Q4",
+        "count": 2,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 2
+        }
+      },
+      {
+        "month": "2026-Q1",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
+      },
+      {
+        "month": "2026-Q2",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      }
+    ],
+    "quotes": []
+  }
+];
+
+const coverage = [
+  {
+    "store": "Google Play",
+    "totalRatings": "416.718",
+    "textAccessible": "~214/rodada (teto técnico da rota \"newest\")",
+    "extracted": "166",
+    "periodCoverage": "Últimos 30 dias — janela mais recente disponível"
+  },
+  {
+    "store": "App Store",
+    "totalRatings": "86.029",
+    "textAccessible": "1235",
+    "extracted": "135 (últimos 4 trimestres)",
+    "periodCoverage": "100% dos comentários dos últimos trimestres"
+  }
+];
+
+const classificationExamples = {
+  "positivo": [
+    {
+      "text": "Excelente, já trabalhamos juntos a mais de quatro anos! E continuaremos.",
+      "rating": 5,
+      "date": "2026-06-16",
+      "store": "google_play"
+    },
+    {
+      "text": "muito fácil de manusear, que Deus abençoe minhas transações com essa instituição.",
+      "rating": 5,
+      "date": "2026-06-12",
+      "store": "google_play"
+    }
+  ],
+  "negativo": [
+    {
+      "text": "uma 💩 nem deixou abrir a conta quanto muito o cartão de crédito, e olha que tenho score ótimo (acima de 700), já exclui e desinstalei tudo não presta.",
+      "rating": 1,
+      "date": "2026-07-02",
+      "store": "google_play"
+    },
+    {
+      "text": "minha experiência com esse esta sendo muito ruim, estão fazendo oque não si faz quando a impresa é de respeito e presa os clientes estão mi enganando fiz um depósito e usei o cartão de crédito deles e puseram uma divida de quase 100mil",
+      "rating": 1,
+      "date": "2026-06-20",
+      "store": "google_play"
+    }
+  ],
+  "neutro": [
+    {
+      "text": "meu aplicativo não está abrindo está com o código 16",
+      "rating": 3,
+      "date": "2026-07-03",
+      "store": "google_play"
+    },
+    {
+      "text": "O aplicativo é muito bom, mas acabou de atualizar e continua com bug, recebi um cartão e não consigo desbloquear pelo app porque não abre a opção",
+      "rating": 3,
+      "date": "2026-06-19",
+      "store": "google_play"
+    }
+  ]
+};
+
+const execSummary = [
+  {
+    "type": "risk",
+    "html": "<strong>App Store (iOS) em queda:</strong> sentimento positivo caiu 12.6pp de 2026-Q1 para 2026-Q2 (17.6% → 5%)."
+  },
+  {
+    "type": "risk",
+    "html": "<strong>Volume de comentários da App Store também caiu:</strong> 34 → 20 (-41%) de 2026-Q1 para 2026-Q2."
+  },
+  {
+    "type": "risk",
+    "html": "<strong>Versão 3.90.2 do Android piorou a experiência:</strong> 51.8% de comentários negativos, contra 38% na versão 3.90.1."
+  },
+  {
+    "type": "watch",
+    "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\"."
+  }
+];
+
+const versionCompare = {
+  "sourceLabel": "Google Play (Android)",
+  "sourceIcon": "🤖",
+  "versions": [
+    {
+      "version": "3.90.1",
+      "total": 71,
+      "negativo": 38,
+      "positivo": 59.2,
+      "dateRange": "04/06–25/06"
+    },
+    {
+      "version": "3.90.2",
+      "total": 85,
+      "negativo": 51.8,
+      "positivo": 43.5,
+      "dateRange": "18/06–04/07"
+    }
+  ],
+  "unavailable": {
+    "label": "App Store (iOS)",
+    "icon": "🍎",
+    "reason": "A Apple libera atualizações com mais frequência do que o volume de comentários do iOS consegue acompanhar — nenhuma versão costuma acumular os 30 comentários mínimos usados nesta comparação."
+  },
+  "quotes": []
+};
+// ===== DATA-INJECTION-END =====
+
+// Deriva asCountLast/asCountPrev/byStore a partir do array `monthly` (série de tendência principal),
+// e soma o gpCurrent (leitura pontual de outra loja com cadência diferente, sem tendência própria ainda).
+themes.forEach(t => {
+  const last = t.monthly.length ? t.monthly[t.monthly.length - 1] : null;
+  const prev = t.monthly.length > 1 ? t.monthly[t.monthly.length - 2] : null;
+  t.asCountLast = last ? last.count : 0;
+  t.asCountPrev = prev ? prev.count : null; // null = sem período anterior pra comparar (tema novo ou só 1 leitura)
+  t.byStore = last ? last.byStore : {};
+  t.gpCount = t.gpCurrent ? t.gpCurrent.count : 0;
+  t.countTotal = t.asCountLast + t.gpCount;
+});
+
+const root = document.querySelector('.viz-root');
+const css = getComputedStyle(root);
+const colors = {
+  good: css.getPropertyValue('--good').trim(),
+  critical: css.getPropertyValue('--critical').trim(),
+  neutral: css.getPropertyValue('--neutral').trim(),
+};
+const storeLabel = { google_play: "Google Play", app_store: "App Store" };
+const tooltip = document.getElementById('tooltip');
+
+Object.values(bySource).forEach(src => {
+  for (let i = 1; i < src.monthly.length; i++) {
+    if (src.monthly[i-1].positivo - src.monthly[i].positivo > 15) {
+      document.getElementById('alertBanner').classList.add('show');
+    }
+  }
+});
+
+// Desenha um mini gráfico genérico (1 a N séries) dentro de um painel por fonte.
+function drawMiniChart(svgId, monthly, series, maxY, tooltipTitleFn, valueSuffix) {
+  const svg = document.getElementById(svgId);
+  const W = 440, H = 180, padL = 30, padR = 10, padT = 8, padB = 22;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const effectiveMaxY = maxY === 'auto' ? Math.max(...monthly.flatMap(m => series.map(s => m[s.key])), 1) : maxY;
+  const x = i => padL + (monthly.length > 1 ? (i / (monthly.length - 1)) * plotW : plotW / 2);
+  const y = v => padT + plotH - (v / effectiveMaxY) * plotH;
+
+  let svgContent = '';
+  const gridSteps = maxY === 'auto' ? [0, Math.round(effectiveMaxY/2), effectiveMaxY] : [0, 50, 100];
+  gridSteps.forEach(v => {
+    svgContent += `<line class="gridline" x1="${padL}" x2="${W-padR}" y1="${y(v)}" y2="${y(v)}" />`;
+    svgContent += `<text class="axis-label" x="${padL - 6}" y="${y(v)+3}" text-anchor="end">${v}${valueSuffix}</text>`;
+  });
+  svgContent += `<line class="baseline" x1="${padL}" x2="${W-padR}" y1="${padT+plotH}" y2="${padT+plotH}" />`;
+  monthly.forEach((m, i) => {
+    svgContent += `<text class="axis-label" x="${x(i)}" y="${H-6}" text-anchor="middle">${m.month}</text>`;
+  });
+  series.forEach(s => {
+    const points = monthly.map((m, i) => `${x(i)},${y(m[s.key])}`).join(' ');
+    svgContent += `<polyline class="line-series" points="${points}" stroke="${s.color}" />`;
+    monthly.forEach((m, i) => {
+      svgContent += `<circle class="dot" cx="${x(i)}" cy="${y(m[s.key])}" r="3.5" fill="${s.color}" />`;
+    });
+  });
+  monthly.forEach((m, i) => {
+    svgContent += `<line class="crosshair" id="cross-${svgId}-${i}" x1="${x(i)}" x2="${x(i)}" y1="${padT}" y2="${padT+plotH}" />`;
+    svgContent += `<rect class="hover-target" x="${x(i) - (plotW/monthly.length/2)}" y="${padT}" width="${plotW/monthly.length}" height="${plotH}" data-idx="${i}" style="cursor:crosshair" />`;
+  });
+  svg.innerHTML = svgContent;
+
+  svg.querySelectorAll('.hover-target').forEach(rect => {
+    rect.addEventListener('mousemove', (e) => {
+      const i = +rect.dataset.idx;
+      svg.querySelectorAll('.crosshair').forEach(c => c.style.opacity = 0);
+      document.getElementById(`cross-${svgId}-${i}`).style.opacity = 1;
+      const m = monthly[i];
+      tooltip.innerHTML = `<div class="t-title">${tooltipTitleFn(m)}</div>` +
+        series.map(s => `<div class="t-row"><span style="color:${s.color}">${s.label}</span><span>${m[s.key]}${valueSuffix}</span></div>`).join('');
+      tooltip.style.left = (e.pageX + 14) + 'px';
+      tooltip.style.top = (e.pageY - 10) + 'px';
+      tooltip.classList.add('visible');
+    });
+    rect.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('visible');
+      svg.querySelectorAll('.crosshair').forEach(c => c.style.opacity = 0);
+    });
+  });
+}
+
+function panelShell(container, key, icon, label, totalText) {
+  const panel = document.createElement('div');
+  panel.className = 'source-panel';
+  panel.innerHTML = `
+    <div class="source-header">
+      <div class="source-title">${icon} ${label}</div>
+      <div class="source-total">${totalText}</div>
+    </div>
+    <div class="legend" id="legend-${key}"></div>
+    <svg id="chart-${key}" width="440" height="180" viewBox="0 0 440 180"></svg>
+    <button class="table-toggle" data-target="table-${key}">Ver como tabela</button>
+    <table id="table-${key}"></table>
+  `;
+  container.appendChild(panel);
+}
+
+function drawSentimentPanel(container, sourceKey, src) {
+  const last = src.monthly[src.monthly.length - 1];
+  panelShell(container, sourceKey, src.icon, src.label, last ? last.total + ' reviews em ' + last.month : 'sem dados ainda');
+  if (!src.monthly.length) return;
+  const series = [
+    { key: 'positivo', label: 'Positivo', color: colors.good },
+    { key: 'negativo', label: 'Negativo', color: colors.critical },
+    { key: 'neutro', label: 'Neutro', color: colors.neutral },
+  ];
+  drawMiniChart(`chart-${sourceKey}`, src.monthly, series, 100, m => `${src.label} · ${m.month} · ${m.total} reviews`, '%');
+  document.getElementById(`legend-${sourceKey}`).innerHTML =
+    series.map(s => `<div class="legend-item"><span class="legend-swatch" style="background:${s.color}"></span>${s.label}</div>`).join('');
+  document.getElementById(`table-${sourceKey}`).innerHTML =
+    `<tr><th>Mês</th><th>Positivo</th><th>Negativo</th><th>Neutro</th><th>Total</th></tr>` +
+    src.monthly.map(m => `<tr><td>${m.month}</td><td>${m.positivo}%</td><td>${m.negativo}%</td><td>${m.neutro}%</td><td>${m.total}</td></tr>`).join('');
+}
+
+function drawThemeBySourcePanel(container, sourceKey, srcMeta, theme) {
+  // Fonte com série de tendência multi-período (a que alimenta theme.monthly)
+  if (!theme.gpCurrent || sourceKey !== 'google_play') {
+    const monthly = theme.monthly.map(m => ({ month: m.month, count: (m.byStore && m.byStore[sourceKey]) || 0 }));
+    const last = monthly[monthly.length - 1];
+    panelShell(container, sourceKey, srcMeta.icon, srcMeta.label, last ? last.count + ' citações em ' + last.month : 'sem citações ainda');
+    if (!monthly.length || !monthly.some(m => m.count > 0)) {
+      document.getElementById(`chart-${sourceKey}`).outerHTML = `<div class="theme-trend-empty">Sem citações de "${theme.label}" nesta fonte ainda.</div>`;
+      return;
+    }
+    const series = [{ key: 'count', label: 'Citações', color: colors.critical }];
+    drawMiniChart(`chart-${sourceKey}`, monthly, series, 'auto', m => `${srcMeta.label} · ${m.month}`, '');
+    document.getElementById(`legend-${sourceKey}`).innerHTML =
+      `<div class="legend-item"><span class="legend-swatch" style="background:${colors.critical}"></span>Citações de "${theme.label}"</div>`;
+    document.getElementById(`table-${sourceKey}`).innerHTML =
+      `<tr><th>Período</th><th>Citações</th></tr>` + monthly.map(m => `<tr><td>${m.month}</td><td>${m.count}</td></tr>`).join('');
+    return;
+  }
+  // Fonte com cadência diferente e só uma leitura pontual até agora (ver nota em DATA-INJECTION sobre gpCurrent)
+  panelShell(container, sourceKey, srcMeta.icon, srcMeta.label, theme.gpCurrent.count + ' citações em ' + theme.gpCurrent.period);
+  document.getElementById(`chart-${sourceKey}`).outerHTML = `<div class="theme-trend-empty">${theme.gpCurrent.count} citações em ${theme.gpCurrent.period}. Comparação disponível a partir da próxima atualização.</div>`;
+}
+
+function priorityFor(theme) {
+  if (theme.asCountPrev === null) {
+    return theme.gpCount >= 4 ? { level: 'warning', label: 'Observar' } : { level: 'good', label: 'Estável' };
+  }
+  const delta = theme.asCountLast - theme.asCountPrev;
+  const maxVol = Math.max(...themes.map(t => t.countTotal), 1);
+  const isTopVolume = theme.countTotal >= maxVol * 0.7;
+  if (delta > 0 && isTopVolume) return { level: 'critical', label: 'Urgente' };
+  if (delta > 0) return { level: 'warning', label: 'Observar' };
+  return { level: 'good', label: 'Estável' };
+}
+function trendHtml(theme) {
+  if (theme.asCountPrev === null) return `<span class="trend-flat">→ tema novo ou 1ª leitura, sem série de tendência ainda</span>`;
+  const delta = theme.asCountLast - theme.asCountPrev;
+  if (delta > 0) return `<span class="trend-up">↑ +${delta} vs. período anterior</span>`;
+  if (delta < 0) return `<span class="trend-down">↓ ${delta} vs. período anterior</span>`;
+  return `<span class="trend-flat">→ estável vs. período anterior</span>`;
+}
+const priorityIcon = { critical: '🔴', warning: '🟡', good: '🟢' };
+
+const sortedThemes = [...themes].sort((a, b) => {
+  const order = { critical: 0, warning: 1, good: 2 };
+  return order[priorityFor(a).level] - order[priorityFor(b).level] || b.countTotal - a.countTotal;
+});
+
+function themeCardHtml(theme) {
+  const p = priorityFor(theme);
+  const splitStr = Object.entries(theme.byStore || {}).filter(([,v]) => v > 0).map(([k,v]) => `${v} ${storeLabel[k] || k}`).join(' · ');
+  const allQuotes = [...(theme.quotes || []), ...(theme.gpQuotes || [])];
+  return `
+    <div class="theme-card">
+      <div class="theme-head">
+        <div class="theme-title-row">
+          <span class="theme-title">${theme.label}</span>
+          <span class="priority-badge priority-${p.level}">${priorityIcon[p.level]} ${p.label}</span>
+        </div>
+        <div class="theme-meta">
+          <span><strong>${theme.countTotal}</strong> citações</span>
+          ${trendHtml(theme)}
+        </div>
+      </div>
+      ${splitStr ? `<div class="source-split">${splitStr}</div>` : ''}
+      ${theme.gpCurrent ? `<div class="gp-note">${storeLabel[theme.gpCurrent.source] || 'Outra fonte'} (${theme.gpCurrent.period}): ${theme.gpCurrent.count} citações${theme.gpCurrent.isNew ? ' — tema identificado nesta atualização' : ''}</div>` : ''}
+      ${allQuotes.map(q => `
+        <div class="quote">
+          "${q.text}"
+          <div class="quote-meta"><span>${storeLabel[q.store] || q.store}</span><span>⭐${q.rating}</span><span>${q.date}</span></div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ---- Renderização global, controlada pelo filtro no topo ----
+function render(filterValue) {
+  const sourceGrid = document.getElementById('sourceGrid');
+  const themeList = document.getElementById('themeList');
+  sourceGrid.innerHTML = '';
+
+  if (filterValue === '__all__') {
+    document.getElementById('sourceGridTitle').textContent = 'Sentimento ao longo do tempo — por fonte';
+    document.getElementById('sourceGridDesc').textContent = 'Cada fonte é medida e mostrada separadamente, pra não esconder um problema específico de uma loja/rede na média geral. Novas fontes entram aqui como mais um painel.';
+    Object.entries(bySource).forEach(([key, src]) => drawSentimentPanel(sourceGrid, key, src));
+    futureSources.forEach(name => {
+      const el = document.createElement('div');
+      el.className = 'source-panel source-future';
+      el.textContent = `+ ${name} — em breve`;
+      sourceGrid.appendChild(el);
+    });
+    themeList.innerHTML = sortedThemes.map(themeCardHtml).join('');
+    return;
+  }
+
+  const theme = themes.find(t => t.label === filterValue);
+  if (!theme) return;
+  document.getElementById('sourceGridTitle').textContent = `Menções de "${theme.label}" — por fonte`;
+  document.getElementById('sourceGridDesc').textContent = 'Mesma separação por fonte, agora medindo quantas vezes esse tema específico foi citado por período.';
+  if (theme.monthly.length < 2 && !theme.gpCurrent) {
+    sourceGrid.innerHTML = `<div class="theme-trend-empty">Ainda não há histórico suficiente pra mostrar tendência de "${theme.label}".</div>`;
+  } else {
+    Object.entries(bySource).forEach(([key, src]) => drawThemeBySourcePanel(sourceGrid, key, { icon: src.icon, label: src.label }, theme));
+  }
+  themeList.innerHTML = themeCardHtml(theme);
+}
+
+const themeFilter = document.getElementById('themeFilter');
+const clearFilterBtn = document.getElementById('clearFilterBtn');
+themes.forEach(t => {
+  const opt = document.createElement('option');
+  opt.value = t.label;
+  opt.textContent = t.label;
+  themeFilter.appendChild(opt);
+});
+themeFilter.addEventListener('change', () => {
+  render(themeFilter.value);
+  clearFilterBtn.style.display = themeFilter.value === '__all__' ? 'none' : 'inline-block';
+});
+clearFilterBtn.addEventListener('click', () => {
+  themeFilter.value = '__all__';
+  render('__all__');
+  clearFilterBtn.style.display = 'none';
+});
+render('__all__');
+
+// ---- Cobertura de dados ----
+function renderCoverage() {
+  const table = document.getElementById('coverageTable');
+  if (!coverage.length) { table.outerHTML = '<div class="theme-trend-empty">Dados de cobertura ainda não registrados nesta rodada.</div>'; return; }
+  table.innerHTML = '<tr><th>Loja</th><th>Total de avaliações (nota)</th><th>Com texto (acessível)</th><th>Extraído</th><th>Cobertura do período reportado</th></tr>' +
+    coverage.map(c => `<tr><td>${c.store}</td><td>${c.totalRatings}</td><td>${c.textAccessible}</td><td>${c.extracted}</td><td>${c.periodCoverage}</td></tr>`).join('');
+}
+renderCoverage();
+
+// ---- Exemplos reais por classificação ----
+const classificationMeta = {
+  positivo: { icon: '🟢', label: 'Positivo', color: colors.good },
+  negativo: { icon: '🔴', label: 'Negativo', color: colors.critical },
+  neutro: { icon: '🟡', label: 'Neutro (texto misto)', color: colors.neutral },
+};
+function renderClassificationExamples() {
+  const container = document.getElementById('classificationExamples');
+  const entries = Object.entries(classificationExamples).filter(([, quotes]) => quotes.length);
+  if (!entries.length) { container.innerHTML = '<div class="theme-trend-empty">Exemplos por classificação ainda não registrados nesta rodada.</div>'; return; }
+  container.innerHTML = entries.map(([key, quotes]) => {
+    const meta = classificationMeta[key];
+    return `
+      <div class="theme-card">
+        <div class="theme-title-row" style="margin-bottom:8px">
+          <span class="theme-title">${meta.icon} ${meta.label}</span>
+        </div>
+        ${quotes.map(q => `
+          <div class="quote">
+            "${q.text}"
+            <div class="quote-meta"><span>${storeLabel[q.store] || q.store}</span><span>⭐${q.rating}</span><span>${q.date}</span></div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+renderClassificationExamples();
+
+// ---- Resumo executivo ----
+function renderExecSummary() {
+  const list = document.getElementById('execList');
+  if (!execSummary.length) { list.parentElement.style.display = 'none'; return; }
+  list.innerHTML = execSummary.map(item => `<li class="${item.type}">${item.html}</li>`).join('');
+}
+renderExecSummary();
+
+// ---- Sentimento por versão do app ----
+function renderVersionCompare() {
+  const container = document.getElementById('versionCompare');
+  const card = container.closest('.card');
+  if (!versionCompare.versions.length) { card.style.display = 'none'; return; }
+  const maxNeg = Math.max(...versionCompare.versions.map(v => v.negativo));
+  const grid = versionCompare.versions.map(v => `
+    <div class="version-tile ${v.isCurrent ? 'is-current' : ''}">
+      <div class="version-tile-head"><span>Versão ${v.version}${v.isCurrent ? ' 🔴' : ''}</span><span>${v.negativo}% negativo</span></div>
+      <div class="version-bar-track"><div class="version-bar-fill" style="width:${(v.negativo/maxNeg*100)}%; background:${v.isCurrent ? colors.critical : colors.neutral}"></div></div>
+      <div class="version-tile-note">${v.total} comentários · ${v.dateRange}</div>
+    </div>
+  `).join('');
+  const unavailableBlock = versionCompare.unavailable ? `
+    <div class="version-platform-label">${versionCompare.unavailable.icon} ${versionCompare.unavailable.label}</div>
+    <div class="version-tile version-unavailable">
+      <div class="version-tile-head"><span>Dado insuficiente pra comparar por versão</span></div>
+      <div class="version-tile-note">${versionCompare.unavailable.reason}</div>
+    </div>
+  ` : '';
+  container.innerHTML = `
+    <div class="version-platform-label">${versionCompare.sourceIcon || ''} ${versionCompare.sourceLabel || 'Comparação disponível'}</div>
+    <div class="version-grid">${grid}</div>
+    ${(versionCompare.quotes || []).map(q => `
+      <div class="quote">
+        "${q.text}"
+        <div class="quote-meta"><span>${storeLabel[q.store] || q.store}</span><span>⭐${q.rating}</span><span>${q.date}</span></div>
+      </div>
+    `).join('')}
+    ${unavailableBlock}
+  `;
+}
+renderVersionCompare();
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('table-toggle')) {
+    const table = document.getElementById(e.target.dataset.target);
+    table.classList.toggle('visible');
+    e.target.textContent = table.classList.contains('visible') ? 'Esconder tabela' : 'Ver como tabela';
+  }
+});
+</script>
