@@ -238,6 +238,14 @@ const bySource = {
         "negativo": 45.8,
         "neutro": 3.6,
         "total": 166
+      },
+      {
+        "month": "2026-07",
+        "positivo": 27.1,
+        "negativo": 66.7,
+        "neutro": 6.3,
+        "total": 48,
+        "preliminary": true
       }
     ]
   },
@@ -719,8 +727,8 @@ const coverage = [
     "store": "Google Play",
     "totalRatings": "416.718",
     "textAccessible": "214 (últimos 30 dias)",
-    "extracted": "166",
-    "periodCoverage": "Últimos 30 dias — janela mais recente disponível"
+    "extracted": "214 (série completa)",
+    "periodCoverage": "Últimos 30 dias por rodada — janela mais recente disponível"
   },
   {
     "store": "App Store",
@@ -799,7 +807,7 @@ const execSummary = [
   }
 ];
 
-const generatedAt = "07/07/2026";
+const generatedAt = "08/07/2026";
 
 const statTiles = [
   {
@@ -824,8 +832,8 @@ const statTiles = [
   },
   {
     "label": "Total de comentários analisados",
-    "value": "166 + 135",
-    "note": "Google Play (2026-06) + App Store (4 trimestres, 100% de cobertura)"
+    "value": "214 + 135",
+    "note": "Google Play (desde 2026-06) + App Store (4 trimestres, 100% de cobertura)"
   }
 ];
 
@@ -908,6 +916,7 @@ const tooltip = document.getElementById('tooltip');
 
 Object.values(bySource).forEach(src => {
   for (let i = 1; i < src.monthly.length; i++) {
+    if (src.monthly[i].preliminary) continue; // período parcial não dispara alerta — pode mudar até fechar
     if (src.monthly[i-1].positivo - src.monthly[i].positivo > 15) {
       document.getElementById('alertBanner').classList.add('show');
     }
@@ -931,13 +940,14 @@ function drawMiniChart(svgId, monthly, series, maxY, tooltipTitleFn, valueSuffix
   });
   svgContent += `<line class="baseline" x1="${padL}" x2="${W-padR}" y1="${padT+plotH}" y2="${padT+plotH}" />`;
   monthly.forEach((m, i) => {
-    svgContent += `<text class="axis-label" x="${x(i)}" y="${H-6}" text-anchor="middle">${m.month}</text>`;
+    svgContent += `<text class="axis-label" x="${x(i)}" y="${H-6}" text-anchor="middle">${m.month}${m.preliminary ? '*' : ''}</text>`;
   });
   series.forEach(s => {
     const points = monthly.map((m, i) => `${x(i)},${y(m[s.key])}`).join(' ');
     svgContent += `<polyline class="line-series" points="${points}" stroke="${s.color}" />`;
     monthly.forEach((m, i) => {
-      svgContent += `<circle class="dot" cx="${x(i)}" cy="${y(m[s.key])}" r="3.5" fill="${s.color}" />`;
+      const dashed = m.preliminary ? ' stroke-dasharray="2 2"' : '';
+      svgContent += `<circle class="dot" cx="${x(i)}" cy="${y(m[s.key])}" r="3.5" fill="${s.color}"${dashed} />`;
     });
   });
   monthly.forEach((m, i) => {
@@ -953,7 +963,8 @@ function drawMiniChart(svgId, monthly, series, maxY, tooltipTitleFn, valueSuffix
       document.getElementById(`cross-${svgId}-${i}`).style.opacity = 1;
       const m = monthly[i];
       tooltip.innerHTML = `<div class="t-title">${tooltipTitleFn(m)}</div>` +
-        series.map(s => `<div class="t-row"><span style="color:${s.color}">${s.label}</span><span>${m[s.key]}${valueSuffix}</span></div>`).join('');
+        series.map(s => `<div class="t-row"><span style="color:${s.color}">${s.label}</span><span>${m[s.key]}${valueSuffix}</span></div>`).join('') +
+        (m.preliminary ? '<div class="t-row" style="color:#9a6b00">período parcial, ainda em andamento</div>' : '');
       tooltip.style.left = (e.pageX + 14) + 'px';
       tooltip.style.top = (e.pageY - 10) + 'px';
       tooltip.classList.add('visible');
@@ -965,12 +976,12 @@ function drawMiniChart(svgId, monthly, series, maxY, tooltipTitleFn, valueSuffix
   });
 }
 
-function panelShell(container, key, icon, label, totalText) {
+function panelShell(container, key, icon, label, totalText, tag) {
   const panel = document.createElement('div');
   panel.className = 'source-panel';
   panel.innerHTML = `
     <div class="source-header">
-      <div class="source-title">${icon} ${label}</div>
+      <div class="source-title">${icon} ${label} ${tag ? `<span class="low-volume-tag">${tag}</span>` : ''}</div>
       <div class="source-total">${totalText}</div>
     </div>
     <div class="legend" id="legend-${key}"></div>
@@ -983,7 +994,8 @@ function panelShell(container, key, icon, label, totalText) {
 
 function drawSentimentPanel(container, sourceKey, src) {
   const last = src.monthly[src.monthly.length - 1];
-  panelShell(container, sourceKey, src.icon, src.label, last ? last.total + ' comentários em ' + last.month : 'sem dados ainda');
+  const tag = last && last.preliminary ? '⚠ último ponto parcial' : null;
+  panelShell(container, sourceKey, src.icon, src.label, last ? last.total + ' comentários em ' + last.month : 'sem dados ainda', tag);
   if (!src.monthly.length) return;
   const series = [
     { key: 'positivo', label: 'Positivo', color: colors.good },
@@ -1015,10 +1027,11 @@ function drawSentimentPanel(container, sourceKey, src) {
   }
   drawMiniChart(`chart-${sourceKey}`, src.monthly, series, 100, m => `${src.label} · ${m.month} · ${m.total} comentários`, '%');
   document.getElementById(`legend-${sourceKey}`).innerHTML =
-    series.map(s => `<div class="legend-item"><span class="legend-swatch" style="background:${s.color}"></span>${s.label}</div>`).join('');
+    series.map(s => `<div class="legend-item"><span class="legend-swatch" style="background:${s.color}"></span>${s.label}</div>`).join('') +
+    (src.monthly.some(m => m.preliminary) ? `<div class="legend-item" style="color:var(--text-muted)">· ⚠ = período parcial, ainda em andamento</div>` : '');
   document.getElementById(`table-${sourceKey}`).innerHTML =
-    `<tr><th>Mês</th><th>Positivo</th><th>Negativo</th><th>Neutro</th><th>Total</th></tr>` +
-    src.monthly.map(m => `<tr><td>${m.month}</td><td>${m.positivo}%</td><td>${m.negativo}%</td><td>${m.neutro}%</td><td>${m.total}</td></tr>`).join('');
+    `<tr><th>Período</th><th>Positivo</th><th>Negativo</th><th>Neutro</th><th>Total</th></tr>` +
+    src.monthly.map(m => `<tr><td>${m.month}${m.preliminary ? ' ⚠' : ''}</td><td>${m.positivo}%</td><td>${m.negativo}%</td><td>${m.neutro}%</td><td>${m.total}</td></tr>`).join('');
 }
 
 function drawThemeBySourcePanel(container, sourceKey, srcMeta, theme) {
