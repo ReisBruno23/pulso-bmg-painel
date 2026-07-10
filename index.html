@@ -96,6 +96,17 @@
   .version-bar-fill { height: 100%; border-radius: 999px; }
   .version-tile-note { font-size: 11px; color: var(--text-muted); }
 
+  .rating-breakdown { font-size: 11px; color: var(--text-secondary); margin: 6px 0 2px; }
+  .version-insight { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 4px 0 12px; background: var(--page); }
+  .version-insight-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+  .shift-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .shift-list li { font-size: 12px; line-height: 1.45; }
+  .shift-arrow { display: inline-block; width: 16px; }
+  .shift-up .shift-arrow { color: var(--critical); }
+  .shift-down .shift-arrow { color: var(--good); }
+  .shift-theme { font-weight: 600; }
+  .version-insight-foot { font-size: 11px; color: var(--text-muted); margin-top: 10px; }
+
   .global-filter { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
   .global-filter label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
   .theme-select {
@@ -296,6 +307,14 @@ const themes = [
     "monthly": [
       {
         "month": "2025-Q3",
+        "count": 3,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 3
+        }
+      },
+      {
+        "month": "2025-Q4",
         "count": 11,
         "byStore": {
           "google_play": 0,
@@ -303,100 +322,268 @@ const themes = [
         }
       },
       {
-        "month": "2025-Q4",
-        "count": 17,
-        "byStore": {
-          "google_play": 0,
-          "app_store": 17
-        }
-      },
-      {
         "month": "2026-Q1",
-        "count": 17,
+        "count": 8,
         "byStore": {
           "google_play": 0,
-          "app_store": 17
+          "app_store": 8
         }
       },
       {
         "month": "2026-Q2",
-        "count": 9,
+        "count": 8,
         "byStore": {
           "google_play": 0,
-          "app_store": 9
+          "app_store": 8
         }
       }
     ],
     "quotes": [
       {
-        "text": "Sempre que eu preciso desse app, ele trava, dá problema, agora estou tentando cadastrar minha conta novamente, e ele tá dando erro de novo",
-        "rating": 1,
-        "date": "2026-06-30",
+        "text": "O app funciona bem, exceto quando você quer usar o seu próprio dinheiro! Há semanas tento resgatar meus investimentos de liquidez diária e o app SEMPRE TRAVA numa tela cinza.",
+        "rating": 2,
+        "date": "2026-04-07",
         "store": "app_store"
       },
       {
-        "text": "Nao e acessível, nao funciona as funções. Nem consigo pagar a fatura direito.",
+        "text": "Desisti de abrir a conta, muita burocracia, app travado, problemas pra autenticar celular, um dos piores bancos digitais que eu vi, já fui pra outro banco",
         "rating": 1,
-        "date": "2026-06-17",
+        "date": "2026-06-12",
         "store": "app_store"
       }
     ],
+    "asSeries": [
+      {
+        "period": "2025-Q3",
+        "count": 3,
+        "share": 10.7,
+        "ratings": {
+          "1": 2,
+          "2": 1
+        }
+      },
+      {
+        "period": "2025-Q4",
+        "count": 11,
+        "share": 37.9,
+        "ratings": {
+          "1": 10,
+          "2": 1
+        }
+      },
+      {
+        "period": "2026-Q1",
+        "count": 8,
+        "share": 29.6,
+        "ratings": {
+          "1": 6,
+          "2": 2
+        }
+      },
+      {
+        "period": "2026-Q2",
+        "count": 8,
+        "share": 42.1,
+        "ratings": {
+          "1": 7,
+          "2": 1
+        }
+      }
+    ],
+    "gpSeries": [
+      {
+        "period": "2026-06",
+        "count": 18,
+        "share": 23.7,
+        "preliminary": false,
+        "ratings": {
+          "1": 18,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-07",
+        "count": 14,
+        "share": 43.8,
+        "preliminary": true,
+        "ratings": {
+          "1": 13,
+          "2": 1
+        }
+      }
+    ],
+    "ratings": {
+      "google_play": {
+        "1": 18,
+        "2": 0
+      },
+      "app_store": {
+        "1": 7,
+        "2": 1
+      }
+    },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-06",
-      "count": 18,
+      "period": "2026-07",
+      "count": 14,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "App está horrível, sempre com instabilidade, vou encerrar a conta, nunca consigo resolver nada, e sempre instável",
+        "text": "sinceramente banco bmg cada dia pior apps fica só fora não abre nada e ainda por cima mudam data de fechamento de fatura o meu era dia 2 ai mudaram pra dia 4 um lixo de banco pior se a gente pede mudar a data eles não alteram mais eles podem fazer oque quer desrespeito com aposentado indignidade com isso",
         "rating": 1,
-        "date": "2026-06-30",
+        "date": "2026-07-02",
         "store": "google_play"
       },
       {
-        "text": "app nao abre quando precisa, mesmo limpando o cache. App sempre em manutençao e inconsistencia pedindo para tentar novamente mais tarde.",
-        "rating": 1,
-        "date": "2026-06-17",
+        "text": "open finance não funciona. trava tanto de lá pra cá e vice -versa. App fecha sozinho. lento demais. Não adianta pedirem pra entrar em contato. o problema é do app. nem o whatsapp funcionando. Você dá um OI e fica trocentos anos esperando uma resposta. BMG é um Sabor de banco.",
+        "rating": 2,
+        "date": "2026-07-01",
         "store": "google_play"
       }
     ],
     "platformCompare": {
       "androidPct": 23.7,
       "androidPeriod": "2026-06",
-      "iosPct": 47.4,
+      "iosPct": 42.1,
       "iosPeriod": "2026-Q2",
       "note": "proporcionalmente mais comum no iOS"
     }
   },
   {
     "label": "Não aumenta limite de crédito",
-    "monthly": [],
-    "quotes": [],
+    "monthly": [
+      {
+        "month": "2025-Q3",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      },
+      {
+        "month": "2025-Q4",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      },
+      {
+        "month": "2026-Q1",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
+      },
+      {
+        "month": "2026-Q2",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      }
+    ],
+    "quotes": [
+      {
+        "text": "Eu gosto muito de usar esse cartão tem mais 3 anos que uso, mais nunca me ofereceram limite. O único defeito. Mais o resto é ótimo",
+        "rating": 2,
+        "date": "2026-03-03",
+        "store": "app_store"
+      }
+    ],
+    "asSeries": [
+      {
+        "period": "2025-Q3",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
+      },
+      {
+        "period": "2025-Q4",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-Q1",
+        "count": 1,
+        "share": 3.7,
+        "ratings": {
+          "1": 0,
+          "2": 1
+        }
+      },
+      {
+        "period": "2026-Q2",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
+      }
+    ],
+    "gpSeries": [
+      {
+        "period": "2026-06",
+        "count": 2,
+        "share": 2.6,
+        "preliminary": false,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-07",
+        "count": 2,
+        "share": 6.3,
+        "preliminary": true,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      }
+    ],
+    "ratings": {
+      "google_play": {
+        "1": 2,
+        "2": 0
+      },
+      "app_store": {
+        "1": 0,
+        "2": 1
+      }
+    },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-06",
+      "period": "2026-07",
       "count": 2,
-      "isNew": true
+      "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "péssimo cartão nunca aumenta o limite já tenho esse cartão a 2 anos com mesmo limite vou quitar minha fatura e cancelar esse cartão",
+        "text": "nota 0 não eu uso esse cartão a 3 anos nunca aumentou meu limite eu pago tudo certo mas msm assim nunca aumentou pior banco que existe até o limite não dá pra converter em Pix nem enviar Pix nota zero msm",
         "rating": 1,
-        "date": "2026-06-25",
-        "store": "google_play"
-      },
-      {
-        "text": "nunca vi um banco com app tão complicado, nunca vi colocar limite demonstrativo, só o BMG mesmo",
-        "rating": 1,
-        "date": "2026-06-19",
+        "date": "2026-07-03",
         "store": "google_play"
       }
     ],
     "platformCompare": {
       "androidPct": 2.6,
       "androidPeriod": "2026-06",
-      "note": "tema por enquanto visto só no Android"
+      "iosPct": 0,
+      "iosPeriod": "2026-Q2",
+      "note": "só aparece no Android neste período"
     }
   },
   {
@@ -437,29 +624,93 @@ const themes = [
     ],
     "quotes": [
       {
-        "text": "Sempre que vou acessar o app, informa que está com senha incorreta, aí tenho que desinstalar e instalar novamente",
+        "text": "Sempre que vou acessar o app, informa que está com senha incorreta, aí tenho que desinstalar e instalar novamente, pessimo app",
         "rating": 1,
         "date": "2026-04-07",
         "store": "app_store"
       }
     ],
+    "asSeries": [
+      {
+        "period": "2025-Q3",
+        "count": 1,
+        "share": 3.6,
+        "ratings": {
+          "1": 0,
+          "2": 1
+        }
+      },
+      {
+        "period": "2025-Q4",
+        "count": 2,
+        "share": 6.9,
+        "ratings": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "period": "2026-Q1",
+        "count": 1,
+        "share": 3.7,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-Q2",
+        "count": 1,
+        "share": 5.3,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      }
+    ],
+    "gpSeries": [
+      {
+        "period": "2026-06",
+        "count": 2,
+        "share": 2.6,
+        "preliminary": false,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-07",
+        "count": 1,
+        "share": 3.1,
+        "preliminary": true,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      }
+    ],
+    "ratings": {
+      "google_play": {
+        "1": 2,
+        "2": 0
+      },
+      "app_store": {
+        "1": 1,
+        "2": 0
+      }
+    },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-06",
-      "count": 2,
+      "period": "2026-07",
+      "count": 1,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "Fazia a validação do token para transferências no aplicativo, agora nao aparece mais, onde foi parar o token? Central de atendimento nao resolve.",
+        "text": "Não ta merecendo nem uma estrela ultimamente, n recomendo, gente, e melhor usar o pic pay, Estava tentando entrar n consegui ai limpei o cache, desinstalei reinstalei, e nada resolveu, e agr ta falando que minha conexão está ruim sendo que todos os outros bancos, estão abrindo normal e minha conexão está normal, também fui fazer a verificação facial e independente da iluminação falaram que to no escuro e que n foi possível reconhecer minha face.",
         "rating": 1,
-        "date": "2026-06-10",
-        "store": "google_play"
-      },
-      {
-        "text": "simplesmente, não consigo acessar. não aceita código enviado e na opção acessar depois de ter criado conta digital, não consigo criar senha!",
-        "rating": 1,
-        "date": "2026-06-05",
+        "date": "2026-07-01",
         "store": "google_play"
       }
     ],
@@ -484,18 +735,18 @@ const themes = [
       },
       {
         "month": "2025-Q4",
-        "count": 3,
+        "count": 2,
         "byStore": {
           "google_play": 0,
-          "app_store": 3
+          "app_store": 2
         }
       },
       {
         "month": "2026-Q1",
-        "count": 3,
+        "count": 1,
         "byStore": {
           "google_play": 0,
-          "app_store": 3
+          "app_store": 1
         }
       },
       {
@@ -515,23 +766,87 @@ const themes = [
         "store": "app_store"
       }
     ],
+    "asSeries": [
+      {
+        "period": "2025-Q3",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
+      },
+      {
+        "period": "2025-Q4",
+        "count": 2,
+        "share": 6.9,
+        "ratings": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "period": "2026-Q1",
+        "count": 1,
+        "share": 3.7,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-Q2",
+        "count": 1,
+        "share": 5.3,
+        "ratings": {
+          "1": 0,
+          "2": 1
+        }
+      }
+    ],
+    "gpSeries": [
+      {
+        "period": "2026-06",
+        "count": 4,
+        "share": 5.3,
+        "preliminary": false,
+        "ratings": {
+          "1": 4,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-07",
+        "count": 1,
+        "share": 3.1,
+        "preliminary": true,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      }
+    ],
+    "ratings": {
+      "google_play": {
+        "1": 4,
+        "2": 0
+      },
+      "app_store": {
+        "1": 0,
+        "2": 1
+      }
+    },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-06",
-      "count": 4,
+      "period": "2026-07",
+      "count": 1,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "BANCO LADRÃO SUMIU COM 3200 REAIS DA MINHA CONTA E NAO DÃO SATISFAÇÃO DO PARADEIRO DO DINHEIRO. NAO ABRAM CONTA NESSE BANCO.",
+        "text": "horrível esse banco já mim deixou na mão um monte de vezes meu dinheiro ficou preso eles ficaram falando que não podia fazer nada até os técnicos concertar é horrível essa experiência de ir em lugar para comprar e não pode comprar por conta que o banco está fora do ar",
         "rating": 1,
-        "date": "2026-06-19",
-        "store": "google_play"
-      },
-      {
-        "text": "Guardei dinheiro no cofrinho e o dinheiro foi debitado do saldo e simplesmente sumiu. Sempre um problema, mas o dinheiro sumiu e até agora nada.",
-        "rating": 1,
-        "date": "2026-06-29",
+        "date": "2026-07-01",
         "store": "google_play"
       }
     ],
@@ -587,6 +902,66 @@ const themes = [
         "store": "app_store"
       }
     ],
+    "asSeries": [
+      {
+        "period": "2025-Q3",
+        "count": 2,
+        "share": 7.1,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      },
+      {
+        "period": "2025-Q4",
+        "count": 1,
+        "share": 3.4,
+        "ratings": {
+          "1": 0,
+          "2": 1
+        }
+      },
+      {
+        "period": "2026-Q1",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-Q2",
+        "count": 1,
+        "share": 5.3,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      }
+    ],
+    "gpSeries": [
+      {
+        "period": "2026-06",
+        "count": 2,
+        "share": 2.6,
+        "preliminary": false,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      }
+    ],
+    "ratings": {
+      "google_play": {
+        "1": 2,
+        "2": 0
+      },
+      "app_store": {
+        "1": 1,
+        "2": 0
+      }
+    },
     "gpCurrent": {
       "source": "google_play",
       "period": "2026-06",
@@ -595,7 +970,13 @@ const themes = [
     },
     "gpQuotes": [
       {
-        "text": "Banco com burocracias inacreditáveis! Atendimento ruim, informações dúbias que nos fazem perder tempo. Encerrando a conta!",
+        "text": "Fazia a validação do token para transferências no aplicativo, agora nao aparece mais, onde foi parar o token? Central de atendimento nao resolve.",
+        "rating": 1,
+        "date": "2026-06-10",
+        "store": "google_play"
+      },
+      {
+        "text": "Banco com burocracias inacreditáveis! Atendimento ruim, informações dúbias que nos fazem perder tempo. Encerrando a conta! Ufa!",
         "rating": 1,
         "date": "2026-06-24",
         "store": "google_play"
@@ -614,65 +995,141 @@ const themes = [
     "monthly": [
       {
         "month": "2025-Q3",
-        "count": 4,
+        "count": 1,
         "byStore": {
           "google_play": 0,
-          "app_store": 4
+          "app_store": 1
         }
       },
       {
         "month": "2025-Q4",
-        "count": 3,
+        "count": 1,
         "byStore": {
           "google_play": 0,
-          "app_store": 3
+          "app_store": 1
         }
       },
       {
         "month": "2026-Q1",
-        "count": 3,
+        "count": 2,
         "byStore": {
           "google_play": 0,
-          "app_store": 3
+          "app_store": 2
         }
       },
       {
         "month": "2026-Q2",
-        "count": 0,
+        "count": 3,
         "byStore": {
           "google_play": 0,
-          "app_store": 0
+          "app_store": 3
         }
       }
     ],
     "quotes": [
       {
-        "text": "Fazem dois meses que venho tentando compartilhar meus dados do BMG via open finance para o Banco do Brasil e simplesmente não consigo pois o app apresenta erro e não finaliza a solicitação.",
+        "text": "Desisti de abrir a conta, muita burocracia, app travado, problemas pra autenticar celular, um dos piores bancos digitais que eu vi, já fui pra outro banco",
         "rating": 1,
-        "date": "2026-02-03",
+        "date": "2026-06-12",
+        "store": "app_store"
+      },
+      {
+        "text": "Sempre que eu preciso desse app, ele trava , dá problema , agora estou tentando cadastrar minha conta novamente, e ele tá dando erro de novo",
+        "rating": 1,
+        "date": "2026-06-30",
         "store": "app_store"
       }
     ],
+    "asSeries": [
+      {
+        "period": "2025-Q3",
+        "count": 1,
+        "share": 3.6,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      },
+      {
+        "period": "2025-Q4",
+        "count": 1,
+        "share": 3.4,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-Q1",
+        "count": 2,
+        "share": 7.4,
+        "ratings": {
+          "1": 1,
+          "2": 1
+        }
+      },
+      {
+        "period": "2026-Q2",
+        "count": 3,
+        "share": 15.8,
+        "ratings": {
+          "1": 3,
+          "2": 0
+        }
+      }
+    ],
+    "gpSeries": [
+      {
+        "period": "2026-06",
+        "count": 3,
+        "share": 3.9,
+        "preliminary": false,
+        "ratings": {
+          "1": 3,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-07",
+        "count": 1,
+        "share": 3.1,
+        "preliminary": true,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      }
+    ],
+    "ratings": {
+      "google_play": {
+        "1": 3,
+        "2": 0
+      },
+      "app_store": {
+        "1": 3,
+        "2": 0
+      }
+    },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-06",
-      "count": 3,
+      "period": "2026-07",
+      "count": 1,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "Não libera abertura de conta para novos clientes, tentei e não cosegui.",
+        "text": "uma 💩 nem deixou abrir a conta quanto muito o cartão de crédito, e olha que tenho score ótimo ( acima de 700), já exclui e desinstalei tudo não presta.",
         "rating": 1,
-        "date": "2026-06-21",
+        "date": "2026-07-02",
         "store": "google_play"
       }
     ],
     "platformCompare": {
       "androidPct": 3.9,
       "androidPeriod": "2026-06",
-      "iosPct": 0,
+      "iosPct": 15.8,
       "iosPeriod": "2026-Q2",
-      "note": "só aparece no Android neste período"
+      "note": "proporcionalmente mais comum no iOS"
     }
   },
   {
@@ -713,12 +1170,99 @@ const themes = [
     ],
     "quotes": [
       {
-        "text": "Horrível, quero excluir minha conta. E o app não deixa",
+        "text": "Horrível , quero excluir minha conta . E o app não deixa",
         "rating": 1,
         "date": "2026-01-23",
         "store": "app_store"
       }
-    ]
+    ],
+    "asSeries": [
+      {
+        "period": "2025-Q3",
+        "count": 3,
+        "share": 10.7,
+        "ratings": {
+          "1": 3,
+          "2": 0
+        }
+      },
+      {
+        "period": "2025-Q4",
+        "count": 2,
+        "share": 6.9,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-Q1",
+        "count": 1,
+        "share": 3.7,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-Q2",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
+      }
+    ],
+    "gpSeries": [
+      {
+        "period": "2026-06",
+        "count": 2,
+        "share": 2.6,
+        "preliminary": false,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      }
+    ],
+    "ratings": {
+      "google_play": {
+        "1": 2,
+        "2": 0
+      },
+      "app_store": {
+        "1": 1,
+        "2": 0
+      }
+    },
+    "gpCurrent": {
+      "source": "google_play",
+      "period": "2026-06",
+      "count": 2,
+      "isNew": false
+    },
+    "gpQuotes": [
+      {
+        "text": "Meses de uso no cartão, open finance feito, investimentos para nunca liberarem crédito. Tenho outros cartões com até 10x mais de limites e mesmo usando mês a mês nunca me deram crédito. Dos bancos que tenho é o que menos me deu limite. Esperar uns investimentos acabar pra encerrar a conta. E o cartão tem mensalidade se você não usar.",
+        "rating": 1,
+        "date": "2026-06-26",
+        "store": "google_play"
+      },
+      {
+        "text": "App está horrível, sempre com instabilidade, vou encerrar a conta, nunca consigo resolver nada,e sempre instável",
+        "rating": 1,
+        "date": "2026-06-30",
+        "store": "google_play"
+      }
+    ],
+    "platformCompare": {
+      "androidPct": 2.6,
+      "androidPeriod": "2026-06",
+      "iosPct": 0,
+      "iosPeriod": "2026-Q2",
+      "note": "só aparece no Android neste período"
+    }
   }
 ];
 
@@ -799,15 +1343,15 @@ const execSummary = [
   },
   {
     "type": "watch",
-    "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 18 no Android (2026-06) e 9 no iOS (2026-Q2)."
+    "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 14 no Android (2026-07) e 8 no iOS (2026-Q2)."
   },
   {
     "type": "info",
-    "html": "<strong>Sinal positivo no iOS:</strong> \"Erro no cadastro/abertura de conta (selfie, documentos)\" e \"Não consegue cancelar/encerrar a conta\" zeraram em 2026-Q2, depois de aparecer nos trimestres anteriores."
+    "html": "<strong>Sinal positivo no iOS:</strong> \"Não consegue cancelar/encerrar a conta\" zerou em 2026-Q2, depois de aparecer nos trimestres anteriores."
   }
 ];
 
-const generatedAt = "08/07/2026";
+const generatedAt = "10/07/2026";
 
 const statTiles = [
   {
@@ -888,20 +1432,62 @@ const versionCompare = {
       "date": "2026-06-26",
       "store": "google_play"
     }
-  ]
+  ],
+  "shift": {
+    "prev": "3.90.1",
+    "curr": "3.90.2",
+    "rows": [
+      {
+        "key": "app_trava",
+        "label": "App trava / não abre / fica fora do ar / instabilidade",
+        "prevPct": 22.2,
+        "currPct": 29.5,
+        "deltaPp": 7.3,
+        "isNew": false
+      },
+      {
+        "key": "limite_credito",
+        "label": "Não aumenta limite de crédito",
+        "prevPct": 0,
+        "currPct": 6.8,
+        "deltaPp": 6.8,
+        "isNew": true
+      },
+      {
+        "key": "cancelamento",
+        "label": "Não consegue cancelar/encerrar a conta",
+        "prevPct": 0,
+        "currPct": 4.5,
+        "deltaPp": 4.5,
+        "isNew": true
+      },
+      {
+        "key": "login_autenticacao",
+        "label": "Login / autenticação (facial, token, senha)",
+        "prevPct": 0,
+        "currPct": 2.3,
+        "deltaPp": 2.3,
+        "isNew": true
+      }
+    ]
+  }
 };
 // ===== DATA-INJECTION-END =====
 
-// Deriva asCountLast/asCountPrev/byStore a partir do array `monthly` (série de tendência principal),
-// e soma o gpCurrent (leitura pontual de outra loja com cadência diferente, sem tendência própria ainda).
+// Deriva os campos usados na lista de temas.
+// A tendência (issue 3) usa a VARIAÇÃO EM PONTOS PERCENTUAIS do share (% dos comentários negativos que
+// citam o tema), NÃO a contagem bruta — porque o volume total muda de período pra período e o número
+// cru enganaria (subir de 5 pra 8 pode ser queda proporcional se o total dobrou).
 themes.forEach(t => {
   const last = t.monthly.length ? t.monthly[t.monthly.length - 1] : null;
-  const prev = t.monthly.length > 1 ? t.monthly[t.monthly.length - 2] : null;
   t.asCountLast = last ? last.count : 0;
-  t.asCountPrev = prev ? prev.count : null; // null = sem período anterior pra comparar (tema novo ou só 1 leitura)
   t.byStore = last ? last.byStore : {};
   t.gpCount = t.gpCurrent ? t.gpCurrent.count : 0;
   t.countTotal = t.asCountLast + t.gpCount;
+  // share atual e anterior da App Store (série mais longa)
+  const s = t.asSeries || [];
+  t.shareLast = s.length ? s[s.length - 1].share : (t.gpSeries?.length ? t.gpSeries[t.gpSeries.length-1].share : null);
+  t.sharePrev = s.length > 1 ? s[s.length - 2].share : null;
 });
 
 const root = document.querySelector('.viz-root');
@@ -1035,26 +1621,51 @@ function drawSentimentPanel(container, sourceKey, src) {
 }
 
 function drawThemeBySourcePanel(container, sourceKey, srcMeta, theme) {
-  // Fonte com série de tendência multi-período (a que alimenta theme.monthly)
-  if (!theme.gpCurrent || sourceKey !== 'google_play') {
-    const monthly = theme.monthly.map(m => ({ month: m.month, count: (m.byStore && m.byStore[sourceKey]) || 0 }));
-    const last = monthly[monthly.length - 1];
-    panelShell(container, sourceKey, srcMeta.icon, srcMeta.label, last ? last.count + ' citações em ' + last.month : 'sem citações ainda');
-    if (!monthly.length || !monthly.some(m => m.count > 0)) {
-      document.getElementById(`chart-${sourceKey}`).outerHTML = `<div class="theme-trend-empty">Sem citações de "${theme.label}" nesta fonte ainda.</div>`;
-      return;
-    }
-    const series = [{ key: 'count', label: 'Citações', color: colors.critical }];
-    drawMiniChart(`chart-${sourceKey}`, monthly, series, 'auto', m => `${srcMeta.label} · ${m.month}`, '');
-    document.getElementById(`legend-${sourceKey}`).innerHTML =
-      `<div class="legend-item"><span class="legend-swatch" style="background:${colors.critical}"></span>Citações de "${theme.label}"</div>`;
-    document.getElementById(`table-${sourceKey}`).innerHTML =
-      `<tr><th>Período</th><th>Citações</th></tr>` + monthly.map(m => `<tr><td>${m.month}</td><td>${m.count}</td></tr>`).join('');
+  // Cada loja tem sua própria série {period, count, share}. O gráfico mostra o SHARE (% dos comentários
+  // negativos do período que citam o tema) — métrica normalizada, comparável entre períodos de volumes
+  // diferentes. Abaixo, a distribuição de estrelas ("a nota por motivo").
+  const series = sourceKey === 'google_play' ? (theme.gpSeries || []) : (theme.asSeries || []);
+  const last = series[series.length - 1];
+  // nota do MESMO período mostrado no cabeçalho (o último da série), pra não misturar contagens
+  const ratings = last ? last.ratings : (theme.ratings ? theme.ratings[sourceKey] : null);
+  const headline = last ? `${last.count} citações · ${last.share}% dos negativos em ${last.period}${last.preliminary ? ' ⚠' : ''}` : 'sem citações ainda';
+  panelShell(container, sourceKey, srcMeta.icon, srcMeta.label, headline);
+
+  const chartEl = document.getElementById(`chart-${sourceKey}`);
+  if (!series.length || !series.some(s => s.count > 0)) {
+    chartEl.outerHTML = `<div class="theme-trend-empty">Sem citações de "${theme.label}" nesta loja no período coberto.</div>`;
+    document.getElementById(`legend-${sourceKey}`).style.display = 'none';
     return;
   }
-  // Fonte com cadência diferente e só uma leitura pontual até agora (ver nota em DATA-INJECTION sobre gpCurrent)
-  panelShell(container, sourceKey, srcMeta.icon, srcMeta.label, theme.gpCurrent.count + ' citações em ' + theme.gpCurrent.period);
-  document.getElementById(`chart-${sourceKey}`).outerHTML = `<div class="theme-trend-empty">${theme.gpCurrent.count} citações em ${theme.gpCurrent.period}. Comparação disponível a partir da próxima atualização.</div>`;
+  if (series.length === 1) {
+    // um período só: barra de share + contagem, sem linha de tendência
+    const s = series[0];
+    chartEl.outerHTML = `
+      <div class="single-period">
+        <div class="sp-row">
+          <span class="sp-label">Share</span>
+          <div class="sp-track"><div class="sp-fill" style="width:${Math.min(s.share,100)}%; background:${colors.critical}"></div></div>
+          <span class="sp-value" style="color:${colors.critical}">${s.share}%</span>
+        </div>
+        <div class="sp-note">${s.count} citações em ${s.period}${s.preliminary ? ' (período parcial)' : ''} — ${s.share}% de todos os comentários negativos da loja neste período.</div>
+      </div>`;
+    document.getElementById(`legend-${sourceKey}`).style.display = 'none';
+  } else {
+    const points = series.map(s => ({ month: s.period, share: s.share, count: s.count, preliminary: s.preliminary }));
+    drawMiniChart(`chart-${sourceKey}`, points, [{ key: 'share', label: '% dos negativos', color: colors.critical }], 'auto',
+      m => `${srcMeta.label} · ${m.month} · ${m.count} citações`, '%');
+    document.getElementById(`legend-${sourceKey}`).innerHTML =
+      `<div class="legend-item"><span class="legend-swatch" style="background:${colors.critical}"></span>% dos comentários negativos que citam este tema</div>` +
+      (series.some(s => s.preliminary) ? `<div class="legend-item" style="color:var(--text-muted)">· ⚠ = período parcial</div>` : '');
+  }
+  // "a nota por motivo" abaixo do gráfico
+  const rbEl = document.createElement('div');
+  rbEl.innerHTML = ratingBreakdownHtml(ratings);
+  if (rbEl.firstElementChild) container.querySelector(`#legend-${sourceKey}`).after(rbEl.firstElementChild);
+
+  document.getElementById(`table-${sourceKey}`).innerHTML =
+    `<tr><th>Período</th><th>Citações</th><th>% dos negativos</th></tr>` +
+    series.map(s => `<tr><td>${s.period}${s.preliminary ? ' ⚠' : ''}</td><td>${s.count}</td><td>${s.share}%</td></tr>`).join('');
 }
 
 // Regra de prioridade: o tema de maior volume NUNCA fica verde/"Estável", mesmo com tendência de
@@ -1063,21 +1674,35 @@ function drawThemeBySourcePanel(container, sourceKey, srcMeta, theme) {
 function priorityFor(theme) {
   const maxVol = Math.max(...themes.map(t => t.countTotal), 1);
   const isTopVolume = theme.countTotal >= maxVol * 0.7;
-  const delta = theme.asCountPrev === null ? null : theme.asCountLast - theme.asCountPrev;
-  if (delta !== null && delta > 0 && isTopVolume) return { level: 'critical', label: 'Urgente' };
+  // tendência = variação de share em pontos percentuais (cresceu se subiu > 1pp)
+  const dpp = (theme.sharePrev === null || theme.shareLast === null) ? null : theme.shareLast - theme.sharePrev;
+  const rising = dpp !== null && dpp > 1;
+  if (rising && isTopVolume) return { level: 'critical', label: 'Urgente' };
   if (isTopVolume) return { level: 'warning', label: 'Observar' };
-  if (delta !== null && delta > 0) return { level: 'warning', label: 'Observar' };
-  if (delta === null) {
+  if (rising) return { level: 'warning', label: 'Observar' };
+  if (dpp === null) {
     return theme.gpCount >= 4 ? { level: 'warning', label: 'Observar' } : { level: 'good', label: 'Estável' };
   }
   return { level: 'good', label: 'Estável' };
 }
 function trendHtml(theme) {
-  if (theme.asCountPrev === null) return `<span class="trend-flat">→ tema novo ou 1ª leitura, sem série de tendência ainda</span>`;
-  const delta = theme.asCountLast - theme.asCountPrev;
-  if (delta > 0) return `<span class="trend-up">↑ +${delta} vs. período anterior</span>`;
-  if (delta < 0) return `<span class="trend-down">↓ ${delta} vs. período anterior</span>`;
-  return `<span class="trend-flat">→ estável vs. período anterior</span>`;
+  if (theme.sharePrev === null || theme.shareLast === null) return `<span class="trend-flat">→ 1ª leitura, sem histórico pra comparar ainda</span>`;
+  const dpp = Math.round((theme.shareLast - theme.sharePrev) * 10) / 10;
+  if (dpp > 1) return `<span class="trend-up">↑ +${dpp}pp dos comentários negativos vs. período anterior</span>`;
+  if (dpp < -1) return `<span class="trend-down">↓ ${dpp}pp dos comentários negativos vs. período anterior</span>`;
+  return `<span class="trend-flat">→ estável (${dpp >= 0 ? '+' : ''}${dpp}pp) vs. período anterior</span>`;
+}
+// "A nota por motivo": distribuição de estrelas das citações do tema (quase sempre ⭐1 = reclamação severa)
+function ratingBreakdownHtml(ratings) {
+  if (!ratings) return '';
+  const r1 = ratings['1'] || ratings[1] || 0;
+  const r2 = ratings['2'] || ratings[2] || 0;
+  if (r1 + r2 === 0) return '';
+  const parts = [];
+  if (r1) parts.push(`<strong>${r1}</strong> deram ⭐1`);
+  if (r2) parts.push(`<strong>${r2}</strong> deram ⭐2`);
+  const severe = r1 >= r2 ? ' — reclamações majoritariamente severas (1 estrela)' : '';
+  return `<div class="rating-breakdown">Nota atribuída: ${parts.join(' · ')}${severe}</div>`;
 }
 const priorityIcon = { critical: '🔴', warning: '🟡', good: '🟢' };
 
@@ -1108,6 +1733,7 @@ function themeCardHtml(theme) {
       ${splitStr ? `<div class="source-split">${splitStr}</div>` : ''}
       ${theme.gpCurrent ? `<div class="gp-note">${storeLabel[theme.gpCurrent.source] || 'Outra fonte'} (${theme.gpCurrent.period}): ${theme.gpCurrent.count} citações${theme.gpCurrent.isNew ? ' — tema novo' : ''}</div>` : ''}
       ${pcHtml}
+      ${ratingBreakdownHtml((theme.ratings && (theme.ratings.google_play || theme.ratings.app_store)))}
       ${allQuotes.map(q => `
         <div class="quote">
           "${q.text}"
@@ -1140,13 +1766,9 @@ function render(filterValue) {
 
   const theme = themes.find(t => t.label === filterValue);
   if (!theme) return;
-  document.getElementById('sourceGridTitle').textContent = `Menções de "${theme.label}" — por fonte`;
-  document.getElementById('sourceGridDesc').textContent = 'Mesma separação por fonte, agora medindo quantas vezes esse tema específico foi citado por período.';
-  if (theme.monthly.length < 2 && !theme.gpCurrent) {
-    sourceGrid.innerHTML = `<div class="theme-trend-empty">Ainda não há histórico suficiente pra mostrar tendência de "${theme.label}".</div>`;
-  } else {
-    Object.entries(bySource).forEach(([key, src]) => drawThemeBySourcePanel(sourceGrid, key, { icon: src.icon, label: src.label }, theme));
-  }
+  document.getElementById('sourceGridTitle').textContent = `"${theme.label}" — peso ao longo do tempo, por loja`;
+  document.getElementById('sourceGridDesc').textContent = 'Quanto este tema pesou entre os comentários negativos de cada loja, período a período (%), com a distribuição de estrelas.';
+  Object.entries(bySource).forEach(([key, src]) => drawThemeBySourcePanel(sourceGrid, key, { icon: src.icon, label: src.label }, theme));
   themeList.innerHTML = themeCardHtml(theme);
 }
 
@@ -1235,9 +1857,30 @@ function renderVersionCompare() {
       <div class="version-tile-note">${versionCompare.unavailable.reason}</div>
     </div>
   ` : '';
+  // Insight rico (issue 2): O QUE mudou entre as duas versões — temas que subiram ou surgiram.
+  // Conecta a piora do número geral a causas concretas.
+  let shiftBlock = '';
+  if (versionCompare.shift && versionCompare.shift.rows.length) {
+    const sh = versionCompare.shift;
+    const rows = sh.rows.map(r => {
+      const arrow = r.isNew ? '🆕' : (r.deltaPp > 0 ? '▲' : '▼');
+      const cls = r.deltaPp > 0 ? 'shift-up' : 'shift-down';
+      const desc = r.isNew
+        ? `<strong>surgiu</strong> na ${sh.curr} (${r.currPct}% dos comentários negativos) — não aparecia na ${sh.prev}`
+        : `${r.prevPct}% → <strong>${r.currPct}%</strong> dos comentários negativos (${r.deltaPp > 0 ? '+' : ''}${r.deltaPp}pp)`;
+      return `<li class="${cls}"><span class="shift-arrow">${arrow}</span> <span class="shift-theme">${r.label}</span> — ${desc}</li>`;
+    }).join('');
+    shiftBlock = `
+      <div class="version-insight">
+        <div class="version-insight-title">O que mudou da versão ${sh.prev} para a ${sh.curr}</div>
+        <ul class="shift-list">${rows}</ul>
+        <div class="version-insight-foot">Cada linha mostra quanto o tema pesou entre os comentários negativos de cada versão — o que dá pra levar direto pro time de Engenharia como pista do que a atualização quebrou ou expôs.</div>
+      </div>`;
+  }
   container.innerHTML = `
     <div class="version-platform-label">${versionCompare.sourceIcon || ''} ${versionCompare.sourceLabel || 'Comparação disponível'}</div>
     <div class="version-grid">${grid}</div>
+    ${shiftBlock}
     ${(versionCompare.quotes || []).map(q => `
       <div class="quote">
         "${q.text}"
