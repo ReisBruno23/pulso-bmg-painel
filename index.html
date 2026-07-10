@@ -107,6 +107,22 @@
   .shift-theme { font-weight: 600; }
   .version-insight-foot { font-size: 11px; color: var(--text-muted); margin-top: 10px; }
 
+  .yt-month { font-size: 13px; font-weight: 400; color: var(--text-muted); }
+  .yt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 720px) { .yt-grid { grid-template-columns: 1fr; } }
+  .yt-subtitle { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; }
+  .yt-video { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--gridline); font-size: 12px; }
+  .yt-video:last-child { border-bottom: none; }
+  .yt-video-views { color: var(--text-muted); white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 62px; }
+  .yt-video-title { color: var(--text-primary); text-decoration: none; }
+  .yt-video-title:hover { text-decoration: underline; }
+  .yt-theme { margin-bottom: 12px; }
+  .yt-theme-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+  .yt-theme-label { font-size: 13px; font-weight: 600; }
+  .yt-theme-count { font-size: 11px; color: var(--text-muted); }
+  .yt-quote { font-size: 12px; font-style: italic; color: var(--text-secondary); border-left: 3px solid var(--border); padding: 3px 10px; margin-top: 5px; }
+  .yt-quote-meta { font-size: 10px; color: var(--text-muted); font-style: normal; margin-top: 2px; }
+
   .global-filter { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
   .global-filter label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
   .theme-select {
@@ -231,6 +247,21 @@
     <h2>Exemplos reais por classificação</h2>
     <p class="desc">Não só os temas negativos — um recorte de como fica cada categoria com as palavras reais do cliente.</p>
     <div id="classificationExamples"></div>
+  </div>
+
+  <div class="card" id="youtubeCard" style="display:none">
+    <h2>📺 YouTube — o que circula sobre o BMG <span id="ytMonth" class="yt-month"></span></h2>
+    <p class="desc">Sinal qualitativo e complementar (volume baixo, sem nota de estrela). Capta um ângulo que as lojas de app não pegam: o debate público sobre consignado, RMC e descontos.</p>
+    <div class="yt-grid">
+      <div>
+        <div class="yt-subtitle">Vídeos sobre o BMG em alta no mês</div>
+        <div id="ytVideos"></div>
+      </div>
+      <div>
+        <div class="yt-subtitle">O que aparece nos comentários (<span id="ytCommentCount"></span>)</div>
+        <div id="ytThemes"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1383,6 +1414,110 @@ const statTiles = [
 
 const methodologyNote = "✅ <strong>Cobertura de dados.</strong> App Store: <strong>100% dos comentários</strong> dos últimos 4 trimestres. Google Play: <strong>últimos 30 dias</strong> — limitação da fonte de coleta nessa loja, que só disponibiliza uma janela de 30 dias por vez. Por isso o Google Play é atualizado <strong>mensalmente</strong> e o App Store <strong>trimestralmente</strong>.";
 
+const youtube = {
+  "month": "julho de 2026",
+  "topVideos": [
+    {
+      "title": "VALE A PENA INVESTIR NO BANCO BMG? #barsi #dividendos #ações #agf #metodobarsi #luizbarsi #bmgb4",
+      "channel": "Mão de Midas",
+      "views": 7299,
+      "comments": 1,
+      "url": "https://youtu.be/Uc7qTkPLXDg"
+    },
+    {
+      "title": "⚠️ Já teve contrato com o BMG? Preste atenção nisso",
+      "channel": "Paulinelli Advogados",
+      "views": 5159,
+      "comments": 13,
+      "url": "https://youtu.be/AL83W1ByIjs"
+    },
+    {
+      "title": "BMGB4: PROJEÇÃO DE LUCRO \"ABSURDA\" ! BANCO BMG É COMPRA?",
+      "channel": "Bruno Chimarelli",
+      "views": 4291,
+      "comments": 18,
+      "url": "https://youtu.be/PyAzZEi0_fo"
+    },
+    {
+      "title": "⚠️ Banco BMG é multado em R$ 5,1 milhões",
+      "channel": "Paulinelli Advogados",
+      "views": 2934,
+      "comments": 2,
+      "url": "https://youtu.be/C0LMgP9f-eg"
+    },
+    {
+      "title": "BANCO BMG é a melhor ação para VALORIZAÇÃO da bolsa? BMGB4",
+      "channel": "Adan Paulo",
+      "views": 2109,
+      "comments": 15,
+      "url": "https://youtu.be/RnDiCchgAE4"
+    }
+  ],
+  "totalComments": 24,
+  "themes": [
+    {
+      "label": "RMC / cartão consignado / INSS",
+      "count": 13,
+      "quotes": [
+        {
+          "text": "Há um pedido de abertura de CPI para investigar o BMG e o Master apurando graves irregularidades nos empréstimos consignados do INSS, isso não pode impactar negativamente?",
+          "likes": 5,
+          "date": "2026-06-18",
+          "videoTitle": "BMGB4: PROJEÇÃO DE LUCRO &quot;ABSURDA&quot; ! BANCO BMG É COMPRA?"
+        },
+        {
+          "text": "Eu pago RMC ao BMG a 11 anos não acaba nunca",
+          "likes": 1,
+          "date": "2026-06-07",
+          "videoTitle": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados"
+        }
+      ]
+    },
+    {
+      "label": "Desconto indevido / empréstimo não autorizado",
+      "count": 7,
+      "quotes": [
+        {
+          "text": "Fiz um cartão e com essas informações fizeram um empréstimo pessoal sem minha autorização e um cartão que ja vem com empréstimo embutido to na luta p receber 8 parcelas de 416 ....puxaram minha pensão p receber no banco deles e inss disse que eles podem pq tenho dívida lá resumindo minha pensão vem 450😢😢",
+          "likes": 0,
+          "date": "2026-06-25",
+          "videoTitle": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados"
+        },
+        {
+          "text": "eu nunca conhece esse bancos esse seis me roubou sem eu saber entrou com agibank que colocou um empréstimo que eu nunca fiz",
+          "likes": 0,
+          "date": "2026-06-20",
+          "videoTitle": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados"
+        }
+      ]
+    },
+    {
+      "label": "Investigação / multa / CPI / regulação",
+      "count": 2,
+      "quotes": [
+        {
+          "text": "Empréstimo pessoal do BMG é pra ser investigado",
+          "likes": 2,
+          "date": "2026-06-29",
+          "videoTitle": "Como Tirar a Aposentadoria do Banco BMG?"
+        }
+      ]
+    },
+    {
+      "label": "App / acesso / investimento no app",
+      "count": 1,
+      "quotes": [
+        {
+          "text": "Esse banco é um lixo. Eu fiz um envestimento nesse banco,fiz o resgate e não caiu em minha conta,reclamei e até agora não resolveram .Bmg lixo.",
+          "likes": 0,
+          "date": "2026-06-25",
+          "videoTitle": "Banco BMG vale a pena?"
+        }
+      ]
+    }
+  ]
+};
+
 const versionCompare = {
   "sourceLabel": "Google Play (Android)",
   "sourceIcon": "🤖",
@@ -1891,6 +2026,42 @@ function renderVersionCompare() {
   `;
 }
 renderVersionCompare();
+
+// ---- YouTube (fonte qualitativa complementar) ----
+function fmtViews(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(1).replace('.0','') + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1).replace('.0','') + 'k';
+  return String(n);
+}
+function renderYoutube() {
+  if (typeof youtube === 'undefined' || !youtube) return;
+  const card = document.getElementById('youtubeCard');
+  card.style.display = 'block';
+  if (youtube.month) document.getElementById('ytMonth').textContent = '· ' + youtube.month;
+  document.getElementById('ytCommentCount').textContent = youtube.totalComments + ' comentários no mês';
+
+  document.getElementById('ytVideos').innerHTML = (youtube.topVideos || []).map(v => `
+    <div class="yt-video">
+      <span class="yt-video-views">${fmtViews(v.views)} views</span>
+      <a class="yt-video-title" href="${v.url}" target="_blank" rel="noopener">${v.title}</a>
+    </div>
+  `).join('') || '<div class="theme-trend-empty">Sem vídeos relevantes no período.</div>';
+
+  document.getElementById('ytThemes').innerHTML = (youtube.themes || []).map(t => `
+    <div class="yt-theme">
+      <div class="yt-theme-head">
+        <span class="yt-theme-label">${t.label}</span>
+        <span class="yt-theme-count">${t.count} ${t.count === 1 ? 'comentário' : 'comentários'}</span>
+      </div>
+      ${(t.quotes || []).slice(0,1).map(q => `
+        <div class="yt-quote">"${q.text}"
+          <div class="yt-quote-meta">${q.likes ? '♥ ' + q.likes + ' · ' : ''}${q.date}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('') || '<div class="theme-trend-empty">Sem comentários relevantes no período.</div>';
+}
+renderYoutube();
 
 // ---- Data da última atualização ----
 if (typeof generatedAt !== 'undefined' && generatedAt) {
