@@ -332,10 +332,17 @@ const bySource = {
       },
       {
         "month": "2026-07",
-        "positivo": 27.1,
-        "negativo": 66.7,
-        "neutro": 6.3,
-        "total": 48,
+        "total": 224,
+        "positivo": 44.2,
+        "negativo": 52.2,
+        "neutro": 3.6
+      },
+      {
+        "month": "2026-08",
+        "total": 76,
+        "positivo": 39.5,
+        "negativo": 56.6,
+        "neutro": 3.9,
         "preliminary": true
       }
     ]
@@ -375,6 +382,15 @@ const bySource = {
         "neutro": 0,
         "total": 20,
         "month": "2026-Q2"
+      },
+      {
+        "quarter": "2026-Q3",
+        "preliminary": true,
+        "total": 10,
+        "positivo": 40,
+        "negativo": 50,
+        "neutro": 10,
+        "month": "2026-Q3"
       }
     ]
   }
@@ -416,19 +432,27 @@ const themes = [
           "google_play": 0,
           "app_store": 8
         }
+      },
+      {
+        "month": "2026-Q3",
+        "count": 2,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 2
+        }
       }
     ],
     "quotes": [
       {
-        "text": "O app funciona bem, exceto quando você quer usar o seu próprio dinheiro! Há semanas tento resgatar meus investimentos de liquidez diária e o app SEMPRE TRAVA numa tela cinza.",
-        "rating": 2,
-        "date": "2026-04-07",
+        "text": "Aplicativo completamente instável, transferi um valor para fazer uma aplicação financeira. App não consegues efetivar o investimento e também não consigo transferir o dinheiro de volta para minha conta via pix. Não confiem nesse banco, ele sequestra o seu dinheiro. Agora tenho dinheiro parado na conta, sem rendimento por causa do aplicativo ruim.",
+        "rating": 1,
+        "date": "2026-07-31",
         "store": "app_store"
       },
       {
-        "text": "Desisti de abrir a conta, muita burocracia, app travado, problemas pra autenticar celular, um dos piores bancos digitais que eu vi, já fui pra outro banco",
-        "rating": 1,
-        "date": "2026-06-12",
+        "text": "Aplicativo é péssimo, mesmo com a fatura fechada não consigo acessar pra realizar o pagamento e nem no código de barras.",
+        "rating": 2,
+        "date": "2026-08-04",
         "store": "app_store"
       }
     ],
@@ -468,6 +492,15 @@ const themes = [
           "1": 7,
           "2": 1
         }
+      },
+      {
+        "period": "2026-Q3",
+        "count": 2,
+        "share": 40,
+        "ratings": {
+          "1": 1,
+          "2": 1
+        }
       }
     ],
     "gpSeries": [
@@ -483,50 +516,60 @@ const themes = [
       },
       {
         "period": "2026-07",
-        "count": 14,
-        "share": 43.8,
+        "count": 25,
+        "share": 21.4,
+        "preliminary": false,
+        "ratings": {
+          "1": 24,
+          "2": 1
+        }
+      },
+      {
+        "period": "2026-08",
+        "count": 12,
+        "share": 27.9,
         "preliminary": true,
         "ratings": {
-          "1": 13,
+          "1": 11,
           "2": 1
         }
       }
     ],
     "ratings": {
       "google_play": {
-        "1": 18,
-        "2": 0
+        "1": 24,
+        "2": 1
       },
       "app_store": {
-        "1": 7,
+        "1": 1,
         "2": 1
       }
     },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-07",
-      "count": 14,
+      "period": "2026-08",
+      "count": 12,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "sinceramente banco bmg cada dia pior apps fica só fora não abre nada e ainda por cima mudam data de fechamento de fatura o meu era dia 2 ai mudaram pra dia 4 um lixo de banco pior se a gente pede mudar a data eles não alteram mais eles podem fazer oque quer desrespeito com aposentado indignidade com isso",
+        "text": "Primeira vez que eu vejo esse banco travana, e que não quer deixar eu entrar pra acessar, minha conta do BMG, pronto, mas essa agora o que que ouve vocês têm que arrumar isso pra melhorar mais a gente não passar pé rengue, nem aperto e quando vai pegar o empréstimo quer liberar uma merequinha em. Vez de liberar o valor que vocês falam tanto que liberam um valor melhor.",
         "rating": 1,
-        "date": "2026-07-02",
+        "date": "2026-08-01",
         "store": "google_play"
       },
       {
-        "text": "open finance não funciona. trava tanto de lá pra cá e vice -versa. App fecha sozinho. lento demais. Não adianta pedirem pra entrar em contato. o problema é do app. nem o whatsapp funcionando. Você dá um OI e fica trocentos anos esperando uma resposta. BMG é um Sabor de banco.",
-        "rating": 2,
-        "date": "2026-07-01",
+        "text": "Impressionante como não conseguem resolver os problemas do app, sempre surge um novo, o da vez é que já tem meses que não consigo pagar o cartão pelo saldo em conta, tem a opção mas simplesmente não funciona, aí tem que pagar como boleto e esperar compensar.",
+        "rating": 1,
+        "date": "2026-08-04",
         "store": "google_play"
       }
     ],
     "platformCompare": {
-      "androidPct": 23.7,
-      "androidPeriod": "2026-06",
-      "iosPct": 42.1,
-      "iosPeriod": "2026-Q2",
+      "androidPct": 21.4,
+      "androidPeriod": "2026-07",
+      "iosPct": 40,
+      "iosPeriod": "2026-Q3",
       "note": "proporcionalmente mais comum no iOS"
     }
   },
@@ -559,6 +602,14 @@ const themes = [
       },
       {
         "month": "2026-Q2",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      },
+      {
+        "month": "2026-Q3",
         "count": 0,
         "byStore": {
           "google_play": 0,
@@ -610,6 +661,15 @@ const themes = [
           "1": 0,
           "2": 0
         }
+      },
+      {
+        "period": "2026-Q3",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
       }
     ],
     "gpSeries": [
@@ -626,10 +686,20 @@ const themes = [
       {
         "period": "2026-07",
         "count": 2,
-        "share": 6.3,
-        "preliminary": true,
+        "share": 1.7,
+        "preliminary": false,
         "ratings": {
           "1": 2,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-08",
+        "count": 1,
+        "share": 2.3,
+        "preliminary": true,
+        "ratings": {
+          "1": 1,
           "2": 0
         }
       }
@@ -646,23 +716,23 @@ const themes = [
     },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-07",
-      "count": 2,
+      "period": "2026-08",
+      "count": 1,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "nota 0 não eu uso esse cartão a 3 anos nunca aumentou meu limite eu pago tudo certo mas msm assim nunca aumentou pior banco que existe até o limite não dá pra converter em Pix nem enviar Pix nota zero msm",
+        "text": "minha experiência e péssima não dá opção de parcelamento diminuí o limite do cartão e nunca aumenta o limite ainda tem que pagar a fatura toda por que não parcela o aplicativo e péssimo trava toda hora",
         "rating": 1,
-        "date": "2026-07-03",
+        "date": "2026-08-07",
         "store": "google_play"
       }
     ],
     "platformCompare": {
-      "androidPct": 2.6,
-      "androidPeriod": "2026-06",
+      "androidPct": 1.7,
+      "androidPeriod": "2026-07",
       "iosPct": 0,
-      "iosPeriod": "2026-Q2",
+      "iosPeriod": "2026-Q3",
       "note": "só aparece no Android neste período"
     }
   },
@@ -699,6 +769,14 @@ const themes = [
         "byStore": {
           "google_play": 0,
           "app_store": 1
+        }
+      },
+      {
+        "month": "2026-Q3",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
         }
       }
     ],
@@ -746,6 +824,15 @@ const themes = [
           "1": 1,
           "2": 0
         }
+      },
+      {
+        "period": "2026-Q3",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
       }
     ],
     "gpSeries": [
@@ -762,7 +849,17 @@ const themes = [
       {
         "period": "2026-07",
         "count": 1,
-        "share": 3.1,
+        "share": 0.9,
+        "preliminary": false,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-08",
+        "count": 1,
+        "share": 2.3,
         "preliminary": true,
         "ratings": {
           "1": 1,
@@ -772,7 +869,7 @@ const themes = [
     ],
     "ratings": {
       "google_play": {
-        "1": 2,
+        "1": 1,
         "2": 0
       },
       "app_store": {
@@ -782,24 +879,24 @@ const themes = [
     },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-07",
+      "period": "2026-08",
       "count": 1,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "Não ta merecendo nem uma estrela ultimamente, n recomendo, gente, e melhor usar o pic pay, Estava tentando entrar n consegui ai limpei o cache, desinstalei reinstalei, e nada resolveu, e agr ta falando que minha conexão está ruim sendo que todos os outros bancos, estão abrindo normal e minha conexão está normal, também fui fazer a verificação facial e independente da iluminação falaram que to no escuro e que n foi possível reconhecer minha face.",
+        "text": "Aplicativo com falhas, não consigo fazer Pix, pagar fatura pois o token não reconhece a face. péssimo não recomendo.",
         "rating": 1,
-        "date": "2026-07-01",
+        "date": "2026-08-08",
         "store": "google_play"
       }
     ],
     "platformCompare": {
-      "androidPct": 2.6,
-      "androidPeriod": "2026-06",
-      "iosPct": 5.3,
-      "iosPeriod": "2026-Q2",
-      "note": "frequência parecida nos dois sistemas"
+      "androidPct": 0.9,
+      "androidPeriod": "2026-07",
+      "iosPct": 0,
+      "iosPeriod": "2026-Q3",
+      "note": "só aparece no Android neste período"
     }
   },
   {
@@ -836,13 +933,21 @@ const themes = [
           "google_play": 0,
           "app_store": 1
         }
+      },
+      {
+        "month": "2026-Q3",
+        "count": 1,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 1
+        }
       }
     ],
     "quotes": [
       {
-        "text": "O app funciona bem, exceto quando você quer usar o seu próprio dinheiro! Há semanas tento resgatar meus investimentos de liquidez diária e o app SEMPRE TRAVA numa tela cinza.",
-        "rating": 2,
-        "date": "2026-04-07",
+        "text": "O APLICATIVO ESTÁ SOMANDO AS FATURAS DE JULHO, QUE NEM VENCEU AINDA, VENCE DIA 25, COM A DE AGOSTO. ELE SIMPLESMENTE ESTÁ \"PULANDO A DE JULHO\". Android e Ios. a de JULHO NEM FECHOU, E VENCE DIA 25 DE JULHO, O APP NOVO, DE HOJE, 16/07, ESTÁ SOMANDO A DE JULHO E DE AGOSTO, E DANDO VENCIMENTO DE AGOSTO. A DE JULHO \"SUMIU ATÉ DA TIMELINE\".. NO WHATTSAPP ESTÁ CORRETO, BUG GRAVE DO APP!!!",
+        "rating": 1,
+        "date": "2026-07-16",
         "store": "app_store"
       }
     ],
@@ -882,6 +987,15 @@ const themes = [
           "1": 0,
           "2": 1
         }
+      },
+      {
+        "period": "2026-Q3",
+        "count": 1,
+        "share": 20,
+        "ratings": {
+          "1": 1,
+          "2": 0
+        }
       }
     ],
     "gpSeries": [
@@ -897,8 +1011,18 @@ const themes = [
       },
       {
         "period": "2026-07",
+        "count": 3,
+        "share": 2.6,
+        "preliminary": false,
+        "ratings": {
+          "1": 3,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-08",
         "count": 1,
-        "share": 3.1,
+        "share": 2.3,
         "preliminary": true,
         "ratings": {
           "1": 1,
@@ -908,34 +1032,34 @@ const themes = [
     ],
     "ratings": {
       "google_play": {
-        "1": 4,
+        "1": 3,
         "2": 0
       },
       "app_store": {
-        "1": 0,
-        "2": 1
+        "1": 1,
+        "2": 0
       }
     },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-07",
+      "period": "2026-08",
       "count": 1,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "horrível esse banco já mim deixou na mão um monte de vezes meu dinheiro ficou preso eles ficaram falando que não podia fazer nada até os técnicos concertar é horrível essa experiência de ir em lugar para comprar e não pode comprar por conta que o banco está fora do ar",
+        "text": "Abri minha conta para fazer uma aplicação no CDB escalonado. transferi recursos do outro banco e o aplicativo não aceitava aplicação. Ao entrar em contato com o banco me falaram que o único jeito de ser atendido era por e-mail. No final da tarde recebi um e-mail falando que área técnica tinha 3 dias para dar um retorno. se para aplicar tá difícil dá até medo de imaginar o dia que eu precisar fazer um resgate.",
         "rating": 1,
-        "date": "2026-07-01",
+        "date": "2026-08-04",
         "store": "google_play"
       }
     ],
     "platformCompare": {
-      "androidPct": 5.3,
-      "androidPeriod": "2026-06",
-      "iosPct": 5.3,
-      "iosPeriod": "2026-Q2",
-      "note": "frequência parecida nos dois sistemas"
+      "androidPct": 2.6,
+      "androidPeriod": "2026-07",
+      "iosPct": 20,
+      "iosPeriod": "2026-Q3",
+      "note": "proporcionalmente mais comum no iOS"
     }
   },
   {
@@ -971,6 +1095,14 @@ const themes = [
         "byStore": {
           "google_play": 0,
           "app_store": 1
+        }
+      },
+      {
+        "month": "2026-Q3",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
         }
       }
     ],
@@ -1018,6 +1150,15 @@ const themes = [
           "1": 1,
           "2": 0
         }
+      },
+      {
+        "period": "2026-Q3",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
       }
     ],
     "gpSeries": [
@@ -1025,6 +1166,16 @@ const themes = [
         "period": "2026-06",
         "count": 2,
         "share": 2.6,
+        "preliminary": false,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-07",
+        "count": 2,
+        "share": 1.7,
         "preliminary": false,
         "ratings": {
           "1": 2,
@@ -1044,30 +1195,24 @@ const themes = [
     },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-06",
+      "period": "2026-07",
       "count": 2,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "Fazia a validação do token para transferências no aplicativo, agora nao aparece mais, onde foi parar o token? Central de atendimento nao resolve.",
+        "text": "Tento abrir minha conta e só dá erro...\"ocorreu um erro\". Já faz tempo e ninguém resolve. Não indico.",
         "rating": 1,
-        "date": "2026-06-10",
-        "store": "google_play"
-      },
-      {
-        "text": "Banco com burocracias inacreditáveis! Atendimento ruim, informações dúbias que nos fazem perder tempo. Encerrando a conta! Ufa!",
-        "rating": 1,
-        "date": "2026-06-24",
+        "date": "2026-07-05",
         "store": "google_play"
       }
     ],
     "platformCompare": {
-      "androidPct": 2.6,
-      "androidPeriod": "2026-06",
-      "iosPct": 5.3,
-      "iosPeriod": "2026-Q2",
-      "note": "frequência parecida nos dois sistemas"
+      "androidPct": 1.7,
+      "androidPeriod": "2026-07",
+      "iosPct": 0,
+      "iosPeriod": "2026-Q3",
+      "note": "só aparece no Android neste período"
     }
   },
   {
@@ -1103,6 +1248,14 @@ const themes = [
         "byStore": {
           "google_play": 0,
           "app_store": 3
+        }
+      },
+      {
+        "month": "2026-Q3",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
         }
       }
     ],
@@ -1156,6 +1309,15 @@ const themes = [
           "1": 3,
           "2": 0
         }
+      },
+      {
+        "period": "2026-Q3",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
       }
     ],
     "gpSeries": [
@@ -1171,8 +1333,18 @@ const themes = [
       },
       {
         "period": "2026-07",
+        "count": 9,
+        "share": 7.7,
+        "preliminary": false,
+        "ratings": {
+          "1": 9,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-08",
         "count": 1,
-        "share": 3.1,
+        "share": 2.3,
         "preliminary": true,
         "ratings": {
           "1": 1,
@@ -1182,7 +1354,7 @@ const themes = [
     ],
     "ratings": {
       "google_play": {
-        "1": 3,
+        "1": 9,
         "2": 0
       },
       "app_store": {
@@ -1192,24 +1364,24 @@ const themes = [
     },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-07",
+      "period": "2026-08",
       "count": 1,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "uma 💩 nem deixou abrir a conta quanto muito o cartão de crédito, e olha que tenho score ótimo ( acima de 700), já exclui e desinstalei tudo não presta.",
+        "text": "não consigo acessar a conta, não completa o cadastro não consigo fazer Pix ... enfim nada",
         "rating": 1,
-        "date": "2026-07-02",
+        "date": "2026-08-08",
         "store": "google_play"
       }
     ],
     "platformCompare": {
-      "androidPct": 3.9,
-      "androidPeriod": "2026-06",
-      "iosPct": 15.8,
-      "iosPeriod": "2026-Q2",
-      "note": "proporcionalmente mais comum no iOS"
+      "androidPct": 7.7,
+      "androidPeriod": "2026-07",
+      "iosPct": 0,
+      "iosPeriod": "2026-Q3",
+      "note": "só aparece no Android neste período"
     }
   },
   {
@@ -1241,6 +1413,14 @@ const themes = [
       },
       {
         "month": "2026-Q2",
+        "count": 0,
+        "byStore": {
+          "google_play": 0,
+          "app_store": 0
+        }
+      },
+      {
+        "month": "2026-Q3",
         "count": 0,
         "byStore": {
           "google_play": 0,
@@ -1292,6 +1472,15 @@ const themes = [
           "1": 0,
           "2": 0
         }
+      },
+      {
+        "period": "2026-Q3",
+        "count": 0,
+        "share": 0,
+        "ratings": {
+          "1": 0,
+          "2": 0
+        }
       }
     ],
     "gpSeries": [
@@ -1302,6 +1491,26 @@ const themes = [
         "preliminary": false,
         "ratings": {
           "1": 2,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-07",
+        "count": 2,
+        "share": 1.7,
+        "preliminary": false,
+        "ratings": {
+          "1": 2,
+          "2": 0
+        }
+      },
+      {
+        "period": "2026-08",
+        "count": 1,
+        "share": 2.3,
+        "preliminary": true,
+        "ratings": {
+          "1": 1,
           "2": 0
         }
       }
@@ -1318,29 +1527,23 @@ const themes = [
     },
     "gpCurrent": {
       "source": "google_play",
-      "period": "2026-06",
-      "count": 2,
+      "period": "2026-08",
+      "count": 1,
       "isNew": false
     },
     "gpQuotes": [
       {
-        "text": "Meses de uso no cartão, open finance feito, investimentos para nunca liberarem crédito. Tenho outros cartões com até 10x mais de limites e mesmo usando mês a mês nunca me deram crédito. Dos bancos que tenho é o que menos me deu limite. Esperar uns investimentos acabar pra encerrar a conta. E o cartão tem mensalidade se você não usar.",
+        "text": "banco horrível não abre o aplicativo fica travando experiência horrível vou até cancelar a conta porcausa disso deixa agente na mão",
         "rating": 1,
-        "date": "2026-06-26",
-        "store": "google_play"
-      },
-      {
-        "text": "App está horrível, sempre com instabilidade, vou encerrar a conta, nunca consigo resolver nada,e sempre instável",
-        "rating": 1,
-        "date": "2026-06-30",
+        "date": "2026-08-04",
         "store": "google_play"
       }
     ],
     "platformCompare": {
-      "androidPct": 2.6,
-      "androidPeriod": "2026-06",
+      "androidPct": 1.7,
+      "androidPeriod": "2026-07",
       "iosPct": 0,
-      "iosPeriod": "2026-Q2",
+      "iosPeriod": "2026-Q3",
       "note": "só aparece no Android neste período"
     }
   }
@@ -1351,14 +1554,14 @@ const coverage = [
     "store": "Google Play",
     "totalRatings": "416.718",
     "textAccessible": "214 (últimos 30 dias)",
-    "extracted": "214 (série completa)",
+    "extracted": "466 (série completa)",
     "periodCoverage": "Últimos 30 dias por rodada — janela mais recente disponível"
   },
   {
     "store": "App Store",
     "totalRatings": "86.029",
     "textAccessible": "1235",
-    "extracted": "135 (últimos 4 trimestres)",
+    "extracted": "145 (últimos 5 trimestres)",
     "periodCoverage": "100% dos comentários dos últimos trimestres"
   }
 ];
@@ -1366,43 +1569,43 @@ const coverage = [
 const classificationExamples = {
   "positivo": [
     {
-      "text": "Excelente, já trabalhamos juntos a mais de quatro anos! E continuaremos.",
-      "rating": 5,
-      "date": "2026-06-16",
+      "text": "o app é bom, mas esses duas estou entrando e não consigo ver limite do cartão e nem acessar para pagar os boletos pelo app, a função simplesmente sumiu",
+      "rating": 4,
+      "date": "2026-07-07",
       "store": "google_play"
     },
     {
-      "text": "muito fácil de manusear, que Deus abençoe minhas transações com essa instituição.",
+      "text": "bom dia, o app do BMG ele tá fechando automaticamente sozinho o que eu devo fazer, já fiz de tudo pra voltar como era e o erro permanece tem alguém da central que pode me ajudar o modelo do meu telefone é um redimi note 14... se tiver alguém da central pode me ajudar",
       "rating": 5,
-      "date": "2026-06-12",
+      "date": "2026-07-28",
       "store": "google_play"
     }
   ],
   "negativo": [
     {
-      "text": "uma 💩 nem deixou abrir a conta quanto muito o cartão de crédito, e olha que tenho score ótimo (acima de 700), já exclui e desinstalei tudo não presta.",
+      "text": "Baixei o app e abri conta nesse banco, mas quando vou acessar pondo meu CPF e senha, ele não abre e sempre com mesma mensagem dizendo: sistema indisponível, tente novamente mais tarde. Se no início da abertura de conta já está assim, imagina o que me espera, por causa disso , quando eu entrar já vou fechar a conta e sair desse app, realmente ele é horrível, pois o único contato do cliente com o banco é o app, assim complica muito a vida dos clientes.",
       "rating": 1,
-      "date": "2026-07-02",
+      "date": "2026-07-13",
       "store": "google_play"
     },
     {
-      "text": "minha experiência com esse esta sendo muito ruim, estão fazendo oque não si faz quando a impresa é de respeito e presa os clientes estão mi enganando fiz um depósito e usei o cartão de crédito deles e puseram uma divida de quase 100mil",
+      "text": "O banco em si, já é ruim . Recebi uma ligação dd Brasilia oferecendo deposito em dinheiro na minha conta, eu disse NÃO, quando fui ver ja estava na minha conta. E uma burocracia para devolver. Tive que pagar. Os cartões somem do app, mandaram dois cartões alegando que eu perdi, mas não perdi nada. Bloquearam por perda, não dá pra entender. mandaram um cartão novo que não consta no app. Não caiam na conversa deles. não trm canal de comunicação, os canais não atendem e ae atendem deixam na mão.",
       "rating": 1,
-      "date": "2026-06-20",
+      "date": "2026-07-30",
       "store": "google_play"
     }
   ],
   "neutro": [
     {
-      "text": "meu aplicativo não está abrindo está com o código 16",
+      "text": "porque o banco BMG pede sobreposição a outros aplicativos tenho que aceitar para pode usa o banco. e lá fala se der a permissão o banco vai ver tudo que faço na tela por que isso ??",
       "rating": 3,
-      "date": "2026-07-03",
+      "date": "2026-07-04",
       "store": "google_play"
     },
     {
-      "text": "O aplicativo é muito bom, mas acabou de atualizar e continua com bug, recebi um cartão e não consigo desbloquear pelo app porque não abre a opção",
+      "text": "o aplicativo apresenta falhas recorrente, não da para compartilhar dados trava na tela dos bancos.",
       "rating": 3,
-      "date": "2026-06-19",
+      "date": "2026-07-18",
       "store": "google_play"
     }
   ]
@@ -1411,218 +1614,198 @@ const classificationExamples = {
 const execSummary = [
   {
     "type": "risk",
-    "html": "<strong>App Store (iOS) em queda:</strong> sentimento positivo caiu 12.6pp de 2026-Q1 para 2026-Q2 (17.6% → 5%)."
-  },
-  {
-    "type": "risk",
-    "html": "<strong>Volume de comentários da App Store também caiu:</strong> 34 → 20 (-41%) de 2026-Q1 para 2026-Q2."
-  },
-  {
-    "type": "risk",
-    "html": "<strong>Versão 3.90.2 do Android piorou a experiência:</strong> 51.8% de comentários negativos, contra 38% na versão 3.90.1."
+    "html": "<strong>Volume de comentários da App Store também caiu:</strong> 20 → 10 (-50%) de 2026-Q2 para 2026-Q3."
   },
   {
     "type": "watch",
-    "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 14 no Android (2026-07) e 8 no iOS (2026-Q2)."
+    "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 12 no Android (2026-08) e 2 no iOS (2026-Q3)."
   },
   {
     "type": "info",
-    "html": "<strong>Sinal positivo no iOS:</strong> \"Não consegue cancelar/encerrar a conta\" zerou em 2026-Q2, depois de aparecer nos trimestres anteriores."
+    "html": "<strong>Sinal positivo no iOS:</strong> \"Login / autenticação (facial, token, senha)\" e \"Erro no cadastro/abertura de conta (selfie, documentos)\" zeraram em 2026-Q3, depois de aparecer nos trimestres anteriores."
   }
 ];
 
-const generatedAt = "10/07/2026";
+const generatedAt = "10/08/2026";
 
 const statTiles = [
   {
-    "label": "App Store (iOS) — trimestre atual (2026-Q2)",
-    "value": "95% negativo",
-    "note": "20 comentários do trimestre · cobertura 100%"
+    "label": "App Store (iOS) — trimestre atual (2026-Q3)",
+    "value": "50% negativo",
+    "note": "10 comentários do trimestre (em andamento — parcial)"
   },
   {
     "label": "App Store (iOS) — variação vs. trim. anterior",
-    "value": "-12.6pp positivo",
-    "note": "2026-Q1 → 2026-Q2"
+    "value": "+35pp positivo",
+    "note": "2026-Q2 → 2026-Q3"
   },
   {
     "label": "App Store (iOS) — volume de comentários",
-    "value": "20 no trimestre",
-    "note": "vs. 34 no trimestre anterior (-41%) — queda de volume, não só de sentimento"
+    "value": "10 no trimestre",
+    "note": "vs. 20 no trimestre anterior (-50%) — queda de volume, não só de sentimento"
   },
   {
-    "label": "Google Play (Android) — 2026-06 (mês completo)",
-    "value": "45.8% negativo",
-    "note": "166 comentários"
+    "label": "Google Play (Android) — 2026-07 (mês completo)",
+    "value": "52.2% negativo",
+    "note": "224 comentários"
   },
   {
     "label": "Total de comentários analisados",
-    "value": "214 + 135",
-    "note": "Google Play (desde 2026-06) + App Store (4 trimestres, 100% de cobertura)"
+    "value": "466 + 145",
+    "note": "Google Play (desde 2026-06) + App Store (5 trimestres, 100% de cobertura)"
   }
 ];
 
-const methodologyNote = "✅ <strong>Cobertura de dados.</strong> App Store: <strong>100% dos comentários</strong> dos últimos 4 trimestres. Google Play: <strong>últimos 30 dias</strong> — limitação da fonte de coleta nessa loja, que só disponibiliza uma janela de 30 dias por vez. Por isso o Google Play é atualizado <strong>mensalmente</strong> e o App Store <strong>trimestralmente</strong>.";
+const methodologyNote = "✅ <strong>Cobertura de dados.</strong> App Store: <strong>100% dos comentários</strong> dos últimos 5 trimestres. Google Play: <strong>últimos 30 dias</strong> — limitação da fonte de coleta nessa loja, que só disponibiliza uma janela de 30 dias por vez. Por isso o Google Play é atualizado <strong>mensalmente</strong> e o App Store <strong>trimestralmente</strong>.";
 
 const youtube = {
-  "month": "julho de 2026",
+  "month": "agosto de 2026",
   "ownChannel": {
     "videos": [
       {
-        "title": "#BMGB4 #S3EP2 A importância da originação digital para o Bmg",
-        "views": 549149,
-        "comments": 0,
-        "url": "https://youtu.be/EAfrPvoA--M",
-        "date": "2026-06-22"
-      },
-      {
-        "title": "#BMGB4 #S3EP2 O Consignado Privado no Banco Bmg",
-        "views": 389661,
-        "comments": 0,
-        "url": "https://youtu.be/vEzFEhVPhhQ",
-        "date": "2026-06-15"
-      },
-      {
-        "title": "O impacto dos novos clientes no cross-sell",
-        "views": 148111,
-        "comments": 0,
-        "url": "https://youtu.be/24yLsHenJi0",
-        "date": "2026-06-29"
-      },
-      {
-        "title": "#BMGB4 #S3EP2 Estratégia de Canais e Produtos | João Consiglio",
-        "views": 71029,
-        "comments": 7,
-        "url": "https://youtu.be/DtcIQceTk8U",
-        "date": "2026-06-10"
-      },
-      {
-        "title": "Dataprev e INSS: qual é a diferença entre os dois?",
-        "views": 165,
-        "comments": 0,
-        "url": "https://youtu.be/mgIG3rs9Ews",
-        "date": "2026-07-02"
-      },
-      {
-        "title": "Como saber o tempo de contribuição do INSS?",
-        "views": 158,
+        "title": "Banco Bmg | 96 anos renovando a confiança que atravessa o tempo",
+        "views": 1317700,
         "comments": 2,
-        "url": "https://youtu.be/k-s3Lw312e0",
-        "date": "2026-06-11"
+        "url": "https://youtu.be/mQULPqHzxZ0",
+        "date": "2026-07-31"
+      },
+      {
+        "title": "#BMGB4 #S3EP3 - Quais foram as ações que permitiram a melhora na rentabilidade do Banco?",
+        "views": 516311,
+        "comments": 0,
+        "url": "https://youtu.be/U_EbvcVbuac",
+        "date": "2026-07-20"
+      },
+      {
+        "title": "#BMGB4 #S3EP3 Alavancas de Negócios | Flavio Neto",
+        "views": 290512,
+        "comments": 20,
+        "url": "https://youtu.be/mjtfz3JtsRQ",
+        "date": "2026-07-15"
+      },
+      {
+        "title": "#BMGB4 #S3EP3 Qual a importância do consignado privado para o Bmg?",
+        "views": 17818,
+        "comments": 4,
+        "url": "https://youtu.be/uwYNW9mAqvI",
+        "date": "2026-07-27"
+      },
+      {
+        "title": "#BMGB4 #S3EP3 O que significa o ciclo virtuoso na estratégia do Banco?",
+        "views": 14638,
+        "comments": 3,
+        "url": "https://youtu.be/kbcOu0fVJRg",
+        "date": "2026-08-03"
+      },
+      {
+        "title": "CPF pendente de regularização: o que fazer?",
+        "views": 212,
+        "comments": 2,
+        "url": "https://youtu.be/x9hh7vQXo_E",
+        "date": "2026-07-09"
       }
     ],
-    "videoCount": 9,
-    "totalViews": 1158632,
-    "totalComments": 13
+    "videoCount": 10,
+    "totalViews": 2157765,
+    "totalComments": 44
   },
   "mentions": {
     "topVideos": [
       {
-        "title": "VALE A PENA INVESTIR NO BANCO BMG? #barsi #dividendos #ações #agf #metodobarsi #luizbarsi #bmgb4",
-        "channel": "Mão de Midas",
-        "views": 7312,
-        "comments": 1,
-        "url": "https://youtu.be/Uc7qTkPLXDg"
+        "title": "BANCO BMG PAGA MAIS DE R$ 77 MIL EM PROCESSO! Veja se você também tem direito a receber!",
+        "channel": "VALTER DOS SANTOS",
+        "views": 4445,
+        "comments": 63,
+        "url": "https://youtu.be/bz3pRh0XQ4U"
       },
       {
-        "title": "BMGB4: PROJEÇÃO DE LUCRO \"ABSURDA\" ! BANCO BMG É COMPRA?",
+        "title": "BMGB4: AÇÃO CÍVEL SOMAM +R$1Bi EM BANCO BMG....E AGORA?",
         "channel": "Bruno Chimarelli",
-        "views": 4294,
-        "comments": 18,
-        "url": "https://youtu.be/PyAzZEi0_fo"
-      },
-      {
-        "title": "⚠️ Banco BMG é multado em R$ 5,1 milhões",
-        "channel": "Paulinelli Advogados",
-        "views": 2934,
-        "comments": 2,
-        "url": "https://youtu.be/C0LMgP9f-eg"
-      },
-      {
-        "title": "BANCO BMG é a melhor ação para VALORIZAÇÃO da bolsa? BMGB4",
-        "channel": "Adan Paulo",
-        "views": 2111,
-        "comments": 15,
-        "url": "https://youtu.be/RnDiCchgAE4"
+        "views": 3648,
+        "comments": 27,
+        "url": "https://youtu.be/B145j8v0g5M"
       },
       {
         "title": "BMGB4: R$160Mi EM PROCESSOS E COM BAIXA EFICIÊNCIA - BANCO BMG AINDA VALE \"COMPRA\"?",
         "channel": "Bruno Chimarelli",
-        "views": 1354,
-        "comments": 6,
+        "views": 2784,
+        "comments": 7,
         "url": "https://youtu.be/A-2wHGB7_bw"
+      },
+      {
+        "title": "BANCO ABC | BANCO BANRISUL | BANCO BMG | VACAS LEITEIRAS | PREÇO TETO",
+        "channel": "Seven Investimentos",
+        "views": 750,
+        "comments": 17,
+        "url": "https://youtu.be/ErVucZK4VkI"
+      },
+      {
+        "title": "Quanto Rende R$ 10.000 no BMG? A Verdade sobre o CDB de 107%",
+        "channel": "10 Conto Educação Financeira",
+        "views": 606,
+        "comments": 14,
+        "url": "https://youtu.be/uKD0HuvR_dk"
       }
     ],
-    "totalComments": 24,
+    "totalComments": 28,
     "themes": [
       {
         "label": "RMC / cartão consignado / INSS",
-        "count": 12,
+        "count": 13,
         "quotes": [
           {
-            "text": "Há um pedido de abertura de CPI para investigar o BMG e o Master apurando graves irregularidades nos empréstimos consignados do INSS, isso não pode impactar negativamente?",
-            "likes": 5,
-            "date": "2026-06-18",
-            "videoTitle": "BMGB4: PROJEÇÃO DE LUCRO &quot;ABSURDA&quot; ! BANCO BMG É COMPRA?"
-          },
-          {
-            "text": "Eu pago RMC ao BMG a 11 anos não acaba nunca",
-            "likes": 1,
-            "date": "2026-06-07",
-            "videoTitle": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados"
-          }
-        ]
-      },
-      {
-        "label": "Desconto indevido / empréstimo não autorizado",
-        "count": 8,
-        "quotes": [
-          {
-            "text": "Fiz um cartão e com essas informações fizeram um empréstimo pessoal sem minha autorização e um cartão que ja vem com empréstimo embutido to na luta p receber 8 parcelas de 416 ....puxaram minha pensão p receber no banco deles e inss disse que eles podem pq tenho dívida lá resumindo minha pensão vem 450😢😢",
-            "likes": 0,
-            "date": "2026-06-25",
-            "videoTitle": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados"
-          },
-          {
-            "text": "eu nunca conhece esse bancos esse seis me roubou sem eu saber entrou com agibank que colocou um empréstimo que eu nunca fiz",
-            "likes": 0,
-            "date": "2026-06-20",
-            "videoTitle": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados"
-          }
-        ]
-      },
-      {
-        "label": "Investigação / multa / CPI / regulação",
-        "count": 2,
-        "quotes": [
-          {
-            "text": "Empréstimo pessoal do BMG é pra ser investigado",
+            "text": "Esse Banco BMG e um banco 🏦 que vive roubando os aposentados,com empréstimo sem,o apasentado pedir isso e fraude desse banco BMG ladrão.",
             "likes": 2,
-            "date": "2026-06-29",
+            "date": "2026-07-18",
+            "videoTitle": "Como Tirar a Aposentadoria do Banco BMG?"
+          },
+          {
+            "text": "esse BMG acabou com a minha vida hoje só recebo 450 reais quero tirar meu Benefício desse banco e voltar para o Itaú",
+            "likes": 1,
+            "date": "2026-07-13",
             "videoTitle": "Como Tirar a Aposentadoria do Banco BMG?"
           }
         ]
       },
       {
-        "label": "Reembolso / devolução de valores",
-        "count": 1,
+        "label": "Desconto indevido / empréstimo não autorizado",
+        "count": 5,
         "quotes": [
           {
-            "text": "O BMG precisa devolver o mais rápido possível meus descontos desde 2017 não aguento mais esses descontos",
-            "likes": 0,
-            "date": "2026-06-12",
-            "videoTitle": "🔴 INSS MANDA BANCO BMG DEVOLVER VALORES DESCONTADOS DE FORMA INDEVIDA DOS APOSENTADOS !"
+            "text": "Nunca fui banco BMGEstá descontando200Reais e continua O que faço",
+            "likes": 1,
+            "date": "2026-07-08",
+            "videoTitle": "Como Tirar a Aposentadoria do Banco BMG?"
           }
         ]
       },
       {
         "label": "App / acesso / investimento no app",
+        "count": 2,
+        "quotes": [
+          {
+            "text": "Explica como adianta parcelas do empréstimo CLT pois não estou conseguindo fazer pelo aplicativo",
+            "likes": 0,
+            "date": "2026-07-16",
+            "videoTitle": "EMPRÉSTIMO BANCO BMG | RECEBA NA CONTA EM APENAS 2 HORAS"
+          },
+          {
+            "text": "Eu fiz faz 2 dias pelo BMG e até agora não caiu o pagamento",
+            "likes": 0,
+            "date": "2026-07-27",
+            "videoTitle": "EMPRÉSTIMO BANCO BMG | RECEBA NA CONTA EM APENAS 2 HORAS"
+          }
+        ]
+      },
+      {
+        "label": "Investigação / multa / CPI / regulação",
         "count": 1,
         "quotes": [
           {
-            "text": "Esse banco é um lixo. Eu fiz um envestimento nesse banco,fiz o resgate e não caiu em minha conta,reclamei e até agora não resolveram .Bmg lixo.",
+            "text": "Boa noite eu perdir a causa na justiça bmg rmc",
             "likes": 0,
-            "date": "2026-06-25",
-            "videoTitle": "Banco BMG vale a pena?"
+            "date": "2026-08-05",
+            "videoTitle": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados"
           }
         ]
       }
@@ -1635,52 +1818,44 @@ const resumo = {
     {
       "icon": "🍎",
       "channel": "App Store (iOS)",
-      "metric": "95% negativo",
+      "metric": "50% negativo",
       "metricNeg": true,
-      "sub": "20 comentários no trimestre (2026-Q2)",
+      "sub": "10 comentários no trimestre (2026-Q3)",
       "theme": "Tema nº1: App trava / não abre / fica fora do ar / instabilidade"
     },
     {
       "icon": "🤖",
       "channel": "Google Play (Android)",
-      "metric": "45.8% negativo",
+      "metric": "52.2% negativo",
       "metricNeg": true,
-      "sub": "166 comentários no mês (2026-06)",
+      "sub": "224 comentários no mês (2026-07)",
       "theme": "Tema nº1: App trava / não abre / fica fora do ar / instabilidade"
     },
     {
       "icon": "📺",
       "channel": "YouTube",
-      "metric": "24 comentários",
+      "metric": "28 comentários",
       "metricNeg": false,
-      "sub": "canal oficial: 9 vídeos, 1.2M views",
+      "sub": "canal oficial: 10 vídeos, 2.2M views",
       "theme": "Tema nº1 (menções): RMC / cartão consignado / INSS"
     }
   ],
   "highlights": [
     {
       "ico": "🔴",
-      "html": "<strong>App Store (iOS) em queda:</strong> sentimento positivo caiu 12.6pp de 2026-Q1 para 2026-Q2 (17.6% → 5%)."
-    },
-    {
-      "ico": "🔴",
-      "html": "<strong>Volume de comentários da App Store também caiu:</strong> 34 → 20 (-41%) de 2026-Q1 para 2026-Q2."
-    },
-    {
-      "ico": "🔴",
-      "html": "<strong>Versão 3.90.2 do Android piorou a experiência:</strong> 51.8% de comentários negativos, contra 38% na versão 3.90.1."
+      "html": "<strong>Volume de comentários da App Store também caiu:</strong> 20 → 10 (-50%) de 2026-Q2 para 2026-Q3."
     },
     {
       "ico": "🟡",
-      "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 14 no Android (2026-07) e 8 no iOS (2026-Q2)."
+      "html": "<strong>Tema mais citado:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 12 no Android (2026-08) e 2 no iOS (2026-Q3)."
     },
     {
       "ico": "🟢",
-      "html": "<strong>Sinal positivo no iOS:</strong> \"Não consegue cancelar/encerrar a conta\" zerou em 2026-Q2, depois de aparecer nos trimestres anteriores."
+      "html": "<strong>Sinal positivo no iOS:</strong> \"Login / autenticação (facial, token, senha)\" e \"Erro no cadastro/abertura de conta (selfie, documentos)\" zeraram em 2026-Q3, depois de aparecer nos trimestres anteriores."
     },
     {
       "ico": "📺",
-      "html": "<strong>No YouTube, a conversa é outra:</strong> o tema que mais aparece é \"RMC / cartão consignado / INSS\" (12 comentários) — assunto que quase não surge nas lojas de app."
+      "html": "<strong>No YouTube, a conversa é outra:</strong> o tema que mais aparece é \"RMC / cartão consignado / INSS\" (13 comentários) — assunto que quase não surge nas lojas de app."
     }
   ],
   "crossChannel": [
@@ -1690,15 +1865,11 @@ const resumo = {
     },
     {
       "ico": "📱",
-      "html": "<strong>A instabilidade do app é transversal às duas lojas:</strong> 23.7% dos comentários negativos no Android e 42.1% no iOS citam travamento/fora do ar. Não é problema de um sistema só — é do app como um todo."
+      "html": "<strong>A instabilidade do app é transversal às duas lojas:</strong> 21.4% dos comentários negativos no Android e 40% no iOS citam travamento/fora do ar. Não é problema de um sistema só — é do app como um todo."
     },
     {
       "ico": "🍎",
-      "html": "<strong>O problema pesa mais no iOS:</strong> 42.1% dos comentários negativos do iPhone são sobre \"app trava / não abre / fica fora do ar / instabilidade\", contra 23.7% no Android — vale priorizar a investigação no iOS."
-    },
-    {
-      "ico": "🆕",
-      "html": "<strong>A atualização mais recente do Android coincide com piora:</strong> a versão 3.90.2 tem 51.8% de negativos, contra 38% na 3.90.1 (+13.8pp) — cruzar com o changelog dessa versão."
+      "html": "<strong>O problema pesa mais no iOS:</strong> 40% dos comentários negativos do iPhone são sobre \"app trava / não abre / fica fora do ar / instabilidade\", contra 21.4% no Android — vale priorizar a investigação no iOS."
     }
   ]
 };
@@ -1708,28 +1879,30 @@ const versionCompare = {
   "sourceIcon": "🤖",
   "versions": [
     {
-      "version": "3.90.1",
-      "total": 71,
-      "negativo": 38,
-      "positivo": 59.2,
-      "dateRange": "04/06–25/06"
+      "version": "3.90.2",
+      "total": 76,
+      "positivo": 47.4,
+      "negativo": 48.7,
+      "isCurrent": false,
+      "dateRange": "02/07–28/07"
     },
     {
-      "version": "3.90.2",
-      "total": 85,
-      "negativo": 51.8,
-      "positivo": 43.5,
-      "dateRange": "18/06–04/07",
+      "version": "3.91.1",
+      "total": 143,
+      "positivo": 49,
+      "negativo": 47.6,
+      "isCurrent": true,
+      "dateRange": "09/07–09/08 (atual)",
       "quotes": [
         {
-          "text": "muita instabilidade ultimamente para fazer transferências para entrar no aplicativo tudo isso está muito RUIM PESSIMO MELHOREM",
+          "text": "O banco em si, já é ruim . Recebi uma ligação dd Brasilia oferecendo deposito em dinheiro na minha conta, eu disse NÃO, quando fui ver ja estava na minha conta. E uma burocracia para devolver. Tive que pagar. Os cartões somem do app, mandaram dois cartões alegando que eu perdi, mas não perdi nada. Bloquearam por perda, não dá pra entender. mandaram um cartão novo que não consta no app. Não caiam na conversa deles. não trm canal de comunicação, os canais não atendem e ae atendem deixam na mão.",
           "rating": 1,
-          "date": "2026-06-28"
+          "date": "2026-07-30"
         },
         {
-          "text": "Pensa num aplicativo que só vive de instabilidades... Pra pagar a fatura do cartão é uma luta!!!",
+          "text": "Tentei iniciar a análise e disse que tinha sido reprovada, sendo que meu score é altíssimo. Tentei de novo informando um valor de investmemto maior e passou, pediram pra enviar meus dados e cadastrar facial. Em minutos a conta \"estava liberada\". aí começa outro parto, escolhar a conta grátis, que nunca consegue concluir, por não reconhecer a facial. Eu ativei o token e tentei escolher a conta no mesmo ambiente, com a mesma iluminação, e simplesmente não funciona. Péssima experiência,.",
           "rating": 1,
-          "date": "2026-06-26"
+          "date": "2026-07-13"
         }
       ]
     }
@@ -1741,52 +1914,52 @@ const versionCompare = {
   },
   "quotes": [
     {
-      "text": "muita instabilidade ultimamente para fazer transferências para entrar no aplicativo tudo isso está muito RUIM PESSIMO MELHOREM",
+      "text": "O banco em si, já é ruim . Recebi uma ligação dd Brasilia oferecendo deposito em dinheiro na minha conta, eu disse NÃO, quando fui ver ja estava na minha conta. E uma burocracia para devolver. Tive que pagar. Os cartões somem do app, mandaram dois cartões alegando que eu perdi, mas não perdi nada. Bloquearam por perda, não dá pra entender. mandaram um cartão novo que não consta no app. Não caiam na conversa deles. não trm canal de comunicação, os canais não atendem e ae atendem deixam na mão.",
       "rating": 1,
-      "date": "2026-06-28",
+      "date": "2026-07-30",
       "store": "google_play"
     },
     {
-      "text": "Pensa num aplicativo que só vive de instabilidades... Pra pagar a fatura do cartão é uma luta!!!",
+      "text": "Tentei iniciar a análise e disse que tinha sido reprovada, sendo que meu score é altíssimo. Tentei de novo informando um valor de investmemto maior e passou, pediram pra enviar meus dados e cadastrar facial. Em minutos a conta \"estava liberada\". aí começa outro parto, escolhar a conta grátis, que nunca consegue concluir, por não reconhecer a facial. Eu ativei o token e tentei escolher a conta no mesmo ambiente, com a mesma iluminação, e simplesmente não funciona. Péssima experiência,.",
       "rating": 1,
-      "date": "2026-06-26",
+      "date": "2026-07-13",
       "store": "google_play"
     }
   ],
   "shift": {
-    "prev": "3.90.1",
-    "curr": "3.90.2",
+    "prev": "3.90.2",
+    "curr": "3.91.1",
     "rows": [
       {
         "key": "app_trava",
         "label": "App trava / não abre / fica fora do ar / instabilidade",
-        "prevPct": 22.2,
-        "currPct": 29.5,
-        "deltaPp": 7.3,
+        "prevPct": 16.2,
+        "currPct": 26.5,
+        "deltaPp": 10.3,
         "isNew": false
       },
       {
-        "key": "limite_credito",
-        "label": "Não aumenta limite de crédito",
+        "key": "falha_pix",
+        "label": "Falha em Pix/pagamentos/resgates",
         "prevPct": 0,
-        "currPct": 6.8,
-        "deltaPp": 6.8,
-        "isNew": true
-      },
-      {
-        "key": "cancelamento",
-        "label": "Não consegue cancelar/encerrar a conta",
-        "prevPct": 0,
-        "currPct": 4.5,
-        "deltaPp": 4.5,
+        "currPct": 4.4,
+        "deltaPp": 4.4,
         "isNew": true
       },
       {
         "key": "login_autenticacao",
         "label": "Login / autenticação (facial, token, senha)",
         "prevPct": 0,
-        "currPct": 2.3,
-        "deltaPp": 2.3,
+        "currPct": 2.9,
+        "deltaPp": 2.9,
+        "isNew": true
+      },
+      {
+        "key": "atendimento",
+        "label": "Atendimento/suporte não resolve",
+        "prevPct": 0,
+        "currPct": 1.5,
+        "deltaPp": 1.5,
         "isNew": true
       }
     ]
