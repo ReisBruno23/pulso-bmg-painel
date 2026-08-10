@@ -209,6 +209,15 @@
 
   .quote { background: var(--page); border-left: 3px solid var(--border); border-radius: 0 6px 6px 0; padding: 8px 12px; margin-top: 8px; font-size: 13px; font-style: italic; color: var(--text-primary); }
   .quote-meta { font-size: 11px; color: var(--text-muted); font-style: normal; margin-top: 4px; display: flex; gap: 8px; }
+  .ra-rep { display: flex; align-items: center; gap: 16px; margin: 4px 0 18px; flex-wrap: wrap; }
+  .ra-rep-selo { background: #1a7f37; color: #fff; font-weight: 700; padding: 6px 14px; border-radius: 999px; font-size: 14px; letter-spacing: .3px; }
+  .ra-rep-nota { font-size: 14px; color: var(--text-primary); }
+  .ra-rep-nota strong { font-size: 26px; }
+  .ra-rep-nota span { color: var(--text-muted); font-size: 13px; }
+  .ra-rep-cap { color: var(--text-muted); font-size: 12px; }
+  .ra-bar { margin-bottom: 10px; }
+  .ra-bar-head { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--text-primary); margin-bottom: 3px; }
+  .ra-bar-head span:last-child { color: var(--text-muted); white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -221,6 +230,7 @@
     <a class="tab" href="index.html" data-tab="resumo">Resumo Executivo</a>
     <a class="tab" href="lojas.html" data-tab="lojas">Lojas de App</a>
     <a class="tab" href="youtube.html" data-tab="youtube" id="tabYoutubeBtn" hidden>YouTube</a>
+    <a class="tab" href="reclame-aqui.html" data-tab="reclame-aqui" id="tabRaBtn" hidden>Reclame Aqui</a>
   </div>
 
   <!-- ===================== ABA: RESUMO EXECUTIVO ===================== -->
@@ -310,6 +320,28 @@
     </div>
   </div>
   </div><!-- fim aba YouTube -->
+
+  <!-- ===================== ABA: RECLAME AQUI ===================== -->
+  <div class="tab-panel" id="tab-reclame-aqui" hidden>
+  <div class="card" id="raCard" style="display:none">
+    <h2>📋 Reclame Aqui — reputação e reclamações <span id="raMonth" class="yt-month"></span></h2>
+    <p class="desc">Retrato da reputação pública do BMG no Reclame Aqui — o ângulo de <strong>crédito e cobrança</strong> que as lojas de app não capturam. Métricas do período informado, assuntos mais reclamados e reclamações recentes.</p>
+    <div id="raRep" class="ra-rep"></div>
+    <div class="stat-row" id="raStatRow"></div>
+    <div class="yt-front">
+      <div class="yt-grid">
+        <div>
+          <div class="yt-subtitle">Assuntos mais reclamados (acumulado histórico)</div>
+          <div id="raProblems"></div>
+        </div>
+        <div>
+          <div class="yt-subtitle">Reclamações recentes</div>
+          <div id="raRecent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- fim aba Reclame Aqui -->
 </div>
 
 <div class="tooltip" id="tooltip"></div>
@@ -1569,43 +1601,43 @@ const coverage = [
 const classificationExamples = {
   "positivo": [
     {
-      "text": "o app é bom, mas esses duas estou entrando e não consigo ver limite do cartão e nem acessar para pagar os boletos pelo app, a função simplesmente sumiu",
-      "rating": 4,
-      "date": "2026-07-07",
+      "text": "Estou com dificuldade para receber o cartão que já solicitei várias vezes, já paguei 3 taxas e não recebi o cartão. Estou solicitando faz quase 1 ano.",
+      "rating": 5,
+      "date": "2026-07-16",
       "store": "google_play"
     },
     {
-      "text": "bom dia, o app do BMG ele tá fechando automaticamente sozinho o que eu devo fazer, já fiz de tudo pra voltar como era e o erro permanece tem alguém da central que pode me ajudar o modelo do meu telefone é um redimi note 14... se tiver alguém da central pode me ajudar",
-      "rating": 5,
-      "date": "2026-07-28",
+      "text": "o app é bom, mas esses duas estou entrando e não consigo ver limite do cartão e nem acessar para pagar os boletos pelo app, a função simplesmente sumiu",
+      "rating": 4,
+      "date": "2026-07-07",
       "store": "google_play"
     }
   ],
   "negativo": [
     {
-      "text": "Baixei o app e abri conta nesse banco, mas quando vou acessar pondo meu CPF e senha, ele não abre e sempre com mesma mensagem dizendo: sistema indisponível, tente novamente mais tarde. Se no início da abertura de conta já está assim, imagina o que me espera, por causa disso , quando eu entrar já vou fechar a conta e sair desse app, realmente ele é horrível, pois o único contato do cliente com o banco é o app, assim complica muito a vida dos clientes.",
-      "rating": 1,
-      "date": "2026-07-13",
+      "text": "Vou falar Algo triste, Eu gostava muito, muito de Usar o BMG mais infelizmente o app da muitas instabilidades, várias vezes ao entrar pra passar Pix ou fazer pagamento sistema indisponível. gente um banco tão conhecido com um app desse geito. sinceramente não gosto de usar instituição de pagamento como mercado pago, TonStone, pague Benk. mais confesso que tou usando pois tem sido os melhores. mais fico triste em ter que falar isso. mais sei que isso pode mudar depende do banco bmg .",
+      "rating": 2,
+      "date": "2026-07-29",
       "store": "google_play"
     },
     {
-      "text": "O banco em si, já é ruim . Recebi uma ligação dd Brasilia oferecendo deposito em dinheiro na minha conta, eu disse NÃO, quando fui ver ja estava na minha conta. E uma burocracia para devolver. Tive que pagar. Os cartões somem do app, mandaram dois cartões alegando que eu perdi, mas não perdi nada. Bloquearam por perda, não dá pra entender. mandaram um cartão novo que não consta no app. Não caiam na conversa deles. não trm canal de comunicação, os canais não atendem e ae atendem deixam na mão.",
+      "text": "Tentei iniciar a análise e disse que tinha sido reprovada, sendo que meu score é altíssimo. Tentei de novo informando um valor de investmemto maior e passou, pediram pra enviar meus dados e cadastrar facial. Em minutos a conta \"estava liberada\". aí começa outro parto, escolhar a conta grátis, que nunca consegue concluir, por não reconhecer a facial. Eu ativei o token e tentei escolher a conta no mesmo ambiente, com a mesma iluminação, e simplesmente não funciona. Péssima experiência,.",
       "rating": 1,
-      "date": "2026-07-30",
+      "date": "2026-07-13",
       "store": "google_play"
     }
   ],
   "neutro": [
     {
-      "text": "porque o banco BMG pede sobreposição a outros aplicativos tenho que aceitar para pode usa o banco. e lá fala se der a permissão o banco vai ver tudo que faço na tela por que isso ??",
+      "text": "o que aconteceu que não consigo acessar meu banco hoje??",
       "rating": 3,
-      "date": "2026-07-04",
+      "date": "2026-07-12",
       "store": "google_play"
     },
     {
-      "text": "o aplicativo apresenta falhas recorrente, não da para compartilhar dados trava na tela dos bancos.",
+      "text": "porque o banco BMG pede sobreposição a outros aplicativos tenho que aceitar para pode usa o banco. e lá fala se der a permissão o banco vai ver tudo que faço na tela por que isso ??",
       "rating": 3,
-      "date": "2026-07-18",
+      "date": "2026-07-04",
       "store": "google_play"
     }
   ]
@@ -1671,7 +1703,7 @@ const youtube = {
       },
       {
         "title": "#BMGB4 #S3EP3 - Quais foram as ações que permitiram a melhora na rentabilidade do Banco?",
-        "views": 516311,
+        "views": 520297,
         "comments": 0,
         "url": "https://youtu.be/U_EbvcVbuac",
         "date": "2026-07-20"
@@ -1692,7 +1724,7 @@ const youtube = {
       },
       {
         "title": "#BMGB4 #S3EP3 O que significa o ciclo virtuoso na estratégia do Banco?",
-        "views": 14638,
+        "views": 14822,
         "comments": 3,
         "url": "https://youtu.be/kbcOu0fVJRg",
         "date": "2026-08-03"
@@ -1706,7 +1738,7 @@ const youtube = {
       }
     ],
     "videoCount": 10,
-    "totalViews": 2157765,
+    "totalViews": 2161935,
     "totalComments": 44
   },
   "mentions": {
@@ -1742,12 +1774,12 @@ const youtube = {
       {
         "title": "Quanto Rende R$ 10.000 no BMG? A Verdade sobre o CDB de 107%",
         "channel": "10 Conto Educação Financeira",
-        "views": 606,
-        "comments": 14,
+        "views": 607,
+        "comments": 15,
         "url": "https://youtu.be/uKD0HuvR_dk"
       }
     ],
-    "totalComments": 28,
+    "totalComments": 27,
     "themes": [
       {
         "label": "RMC / cartão consignado / INSS",
@@ -1780,27 +1812,15 @@ const youtube = {
         ]
       },
       {
-        "label": "App / acesso / investimento no app",
+        "label": "Investigação / multa / CPI / regulação",
         "count": 2,
         "quotes": [
           {
-            "text": "Explica como adianta parcelas do empréstimo CLT pois não estou conseguindo fazer pelo aplicativo",
+            "text": "Oii!! Deixa eu perguntar, ao abrir conta no BMG conforme o vídeo de instrução, você sabe se será aberta uma conta essencial?? Será que é possível escolher entre segmentos de conta no processo de abertura via app??",
             "likes": 0,
-            "date": "2026-07-16",
-            "videoTitle": "EMPRÉSTIMO BANCO BMG | RECEBA NA CONTA EM APENAS 2 HORAS"
+            "date": "2026-08-02",
+            "videoTitle": "Como abrir conta no aplicativo do banco BMG"
           },
-          {
-            "text": "Eu fiz faz 2 dias pelo BMG e até agora não caiu o pagamento",
-            "likes": 0,
-            "date": "2026-07-27",
-            "videoTitle": "EMPRÉSTIMO BANCO BMG | RECEBA NA CONTA EM APENAS 2 HORAS"
-          }
-        ]
-      },
-      {
-        "label": "Investigação / multa / CPI / regulação",
-        "count": 1,
-        "quotes": [
           {
             "text": "Boa noite eu perdir a causa na justiça bmg rmc",
             "likes": 0,
@@ -1811,6 +1831,81 @@ const youtube = {
       }
     ]
   }
+};
+
+const reclameAqui = {
+  "capturado_em": "10/08/2026",
+  "periodo": "01/02/2026 a 31/07/2026",
+  "reputacao": {
+    "selo": "RA1000",
+    "nota": 8.3
+  },
+  "seis_meses": {
+    "reclamacoes": 11902,
+    "ultimos30": 1567,
+    "respondidas": 98.3,
+    "resolvidas": 90.7,
+    "voltariam": 70.3,
+    "notaConsumidor": 7.45,
+    "tempoRespostaDias": 10.8
+  },
+  "topProblemas": [
+    {
+      "nome": "Cobrança indevida",
+      "qtd": 30716
+    },
+    {
+      "nome": "Demora na execução",
+      "qtd": 9516
+    },
+    {
+      "nome": "Cancelamento",
+      "qtd": 7610
+    },
+    {
+      "nome": "Mau atendimento",
+      "qtd": 7531
+    },
+    {
+      "nome": "Problema com o cartão",
+      "qtd": 6411
+    },
+    {
+      "nome": "Oferta indevida de empréstimo",
+      "qtd": 4447
+    },
+    {
+      "nome": "Estorno do valor pago",
+      "qtd": 4219
+    }
+  ],
+  "recentes": [
+    {
+      "titulo": "Negativa de portabilidade e refinanciamento pelo BMG com parcelas altas",
+      "status": "PENDING",
+      "data": "10/08/2026"
+    },
+    {
+      "titulo": "Dificuldade em obter fatura atualizada para quitação de cartão consignado",
+      "status": "PENDING",
+      "data": "10/08/2026"
+    },
+    {
+      "titulo": "Cobrança de dívida prescrita de 2007 no CPF e Serasa",
+      "status": "PENDING",
+      "data": "10/08/2026"
+    },
+    {
+      "titulo": "Solicitação de cancelamento de seguro prestamista e estorno",
+      "status": "PENDING",
+      "data": "10/08/2026"
+    },
+    {
+      "titulo": "Solicitação de cancelamento de débito automático de empréstimo",
+      "status": "PENDING",
+      "data": "10/08/2026"
+    }
+  ]
 };
 
 const resumo = {
@@ -1834,7 +1929,7 @@ const resumo = {
     {
       "icon": "📺",
       "channel": "YouTube",
-      "metric": "28 comentários",
+      "metric": "27 comentários",
       "metricNeg": false,
       "sub": "canal oficial: 10 vídeos, 2.2M views",
       "theme": "Tema nº1 (menções): RMC / cartão consignado / INSS"
@@ -2358,6 +2453,9 @@ renderResumo();
   if (typeof youtube !== 'undefined' && youtube) {
     const b = document.getElementById('tabYoutubeBtn'); if (b) b.hidden = false;
   }
+  if (typeof reclameAqui !== 'undefined' && reclameAqui) {
+    const b = document.getElementById('tabRaBtn'); if (b) b.hidden = false;
+  }
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === active));
   document.querySelectorAll('.tab-panel').forEach(p => { p.hidden = (p.id !== 'tab-' + active); });
 })();
@@ -2465,6 +2563,48 @@ function renderYoutube() {
   `).join('') || '<div class="theme-trend-empty">Sem comentários relevantes no período.</div>';
 }
 renderYoutube();
+
+// ---- Reclame Aqui (reputação pública — fonte complementar, atualizada sob demanda) ----
+function renderReclameAqui() {
+  if (typeof reclameAqui === 'undefined' || !reclameAqui) return;
+  const ra = reclameAqui;
+  document.getElementById('raCard').style.display = 'block';
+  if (ra.periodo) document.getElementById('raMonth').textContent = '· ' + ra.periodo;
+
+  const s6 = ra.seis_meses || {};
+  document.getElementById('raRep').innerHTML =
+    `<div class="ra-rep-selo">${ra.reputacao?.selo || 'Reputação'}</div>` +
+    `<div class="ra-rep-nota"><strong>${ra.reputacao?.nota ?? '—'}</strong>/10 <span>nota de reputação no período</span></div>` +
+    (ra.capturado_em ? `<div class="ra-rep-cap">Consultado em ${ra.capturado_em}</div>` : '');
+
+  const tiles = [
+    { label: 'Reclamações no período', value: fmtViews(s6.reclamacoes || 0), note: s6.ultimos30 ? s6.ultimos30 + ' nos últimos 30 dias' : '' },
+    { label: 'Respondidas', value: (s6.respondidas ?? '—') + '%', note: s6.tempoRespostaDias ? 'em ~' + s6.tempoRespostaDias + ' dias' : '' },
+    { label: 'Resolvidas', value: (s6.resolvidas ?? '—') + '%', note: 'das reclamações recebidas' },
+    { label: 'Voltariam a fazer negócio', value: (s6.voltariam ?? '—') + '%', note: 'nota do consumidor ' + (s6.notaConsumidor ?? '—') },
+  ];
+  document.getElementById('raStatRow').innerHTML = tiles.map(t =>
+    `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note">${t.note}</div></div>`
+  ).join('');
+
+  const probs = ra.topProblemas || [];
+  const maxP = Math.max(1, ...probs.map(p => p.qtd || 0));
+  document.getElementById('raProblems').innerHTML = probs.slice(0, 7).map(p => `
+    <div class="ra-bar">
+      <div class="ra-bar-head"><span>${p.nome}</span><span>${fmtViews(p.qtd)}</span></div>
+      <div class="version-bar-track"><div class="version-bar-fill" style="width:${(p.qtd || 0) / maxP * 100}%; background:${colors.critical}"></div></div>
+    </div>
+  `).join('') || '<div class="theme-trend-empty">Sem dados de temas.</div>';
+
+  const statusLabel = { PENDING: 'não respondida', ANSWERED: 'respondida', EVALUATED: 'avaliada', PROCESSING: 'em tratativa' };
+  document.getElementById('raRecent').innerHTML = (ra.recentes || []).slice(0, 6).map(r => `
+    <div class="yt-theme">
+      <div class="yt-theme-head"><span class="yt-theme-label">${r.titulo}</span></div>
+      <div class="yt-quote-meta">${statusLabel[r.status] || (r.status || '').toLowerCase()}${r.data ? ' · ' + r.data : ''}</div>
+    </div>
+  `).join('') || '<div class="theme-trend-empty">Sem reclamações recentes.</div>';
+}
+renderReclameAqui();
 
 // ---- Data da última atualização ----
 if (typeof generatedAt !== 'undefined' && generatedAt) {
