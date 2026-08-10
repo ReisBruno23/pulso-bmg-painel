@@ -218,6 +218,15 @@
   .ra-bar { margin-bottom: 10px; }
   .ra-bar-head { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--text-primary); margin-bottom: 3px; }
   .ra-bar-head span:last-child { color: var(--text-muted); white-space: nowrap; }
+  .ra-map-intro { font-size: 13px; color: var(--text-muted); margin: 2px 0 12px; }
+  .ra-map-level { border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; background: var(--page); }
+  .ra-map-level.is-target { border-color: #2f6fed; border-left-width: 3px; }
+  .ra-map-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .ra-map-title { font-weight: 700; font-size: 13.5px; color: var(--text-primary); }
+  .ra-map-title .tag { font-weight: 600; font-size: 11px; color: #2f6fed; }
+  .ra-map-total { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+  .ra-map-note { font-size: 12px; color: var(--text-muted); margin: 3px 0 9px; }
+  .ra-map-arrow { text-align: center; color: var(--text-muted); font-size: 12px; line-height: 1; margin: 1px 0; }
 </style>
 </head>
 <body>
@@ -328,18 +337,10 @@
     <p class="desc">Retrato da reputação pública do BMG no Reclame Aqui — o ângulo de <strong>crédito e cobrança</strong> que as lojas de app não capturam. Métricas do período informado, assuntos mais reclamados e reclamações recentes.</p>
     <div id="raRep" class="ra-rep"></div>
     <div class="stat-row" id="raStatRow"></div>
-    <div class="yt-front">
-      <div class="yt-grid">
-        <div>
-          <div class="yt-subtitle">Assuntos mais reclamados (acumulado histórico)</div>
-          <div id="raProblems"></div>
-        </div>
-        <div>
-          <div class="yt-subtitle">Reclamações recentes</div>
-          <div id="raRecent"></div>
-        </div>
-      </div>
-    </div>
+    <div class="yt-subtitle" style="margin-top:18px">Do geral ao app — mapa das reclamações</div>
+    <div id="raMap"></div>
+    <div class="yt-subtitle" style="margin-top:18px">Reclamações recentes</div>
+    <div id="raRecent"></div>
   </div>
   </div><!-- fim aba Reclame Aqui -->
 </div>
@@ -1601,27 +1602,27 @@ const coverage = [
 const classificationExamples = {
   "positivo": [
     {
-      "text": "Estou com dificuldade para receber o cartão que já solicitei várias vezes, já paguei 3 taxas e não recebi o cartão. Estou solicitando faz quase 1 ano.",
-      "rating": 5,
-      "date": "2026-07-16",
-      "store": "google_play"
-    },
-    {
       "text": "o app é bom, mas esses duas estou entrando e não consigo ver limite do cartão e nem acessar para pagar os boletos pelo app, a função simplesmente sumiu",
       "rating": 4,
       "date": "2026-07-07",
+      "store": "google_play"
+    },
+    {
+      "text": "Estou com dificuldade para receber o cartão que já solicitei várias vezes, já paguei 3 taxas e não recebi o cartão. Estou solicitando faz quase 1 ano.",
+      "rating": 5,
+      "date": "2026-07-16",
       "store": "google_play"
     }
   ],
   "negativo": [
     {
-      "text": "Vou falar Algo triste, Eu gostava muito, muito de Usar o BMG mais infelizmente o app da muitas instabilidades, várias vezes ao entrar pra passar Pix ou fazer pagamento sistema indisponível. gente um banco tão conhecido com um app desse geito. sinceramente não gosto de usar instituição de pagamento como mercado pago, TonStone, pague Benk. mais confesso que tou usando pois tem sido os melhores. mais fico triste em ter que falar isso. mais sei que isso pode mudar depende do banco bmg .",
-      "rating": 2,
-      "date": "2026-07-29",
+      "text": "Tentei iniciar a análise e disse que tinha sido reprovada, sendo que meu score é altíssimo. Tentei de novo informando um valor de investmemto maior e passou, pediram pra enviar meus dados e cadastrar facial. Em minutos a conta \"estava liberada\". aí começa outro parto, escolhar a conta grátis, que nunca consegue concluir, por não reconhecer a facial. Eu ativei o token e tentei escolher a conta no mesmo ambiente, com a mesma iluminação, e simplesmente não funciona. Péssima experiência,.",
+      "rating": 1,
+      "date": "2026-07-13",
       "store": "google_play"
     },
     {
-      "text": "Tentei iniciar a análise e disse que tinha sido reprovada, sendo que meu score é altíssimo. Tentei de novo informando um valor de investmemto maior e passou, pediram pra enviar meus dados e cadastrar facial. Em minutos a conta \"estava liberada\". aí começa outro parto, escolhar a conta grátis, que nunca consegue concluir, por não reconhecer a facial. Eu ativei o token e tentei escolher a conta no mesmo ambiente, com a mesma iluminação, e simplesmente não funciona. Péssima experiência,.",
+      "text": "Baixei o app e abri conta nesse banco, mas quando vou acessar pondo meu CPF e senha, ele não abre e sempre com mesma mensagem dizendo: sistema indisponível, tente novamente mais tarde. Se no início da abertura de conta já está assim, imagina o que me espera, por causa disso , quando eu entrar já vou fechar a conta e sair desse app, realmente ele é horrível, pois o único contato do cliente com o banco é o app, assim complica muito a vida dos clientes.",
       "rating": 1,
       "date": "2026-07-13",
       "store": "google_play"
@@ -1629,9 +1630,9 @@ const classificationExamples = {
   ],
   "neutro": [
     {
-      "text": "o que aconteceu que não consigo acessar meu banco hoje??",
+      "text": "o aplicativo apresenta falhas recorrente, não da para compartilhar dados trava na tela dos bancos.",
       "rating": 3,
-      "date": "2026-07-12",
+      "date": "2026-07-18",
       "store": "google_play"
     },
     {
@@ -1703,28 +1704,28 @@ const youtube = {
       },
       {
         "title": "#BMGB4 #S3EP3 - Quais foram as ações que permitiram a melhora na rentabilidade do Banco?",
-        "views": 520297,
+        "views": 520845,
         "comments": 0,
         "url": "https://youtu.be/U_EbvcVbuac",
         "date": "2026-07-20"
       },
       {
         "title": "#BMGB4 #S3EP3 Alavancas de Negócios | Flavio Neto",
-        "views": 290512,
+        "views": 290515,
         "comments": 20,
         "url": "https://youtu.be/mjtfz3JtsRQ",
         "date": "2026-07-15"
       },
       {
         "title": "#BMGB4 #S3EP3 Qual a importância do consignado privado para o Bmg?",
-        "views": 17818,
+        "views": 17870,
         "comments": 4,
         "url": "https://youtu.be/uwYNW9mAqvI",
         "date": "2026-07-27"
       },
       {
         "title": "#BMGB4 #S3EP3 O que significa o ciclo virtuoso na estratégia do Banco?",
-        "views": 14822,
+        "views": 14739,
         "comments": 3,
         "url": "https://youtu.be/kbcOu0fVJRg",
         "date": "2026-08-03"
@@ -1738,7 +1739,7 @@ const youtube = {
       }
     ],
     "videoCount": 10,
-    "totalViews": 2161935,
+    "totalViews": 2162458,
     "totalComments": 44
   },
   "mentions": {
@@ -1849,36 +1850,6 @@ const reclameAqui = {
     "notaConsumidor": 7.45,
     "tempoRespostaDias": 10.8
   },
-  "topProblemas": [
-    {
-      "nome": "Cobrança indevida",
-      "qtd": 30716
-    },
-    {
-      "nome": "Demora na execução",
-      "qtd": 9516
-    },
-    {
-      "nome": "Cancelamento",
-      "qtd": 7610
-    },
-    {
-      "nome": "Mau atendimento",
-      "qtd": 7531
-    },
-    {
-      "nome": "Problema com o cartão",
-      "qtd": 6411
-    },
-    {
-      "nome": "Oferta indevida de empréstimo",
-      "qtd": 4447
-    },
-    {
-      "nome": "Estorno do valor pago",
-      "qtd": 4219
-    }
-  ],
   "recentes": [
     {
       "titulo": "Negativa de portabilidade e refinanciamento pelo BMG com parcelas altas",
@@ -1905,7 +1876,71 @@ const reclameAqui = {
       "status": "PENDING",
       "data": "10/08/2026"
     }
-  ]
+  ],
+  "mapa_app": {
+    "intro": "Do panorama geral até o recorte do app — cada nível foca mais. Números acumulados (histórico da empresa no Reclame Aqui).",
+    "niveis": [
+      {
+        "titulo": "1. No geral — todos os assuntos",
+        "nota": "A grande maioria das reclamações é sobre crédito, cobrança e cartão.",
+        "itens": [
+          {
+            "nome": "Cobrança indevida",
+            "qtd": 30716
+          },
+          {
+            "nome": "Demora na execução",
+            "qtd": 9516
+          },
+          {
+            "nome": "Cancelamento",
+            "qtd": 7610
+          },
+          {
+            "nome": "Problema com o cartão",
+            "qtd": 6411
+          }
+        ]
+      },
+      {
+        "titulo": "2. Recorte digital — canais de app/site",
+        "nota": "Onde a experiência digital aparece dentro do total.",
+        "itens": [
+          {
+            "nome": "Internet Banking (canal digital)",
+            "qtd": 3594
+          },
+          {
+            "nome": "Aplicativos",
+            "qtd": 109
+          },
+          {
+            "nome": "Problemas com o Site",
+            "qtd": 38
+          }
+        ]
+      },
+      {
+        "titulo": "3. No app / acesso digital",
+        "nota": "A dor concreta de quem usa o app: acesso e login — mesmo padrão que aparece nas lojas.",
+        "destaque": true,
+        "itens": [
+          {
+            "nome": "Não consigo acessar minha conta",
+            "qtd": 814
+          },
+          {
+            "nome": "Problemas com senha",
+            "qtd": 307
+          },
+          {
+            "nome": "Problema de acesso ao Internet Banking",
+            "qtd": 290
+          }
+        ]
+      }
+    ]
+  }
 };
 
 const resumo = {
@@ -2587,14 +2622,31 @@ function renderReclameAqui() {
     `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note">${t.note}</div></div>`
   ).join('');
 
-  const probs = ra.topProblemas || [];
-  const maxP = Math.max(1, ...probs.map(p => p.qtd || 0));
-  document.getElementById('raProblems').innerHTML = probs.slice(0, 7).map(p => `
-    <div class="ra-bar">
-      <div class="ra-bar-head"><span>${p.nome}</span><span>${fmtViews(p.qtd)}</span></div>
-      <div class="version-bar-track"><div class="version-bar-fill" style="width:${(p.qtd || 0) / maxP * 100}%; background:${colors.critical}"></div></div>
-    </div>
-  `).join('') || '<div class="theme-trend-empty">Sem dados de temas.</div>';
+  // Mapa das reclamações: do panorama geral, descendo o funil até o recorte do app/acesso.
+  const map = ra.mapa_app;
+  if (map && (map.niveis || []).length) {
+    let html = map.intro ? `<div class="ra-map-intro">${map.intro}</div>` : '';
+    map.niveis.forEach((lv, i) => {
+      const items = lv.itens || [];
+      const maxQ = Math.max(1, ...items.map(x => x.qtd || 0));
+      const barColor = lv.destaque ? '#2f6fed' : colors.neutral;
+      if (i > 0) html += '<div class="ra-map-arrow">↓</div>';
+      html += `
+        <div class="ra-map-level ${lv.destaque ? 'is-target' : ''}" style="margin-left:${i * 18}px">
+          <div class="ra-map-head">
+            <div class="ra-map-title">${lv.titulo}${lv.destaque ? ' <span class="tag">◆ foco Design</span>' : ''}</div>
+            ${lv.total ? `<div class="ra-map-total">${lv.total}</div>` : ''}
+          </div>
+          ${lv.nota ? `<div class="ra-map-note">${lv.nota}</div>` : ''}
+          ${items.map(x => `
+            <div class="ra-bar">
+              <div class="ra-bar-head"><span>${x.nome}</span><span>${fmtViews(x.qtd)}</span></div>
+              <div class="version-bar-track"><div class="version-bar-fill" style="width:${(x.qtd || 0) / maxQ * 100}%; background:${barColor}"></div></div>
+            </div>`).join('')}
+        </div>`;
+    });
+    document.getElementById('raMap').innerHTML = html;
+  }
 
   const statusLabel = { PENDING: 'não respondida', ANSWERED: 'respondida', EVALUATED: 'avaliada', PROCESSING: 'em tratativa' };
   document.getElementById('raRecent').innerHTML = (ra.recentes || []).slice(0, 6).map(r => `
