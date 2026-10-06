@@ -222,6 +222,15 @@
   .ra-month-table td.down { color: var(--good); font-weight: 600; }
   .ra-month-table tr.grp td { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; padding: 14px 10px 4px; border-bottom: none; }
   .bench-sub-inline { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+  .vol-chart { display: flex; gap: 10px; margin: 12px 0 8px; max-width: 520px; }
+  .vol-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .vol-track { height: 120px; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+  .vol-bar { width: 100%; max-width: 46px; background: var(--neutral); border-radius: 4px 4px 0 0; min-height: 2px; }
+  .vol-col.is-ref .vol-bar { background: var(--text-primary); }
+  .vol-val { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .vol-col.is-ref .vol-val { color: var(--text-primary); font-weight: 700; }
+  .vol-lbl { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+  .vol-col.is-ref .vol-lbl { color: var(--text-primary); font-weight: 700; }
 
   /* ── Benchmark competitivo ── */
   .bench-story { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 9px; }
@@ -365,6 +374,10 @@
     <p class="desc">Retrato da reputação pública do BMG no Reclame Aqui — o ângulo de <strong>crédito e cobrança</strong> que as lojas de app não capturam. Reputação nos últimos 6 meses (o período padrão do Reclame Aqui), reclamações de app e acesso mês a mês — com foco no último mês fechado — e reclamações recentes.</p>
     <div id="raRep" class="ra-rep"></div>
     <div class="stat-row" id="raStatRow"></div>
+    <div id="raVolumeBlock" style="display:none">
+      <div class="yt-subtitle" style="margin-top:18px">Volume de reclamações — mês a mês <span id="raVolumeWin"></span></div>
+      <div id="raVolume"></div>
+    </div>
     <div class="yt-subtitle" style="margin-top:18px">App e acesso — mês a mês <span id="raMonthlyWin"></span></div>
     <div id="raMonthly"></div>
     <div class="yt-subtitle" style="margin-top:18px">Reclamações recentes</div>
@@ -1967,21 +1980,21 @@ const youtube = {
 };
 
 const reclameAqui = {
-  "capturado_em": "05/10/2026",
+  "capturado_em": "06/10/2026",
   "periodo": "01/04/2026 a 30/09/2026",
   "reputacao": {
     "selo": "RA1000",
     "nota": 8.3
   },
   "seis_meses": {
-    "reclamacoes": 10437,
-    "aguardandoResposta": 213,
-    "respondidas": 97.9,
-    "resolvidas": 90.2,
-    "voltariam": 70.4,
-    "avaliadas": 3109,
-    "notaConsumidor": 7.42,
-    "tempoRespostaDias": 10.67
+    "reclamacoes": 10431,
+    "aguardandoResposta": 177,
+    "respondidas": 98.3,
+    "resolvidas": 90.6,
+    "voltariam": 70.6,
+    "avaliadas": 3123,
+    "notaConsumidor": 7.45,
+    "tempoRespostaDias": 10.65
   },
   "recentes": [
     {
@@ -2348,6 +2361,65 @@ const reclameAqui = {
         ]
       }
     }
+  },
+  "paineis": {
+    "capturado_em": "2026-10-06",
+    "bancos": {
+      "bmg": {
+        "seis_meses": {
+          "de": "2026-04-01",
+          "ate": "2026-09-30",
+          "reclamacoes": 10431
+        },
+        "doze_meses": {
+          "de": "2025-10-01",
+          "ate": "2026-09-30",
+          "reclamacoes": 23461
+        },
+        "ano_anterior": {
+          "de": "2025-01-01",
+          "ate": "2025-12-31",
+          "reclamacoes": 26848
+        },
+        "ultimos30": 1507
+      },
+      "mercantil": {
+        "seis_meses": {
+          "de": "2026-04-01",
+          "ate": "2026-09-30",
+          "reclamacoes": 16265
+        },
+        "doze_meses": {
+          "de": "2025-10-01",
+          "ate": "2026-09-30",
+          "reclamacoes": 29335
+        },
+        "ano_anterior": {
+          "de": "2025-01-01",
+          "ate": "2025-12-31",
+          "reclamacoes": 21655
+        },
+        "ultimos30": 3739
+      },
+      "agibank": {
+        "seis_meses": {
+          "de": "2026-04-01",
+          "ate": "2026-09-30",
+          "reclamacoes": 20315
+        },
+        "doze_meses": {
+          "de": "2025-10-01",
+          "ate": "2026-09-30",
+          "reclamacoes": 38747
+        },
+        "ano_anterior": {
+          "de": "2025-01-01",
+          "ate": "2025-12-31",
+          "reclamacoes": 43775
+        },
+        "ultimos30": 3909
+      }
+    }
   }
 };
 
@@ -2485,7 +2557,7 @@ const raMensal = {
       "label": "BMG",
       "isBmg": true,
       "count": 314,
-      "total": 10437,
+      "total": 10431,
       "share": 3
     },
     {
@@ -2493,7 +2565,7 @@ const raMensal = {
       "label": "Mercantil",
       "isBmg": false,
       "count": 327,
-      "total": 16269,
+      "total": 16265,
       "share": 2
     },
     {
@@ -2501,7 +2573,7 @@ const raMensal = {
       "label": "Agibank",
       "isBmg": false,
       "count": 287,
-      "total": 20332,
+      "total": 20315,
       "share": 1.4
     }
   ],
@@ -2520,9 +2592,37 @@ const raMensal = {
     },
     {
       "tone": "watch",
-      "html": "<strong>Peso no total:</strong> no semestre, app e acesso somam 314 das 10.437 reclamações do BMG (3%) — a maior parte do Reclame Aqui é sobre outros assuntos. Ainda assim, é uma fatia maior que a dos concorrentes (Mercantil 2% · Agibank 1.4%)."
+      "html": "<strong>Peso no total:</strong> no semestre, app e acesso somam 314 das 10.431 reclamações do BMG (3%) — a maior parte do Reclame Aqui é sobre outros assuntos. Ainda assim, é uma fatia maior que a dos concorrentes (Mercantil 2% · Agibank 1.4%)."
     }
   ]
+};
+
+const raVolume = {
+  "official": {
+    "capturado_em": "2026-10-06",
+    "de": "2026-04-01",
+    "ate": "2026-09-30",
+    "semestre": 10431,
+    "semestreAnterior": 13030,
+    "varSemestre": -19.9,
+    "mediaMensal": 1739,
+    "ultimos30": 1507,
+    "var30": -13.3
+  },
+  "monthly": null,
+  "story": [
+    {
+      "tone": "good",
+      "html": "<strong>Semestre (abr–set/2026):</strong> 10.431 reclamações, -19.9% vs. o semestre anterior (13.030) — números oficiais do Reclame Aqui."
+    },
+    {
+      "tone": "good",
+      "html": "<strong>Últimos 30 dias (até 06/10/2026):</strong> 1.507 reclamações — 13.3% abaixo da média mensal do semestre (≈ 1.739)."
+    }
+  ],
+  "top": [],
+  "riser": null,
+  "avgBefore": null
 };
 
 const resumo = {
@@ -2556,7 +2656,7 @@ const resumo = {
       "channel": "Reclame Aqui",
       "metric": "8.3/10",
       "metricNeg": false,
-      "sub": "10.437 reclamações em 6 meses · 90.2% resolvidas",
+      "sub": "1.507 reclamações nos últimos 30 dias (-13.3% vs. a média do semestre) · 90.6% resolvidas",
       "theme": "Selo RA1000 — reputação máxima"
     }
   ],
@@ -2579,7 +2679,7 @@ const resumo = {
     },
     {
       "ico": "📋",
-      "html": "<strong>Reputação pública preservada:</strong> selo RA1000 no Reclame Aqui, nota 8.3/10 — 90.2% das reclamações resolvidas e 70.4% voltariam a fazer negócio."
+      "html": "<strong>Reputação pública preservada:</strong> selo RA1000 no Reclame Aqui, nota 8.3/10 — 90.6% das reclamações resolvidas e 70.6% voltariam a fazer negócio. O volume de reclamações caiu 19.9% no semestre (13.030 → 10.431)."
     }
   ],
   "market": [
@@ -2589,7 +2689,11 @@ const resumo = {
     },
     {
       "ico": "📋",
-      "html": "<strong>Reclame Aqui:</strong> o BMG é quem mais resolve (BMG 90.2% · Agibank 90% · Mercantil 86.6%), mas é o mais lento para responder (Agibank 4.8 dias · Mercantil 9.3 dias · BMG 10.7 dias)."
+      "html": "<strong>Reclame Aqui:</strong> o BMG é quem mais resolve (BMG 90.6% · Agibank 90% · Mercantil 86.6%), mas é o mais lento para responder (Agibank 4.9 dias · Mercantil 9.3 dias · BMG 10.7 dias)."
+    },
+    {
+      "ico": "📉",
+      "html": "<strong>Volume no Reclame Aqui (semestre vs. anterior):</strong> BMG -19.9% · Mercantil +24.4% · Agibank +10.2% — o BMG é o único recebendo menos reclamações; os concorrentes crescem."
     },
     {
       "ico": "⭐",
@@ -2730,13 +2834,13 @@ const competitors = {
       "ra": {
         "status": "RA1000",
         "nota": 8.3,
-        "reclamacoes": 10437,
-        "respondidas": 97.9,
-        "resolvidas": 90.2,
-        "voltariam": 70.4,
-        "notaConsumidor": 7.42,
-        "tempoRespostaDias": 10.67,
-        "aguardando": 213,
+        "reclamacoes": 10431,
+        "respondidas": 98.3,
+        "resolvidas": 90.6,
+        "voltariam": 70.6,
+        "notaConsumidor": 7.45,
+        "tempoRespostaDias": 10.65,
+        "aguardando": 177,
         "statusHistory": [
           {
             "month": "2026-04",
@@ -2763,7 +2867,19 @@ const competitors = {
             "status": "RA1000"
           }
         ],
-        "periodo": "01/04/2026 a 30/09/2026"
+        "periodo": "01/04/2026 a 30/09/2026",
+        "vol": null,
+        "painel": {
+          "capturado_em": "2026-10-06",
+          "de": "2026-04-01",
+          "ate": "2026-09-30",
+          "semestre": 10431,
+          "semestreAnterior": 13030,
+          "varSemestre": -19.9,
+          "mediaMensal": 1739,
+          "ultimos30": 1507,
+          "var30": -13.3
+        }
       },
       "rating": {
         "gp": 4.72,
@@ -2812,14 +2928,14 @@ const competitors = {
       ],
       "ra": {
         "status": "Ótima",
-        "nota": 8,
-        "reclamacoes": 16269,
-        "respondidas": 95.5,
+        "nota": 8.1,
+        "reclamacoes": 16265,
+        "respondidas": 96.2,
         "resolvidas": 86.6,
         "voltariam": 67.1,
-        "notaConsumidor": 7.33,
-        "tempoRespostaDias": 9.25,
-        "aguardando": 727,
+        "notaConsumidor": 7.32,
+        "tempoRespostaDias": 9.28,
+        "aguardando": 598,
         "statusHistory": [
           {
             "month": "2026-04",
@@ -2846,7 +2962,19 @@ const competitors = {
             "status": "Ótima"
           }
         ],
-        "periodo": "01/04/2026 a 30/09/2026"
+        "periodo": "01/04/2026 a 30/09/2026",
+        "vol": null,
+        "painel": {
+          "capturado_em": "2026-10-06",
+          "de": "2026-04-01",
+          "ate": "2026-09-30",
+          "semestre": 16265,
+          "semestreAnterior": 13070,
+          "varSemestre": 24.4,
+          "mediaMensal": 2711,
+          "ultimos30": 3739,
+          "var30": 37.9
+        }
       },
       "rating": {
         "gp": 4.8,
@@ -2906,13 +3034,13 @@ const competitors = {
       "ra": {
         "status": "RA1000",
         "nota": 8.4,
-        "reclamacoes": 20332,
-        "respondidas": 98,
+        "reclamacoes": 20315,
+        "respondidas": 98.6,
         "resolvidas": 90,
-        "voltariam": 73.4,
-        "notaConsumidor": 7.47,
-        "tempoRespostaDias": 4.83,
-        "aguardando": 410,
+        "voltariam": 73.3,
+        "notaConsumidor": 7.46,
+        "tempoRespostaDias": 4.9,
+        "aguardando": 276,
         "statusHistory": [
           {
             "month": "2026-04",
@@ -2939,7 +3067,19 @@ const competitors = {
             "status": "RA1000"
           }
         ],
-        "periodo": "01/04/2026 a 30/09/2026"
+        "periodo": "01/04/2026 a 30/09/2026",
+        "vol": null,
+        "painel": {
+          "capturado_em": "2026-10-06",
+          "de": "2026-04-01",
+          "ate": "2026-09-30",
+          "semestre": 20315,
+          "semestreAnterior": 18432,
+          "varSemestre": 10.2,
+          "mediaMensal": 3386,
+          "ultimos30": 3909,
+          "var30": 15.4
+        }
       },
       "rating": {
         "gp": 4.61,
@@ -2985,7 +3125,7 @@ const competitors = {
         "label": "Reputação (nota de 0 a 10)",
         "values": [
           "8.3",
-          "8",
+          "8.1",
           "8.4"
         ],
         "best": 2,
@@ -3004,7 +3144,7 @@ const competitors = {
       {
         "label": "Reclamações resolvidas",
         "values": [
-          "90.2%",
+          "90.6%",
           "86.6%",
           "90%"
         ],
@@ -3014,9 +3154,9 @@ const competitors = {
       {
         "label": "Reclamações respondidas",
         "values": [
-          "97.9%",
-          "95.5%",
-          "98%"
+          "98.3%",
+          "96.2%",
+          "98.6%"
         ],
         "best": 2,
         "note": null
@@ -3026,7 +3166,7 @@ const competitors = {
         "values": [
           "10.7 dias",
           "9.3 dias",
-          "4.8 dias"
+          "4.9 dias"
         ],
         "best": 2,
         "note": null
@@ -3034,9 +3174,9 @@ const competitors = {
       {
         "label": "Voltariam a fazer negócio",
         "values": [
-          "70.4%",
+          "70.6%",
           "67.1%",
-          "73.4%"
+          "73.3%"
         ],
         "best": 2,
         "note": null
@@ -3044,9 +3184,9 @@ const competitors = {
       {
         "label": "Nota do consumidor (0 a 10)",
         "values": [
-          "7.42",
-          "7.33",
-          "7.47"
+          "7.45",
+          "7.32",
+          "7.46"
         ],
         "best": 2,
         "note": null
@@ -3054,11 +3194,11 @@ const competitors = {
       {
         "label": "Aguardando resposta (% das recebidas)",
         "values": [
-          "2%",
-          "4.5%",
-          "2%"
+          "1.7%",
+          "3.7%",
+          "1.4%"
         ],
-        "best": null,
+        "best": 2,
         "note": null
       },
       {
@@ -3074,12 +3214,32 @@ const competitors = {
       {
         "label": "Reclamações recebidas (6 meses)",
         "values": [
-          "10.437",
-          "16.269",
-          "20.332"
+          "10.431",
+          "16.265",
+          "20.315"
         ],
         "best": null,
         "note": "depende do tamanho da base de clientes — não serve pra ranquear"
+      },
+      {
+        "label": "Volume — semestre vs. semestre anterior",
+        "values": [
+          "-19.9%",
+          "+24.4%",
+          "+10.2%"
+        ],
+        "best": null,
+        "note": "variação do próprio banco (totais oficiais) — o tamanho da base não interfere"
+      },
+      {
+        "label": "Últimos 30 dias vs. média mensal do semestre",
+        "values": [
+          "-13.3%",
+          "+37.9%",
+          "+15.4%"
+        ],
+        "best": null,
+        "note": "mostra se o volume recente está acima ou abaixo do ritmo do semestre"
       },
       {
         "label": "App e acesso (% das reclamações, 6 meses)",
@@ -3105,19 +3265,23 @@ const competitors = {
     "story": [
       {
         "tone": "good",
-        "html": "<strong>Resolução:</strong> o BMG é quem mais resolve — BMG 90.2% · Agibank 90% · Mercantil 86.6%."
+        "html": "<strong>Resolução:</strong> o BMG é quem mais resolve — BMG 90.6% · Agibank 90% · Mercantil 86.6%."
       },
       {
         "tone": "risk",
-        "html": "<strong>Tempo de resposta:</strong> o BMG é o mais lento — Agibank 4.8 dias · Mercantil 9.3 dias · BMG 10.7 dias. Resolver muito mas responder devagar é a combinação que mais desgasta quem está esperando."
+        "html": "<strong>Tempo de resposta:</strong> o BMG é o mais lento — Agibank 4.9 dias · Mercantil 9.3 dias · BMG 10.7 dias. Resolver muito mas responder devagar é a combinação que mais desgasta quem está esperando."
       },
       {
         "tone": "watch",
-        "html": "<strong>Voltariam a fazer negócio:</strong> Agibank 73.4% · BMG 70.4% · Mercantil 67.1%."
+        "html": "<strong>Voltariam a fazer negócio:</strong> Agibank 73.3% · BMG 70.6% · Mercantil 67.1%."
       },
       {
         "tone": "watch",
         "html": "<strong>Constância da reputação (últimos 6 meses):</strong> BMG 2 de 6 meses em RA1000 · Mercantil 0 de 6 meses em RA1000 · Agibank 6 de 6 meses em RA1000. O BMG chegou ao RA1000 mais recentemente — manter o selo depende de sustentar resolução e prazo."
+      },
+      {
+        "tone": "good",
+        "html": "<strong>Volume de reclamações:</strong> no semestre, contra o anterior, BMG -19.9% · Mercantil +24.4% · Agibank +10.2% — o BMG é o único do trio recebendo menos reclamações, enquanto os concorrentes crescem. Nos últimos 30 dias, frente à média mensal do semestre: BMG -13.3% · Mercantil +37.9% · Agibank +15.4% — a tendência segue a mesma no período mais recente."
       },
       {
         "tone": "risk",
@@ -3671,16 +3835,23 @@ function renderReclameAqui() {
     `<div class="ra-rep-nota"><strong>${ra.reputacao?.nota ?? '—'}</strong>/10 <span>nota de reputação no período</span></div>` +
     (ra.capturado_em ? `<div class="ra-rep-cap">Consultado em ${ra.capturado_em}</div>` : '');
 
+  const vol = (typeof raVolume !== 'undefined' && raVolume) ? raVolume : null;
+  const signed = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n + '%');
   const tiles = [
-    { label: 'Reclamações no período', value: fmtViews(s6.reclamacoes || 0), note: s6.ultimos30 ? s6.ultimos30 + ' nos últimos 30 dias' : '' },
-    { label: 'Respondidas', value: (s6.respondidas ?? '—') + '%', note: s6.tempoRespostaDias ? 'em ~' + s6.tempoRespostaDias + ' dias' : '' },
-    { label: 'Resolvidas', value: (s6.resolvidas ?? '—') + '%', note: 'das reclamações recebidas' },
-    { label: 'Voltariam a fazer negócio', value: (s6.voltariam ?? '—') + '%', note: 'nota do consumidor ' + (s6.notaConsumidor ?? '—') },
+    vol && vol.monthly
+      ? { label: 'Reclamações em ' + fmtRefMonth(vol.monthly.refMonth), value: '≈ ' + vol.monthly.ref.toLocaleString('pt-BR'), note: signed(vol.monthly.varMes) + ' vs. ' + fmtRefMonth(vol.monthly.prevMonth).split('/')[0] + ' · ' + vol.official.semestre.toLocaleString('pt-BR') + ' no semestre' }
+      : vol && vol.official.ultimos30 != null
+      ? { label: 'Reclamações — últimos 30 dias', value: vol.official.ultimos30.toLocaleString('pt-BR'), note: signed(vol.official.var30) + ' vs. a média mensal do semestre · ' + vol.official.semestre.toLocaleString('pt-BR') + ' no semestre' }
+      : { label: 'Reclamações no período', value: fmtViews(s6.reclamacoes || 0), note: '' },
+    { label: 'Respondidas (6 meses)', value: (s6.respondidas ?? '—') + '%', note: s6.tempoRespostaDias ? 'em ~' + (Math.round(s6.tempoRespostaDias * 10) / 10) + ' dias' : '' },
+    { label: 'Resolvidas (6 meses)', value: (s6.resolvidas ?? '—') + '%', note: 'das reclamações avaliadas' },
+    { label: 'Voltariam a fazer negócio (6 meses)', value: (s6.voltariam ?? '—') + '%', note: 'nota do consumidor ' + (s6.notaConsumidor ?? '—') },
   ];
   document.getElementById('raStatRow').innerHTML = tiles.map(t =>
     `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note">${t.note}</div></div>`
   ).join('');
 
+  renderRaVolume();
   renderRaMonthly();
 
   const statusLabel = { PENDING: 'não respondida', ANSWERED: 'respondida', EVALUATED: 'avaliada', PROCESSING: 'em tratativa' };
@@ -3692,6 +3863,42 @@ function renderReclameAqui() {
   `).join('') || '<div class="theme-trend-empty">Sem reclamações recentes.</div>';
 }
 renderReclameAqui();
+
+// Volume de reclamações no Reclame Aqui, mês a mês (estimativa ancorada no total oficial de 6 meses)
+function renderRaVolume() {
+  if (typeof raVolume === 'undefined' || !raVolume) return;
+  const o = raVolume.official, v = raVolume.monthly;
+  document.getElementById('raVolumeBlock').style.display = 'block';
+  const mon = (m) => fmtRefMonth(m).split('/')[0];
+  document.getElementById('raVolumeWin').textContent = v
+    ? '· ' + mon(v.months[0]) + ' a ' + fmtRefMonth(v.refMonth)
+    : '· semestre ' + mon(o.de.slice(0, 7)) + '–' + fmtRefMonth(o.ate.slice(0, 7));
+  let chart = '';
+  if (v) {
+    const max = Math.max(...v.est);
+    chart = '<div class="vol-chart">' + v.months.map((m, i) =>
+      `<div class="vol-col${m === v.refMonth ? ' is-ref' : ''}"><div class="vol-val">≈ ${v.est[i].toLocaleString('pt-BR')}</div>` +
+      `<div class="vol-track"><div class="vol-bar" style="height:${Math.round((v.est[i] / max) * 100)}%"></div></div>` +
+      `<div class="vol-lbl">${mon(m)}</div></div>`).join('') + '</div>';
+  }
+  let topTable = '';
+  if (v && raVolume.top.length) {
+    const rows = raVolume.top.map((a) => {
+      const d = a.ref - a.prev;
+      return `<tr><td>${a.nome}${raVolume.riser && raVolume.riser.nome === a.nome ? ' <span class="bench-sub-inline">· maior alta</span>' : ''}</td>` +
+        `<td class="num">${a.share}%</td><td class="num is-ref">${a.ref}</td><td class="num">${a.prev}</td>` +
+        `<td class="num ${d > 0 ? 'up' : d < 0 ? 'down' : ''}">${d > 0 ? '+' : ''}${d}</td></tr>`;
+    }).join('');
+    topTable = `<div class="yt-subtitle" style="margin-top:16px">O que mais pesou em ${fmtRefMonth(v.refMonth)}</div>` +
+      `<div style="overflow-x:auto"><table class="bench-table ra-month-table"><tr><th>Assunto</th><th class="num">% do mês</th><th class="num is-ref">${mon(v.refMonth)}</th><th class="num">${mon(v.prevMonth)}</th><th class="num">${mon(v.refMonth)} vs. ${mon(v.prevMonth)}</th></tr>${rows}</table></div>`;
+  }
+  const foot = v
+    ? `O Reclame Aqui só publica totais por período (6 meses, 12 meses, ano), sem série mensal. Por isso o volume de cada mês é uma estimativa: contamos mês a mês as reclamações que têm assunto informado (${Math.round((100 - v.semAssunto) * 10) / 10}% do total) e distribuímos o total oficial do semestre (${o.semestre.toLocaleString('pt-BR')}) na mesma proporção. O total do semestre é o número oficial; a variação entre os meses vem da contagem. A tabela de assuntos usa a contagem direta.${v.truncadas ? ' Alguns assuntos muito volumosos ficaram com os meses mais antigos incompletos.' : ''}`
+    : 'Totais oficiais do Reclame Aqui: o semestre atual, o semestre anterior (12 meses menos os 6 mais recentes) e os últimos 30 dias, comparados com a média mensal do semestre. O Reclame Aqui não publica a série mês a mês.';
+  document.getElementById('raVolume').innerHTML =
+    `<ul class="bench-story">${raVolume.story.map((s) => `<li class="${s.tone}">${s.html}</li>`).join('')}</ul>` +
+    chart + topTable + `<p class="desc" style="margin-top:10px">${foot}</p>`;
+}
 
 // App e acesso no Reclame Aqui, mês a mês — leitura do último mês fechado vs. o anterior
 function renderRaMonthly() {
