@@ -234,6 +234,7 @@
   .vol-col.is-ref .vol-val { color: var(--text-primary); font-weight: 700; }
   .vol-lbl { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
   .vol-col.is-ref .vol-lbl { color: var(--text-primary); font-weight: 700; }
+  .vol-col.is-partial .vol-bar { opacity: .45; }
 
   /* ── Benchmark competitivo ── */
   .bench-story { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 9px; }
@@ -378,11 +379,8 @@
     <div id="raRep" class="ra-rep"></div>
     <div class="stat-row" id="raStatRow"></div>
     <div id="raVolumeBlock" style="display:none">
-      <div class="yt-subtitle" style="margin-top:18px">Volume de reclamações — BMG vs. concorrentes</div>
-      <div id="raVolumeMarket"></div>
-      <div id="raVolumeTopics"></div>
       <div id="raVolumeBmg" style="display:none">
-        <div class="yt-subtitle" style="margin-top:18px">Volume de reclamações do BMG — mês a mês <span id="raVolumeWin"></span></div>
+        <div class="yt-subtitle" style="margin-top:18px">Reclamações do BMG — mês a mês <span id="raVolumeWin"></span></div>
         <div id="raVolume"></div>
       </div>
     </div>
@@ -394,6 +392,10 @@
 
   <div class="card" id="raBenchCard" style="display:none">
     <h2>Reclame Aqui — BMG vs. concorrentes</h2>
+    <div class="yt-subtitle">Volume de reclamações</div>
+    <div id="raVolumeMarket"></div>
+    <div id="raVolumeTopics"></div>
+    <div class="yt-subtitle" style="margin-top:22px">Reputação e atendimento</div>
     <p class="desc" id="raBenchDesc"></p>
     <ul class="bench-story" id="raBenchStory"></ul>
     <div style="overflow-x:auto"><table class="bench-table ra-bench-table" id="raBenchTable"></table></div>
@@ -2428,6 +2430,367 @@ const reclameAqui = {
         "ultimos30": 3909
       }
     }
+  },
+  "volume_mensal": {
+    "capturado_em": "2026-10-06",
+    "bancos": {
+      "bmg": {
+        "janela": {
+          "de": "2026-04",
+          "ate": "2026-09"
+        },
+        "comAssunto": {
+          "2026-04": 1609,
+          "2026-05": 1197,
+          "2026-06": 997,
+          "2026-07": 923,
+          "2026-08": 1165,
+          "2026-09": 1240
+        },
+        "porAssunto": {
+          "Cobrança indevida": {
+            "2026-09": 385,
+            "2026-08": 413,
+            "2026-07": 310,
+            "2026-06": 232,
+            "2026-05": 280,
+            "2026-04": 330
+          },
+          "Demora na execução": {
+            "2026-09": 22,
+            "2026-08": 77,
+            "2026-07": 55,
+            "2026-06": 44,
+            "2026-05": 81,
+            "2026-04": 93
+          },
+          "Cancelamento": {
+            "2026-09": 123,
+            "2026-08": 147,
+            "2026-07": 124,
+            "2026-06": 111,
+            "2026-05": 163,
+            "2026-04": 210
+          },
+          "Mau Atendimento": {
+            "2026-09": 20,
+            "2026-08": 32,
+            "2026-07": 27,
+            "2026-06": 24,
+            "2026-05": 22,
+            "2026-04": 30
+          },
+          "Outro problema": {
+            "2026-09": 21,
+            "2026-08": 23,
+            "2026-07": 12,
+            "2026-06": 8,
+            "2026-05": 17,
+            "2026-04": 26
+          },
+          "Problema com o cartão": {
+            "2026-09": 47,
+            "2026-08": 62,
+            "2026-07": 58,
+            "2026-06": 54,
+            "2026-05": 58,
+            "2026-04": 81
+          },
+          "Oferta indevida de empréstimo": {
+            "2026-09": 24,
+            "2026-08": 4,
+            "2026-07": 6,
+            "2026-06": 5,
+            "2026-05": 13,
+            "2026-04": 8
+          },
+          "Estorno do valor pago": {
+            "2026-09": 25,
+            "2026-08": 26,
+            "2026-07": 22,
+            "2026-06": 27,
+            "2026-05": 29,
+            "2026-04": 28
+          },
+          "Mau atendimento do prestador de serviço": {
+            "2026-09": 3,
+            "2026-08": 4,
+            "2026-07": 13,
+            "2026-06": 14,
+            "2026-05": 11,
+            "2026-04": 19
+          },
+          "Qualidade do serviço prestado": {
+            "2026-09": 1,
+            "2026-08": 1,
+            "2026-07": 2,
+            "2026-06": 1,
+            "2026-05": 8,
+            "2026-04": 13
+          },
+          "Limite": {
+            "2026-09": 85,
+            "2026-08": 55,
+            "2026-07": 50,
+            "2026-06": 51,
+            "2026-05": 95,
+            "2026-04": 172
+          },
+          "Valor abusivo": {
+            "2026-09": 7,
+            "2026-08": 1,
+            "2026-07": 4,
+            "2026-06": 4,
+            "2026-05": 15,
+            "2026-04": 19
+          },
+          "Bloqueio-desbloqueio de cartão": {
+            "2026-09": 37,
+            "2026-08": 19,
+            "2026-07": 20,
+            "2026-06": 20,
+            "2026-05": 27,
+            "2026-04": 47
+          },
+          "Abertura de conta": {
+            "2026-09": 13,
+            "2026-08": 10,
+            "2026-07": 6,
+            "2026-06": 13,
+            "2026-05": 9,
+            "2026-04": 8
+          },
+          "Problema para quitar o empréstimo": {
+            "2026-09": 70,
+            "2026-08": 47,
+            "2026-07": 38,
+            "2026-06": 49,
+            "2026-05": 43,
+            "2026-04": 76
+          },
+          "Não consigo acessar minha conta": {
+            "2026-09": 56,
+            "2026-08": 23,
+            "2026-07": 27,
+            "2026-06": 36,
+            "2026-05": 38,
+            "2026-04": 50
+          },
+          "Pagamento não localizado": {
+            "2026-09": 22,
+            "2026-08": 17,
+            "2026-07": 16,
+            "2026-06": 40,
+            "2026-05": 37,
+            "2026-04": 36
+          },
+          "Encerramento de conta": {
+            "2026-09": 8,
+            "2026-08": 12,
+            "2026-07": 7,
+            "2026-06": 16,
+            "2026-05": 13,
+            "2026-04": 24
+          },
+          "Juros abusivos": {
+            "2026-09": 25,
+            "2026-08": 18,
+            "2026-07": 13,
+            "2026-06": 19,
+            "2026-05": 31,
+            "2026-04": 48
+          },
+          "Portabilidade do empréstimo": {
+            "2026-09": 26,
+            "2026-08": 5,
+            "2026-07": 4,
+            "2026-06": 5,
+            "2026-05": 9,
+            "2026-04": 13
+          },
+          "Atraso na entrega": {
+            "2026-09": 1,
+            "2026-08": 7,
+            "2026-06": 1,
+            "2026-05": 6,
+            "2026-04": 4
+          },
+          "Renegociação de dívida": {
+            "2026-09": 41,
+            "2026-08": 31,
+            "2026-07": 18,
+            "2026-06": 32,
+            "2026-05": 31,
+            "2026-04": 26
+          },
+          "SPC-Serasa": {
+            "2026-09": 32,
+            "2026-08": 14,
+            "2026-07": 20,
+            "2026-06": 33,
+            "2026-05": 28,
+            "2026-04": 23
+          },
+          "Demora na entrega do cartão": {
+            "2026-08": 1,
+            "2026-06": 2,
+            "2026-05": 4,
+            "2026-04": 3
+          },
+          "Telemarketing": {
+            "2026-09": 1,
+            "2026-07": 1,
+            "2026-06": 1,
+            "2026-05": 3,
+            "2026-04": 8
+          },
+          "Segunda via de boleto": {
+            "2026-09": 30,
+            "2026-08": 20,
+            "2026-07": 24,
+            "2026-06": 27,
+            "2026-05": 20,
+            "2026-04": 61
+          },
+          "Propaganda enganosa": {
+            "2026-09": 6,
+            "2026-08": 7,
+            "2026-07": 1,
+            "2026-06": 2,
+            "2026-05": 7,
+            "2026-04": 5
+          },
+          "Débito não autorizado em conta": {
+            "2026-09": 8,
+            "2026-08": 2,
+            "2026-06": 16,
+            "2026-05": 14,
+            "2026-04": 17
+          },
+          "Atraso na fatura": {
+            "2026-09": 3,
+            "2026-08": 5,
+            "2026-06": 5,
+            "2026-05": 4,
+            "2026-04": 11
+          },
+          "Descumprimento de acordo": {
+            "2026-09": 4,
+            "2026-08": 8,
+            "2026-07": 4,
+            "2026-06": 4,
+            "2026-05": 6,
+            "2026-04": 6
+          },
+          "Cobrança indevida-duplicada de conta": {
+            "2026-09": 3,
+            "2026-08": 3,
+            "2026-07": 1,
+            "2026-06": 4,
+            "2026-05": 13,
+            "2026-04": 21
+          },
+          "Dificuldade em realizar acordo": {
+            "2026-09": 3,
+            "2026-08": 9,
+            "2026-07": 6,
+            "2026-06": 3,
+            "2026-05": 5,
+            "2026-04": 2
+          },
+          "Débito automático": {
+            "2026-09": 1,
+            "2026-08": 1,
+            "2026-06": 45,
+            "2026-05": 33,
+            "2026-04": 5
+          },
+          "Problema de acesso ao Internet Banking": {
+            "2026-09": 7,
+            "2026-08": 3,
+            "2026-06": 2,
+            "2026-05": 4,
+            "2026-04": 9
+          },
+          "Renegociação": {
+            "2026-09": 1
+          },
+          "Não recebimento de cartão": {
+            "2026-09": 5,
+            "2026-08": 7,
+            "2026-06": 2,
+            "2026-05": 4,
+            "2026-04": 11
+          },
+          "Não recebi": {
+            "2026-09": 37,
+            "2026-08": 13,
+            "2026-07": 6,
+            "2026-06": 4,
+            "2026-05": 3,
+            "2026-04": 19
+          },
+          "Divergência de valores": {
+            "2026-09": 12,
+            "2026-08": 1,
+            "2026-07": 7,
+            "2026-06": 12,
+            "2026-05": 4,
+            "2026-04": 6
+          },
+          "Empréstimo negado": {
+            "2026-09": 4,
+            "2026-08": 3,
+            "2026-07": 3,
+            "2026-06": 4,
+            "2026-05": 5,
+            "2026-04": 10
+          },
+          "Cancelamento-Bloqueio": {
+            "2026-09": 6,
+            "2026-08": 2,
+            "2026-07": 6,
+            "2026-06": 17,
+            "2026-05": 2,
+            "2026-04": 16
+          },
+          "Baixa do GRAVAME": {
+            "2026-09": 4,
+            "2026-08": 3,
+            "2026-07": 3,
+            "2026-05": 1,
+            "2026-04": 2
+          },
+          "Oferta de serviços não solicitados": {
+            "2026-09": 4,
+            "2026-08": 27,
+            "2026-07": 5,
+            "2026-06": 5,
+            "2026-04": 6
+          },
+          "Mau atendimento no SAC": {
+            "2026-09": 7,
+            "2026-08": 2,
+            "2026-07": 4,
+            "2026-06": 3,
+            "2026-05": 1,
+            "2026-04": 7
+          }
+        },
+        "truncadas": [
+          {
+            "filtro": {
+              "problemType": "0000000000000075",
+              "category": "0000000000000001",
+              "status": "ANSWERED",
+              "evaluated": "bool:false"
+            },
+            "nome": "Cobrança indevida",
+            "ate": "2026-07-09"
+          }
+        ]
+      }
+    }
   }
 };
 
@@ -2595,12 +2958,8 @@ const raMensal = {
       "html": "<strong>Demais problemas de app/acesso em set/2026:</strong> Abertura de conta 13 (ago/2026: 10) · Problema de acesso ao Internet Banking 7 (ago/2026: 3)."
     },
     {
-      "tone": "info",
-      "html": "<strong>No mercado:</strong> Mercantil 37 → 101 · Agibank 27 → 40 no mesmo item. O salto aparece nos três bancos — parte do movimento é do setor, não só do BMG."
-    },
-    {
       "tone": "watch",
-      "html": "<strong>Peso no total:</strong> no semestre, app e acesso somam 314 das 10.431 reclamações do BMG (3%) — a maior parte do Reclame Aqui é sobre outros assuntos. Ainda assim, é uma fatia maior que a dos concorrentes (Mercantil 2% · Agibank 1.4%)."
+      "html": "<strong>Peso no total:</strong> no semestre, app e acesso somam 314 das 10.431 reclamações do BMG (3%) — a maior parte do Reclame Aqui é sobre outros assuntos."
     }
   ]
 };
@@ -2618,8 +2977,44 @@ const raVolume = {
     "ultimos30": 1507,
     "var30": -13
   },
-  "monthly": null,
+  "monthly": {
+    "months": [
+      "2026-04",
+      "2026-05",
+      "2026-06",
+      "2026-07",
+      "2026-08",
+      "2026-09"
+    ],
+    "counts": [
+      1609,
+      1197,
+      997,
+      923,
+      1165,
+      1240
+    ],
+    "partial": [
+      true,
+      true,
+      true,
+      true,
+      false,
+      false
+    ],
+    "refMonth": "2026-09",
+    "prevMonth": "2026-08",
+    "ref": 1240,
+    "prev": 1165,
+    "varMes": 6,
+    "avgBefore": 1165,
+    "nBefore": 1
+  },
   "story": [
+    {
+      "tone": "info",
+      "html": "<strong>set/2026: 1.240 reclamações com assunto informado</strong>, +6% vs. ago/2026 (1.165)."
+    },
     {
       "tone": "good",
       "html": "<strong>Semestre (abr–set/2026):</strong> 10.431 reclamações, -20% vs. o semestre anterior (13.030) — números oficiais do Reclame Aqui."
@@ -2627,11 +3022,60 @@ const raVolume = {
     {
       "tone": "good",
       "html": "<strong>Últimos 30 dias (até 06/10/2026):</strong> 1.507 reclamações — 13% abaixo da média mensal do semestre (≈ 1.739)."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>O que mais pesou em set/2026:</strong> Cobrança indevida (31%) · Cancelamento (9.9%) · Limite (6.9%) das reclamações com assunto."
+    },
+    {
+      "tone": "watch",
+      "html": "<strong>O que mudou de ago para set/2026:</strong> subiram \"Não consigo acessar minha conta\" (23 → 56), \"Limite\" (55 → 85), \"Não recebi\" (13 → 37); caíram \"Demora na execução\" (77 → 22), \"Cobrança indevida\" (413 → 385)."
     }
   ],
-  "top": [],
-  "riser": null,
-  "avgBefore": null,
+  "top": [
+    {
+      "nome": "Cobrança indevida",
+      "ref": 385,
+      "prev": 413,
+      "share": 31
+    },
+    {
+      "nome": "Cancelamento",
+      "ref": 123,
+      "prev": 147,
+      "share": 9.9
+    },
+    {
+      "nome": "Limite",
+      "ref": 85,
+      "prev": 55,
+      "share": 6.9
+    },
+    {
+      "nome": "Problema para quitar o empréstimo",
+      "ref": 70,
+      "prev": 47,
+      "share": 5.6
+    },
+    {
+      "nome": "Não consigo acessar minha conta",
+      "ref": 56,
+      "prev": 23,
+      "share": 4.5
+    },
+    {
+      "nome": "Problema com o cartão",
+      "ref": 47,
+      "prev": 62,
+      "share": 3.8
+    }
+  ],
+  "riser": {
+    "nome": "Não consigo acessar minha conta",
+    "ref": 56,
+    "prev": 23
+  },
+  "avgBefore": 1165,
   "market": {
     "headline": "O BMG recebe menos reclamações; Mercantil e Agibank, mais.",
     "sub": "Média mensal no semestre abr/26–set/26 contra out/25–mar/26: BMG -20% · Mercantil +24% · Agibank +10%. Os últimos 30 dias confirmam a direção: BMG -13% · Mercantil +38% · Agibank +15% frente à média do semestre.",
@@ -2914,7 +3358,369 @@ const competitors = {
           }
         ],
         "periodo": "01/04/2026 a 30/09/2026",
-        "vol": null,
+        "vol": {
+          "months": [
+            "2026-04",
+            "2026-05",
+            "2026-06",
+            "2026-07",
+            "2026-08",
+            "2026-09"
+          ],
+          "counts": [
+            1609,
+            1197,
+            997,
+            923,
+            1165,
+            1240
+          ],
+          "partial": [
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          "refMonth": "2026-09",
+          "prevMonth": "2026-08",
+          "ref": 1240,
+          "prev": 1165,
+          "varMes": 6,
+          "avgBefore": 1165,
+          "nBefore": 1,
+          "porAssunto": {
+            "Cobrança indevida": {
+              "2026-09": 385,
+              "2026-08": 413,
+              "2026-07": 310,
+              "2026-06": 232,
+              "2026-05": 280,
+              "2026-04": 330
+            },
+            "Demora na execução": {
+              "2026-09": 22,
+              "2026-08": 77,
+              "2026-07": 55,
+              "2026-06": 44,
+              "2026-05": 81,
+              "2026-04": 93
+            },
+            "Cancelamento": {
+              "2026-09": 123,
+              "2026-08": 147,
+              "2026-07": 124,
+              "2026-06": 111,
+              "2026-05": 163,
+              "2026-04": 210
+            },
+            "Mau Atendimento": {
+              "2026-09": 20,
+              "2026-08": 32,
+              "2026-07": 27,
+              "2026-06": 24,
+              "2026-05": 22,
+              "2026-04": 30
+            },
+            "Outro problema": {
+              "2026-09": 21,
+              "2026-08": 23,
+              "2026-07": 12,
+              "2026-06": 8,
+              "2026-05": 17,
+              "2026-04": 26
+            },
+            "Problema com o cartão": {
+              "2026-09": 47,
+              "2026-08": 62,
+              "2026-07": 58,
+              "2026-06": 54,
+              "2026-05": 58,
+              "2026-04": 81
+            },
+            "Oferta indevida de empréstimo": {
+              "2026-09": 24,
+              "2026-08": 4,
+              "2026-07": 6,
+              "2026-06": 5,
+              "2026-05": 13,
+              "2026-04": 8
+            },
+            "Estorno do valor pago": {
+              "2026-09": 25,
+              "2026-08": 26,
+              "2026-07": 22,
+              "2026-06": 27,
+              "2026-05": 29,
+              "2026-04": 28
+            },
+            "Mau atendimento do prestador de serviço": {
+              "2026-09": 3,
+              "2026-08": 4,
+              "2026-07": 13,
+              "2026-06": 14,
+              "2026-05": 11,
+              "2026-04": 19
+            },
+            "Qualidade do serviço prestado": {
+              "2026-09": 1,
+              "2026-08": 1,
+              "2026-07": 2,
+              "2026-06": 1,
+              "2026-05": 8,
+              "2026-04": 13
+            },
+            "Limite": {
+              "2026-09": 85,
+              "2026-08": 55,
+              "2026-07": 50,
+              "2026-06": 51,
+              "2026-05": 95,
+              "2026-04": 172
+            },
+            "Valor abusivo": {
+              "2026-09": 7,
+              "2026-08": 1,
+              "2026-07": 4,
+              "2026-06": 4,
+              "2026-05": 15,
+              "2026-04": 19
+            },
+            "Bloqueio-desbloqueio de cartão": {
+              "2026-09": 37,
+              "2026-08": 19,
+              "2026-07": 20,
+              "2026-06": 20,
+              "2026-05": 27,
+              "2026-04": 47
+            },
+            "Abertura de conta": {
+              "2026-09": 13,
+              "2026-08": 10,
+              "2026-07": 6,
+              "2026-06": 13,
+              "2026-05": 9,
+              "2026-04": 8
+            },
+            "Problema para quitar o empréstimo": {
+              "2026-09": 70,
+              "2026-08": 47,
+              "2026-07": 38,
+              "2026-06": 49,
+              "2026-05": 43,
+              "2026-04": 76
+            },
+            "Não consigo acessar minha conta": {
+              "2026-09": 56,
+              "2026-08": 23,
+              "2026-07": 27,
+              "2026-06": 36,
+              "2026-05": 38,
+              "2026-04": 50
+            },
+            "Pagamento não localizado": {
+              "2026-09": 22,
+              "2026-08": 17,
+              "2026-07": 16,
+              "2026-06": 40,
+              "2026-05": 37,
+              "2026-04": 36
+            },
+            "Encerramento de conta": {
+              "2026-09": 8,
+              "2026-08": 12,
+              "2026-07": 7,
+              "2026-06": 16,
+              "2026-05": 13,
+              "2026-04": 24
+            },
+            "Juros abusivos": {
+              "2026-09": 25,
+              "2026-08": 18,
+              "2026-07": 13,
+              "2026-06": 19,
+              "2026-05": 31,
+              "2026-04": 48
+            },
+            "Portabilidade do empréstimo": {
+              "2026-09": 26,
+              "2026-08": 5,
+              "2026-07": 4,
+              "2026-06": 5,
+              "2026-05": 9,
+              "2026-04": 13
+            },
+            "Atraso na entrega": {
+              "2026-09": 1,
+              "2026-08": 7,
+              "2026-06": 1,
+              "2026-05": 6,
+              "2026-04": 4
+            },
+            "Renegociação de dívida": {
+              "2026-09": 41,
+              "2026-08": 31,
+              "2026-07": 18,
+              "2026-06": 32,
+              "2026-05": 31,
+              "2026-04": 26
+            },
+            "SPC-Serasa": {
+              "2026-09": 32,
+              "2026-08": 14,
+              "2026-07": 20,
+              "2026-06": 33,
+              "2026-05": 28,
+              "2026-04": 23
+            },
+            "Demora na entrega do cartão": {
+              "2026-08": 1,
+              "2026-06": 2,
+              "2026-05": 4,
+              "2026-04": 3
+            },
+            "Telemarketing": {
+              "2026-09": 1,
+              "2026-07": 1,
+              "2026-06": 1,
+              "2026-05": 3,
+              "2026-04": 8
+            },
+            "Segunda via de boleto": {
+              "2026-09": 30,
+              "2026-08": 20,
+              "2026-07": 24,
+              "2026-06": 27,
+              "2026-05": 20,
+              "2026-04": 61
+            },
+            "Propaganda enganosa": {
+              "2026-09": 6,
+              "2026-08": 7,
+              "2026-07": 1,
+              "2026-06": 2,
+              "2026-05": 7,
+              "2026-04": 5
+            },
+            "Débito não autorizado em conta": {
+              "2026-09": 8,
+              "2026-08": 2,
+              "2026-06": 16,
+              "2026-05": 14,
+              "2026-04": 17
+            },
+            "Atraso na fatura": {
+              "2026-09": 3,
+              "2026-08": 5,
+              "2026-06": 5,
+              "2026-05": 4,
+              "2026-04": 11
+            },
+            "Descumprimento de acordo": {
+              "2026-09": 4,
+              "2026-08": 8,
+              "2026-07": 4,
+              "2026-06": 4,
+              "2026-05": 6,
+              "2026-04": 6
+            },
+            "Cobrança indevida-duplicada de conta": {
+              "2026-09": 3,
+              "2026-08": 3,
+              "2026-07": 1,
+              "2026-06": 4,
+              "2026-05": 13,
+              "2026-04": 21
+            },
+            "Dificuldade em realizar acordo": {
+              "2026-09": 3,
+              "2026-08": 9,
+              "2026-07": 6,
+              "2026-06": 3,
+              "2026-05": 5,
+              "2026-04": 2
+            },
+            "Débito automático": {
+              "2026-09": 1,
+              "2026-08": 1,
+              "2026-06": 45,
+              "2026-05": 33,
+              "2026-04": 5
+            },
+            "Problema de acesso ao Internet Banking": {
+              "2026-09": 7,
+              "2026-08": 3,
+              "2026-06": 2,
+              "2026-05": 4,
+              "2026-04": 9
+            },
+            "Renegociação": {
+              "2026-09": 1
+            },
+            "Não recebimento de cartão": {
+              "2026-09": 5,
+              "2026-08": 7,
+              "2026-06": 2,
+              "2026-05": 4,
+              "2026-04": 11
+            },
+            "Não recebi": {
+              "2026-09": 37,
+              "2026-08": 13,
+              "2026-07": 6,
+              "2026-06": 4,
+              "2026-05": 3,
+              "2026-04": 19
+            },
+            "Divergência de valores": {
+              "2026-09": 12,
+              "2026-08": 1,
+              "2026-07": 7,
+              "2026-06": 12,
+              "2026-05": 4,
+              "2026-04": 6
+            },
+            "Empréstimo negado": {
+              "2026-09": 4,
+              "2026-08": 3,
+              "2026-07": 3,
+              "2026-06": 4,
+              "2026-05": 5,
+              "2026-04": 10
+            },
+            "Cancelamento-Bloqueio": {
+              "2026-09": 6,
+              "2026-08": 2,
+              "2026-07": 6,
+              "2026-06": 17,
+              "2026-05": 2,
+              "2026-04": 16
+            },
+            "Baixa do GRAVAME": {
+              "2026-09": 4,
+              "2026-08": 3,
+              "2026-07": 3,
+              "2026-05": 1,
+              "2026-04": 2
+            },
+            "Oferta de serviços não solicitados": {
+              "2026-09": 4,
+              "2026-08": 27,
+              "2026-07": 5,
+              "2026-06": 5,
+              "2026-04": 6
+            },
+            "Mau atendimento no SAC": {
+              "2026-09": 7,
+              "2026-08": 2,
+              "2026-07": 4,
+              "2026-06": 3,
+              "2026-05": 1,
+              "2026-04": 7
+            }
+          }
+        },
         "painel": {
           "capturado_em": "2026-10-06",
           "de": "2026-04-01",
@@ -3271,26 +4077,6 @@ const competitors = {
         "note": "depende do tamanho da base de clientes — não serve pra ranquear"
       },
       {
-        "label": "Volume — semestre vs. semestre anterior",
-        "values": [
-          "-20%",
-          "+24%",
-          "+10%"
-        ],
-        "best": null,
-        "note": "variação do próprio banco (totais oficiais) — o tamanho da base não interfere"
-      },
-      {
-        "label": "Últimos 30 dias vs. média mensal do semestre",
-        "values": [
-          "-13%",
-          "+38%",
-          "+15%"
-        ],
-        "best": null,
-        "note": "mostra se o volume recente está acima ou abaixo do ritmo do semestre"
-      },
-      {
         "label": "App e acesso (% das reclamações, 6 meses)",
         "values": [
           "3%",
@@ -3327,10 +4113,6 @@ const competitors = {
       {
         "tone": "watch",
         "html": "<strong>Constância da reputação (últimos 6 meses):</strong> BMG 2 de 6 meses em RA1000 · Mercantil 0 de 6 meses em RA1000 · Agibank 6 de 6 meses em RA1000. O BMG chegou ao RA1000 mais recentemente — manter o selo depende de sustentar resolução e prazo."
-      },
-      {
-        "tone": "good",
-        "html": "<strong>Volume de reclamações:</strong> no semestre, contra o anterior, BMG -20% · Mercantil +24% · Agibank +10% — o BMG é o único do trio recebendo menos reclamações, enquanto os concorrentes crescem. Nos últimos 30 dias, frente à média mensal do semestre: BMG -13% · Mercantil +38% · Agibank +15% — a tendência segue a mesma no período mais recente."
       },
       {
         "tone": "risk",
@@ -3887,9 +4669,7 @@ function renderReclameAqui() {
   const vol = (typeof raVolume !== 'undefined' && raVolume) ? raVolume : null;
   const signed = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n + '%');
   const tiles = [
-    vol && vol.monthly
-      ? { label: 'Reclamações em ' + fmtRefMonth(vol.monthly.refMonth), value: '≈ ' + vol.monthly.ref.toLocaleString('pt-BR'), note: signed(vol.monthly.varMes) + ' vs. ' + fmtRefMonth(vol.monthly.prevMonth).split('/')[0] + ' · ' + vol.official.semestre.toLocaleString('pt-BR') + ' no semestre' }
-      : vol && vol.official.ultimos30 != null
+    vol && vol.official.ultimos30 != null
       ? { label: 'Reclamações — últimos 30 dias', value: vol.official.ultimos30.toLocaleString('pt-BR'), note: signed(vol.official.var30) + ' vs. a média mensal do semestre · ' + vol.official.semestre.toLocaleString('pt-BR') + ' no semestre' }
       : { label: 'Reclamações no período', value: fmtViews(s6.reclamacoes || 0), note: '' },
     { label: 'Respondidas (6 meses)', value: (s6.respondidas ?? '—') + '%', note: s6.tempoRespostaDias ? 'em ~' + (Math.round(s6.tempoRespostaDias * 10) / 10) + ' dias' : '' },
@@ -3924,10 +4704,10 @@ function renderRaVolume() {
     : '· semestre ' + mon(o.de.slice(0, 7)) + '–' + fmtRefMonth(o.ate.slice(0, 7));
   let chart = '';
   if (v) {
-    const max = Math.max(...v.est);
+    const max = Math.max(...v.counts);
     chart = '<div class="vol-chart">' + v.months.map((m, i) =>
-      `<div class="vol-col${m === v.refMonth ? ' is-ref' : ''}"><div class="vol-val">≈ ${v.est[i].toLocaleString('pt-BR')}</div>` +
-      `<div class="vol-track"><div class="vol-bar" style="height:${Math.round((v.est[i] / max) * 100)}%"></div></div>` +
+      `<div class="vol-col${m === v.refMonth ? ' is-ref' : ''}${v.partial[i] ? ' is-partial' : ''}"><div class="vol-val">${v.counts[i].toLocaleString('pt-BR')}${v.partial[i] ? '*' : ''}</div>` +
+      `<div class="vol-track"><div class="vol-bar" style="height:${Math.round((v.counts[i] / max) * 100)}%"></div></div>` +
       `<div class="vol-lbl">${mon(m)}</div></div>`).join('') + '</div>';
   }
   let topTable = '';
@@ -3942,7 +4722,7 @@ function renderRaVolume() {
       `<div style="overflow-x:auto"><table class="bench-table ra-month-table"><tr><th>Assunto</th><th class="num">% do mês</th><th class="num is-ref">${mon(v.refMonth)}</th><th class="num">${mon(v.prevMonth)}</th><th class="num">${mon(v.refMonth)} vs. ${mon(v.prevMonth)}</th></tr>${rows}</table></div>`;
   }
   const foot = v
-    ? `O Reclame Aqui só publica totais por período (6 meses, 12 meses, ano), sem série mensal. Por isso o volume de cada mês é uma estimativa: contamos mês a mês as reclamações que têm assunto informado (${Math.round((100 - v.semAssunto) * 10) / 10}% do total) e distribuímos o total oficial do semestre (${o.semestre.toLocaleString('pt-BR')}) na mesma proporção. O total do semestre é o número oficial; a variação entre os meses vem da contagem. A tabela de assuntos usa a contagem direta.${v.truncadas ? ' Alguns assuntos muito volumosos ficaram com os meses mais antigos incompletos.' : ''}`
+    ? `O Reclame Aqui só publica totais por período (6 meses, 12 meses, ano), sem série mensal. Por isso contamos mês a mês as reclamações que têm assunto informado — a grande maioria; cerca de 15% chegam sem assunto e não entram na contagem. Os números servem para ver a direção e o que mudou entre os meses; o total oficial do semestre é ${o.semestre.toLocaleString('pt-BR')}.${v.partial.some(Boolean) ? ' * Mês com contagem incompleta (um assunto muito volumoso não coube no limite da consulta) — fica fora das comparações.' : ''}`
     : 'Totais oficiais do Reclame Aqui: o semestre atual, o semestre anterior (12 meses menos os 6 mais recentes) e os últimos 30 dias, comparados com a média mensal do semestre. O Reclame Aqui não publica a série mês a mês.';
   // Sem a contagem mês a mês, o bloco do BMG só repetiria a linha dele na tabela de mercado
   if (v) document.getElementById('raVolumeBmg').style.display = 'block';
