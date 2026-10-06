@@ -380,6 +380,7 @@
     <div id="raVolumeBlock" style="display:none">
       <div class="yt-subtitle" style="margin-top:18px">Volume de reclamações — BMG vs. concorrentes</div>
       <div id="raVolumeMarket"></div>
+      <div id="raVolumeTopics"></div>
       <div id="raVolumeBmg" style="display:none">
         <div class="yt-subtitle" style="margin-top:18px">Volume de reclamações do BMG — mês a mês <span id="raVolumeWin"></span></div>
         <div id="raVolume"></div>
@@ -2666,7 +2667,8 @@ const raVolume = {
         "var30": 15
       }
     ]
-  }
+  },
+  "topics": null
 };
 
 const resumo = {
@@ -3961,6 +3963,22 @@ function renderRaVolume() {
       `<div class="ra-headline">${mk.headline}</div><p class="ra-headline-sub">${mk.sub}</p>` +
       `<div style="overflow-x:auto"><table class="bench-table ra-month-table vol-market-table"><tr><th>Banco</th><th class="num">Média por mês<br>${mk.semAnt}</th><th class="num">Média por mês<br>${mk.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${mk.semAtual}</th></tr>${rows}</table></div>` +
       `<p class="desc" style="margin-top:10px">Totais oficiais do Reclame Aqui. Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação. Coleta de ${mk.capturado_em.split('-').reverse().join('/')}.</p>`;
+  }
+
+  // O volume mudou — mudou em quê? Assuntos do último mês por banco, com a variação vs. o anterior
+  const tp = raVolume.topics;
+  if (tp) {
+    const head = `<tr><th>Assunto (% das reclamações do banco em ${mon(tp.ref)})</th>${tp.banks.map((b) => `<th class="num${b.isBmg ? ' is-bmg-col' : ''}">${b.label}</th>`).join('')}</tr>`;
+    const rows = tp.matrix.map((r) => `<tr><td>${r.nome}</td>` + r.values.map((c, i) => {
+      const d = c.ref - c.prev;
+      return `<td class="num${tp.banks[i].isBmg ? ' is-bmg-col' : ''}">${c.share}% <span class="bench-sub-inline">(${c.ref}, ${d > 0 ? '+' : ''}${d} vs. ${mon(tp.prev)})</span></td>`;
+    }).join('') + '</tr>').join('');
+    document.getElementById('raVolumeTopics').innerHTML =
+      `<div class="yt-subtitle" style="margin-top:18px">O que se reclama — ${fmtRefMonth(tp.ref)} vs. ${mon(tp.prev)}</div>` +
+      `<div class="ra-headline" style="font-size:15px">${tp.headline}</div>` +
+      `<ul class="bench-story">${tp.story.map((s) => `<li class="${s.tone}">${s.html}</li>`).join('')}</ul>` +
+      `<div style="overflow-x:auto"><table class="bench-table ra-month-table ra-bench-table">${head}${rows}</table></div>` +
+      `<p class="desc" style="margin-top:10px">Contagem mês a mês das reclamações com assunto informado (cerca de 85% do total), feita do mesmo jeito nos três bancos. Entre parênteses: reclamações no mês e a diferença para ${mon(tp.prev)}.</p>`;
   }
 }
 
