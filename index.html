@@ -236,7 +236,7 @@
   .bench-story li.watch::before { color: var(--warning); }
   .bench-story li.good::before { color: var(--good); }
   .bench-story li.info::before { color: var(--text-muted); }
-  .bench-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 760px; }
+  .bench-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 660px; }
   .bench-table th { text-align: left; font-weight: 500; color: var(--text-muted); font-size: 11px; padding: 6px 10px; border-bottom: 1px solid var(--border); }
   .bench-table td { padding: 11px 10px; border-bottom: 1px solid var(--gridline); vertical-align: top; }
   .bench-table tr.is-bmg td { background: var(--page); }
@@ -247,6 +247,11 @@
   .bench-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
   .bench-chips { display: flex; flex-wrap: wrap; gap: 4px; }
   .bench-chip { font-size: 10.5px; background: var(--page); border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; color: var(--text-secondary); white-space: nowrap; }
+  .ra-bench-table { min-width: 520px; }
+  .ra-bench-table th.is-bmg-col, .ra-bench-table td.is-bmg-col { background: var(--page); }
+  .ra-bench-table td.is-best { font-weight: 600; color: var(--good); }
+  .ra-bench-table .ref-tag { display: block; font-size: 10px; color: var(--text-muted); font-weight: 500; }
+  .best-tag { font-size: 10px; font-weight: 600; color: var(--good); border: 1px solid var(--good); border-radius: 999px; padding: 0 6px; margin-left: 4px; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -369,6 +374,14 @@
     <div id="raMap"></div>
     <div class="yt-subtitle" style="margin-top:18px">Reclamações recentes</div>
     <div id="raRecent"></div>
+  </div>
+
+  <div class="card" id="raBenchCard" style="display:none">
+    <h2>Reclame Aqui — BMG vs. concorrentes</h2>
+    <p class="desc" id="raBenchDesc"></p>
+    <ul class="bench-story" id="raBenchStory"></ul>
+    <div style="overflow-x:auto"><table class="bench-table ra-bench-table" id="raBenchTable"></table></div>
+    <p class="desc" id="raBenchFoot" style="margin-top:12px"></p>
   </div>
   </div><!-- fim aba Reclame Aqui -->
 </div>
@@ -2072,7 +2085,33 @@ const reclameAqui = {
     ],
     "capturado_em": "05/10/2026",
     "anterior_em": "09/09/2026"
-  }
+  },
+  "statusHistory": [
+    {
+      "month": "2026-04",
+      "status": "Ótima"
+    },
+    {
+      "month": "2026-05",
+      "status": "Ótima"
+    },
+    {
+      "month": "2026-06",
+      "status": "Ótima"
+    },
+    {
+      "month": "2026-07",
+      "status": "Ótima"
+    },
+    {
+      "month": "2026-08",
+      "status": "RA1000"
+    },
+    {
+      "month": "2026-09",
+      "status": "RA1000"
+    }
+  ]
 };
 
 const resumo = {
@@ -2130,6 +2169,20 @@ const resumo = {
     {
       "ico": "📋",
       "html": "<strong>Reputação pública preservada:</strong> selo RA1000 no Reclame Aqui, nota 8.3/10 — 90.2% das reclamações resolvidas e 70.4% voltariam a fazer negócio."
+    }
+  ],
+  "market": [
+    {
+      "ico": "📱",
+      "html": "<strong>Comentários nas lojas (Android, set/2026):</strong> o BMG é o mais negativo do trio — BMG 51.5% · Agibank 45.8% · Mercantil 13.4% de comentários negativos (Mercantil com menos dias de dados). A dor é a mesma nos três: \"App trava / instabilidade\" e \"Cadastro / abertura de conta\"."
+    },
+    {
+      "ico": "📋",
+      "html": "<strong>Reclame Aqui:</strong> o BMG é quem mais resolve (BMG 90.2% · Agibank 90% · Mercantil 86.6%), mas é o mais lento para responder (Agibank 4.8 dias · Mercantil 9.3 dias · BMG 10.7 dias)."
+    },
+    {
+      "ico": "⭐",
+      "html": "<strong>Nota na loja (Android):</strong> Mercantil 4.8★ · BMG 4.72★ · Agibank 4.61★ — média acumulada, se move pouco; a diferença de experiência recente aparece nos comentários."
     }
   ],
   "crossChannel": [
@@ -2266,9 +2319,40 @@ const competitors = {
       "ra": {
         "status": "RA1000",
         "nota": 8.3,
+        "reclamacoes": 10437,
+        "respondidas": 97.9,
         "resolvidas": 90.2,
         "voltariam": 70.4,
-        "reclamacoes": 10437
+        "notaConsumidor": 7.42,
+        "tempoRespostaDias": 10.67,
+        "aguardando": 213,
+        "statusHistory": [
+          {
+            "month": "2026-04",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-05",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-06",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-07",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-08",
+            "status": "RA1000"
+          },
+          {
+            "month": "2026-09",
+            "status": "RA1000"
+          }
+        ],
+        "periodo": "01/04/2026 a 30/09/2026"
       },
       "rating": {
         "gp": 4.72,
@@ -2318,9 +2402,40 @@ const competitors = {
       "ra": {
         "status": "Ótima",
         "nota": 8,
+        "reclamacoes": 16269,
+        "respondidas": 95.5,
         "resolvidas": 86.6,
         "voltariam": 67.1,
-        "reclamacoes": 16269
+        "notaConsumidor": 7.33,
+        "tempoRespostaDias": 9.25,
+        "aguardando": 727,
+        "statusHistory": [
+          {
+            "month": "2026-04",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-05",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-06",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-07",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-08",
+            "status": "Ótima"
+          },
+          {
+            "month": "2026-09",
+            "status": "Ótima"
+          }
+        ],
+        "periodo": "01/04/2026 a 30/09/2026"
       },
       "rating": {
         "gp": 4.8,
@@ -2380,9 +2495,40 @@ const competitors = {
       "ra": {
         "status": "RA1000",
         "nota": 8.4,
+        "reclamacoes": 20332,
+        "respondidas": 98,
         "resolvidas": 90,
         "voltariam": 73.4,
-        "reclamacoes": 20332
+        "notaConsumidor": 7.47,
+        "tempoRespostaDias": 4.83,
+        "aguardando": 410,
+        "statusHistory": [
+          {
+            "month": "2026-04",
+            "status": "RA1000"
+          },
+          {
+            "month": "2026-05",
+            "status": "RA1000"
+          },
+          {
+            "month": "2026-06",
+            "status": "RA1000"
+          },
+          {
+            "month": "2026-07",
+            "status": "RA1000"
+          },
+          {
+            "month": "2026-08",
+            "status": "RA1000"
+          },
+          {
+            "month": "2026-09",
+            "status": "RA1000"
+          }
+        ],
+        "periodo": "01/04/2026 a 30/09/2026"
       },
       "rating": {
         "gp": 4.61,
@@ -2400,10 +2546,6 @@ const competitors = {
       "html": "<strong>A dor é a mesma no mercado:</strong> \"App trava / instabilidade\" e \"Cadastro / abertura de conta\" aparecem no topo das reclamações dos 3 bancos — não é um problema exclusivo do BMG."
     },
     {
-      "tone": "good",
-      "html": "<strong>Reputação no Reclame Aqui:</strong> reclamações resolvidas — BMG 90.2% · Agibank 90% · Mercantil 86.6%. Nota — BMG 8.3 (RA1000) · Agibank 8.4 (RA1000) · Mercantil 8 (Ótima)."
-    },
-    {
       "tone": "info",
       "html": "<strong>Nota pública na loja (Android):</strong> Mercantil 4.8★ · BMG 4.72★ · Agibank 4.61★. A nota é média acumulada de centenas de milhares de avaliações e quase não se mexe — a diferença de experiência recente aparece no % de comentários negativos acima, não nas estrelas."
     },
@@ -2411,7 +2553,144 @@ const competitors = {
       "tone": "watch",
       "html": "<strong>No iOS (amostra pequena, ler como sinal):</strong> Agibank é o mais crítico — 76.1% negativo em 46 comentários nos últimos 3 meses fechados."
     }
-  ]
+  ],
+  "ra": {
+    "banks": [
+      {
+        "label": "BMG",
+        "isBmg": true
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false
+      }
+    ],
+    "table": [
+      {
+        "label": "Reputação (nota de 0 a 10)",
+        "values": [
+          "8.3",
+          "8",
+          "8.4"
+        ],
+        "best": 2,
+        "note": null
+      },
+      {
+        "label": "Selo atual",
+        "values": [
+          "RA1000",
+          "Ótima",
+          "RA1000"
+        ],
+        "best": null,
+        "note": null
+      },
+      {
+        "label": "Reclamações resolvidas",
+        "values": [
+          "90.2%",
+          "86.6%",
+          "90%"
+        ],
+        "best": 0,
+        "note": null
+      },
+      {
+        "label": "Reclamações respondidas",
+        "values": [
+          "97.9%",
+          "95.5%",
+          "98%"
+        ],
+        "best": 2,
+        "note": null
+      },
+      {
+        "label": "Tempo médio de resposta",
+        "values": [
+          "10.7 dias",
+          "9.3 dias",
+          "4.8 dias"
+        ],
+        "best": 2,
+        "note": null
+      },
+      {
+        "label": "Voltariam a fazer negócio",
+        "values": [
+          "70.4%",
+          "67.1%",
+          "73.4%"
+        ],
+        "best": 2,
+        "note": null
+      },
+      {
+        "label": "Nota do consumidor (0 a 10)",
+        "values": [
+          "7.42",
+          "7.33",
+          "7.47"
+        ],
+        "best": 2,
+        "note": null
+      },
+      {
+        "label": "Aguardando resposta (% das recebidas)",
+        "values": [
+          "2%",
+          "4.5%",
+          "2%"
+        ],
+        "best": null,
+        "note": null
+      },
+      {
+        "label": "Meses em RA1000 (últimos 6)",
+        "values": [
+          "2 de 6",
+          "0 de 6",
+          "6 de 6"
+        ],
+        "best": 2,
+        "note": null
+      },
+      {
+        "label": "Reclamações recebidas (6 meses)",
+        "values": [
+          "10.437",
+          "16.269",
+          "20.332"
+        ],
+        "best": null,
+        "note": "depende do tamanho da base de clientes — não serve pra ranquear"
+      }
+    ],
+    "story": [
+      {
+        "tone": "good",
+        "html": "<strong>Resolução:</strong> o BMG é quem mais resolve — BMG 90.2% · Agibank 90% · Mercantil 86.6%."
+      },
+      {
+        "tone": "risk",
+        "html": "<strong>Tempo de resposta:</strong> o BMG é o mais lento — Agibank 4.8 dias · Mercantil 9.3 dias · BMG 10.7 dias. Resolver muito mas responder devagar é a combinação que mais desgasta quem está esperando."
+      },
+      {
+        "tone": "watch",
+        "html": "<strong>Voltariam a fazer negócio:</strong> Agibank 73.4% · BMG 70.4% · Mercantil 67.1%."
+      },
+      {
+        "tone": "watch",
+        "html": "<strong>Constância da reputação (últimos 6 meses):</strong> BMG 2 de 6 meses em RA1000 · Mercantil 0 de 6 meses em RA1000 · Agibank 6 de 6 meses em RA1000. O BMG chegou ao RA1000 mais recentemente — manter o selo depende de sustentar resolução e prazo."
+      }
+    ],
+    "periodo": "01/04/2026 a 30/09/2026"
+  }
 };
 // ===== DATA-INJECTION-END =====
 
@@ -2804,6 +3083,12 @@ function renderResumo() {
     html += `<div class="analysis-block"><h3>Destaques do mês, por canal</h3><ul class="analysis-list">` +
       r.highlights.map(h => `<li><span class="ico">${h.ico}</span>${h.html}</li>`).join('') + `</ul></div>`;
   }
+  if ((r.market || []).length) {
+    const rivals = (typeof competitors !== 'undefined' && competitors ? competitors.banks : []).filter(b => !b.isBmg).map(b => b.label).join(' e ');
+    html += `<div class="analysis-block"><h3>BMG vs. mercado${rivals ? ' — ' + rivals : ''}</h3><ul class="analysis-list">` +
+      r.market.map(m => `<li><span class="ico">${m.ico}</span>${m.html}</li>`).join('') + `</ul>` +
+      `<div class="analysis-foot">Detalhe nas abas "Lojas de App" (comentários e nota na loja) e "Reclame Aqui" (reputação, prazo e resolução).</div></div>`;
+  }
   if ((r.crossChannel || []).length) {
     html += `<div class="analysis-block"><h3>Análise cruzada — o que só aparece olhando os canais juntos</h3><ul class="analysis-list">` +
       r.crossChannel.map(c => `<li><span class="ico">${c.ico}</span>${c.html}</li>`).join('') + `</ul>` +
@@ -3008,7 +3293,6 @@ function renderCompetitors() {
   const card = document.getElementById('benchCard');
   card.style.display = 'block';
   const pct = (n) => (n == null ? '—' : String(n) + '%');
-  const num = (n) => (n == null ? '—' : String(n));
   const refLbl = competitors.refMonth ? fmtRefMonth(competitors.refMonth) : '—';
 
   document.getElementById('benchDesc').innerHTML =
@@ -3029,24 +3313,39 @@ function renderCompetitors() {
     const stars = b.rating
       ? `<span class="bench-neg">${b.rating.gp != null ? b.rating.gp + '★' : '—'}</span><div class="bench-sub">Android${b.rating.as != null ? ` · iOS ${b.rating.as}★` : ''}</div>`
       : '—';
-    const ra = b.ra
-      ? `<span class="bench-neg">${num(b.ra.nota)}</span> ${b.ra.status || ''}<div class="bench-sub">${num(b.ra.resolvidas)}% resolvidas</div>`
-      : '—';
     const chips = b.themes.length
       ? `<div class="bench-chips">${b.themes.map((t) => `<span class="bench-chip">${t.label}</span>`).join('')}</div>`
       : '<span class="bench-sub">—</span>';
     return `<tr class="${b.isBmg ? 'is-bmg' : ''}">
       <td><span class="bench-bank">${b.label}${b.isBmg ? '<span class="ref-tag">referência</span>' : ''}</span></td>
-      <td>${andr}</td><td>${ios}</td><td>${stars}</td><td>${ra}</td><td>${chips}</td></tr>`;
+      <td>${andr}</td><td>${ios}</td><td>${stars}</td><td>${chips}</td></tr>`;
   }).join('');
   document.getElementById('benchTable').innerHTML =
-    `<tr><th>Banco</th><th>Comentários negativos — Android (${refLbl})</th><th>Comentários negativos — iOS (${competitors.iosLabel || 'recente'})</th><th>Nota na loja</th><th>Reclame Aqui</th><th>O que falam (Android)</th></tr>` + rows;
+    `<tr><th>Banco</th><th>Comentários negativos — Android (${refLbl})</th><th>Comentários negativos — iOS (${competitors.iosLabel || 'recente'})</th><th>Nota na loja</th><th>O que falam (Android)</th></tr>` + rows;
 
   const cap = competitors.capturado_em ? competitors.capturado_em.split('-').reverse().join('/') : '—';
   document.getElementById('benchFoot').innerHTML =
-    `Reclame Aqui: reputação pública dos últimos 6 meses. O iOS tem volume baixo nas três marcas — por isso vem marcado como amostra pequena, para ler como sinal, não métrica fechada. Coleta de ${cap}.`;
+    `O iOS tem volume baixo nas três marcas — por isso vem marcado como amostra pequena, para ler como sinal, não métrica fechada. A comparação de reputação no Reclame Aqui está na aba "Reclame Aqui". Coleta de ${cap}.`;
 }
 renderCompetitors();
+
+// ---- Reclame Aqui: BMG vs. concorrentes (página do Reclame Aqui) ----
+function renderRaBenchmark() {
+  const rb = (typeof competitors !== 'undefined' && competitors) ? competitors.ra : null;
+  if (!rb) return;
+  document.getElementById('raBenchCard').style.display = 'block';
+  document.getElementById('raBenchDesc').innerHTML =
+    `Mesmas métricas públicas do Reclame Aqui para os três bancos, no mesmo período (<strong>${rb.periodo}</strong>). Em verde, o melhor de cada linha.`;
+  document.getElementById('raBenchStory').innerHTML = rb.story.map((s) => `<li class="${s.tone}">${s.html}</li>`).join('');
+  const head = `<tr><th>Métrica</th>${rb.banks.map((b) => `<th class="${b.isBmg ? 'is-bmg-col' : ''}">${b.label}${b.isBmg ? '<span class="ref-tag">referência</span>' : ''}</th>`).join('')}</tr>`;
+  const body = rb.table.map((r) => `<tr><td>${r.label}${r.note ? `<div class="bench-sub">${r.note}</div>` : ''}</td>` +
+    r.values.map((v, i) => `<td class="${rb.banks[i].isBmg ? 'is-bmg-col' : ''}${r.best === i ? ' is-best' : ''}">${v}${r.best === i ? '<span class="best-tag">melhor</span>' : ''}</td>`).join('') +
+    `</tr>`).join('');
+  document.getElementById('raBenchTable').innerHTML = head + body;
+  document.getElementById('raBenchFoot').textContent =
+    'Fonte: página pública de cada empresa no Reclame Aqui. Taxas e prazos são comparáveis entre bancos; o volume absoluto de reclamações depende do tamanho da base de clientes, por isso não entra no ranking.';
+}
+renderRaBenchmark();
 
 // ---- Data da última atualização ----
 if (typeof generatedAt !== 'undefined' && generatedAt) {
