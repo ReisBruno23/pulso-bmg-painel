@@ -222,6 +222,9 @@
   .ra-month-table td.down { color: var(--good); font-weight: 600; }
   .ra-month-table tr.grp td { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; padding: 14px 10px 4px; border-bottom: none; }
   .bench-sub-inline { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+  .ra-headline { font-size: 17px; font-weight: 700; color: var(--text-primary); margin: 4px 0 4px; line-height: 1.35; }
+  .ra-headline-sub { font-size: 13px; color: var(--text-muted); margin: 0 0 10px; line-height: 1.5; }
+  .vol-market-table td.up, .vol-market-table td.down { font-size: 14px; }
   .vol-chart { display: flex; gap: 10px; margin: 12px 0 8px; max-width: 520px; }
   .vol-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
   .vol-track { height: 120px; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
@@ -375,8 +378,12 @@
     <div id="raRep" class="ra-rep"></div>
     <div class="stat-row" id="raStatRow"></div>
     <div id="raVolumeBlock" style="display:none">
-      <div class="yt-subtitle" style="margin-top:18px">Volume de reclamações — mês a mês <span id="raVolumeWin"></span></div>
-      <div id="raVolume"></div>
+      <div class="yt-subtitle" style="margin-top:18px">Volume de reclamações — BMG vs. concorrentes</div>
+      <div id="raVolumeMarket"></div>
+      <div id="raVolumeBmg" style="display:none">
+        <div class="yt-subtitle" style="margin-top:18px">Volume de reclamações do BMG — mês a mês <span id="raVolumeWin"></span></div>
+        <div id="raVolume"></div>
+      </div>
     </div>
     <div class="yt-subtitle" style="margin-top:18px">App e acesso — mês a mês <span id="raMonthlyWin"></span></div>
     <div id="raMonthly"></div>
@@ -2604,25 +2611,62 @@ const raVolume = {
     "ate": "2026-09-30",
     "semestre": 10431,
     "semestreAnterior": 13030,
-    "varSemestre": -19.9,
+    "varSemestre": -20,
     "mediaMensal": 1739,
+    "mediaAnterior": 2172,
     "ultimos30": 1507,
-    "var30": -13.3
+    "var30": -13
   },
   "monthly": null,
   "story": [
     {
       "tone": "good",
-      "html": "<strong>Semestre (abr–set/2026):</strong> 10.431 reclamações, -19.9% vs. o semestre anterior (13.030) — números oficiais do Reclame Aqui."
+      "html": "<strong>Semestre (abr–set/2026):</strong> 10.431 reclamações, -20% vs. o semestre anterior (13.030) — números oficiais do Reclame Aqui."
     },
     {
       "tone": "good",
-      "html": "<strong>Últimos 30 dias (até 06/10/2026):</strong> 1.507 reclamações — 13.3% abaixo da média mensal do semestre (≈ 1.739)."
+      "html": "<strong>Últimos 30 dias (até 06/10/2026):</strong> 1.507 reclamações — 13% abaixo da média mensal do semestre (≈ 1.739)."
     }
   ],
   "top": [],
   "riser": null,
-  "avgBefore": null
+  "avgBefore": null,
+  "market": {
+    "headline": "O BMG recebe menos reclamações; Mercantil e Agibank, mais.",
+    "sub": "Média mensal no semestre abr/26–set/26 contra out/25–mar/26: BMG -20% · Mercantil +24% · Agibank +10%. Os últimos 30 dias confirmam a direção: BMG -13% · Mercantil +38% · Agibank +15% frente à média do semestre.",
+    "semAnt": "out/25–mar/26",
+    "semAtual": "abr/26–set/26",
+    "capturado_em": "2026-10-06",
+    "rows": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "mediaAnterior": 2172,
+        "mediaMensal": 1739,
+        "varSemestre": -20,
+        "ultimos30": 1507,
+        "var30": -13
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false,
+        "mediaAnterior": 2178,
+        "mediaMensal": 2711,
+        "varSemestre": 24,
+        "ultimos30": 3739,
+        "var30": 38
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false,
+        "mediaAnterior": 3072,
+        "mediaMensal": 3386,
+        "varSemestre": 10,
+        "ultimos30": 3909,
+        "var30": 15
+      }
+    ]
+  }
 };
 
 const resumo = {
@@ -2654,10 +2698,10 @@ const resumo = {
     {
       "icon": "📋",
       "channel": "Reclame Aqui",
-      "metric": "8.3/10",
+      "metric": "-20% reclamações",
       "metricNeg": false,
-      "sub": "1.507 reclamações nos últimos 30 dias (-13.3% vs. a média do semestre) · 90.6% resolvidas",
-      "theme": "Selo RA1000 — reputação máxima"
+      "sub": "média mensal no semestre vs. o anterior — Mercantil +24%, Agibank +10% · nota 8.3/10 · 90.6% resolvidas",
+      "theme": "O BMG recebe menos reclamações; Mercantil e Agibank, mais."
     }
   ],
   "highlights": [
@@ -2679,7 +2723,7 @@ const resumo = {
     },
     {
       "ico": "📋",
-      "html": "<strong>Reputação pública preservada:</strong> selo RA1000 no Reclame Aqui, nota 8.3/10 — 90.6% das reclamações resolvidas e 70.6% voltariam a fazer negócio. O volume de reclamações caiu 19.9% no semestre (13.030 → 10.431)."
+      "html": "<strong>Reclame Aqui — O BMG recebe menos reclamações; Mercantil e Agibank, mais.</strong> Média mensal no semestre abr/26–set/26 contra out/25–mar/26: BMG -20% · Mercantil +24% · Agibank +10%. Os últimos 30 dias confirmam a direção: BMG -13% · Mercantil +38% · Agibank +15% frente à média do semestre. Reputação mantida: selo RA1000, nota 8.3/10, 90.6% resolvidas."
     }
   ],
   "market": [
@@ -2688,12 +2732,12 @@ const resumo = {
       "html": "<strong>Comentários nas lojas (Android, set/2026):</strong> o BMG é o mais negativo do trio — BMG 51.5% · Agibank 45.8% · Mercantil 13.6% de comentários negativos (Mercantil com menos dias de dados). A dor é a mesma nos três: \"App trava / instabilidade\" e \"Cadastro / abertura de conta\"."
     },
     {
-      "ico": "📋",
-      "html": "<strong>Reclame Aqui:</strong> o BMG é quem mais resolve (BMG 90.6% · Agibank 90% · Mercantil 86.6%), mas é o mais lento para responder (Agibank 4.9 dias · Mercantil 9.3 dias · BMG 10.7 dias)."
+      "ico": "📉",
+      "html": "<strong>Volume no Reclame Aqui: o BMG é o único recebendo menos reclamações</strong> — média mensal no semestre vs. o anterior: BMG -20% · Mercantil +24% · Agibank +10%."
     },
     {
-      "ico": "📉",
-      "html": "<strong>Volume no Reclame Aqui (semestre vs. anterior):</strong> BMG -19.9% · Mercantil +24.4% · Agibank +10.2% — o BMG é o único recebendo menos reclamações; os concorrentes crescem."
+      "ico": "📋",
+      "html": "<strong>Reclame Aqui:</strong> o BMG é quem mais resolve (BMG 90.6% · Agibank 90% · Mercantil 86.6%), mas é o mais lento para responder (Agibank 4.9 dias · Mercantil 9.3 dias · BMG 10.7 dias)."
     },
     {
       "ico": "⭐",
@@ -2875,10 +2919,11 @@ const competitors = {
           "ate": "2026-09-30",
           "semestre": 10431,
           "semestreAnterior": 13030,
-          "varSemestre": -19.9,
+          "varSemestre": -20,
           "mediaMensal": 1739,
+          "mediaAnterior": 2172,
           "ultimos30": 1507,
-          "var30": -13.3
+          "var30": -13
         }
       },
       "rating": {
@@ -2970,10 +3015,11 @@ const competitors = {
           "ate": "2026-09-30",
           "semestre": 16265,
           "semestreAnterior": 13070,
-          "varSemestre": 24.4,
+          "varSemestre": 24,
           "mediaMensal": 2711,
+          "mediaAnterior": 2178,
           "ultimos30": 3739,
-          "var30": 37.9
+          "var30": 38
         }
       },
       "rating": {
@@ -3075,10 +3121,11 @@ const competitors = {
           "ate": "2026-09-30",
           "semestre": 20315,
           "semestreAnterior": 18432,
-          "varSemestre": 10.2,
+          "varSemestre": 10,
           "mediaMensal": 3386,
+          "mediaAnterior": 3072,
           "ultimos30": 3909,
-          "var30": 15.4
+          "var30": 15
         }
       },
       "rating": {
@@ -3224,9 +3271,9 @@ const competitors = {
       {
         "label": "Volume — semestre vs. semestre anterior",
         "values": [
-          "-19.9%",
-          "+24.4%",
-          "+10.2%"
+          "-20%",
+          "+24%",
+          "+10%"
         ],
         "best": null,
         "note": "variação do próprio banco (totais oficiais) — o tamanho da base não interfere"
@@ -3234,9 +3281,9 @@ const competitors = {
       {
         "label": "Últimos 30 dias vs. média mensal do semestre",
         "values": [
-          "-13.3%",
-          "+37.9%",
-          "+15.4%"
+          "-13%",
+          "+38%",
+          "+15%"
         ],
         "best": null,
         "note": "mostra se o volume recente está acima ou abaixo do ritmo do semestre"
@@ -3281,7 +3328,7 @@ const competitors = {
       },
       {
         "tone": "good",
-        "html": "<strong>Volume de reclamações:</strong> no semestre, contra o anterior, BMG -19.9% · Mercantil +24.4% · Agibank +10.2% — o BMG é o único do trio recebendo menos reclamações, enquanto os concorrentes crescem. Nos últimos 30 dias, frente à média mensal do semestre: BMG -13.3% · Mercantil +37.9% · Agibank +15.4% — a tendência segue a mesma no período mais recente."
+        "html": "<strong>Volume de reclamações:</strong> no semestre, contra o anterior, BMG -20% · Mercantil +24% · Agibank +10% — o BMG é o único do trio recebendo menos reclamações, enquanto os concorrentes crescem. Nos últimos 30 dias, frente à média mensal do semestre: BMG -13% · Mercantil +38% · Agibank +15% — a tendência segue a mesma no período mais recente."
       },
       {
         "tone": "risk",
@@ -3895,9 +3942,26 @@ function renderRaVolume() {
   const foot = v
     ? `O Reclame Aqui só publica totais por período (6 meses, 12 meses, ano), sem série mensal. Por isso o volume de cada mês é uma estimativa: contamos mês a mês as reclamações que têm assunto informado (${Math.round((100 - v.semAssunto) * 10) / 10}% do total) e distribuímos o total oficial do semestre (${o.semestre.toLocaleString('pt-BR')}) na mesma proporção. O total do semestre é o número oficial; a variação entre os meses vem da contagem. A tabela de assuntos usa a contagem direta.${v.truncadas ? ' Alguns assuntos muito volumosos ficaram com os meses mais antigos incompletos.' : ''}`
     : 'Totais oficiais do Reclame Aqui: o semestre atual, o semestre anterior (12 meses menos os 6 mais recentes) e os últimos 30 dias, comparados com a média mensal do semestre. O Reclame Aqui não publica a série mês a mês.';
+  // Sem a contagem mês a mês, o bloco do BMG só repetiria a linha dele na tabela de mercado
+  if (v) document.getElementById('raVolumeBmg').style.display = 'block';
   document.getElementById('raVolume').innerHTML =
     `<ul class="bench-story">${raVolume.story.map((s) => `<li class="${s.tone}">${s.html}</li>`).join('')}</ul>` +
     chart + topTable + `<p class="desc" style="margin-top:10px">${foot}</p>`;
+
+  // BMG vs. concorrentes: média de reclamações por mês, cada banco contra ele mesmo
+  const mk = raVolume.market;
+  if (mk) {
+    const signed = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n + '%');
+    const cls = (n) => (n > 0 ? 'up' : n < 0 ? 'down' : '');
+    const fmt = (n) => (n == null ? '—' : n.toLocaleString('pt-BR'));
+    const rows = mk.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+      `<td class="num">${fmt(r.mediaAnterior)}</td><td class="num">${fmt(r.mediaMensal)}</td><td class="num ${cls(r.varSemestre)}">${signed(r.varSemestre)}</td>` +
+      `<td class="num">${fmt(r.ultimos30)}</td><td class="num ${cls(r.var30)}">${signed(r.var30)}</td></tr>`).join('');
+    document.getElementById('raVolumeMarket').innerHTML =
+      `<div class="ra-headline">${mk.headline}</div><p class="ra-headline-sub">${mk.sub}</p>` +
+      `<div style="overflow-x:auto"><table class="bench-table ra-month-table vol-market-table"><tr><th>Banco</th><th class="num">Média por mês<br>${mk.semAnt}</th><th class="num">Média por mês<br>${mk.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${mk.semAtual}</th></tr>${rows}</table></div>` +
+      `<p class="desc" style="margin-top:10px">Totais oficiais do Reclame Aqui. Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação. Coleta de ${mk.capturado_em.split('-').reverse().join('/')}.</p>`;
+  }
 }
 
 // App e acesso no Reclame Aqui, mês a mês — leitura do último mês fechado vs. o anterior
