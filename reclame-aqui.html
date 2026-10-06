@@ -209,12 +209,6 @@
 
   .quote { background: var(--page); border-left: 3px solid var(--border); border-radius: 0 6px 6px 0; padding: 8px 12px; margin-top: 8px; font-size: 13px; font-style: italic; color: var(--text-primary); }
   .quote-meta { font-size: 11px; color: var(--text-muted); font-style: normal; margin-top: 4px; display: flex; gap: 8px; }
-  .ra-rep { display: flex; align-items: center; gap: 16px; margin: 4px 0 18px; flex-wrap: wrap; }
-  .ra-rep-selo { background: #1a7f37; color: #fff; font-weight: 700; padding: 6px 14px; border-radius: 999px; font-size: 14px; letter-spacing: .3px; }
-  .ra-rep-nota { font-size: 14px; color: var(--text-primary); }
-  .ra-rep-nota strong { font-size: 26px; }
-  .ra-rep-nota span { color: var(--text-muted); font-size: 13px; }
-  .ra-rep-cap { color: var(--text-muted); font-size: 12px; }
   .ra-month-table { min-width: 560px; }
   .ra-month-table th.num, .ra-month-table td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .ra-month-table .is-ref { font-weight: 700; color: var(--text-primary); background: var(--page); }
@@ -222,6 +216,18 @@
   .ra-month-table td.down { color: var(--good); font-weight: 600; }
   .ra-month-table tr.grp td { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; padding: 14px 10px 4px; border-bottom: none; }
   .bench-sub-inline { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+  .ra-section { margin-top: 28px; }
+  .ra-section-title { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .ra-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 28px; align-items: start; margin-top: 12px; }
+  @media (max-width: 760px) { .ra-grid { grid-template-columns: 1fr; gap: 16px; } }
+  .ra-mini-title { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .ra-foot { font-size: 12.5px; color: var(--text-muted); margin: 10px 0 0; }
+  .ra-notes { margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+  .ra-notes ul { margin: 6px 0 0; padding-left: 18px; }
+  .ra-drivers-table td { vertical-align: top; }
+  .ra-grid .ra-month-table { min-width: 0; }
+  .stat-note.tone-good { color: var(--good); }
+  .stat-note.tone-risk { color: var(--critical); }
   .ra-headline { font-size: 17px; font-weight: 700; color: var(--text-primary); margin: 4px 0 4px; line-height: 1.35; }
   .ra-headline-sub { font-size: 13px; color: var(--text-muted); margin: 0 0 10px; line-height: 1.5; }
   .vol-market-table td.up, .vol-market-table td.down { font-size: 14px; }
@@ -373,33 +379,20 @@
 
   <!-- ===================== ABA: RECLAME AQUI ===================== -->
   <div class="tab-panel" id="tab-reclame-aqui" hidden>
-  <div class="card" id="raCard" style="display:none">
-    <h2>📋 Reclame Aqui — reputação e reclamações <span id="raMonth" class="yt-month"></span></h2>
-    <p class="desc">Retrato da reputação pública do BMG no Reclame Aqui — o ângulo de <strong>crédito e cobrança</strong> que as lojas de app não capturam. Reputação nos últimos 6 meses (o período padrão do Reclame Aqui), reclamações de app e acesso mês a mês — com foco no último mês fechado — e reclamações recentes.</p>
-    <div id="raRep" class="ra-rep"></div>
+  <div class="card" id="raBmgCard" style="display:none">
+    <h2>📋 Reclame Aqui — BMG <span id="raMonth" class="yt-month"></span></h2>
+    <p class="desc">O ângulo de crédito e cobrança que as lojas de app não capturam. Leitura do último mês fechado, com os 6 meses como contexto.</p>
     <div class="stat-row" id="raStatRow"></div>
-    <div id="raVolumeBlock" style="display:none">
-      <div id="raVolumeBmg" style="display:none">
-        <div class="yt-subtitle" style="margin-top:18px">Reclamações do BMG — mês a mês <span id="raVolumeWin"></span></div>
-        <div id="raVolume"></div>
-      </div>
-    </div>
-    <div class="yt-subtitle" style="margin-top:18px">App e acesso — mês a mês <span id="raMonthlyWin"></span></div>
-    <div id="raMonthly"></div>
-    <div class="yt-subtitle" style="margin-top:18px">Reclamações recentes</div>
-    <div id="raRecent"></div>
+    <div id="raMes"></div>
+    <div id="raApp"></div>
   </div>
 
-  <div class="card" id="raBenchCard" style="display:none">
+  <div class="card" id="raMktCard" style="display:none">
     <h2>Reclame Aqui — BMG vs. concorrentes</h2>
-    <div class="yt-subtitle">Volume de reclamações</div>
-    <div id="raVolumeMarket"></div>
-    <div id="raVolumeTopics"></div>
-    <div class="yt-subtitle" style="margin-top:22px">Reputação e atendimento</div>
-    <p class="desc" id="raBenchDesc"></p>
-    <ul class="bench-story" id="raBenchStory"></ul>
-    <div style="overflow-x:auto"><table class="bench-table ra-bench-table" id="raBenchTable"></table></div>
-    <p class="desc" id="raBenchFoot" style="margin-top:12px"></p>
+    <div id="raSecVolume"></div>
+    <div id="raSecDrivers"></div>
+    <div id="raSecReput"></div>
+    <div id="raNotes" class="ra-notes"></div>
   </div>
   </div><!-- fim aba Reclame Aqui -->
 </div>
@@ -2794,190 +2787,123 @@ const reclameAqui = {
   }
 };
 
-const raMensal = {
-  "capturado_em": "2026-10-06",
-  "months": [
-    "2026-04",
-    "2026-05",
-    "2026-06",
-    "2026-07",
-    "2026-08",
-    "2026-09"
-  ],
-  "refMonth": "2026-09",
-  "prevMonth": "2026-08",
-  "rows": [
+const raPage = {
+  "kpis": [
     {
-      "nome": "Não consigo acessar minha conta",
-      "dim": "problem",
-      "values": [
-        50,
-        38,
-        36,
-        27,
-        23,
-        56
-      ],
-      "ref": 56,
-      "prev": 23,
-      "avgBefore": 35,
-      "peak": true
+      "label": "Reputação (6 meses)",
+      "value": "RA1000",
+      "note": "nota 8.3 de 10"
     },
     {
-      "nome": "Abertura de conta",
-      "dim": "problem",
-      "values": [
-        8,
-        9,
-        13,
-        6,
-        10,
-        13
-      ],
-      "ref": 13,
-      "prev": 10,
-      "avgBefore": 9,
-      "peak": false
+      "label": "Reclamações — últimos 30 dias",
+      "value": "1.507",
+      "note": "-13% vs. a média mensal do semestre",
+      "tone": "good"
     },
     {
-      "nome": "Problema de acesso ao Internet Banking",
-      "dim": "problem",
-      "values": [
-        9,
-        4,
-        2,
-        0,
-        3,
-        7
-      ],
-      "ref": 7,
-      "prev": 3,
-      "avgBefore": 4,
-      "peak": false
+      "label": "Resolvidas (6 meses)",
+      "value": "90.6%",
+      "note": "das reclamações avaliadas pelo cliente"
     },
     {
-      "nome": "Aplicativos",
-      "dim": "category",
-      "values": [
-        21,
-        16,
-        22,
-        6,
-        9,
-        13
-      ],
-      "ref": 13,
-      "prev": 9,
-      "avgBefore": 15,
-      "peak": false
-    },
-    {
-      "nome": "Internet Banking",
-      "dim": "category",
-      "values": [
-        3,
-        0,
-        1,
-        3,
-        2,
-        0
-      ],
-      "ref": 0,
-      "prev": 2,
-      "avgBefore": 2,
-      "peak": false
+      "label": "Tempo de resposta (6 meses)",
+      "value": "10.7 dias",
+      "note": "média"
     }
   ],
-  "empty": [
-    "Problemas com o Site",
-    "Problemas com senha"
-  ],
-  "top": {
-    "nome": "Não consigo acessar minha conta",
-    "dim": "problem",
-    "values": [
-      50,
-      38,
-      36,
-      27,
-      23,
-      56
+  "mes": {
+    "title": "O que mudou em set/2026",
+    "headline": "As reclamações subiram 6% em relação a ago, puxadas por \"Não consigo acessar minha conta\", \"Limite\" e \"Não recebi\".",
+    "chart": {
+      "months": [
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09"
+      ],
+      "counts": [
+        1609,
+        1197,
+        997,
+        923,
+        1165,
+        1240
+      ],
+      "partial": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "refMonth": "2026-09"
+    },
+    "movers": [
+      {
+        "nome": "Não consigo acessar minha conta",
+        "prev": 23,
+        "ref": 56,
+        "delta": 33
+      },
+      {
+        "nome": "Limite",
+        "prev": 55,
+        "ref": 85,
+        "delta": 30
+      },
+      {
+        "nome": "Não recebi",
+        "prev": 13,
+        "ref": 37,
+        "delta": 24
+      },
+      {
+        "nome": "Problema para quitar o empréstimo",
+        "prev": 47,
+        "ref": 70,
+        "delta": 23
+      },
+      {
+        "nome": "Demora na execução",
+        "prev": 77,
+        "ref": 22,
+        "delta": -55
+      },
+      {
+        "nome": "Cobrança indevida",
+        "prev": 413,
+        "ref": 385,
+        "delta": -28
+      },
+      {
+        "nome": "Cancelamento",
+        "prev": 147,
+        "ref": 123,
+        "delta": -24
+      }
     ],
-    "ref": 56,
-    "prev": 23,
-    "avgBefore": 35,
-    "peak": true
+    "maiores": [
+      {
+        "nome": "Cobrança indevida",
+        "share": 31
+      },
+      {
+        "nome": "Cancelamento",
+        "share": 9.9
+      },
+      {
+        "nome": "Limite",
+        "share": 6.9
+      }
+    ],
+    "refMonth": "2026-09",
+    "prevMonth": "2026-08"
   },
-  "peers": [
-    {
-      "key": "mercantil",
-      "label": "Mercantil",
-      "ref": 101,
-      "prev": 37
-    },
-    {
-      "key": "agibank",
-      "label": "Agibank",
-      "ref": 40,
-      "prev": 27
-    }
-  ],
-  "shares": [
-    {
-      "key": "bmg",
-      "label": "BMG",
-      "isBmg": true,
-      "count": 314,
-      "total": 10431,
-      "share": 3
-    },
-    {
-      "key": "mercantil",
-      "label": "Mercantil",
-      "isBmg": false,
-      "count": 327,
-      "total": 16265,
-      "share": 2
-    },
-    {
-      "key": "agibank",
-      "label": "Agibank",
-      "isBmg": false,
-      "count": 287,
-      "total": 20315,
-      "share": 1.4
-    }
-  ],
-  "story": [
-    {
-      "tone": "risk",
-      "html": "<strong>set/2026: \"Não consigo acessar minha conta\" teve 56 reclamações</strong>, mais que o dobro de ago/2026 (23) — o maior mês do semestre. Nos 5 meses anteriores, a média foi de 35 por mês."
-    },
-    {
-      "tone": "watch",
-      "html": "<strong>Demais problemas de app/acesso em set/2026:</strong> Abertura de conta 13 (ago/2026: 10) · Problema de acesso ao Internet Banking 7 (ago/2026: 3)."
-    },
-    {
-      "tone": "watch",
-      "html": "<strong>Peso no total:</strong> no semestre, app e acesso somam 314 das 10.431 reclamações do BMG (3%) — a maior parte do Reclame Aqui é sobre outros assuntos."
-    }
-  ]
-};
-
-const raVolume = {
-  "official": {
-    "capturado_em": "2026-10-06",
-    "de": "2026-04-01",
-    "ate": "2026-09-30",
-    "semestre": 10431,
-    "semestreAnterior": 13030,
-    "varSemestre": -20,
-    "mediaMensal": 1739,
-    "mediaAnterior": 2172,
-    "ultimos30": 1507,
-    "var30": -13
-  },
-  "monthly": {
+  "app": {
+    "headline": "\"Não consigo acessar minha conta\": 56 reclamações em set/2026, mais que o dobro de ago (23) — o maior mês do semestre.",
     "months": [
       "2026-04",
       "2026-05",
@@ -2986,99 +2912,54 @@ const raVolume = {
       "2026-08",
       "2026-09"
     ],
-    "counts": [
-      1609,
-      1197,
-      997,
-      923,
-      1165,
-      1240
-    ],
-    "partial": [
-      true,
-      true,
-      true,
-      true,
-      false,
-      false
-    ],
     "refMonth": "2026-09",
     "prevMonth": "2026-08",
-    "ref": 1240,
-    "prev": 1165,
-    "varMes": 6,
-    "avgBefore": 1165,
-    "nBefore": 1
+    "rows": [
+      {
+        "nome": "Não consigo acessar minha conta",
+        "values": [
+          50,
+          38,
+          36,
+          27,
+          23,
+          56
+        ],
+        "ref": 56,
+        "prev": 23
+      },
+      {
+        "nome": "Abertura de conta",
+        "values": [
+          8,
+          9,
+          13,
+          6,
+          10,
+          13
+        ],
+        "ref": 13,
+        "prev": 10
+      },
+      {
+        "nome": "Problema de acesso ao Internet Banking",
+        "values": [
+          9,
+          4,
+          2,
+          0,
+          3,
+          7
+        ],
+        "ref": 7,
+        "prev": 3
+      }
+    ],
+    "note": "App e acesso somam 3% das reclamações do BMG no semestre (314 de 10.431)."
   },
-  "story": [
-    {
-      "tone": "info",
-      "html": "<strong>set/2026: 1.240 reclamações com assunto informado</strong>, +6% vs. ago/2026 (1.165)."
-    },
-    {
-      "tone": "good",
-      "html": "<strong>Semestre (abr–set/2026):</strong> 10.431 reclamações, -20% vs. o semestre anterior (13.030) — números oficiais do Reclame Aqui."
-    },
-    {
-      "tone": "good",
-      "html": "<strong>Últimos 30 dias (até 06/10/2026):</strong> 1.507 reclamações — 13% abaixo da média mensal do semestre (≈ 1.739)."
-    },
-    {
-      "tone": "info",
-      "html": "<strong>O que mais pesou em set/2026:</strong> Cobrança indevida (31%) · Cancelamento (9.9%) · Limite (6.9%) das reclamações com assunto."
-    },
-    {
-      "tone": "watch",
-      "html": "<strong>O que mudou de ago para set/2026:</strong> subiram \"Não consigo acessar minha conta\" (23 → 56), \"Limite\" (55 → 85), \"Não recebi\" (13 → 37); caíram \"Demora na execução\" (77 → 22), \"Cobrança indevida\" (413 → 385)."
-    }
-  ],
-  "top": [
-    {
-      "nome": "Cobrança indevida",
-      "ref": 385,
-      "prev": 413,
-      "share": 31
-    },
-    {
-      "nome": "Cancelamento",
-      "ref": 123,
-      "prev": 147,
-      "share": 9.9
-    },
-    {
-      "nome": "Limite",
-      "ref": 85,
-      "prev": 55,
-      "share": 6.9
-    },
-    {
-      "nome": "Problema para quitar o empréstimo",
-      "ref": 70,
-      "prev": 47,
-      "share": 5.6
-    },
-    {
-      "nome": "Não consigo acessar minha conta",
-      "ref": 56,
-      "prev": 23,
-      "share": 4.5
-    },
-    {
-      "nome": "Problema com o cartão",
-      "ref": 47,
-      "prev": 62,
-      "share": 3.8
-    }
-  ],
-  "riser": {
-    "nome": "Não consigo acessar minha conta",
-    "ref": 56,
-    "prev": 23
-  },
-  "avgBefore": 1165,
-  "market": {
+  "volume": {
     "headline": "O BMG recebe menos reclamações; Mercantil e Agibank, mais.",
-    "sub": "Média mensal no semestre abr/26–set/26 contra out/25–mar/26: BMG -20% · Mercantil +24% · Agibank +10%. Os últimos 30 dias confirmam a direção: BMG -13% · Mercantil +38% · Agibank +15% frente à média do semestre.",
+    "sub": "Média mensal no semestre abr/26–set/26 contra out/25–mar/26: BMG -20% · Mercantil +24% · Agibank +10%.",
     "semAnt": "out/25–mar/26",
     "semAtual": "abr/26–set/26",
     "capturado_em": "2026-10-06",
@@ -3112,7 +2993,97 @@ const raVolume = {
       }
     ]
   },
-  "topics": null
+  "drivers": null,
+  "reputacao": {
+    "headline": "O BMG é quem mais resolve, mas é o mais lento para responder.",
+    "banks": [
+      {
+        "label": "BMG",
+        "isBmg": true
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false
+      }
+    ],
+    "rows": [
+      {
+        "label": "Selo atual",
+        "values": [
+          "RA1000",
+          "Ótima",
+          "RA1000"
+        ],
+        "best": null
+      },
+      {
+        "label": "Meses com RA1000 (de 6)",
+        "values": [
+          "2",
+          "0",
+          "6"
+        ],
+        "best": 2
+      },
+      {
+        "label": "Nota (0 a 10)",
+        "values": [
+          "8.3",
+          "8.1",
+          "8.4"
+        ],
+        "best": 2
+      },
+      {
+        "label": "Resolvidas",
+        "values": [
+          "90.6%",
+          "86.6%",
+          "90%"
+        ],
+        "best": 0
+      },
+      {
+        "label": "Tempo médio de resposta",
+        "values": [
+          "10.7 dias",
+          "9.3 dias",
+          "4.9 dias"
+        ],
+        "best": 2
+      },
+      {
+        "label": "Voltariam a fazer negócio",
+        "values": [
+          "70.6%",
+          "67.1%",
+          "73.3%"
+        ],
+        "best": 2
+      },
+      {
+        "label": "App e acesso (% das reclamações)",
+        "values": [
+          "3%",
+          "2%",
+          "1.4%"
+        ],
+        "best": 2
+      }
+    ]
+  },
+  "notas": [
+    "Mês a mês e assuntos: contagem das reclamações com assunto informado — a grande maioria; cerca de 15% chegam sem assunto e ficam de fora. O Reclame Aqui não publica série mensal.",
+    "* Mês com contagem incompleta (um assunto muito volumoso não coube no limite da consulta) — fica fora das comparações.",
+    "Volume: totais oficiais do Reclame Aqui (semestre abr/26–set/26, semestre anterior out/25–mar/26 e últimos 30 dias). Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação.",
+    "Reputação e atendimento: números oficiais do Reclame Aqui nos últimos 6 meses (01/04/2026 a 30/09/2026). Em verde, o melhor de cada linha.",
+    "Coleta em 06/10/2026."
+  ],
+  "mesRef": "2026-09"
 };
 
 const resumo = {
@@ -3169,7 +3140,7 @@ const resumo = {
     },
     {
       "ico": "📋",
-      "html": "<strong>Reclame Aqui — O BMG recebe menos reclamações; Mercantil e Agibank, mais.</strong> Média mensal no semestre abr/26–set/26 contra out/25–mar/26: BMG -20% · Mercantil +24% · Agibank +10%. Os últimos 30 dias confirmam a direção: BMG -13% · Mercantil +38% · Agibank +15% frente à média do semestre. Reputação mantida: selo RA1000, nota 8.3/10, 90.6% resolvidas."
+      "html": "<strong>Reclame Aqui — O BMG recebe menos reclamações; Mercantil e Agibank, mais.</strong> Média mensal no semestre abr/26–set/26 contra out/25–mar/26: BMG -20% · Mercantil +24% · Agibank +10%. Reputação mantida: selo RA1000, nota 8.3/10, 90.6% resolvidas."
     }
   ],
   "market": [
@@ -3959,168 +3930,7 @@ const competitors = {
       "tone": "watch",
       "html": "<strong>No iOS (amostra pequena, ler como sinal):</strong> Agibank é o mais crítico — 76.1% negativo em 46 comentários nos últimos 3 meses fechados."
     }
-  ],
-  "ra": {
-    "banks": [
-      {
-        "label": "BMG",
-        "isBmg": true
-      },
-      {
-        "label": "Mercantil",
-        "isBmg": false
-      },
-      {
-        "label": "Agibank",
-        "isBmg": false
-      }
-    ],
-    "table": [
-      {
-        "label": "Reputação (nota de 0 a 10)",
-        "values": [
-          "8.3",
-          "8.1",
-          "8.4"
-        ],
-        "best": 2,
-        "note": null
-      },
-      {
-        "label": "Selo atual",
-        "values": [
-          "RA1000",
-          "Ótima",
-          "RA1000"
-        ],
-        "best": null,
-        "note": null
-      },
-      {
-        "label": "Reclamações resolvidas",
-        "values": [
-          "90.6%",
-          "86.6%",
-          "90%"
-        ],
-        "best": 0,
-        "note": null
-      },
-      {
-        "label": "Reclamações respondidas",
-        "values": [
-          "98.3%",
-          "96.2%",
-          "98.6%"
-        ],
-        "best": 2,
-        "note": null
-      },
-      {
-        "label": "Tempo médio de resposta",
-        "values": [
-          "10.7 dias",
-          "9.3 dias",
-          "4.9 dias"
-        ],
-        "best": 2,
-        "note": null
-      },
-      {
-        "label": "Voltariam a fazer negócio",
-        "values": [
-          "70.6%",
-          "67.1%",
-          "73.3%"
-        ],
-        "best": 2,
-        "note": null
-      },
-      {
-        "label": "Nota do consumidor (0 a 10)",
-        "values": [
-          "7.45",
-          "7.32",
-          "7.46"
-        ],
-        "best": 2,
-        "note": null
-      },
-      {
-        "label": "Aguardando resposta (% das recebidas)",
-        "values": [
-          "1.7%",
-          "3.7%",
-          "1.4%"
-        ],
-        "best": 2,
-        "note": null
-      },
-      {
-        "label": "Meses em RA1000 (últimos 6)",
-        "values": [
-          "2 de 6",
-          "0 de 6",
-          "6 de 6"
-        ],
-        "best": 2,
-        "note": null
-      },
-      {
-        "label": "Reclamações recebidas (6 meses)",
-        "values": [
-          "10.431",
-          "16.265",
-          "20.315"
-        ],
-        "best": null,
-        "note": "depende do tamanho da base de clientes — não serve pra ranquear"
-      },
-      {
-        "label": "App e acesso (% das reclamações, 6 meses)",
-        "values": [
-          "3%",
-          "2%",
-          "1.4%"
-        ],
-        "best": 2,
-        "note": "não consegue acessar a conta, abertura de conta e acesso ao Internet Banking"
-      },
-      {
-        "label": "\"Não consigo acessar minha conta\" em set/2026",
-        "values": [
-          "56 <span class=\"bench-sub-inline\">(ago: 23)</span>",
-          "101 <span class=\"bench-sub-inline\">(ago: 37)</span>",
-          "40 <span class=\"bench-sub-inline\">(ago: 27)</span>"
-        ],
-        "best": null,
-        "note": "volume do mês — vale a direção de cada banco, não o tamanho"
-      }
-    ],
-    "story": [
-      {
-        "tone": "good",
-        "html": "<strong>Resolução:</strong> o BMG é quem mais resolve — BMG 90.6% · Agibank 90% · Mercantil 86.6%."
-      },
-      {
-        "tone": "risk",
-        "html": "<strong>Tempo de resposta:</strong> o BMG é o mais lento — Agibank 4.9 dias · Mercantil 9.3 dias · BMG 10.7 dias. Resolver muito mas responder devagar é a combinação que mais desgasta quem está esperando."
-      },
-      {
-        "tone": "watch",
-        "html": "<strong>Voltariam a fazer negócio:</strong> Agibank 73.3% · BMG 70.6% · Mercantil 67.1%."
-      },
-      {
-        "tone": "watch",
-        "html": "<strong>Constância da reputação (últimos 6 meses):</strong> BMG 2 de 6 meses em RA1000 · Mercantil 0 de 6 meses em RA1000 · Agibank 6 de 6 meses em RA1000. O BMG chegou ao RA1000 mais recentemente — manter o selo depende de sustentar resolução e prazo."
-      },
-      {
-        "tone": "risk",
-        "html": "<strong>App e acesso:</strong> proporcionalmente, o BMG é quem mais recebe reclamações de app/acesso (Agibank 1.4% · Mercantil 2% · BMG 3% do total no semestre). Em set/2026, \"Não consigo acessar minha conta\" subiu nos três: BMG 23 → 56 · Mercantil 37 → 101 · Agibank 27 → 40."
-      }
-    ],
-    "periodo": "01/04/2026 a 30/09/2026"
-  }
+  ]
 };
 // ===== DATA-INJECTION-END =====
 
@@ -4653,138 +4463,85 @@ function renderYoutube() {
 }
 renderYoutube();
 
-// ---- Reclame Aqui (reputação pública — fonte complementar, atualizada sob demanda) ----
-function renderReclameAqui() {
-  if (typeof reclameAqui === 'undefined' || !reclameAqui) return;
-  const ra = reclameAqui;
-  document.getElementById('raCard').style.display = 'block';
-  if (ra.periodo) document.getElementById('raMonth').textContent = '· ' + ra.periodo;
-
-  const s6 = ra.seis_meses || {};
-  document.getElementById('raRep').innerHTML =
-    `<div class="ra-rep-selo">${ra.reputacao?.selo || 'Reputação'}</div>` +
-    `<div class="ra-rep-nota"><strong>${ra.reputacao?.nota ?? '—'}</strong>/10 <span>nota de reputação no período</span></div>` +
-    (ra.capturado_em ? `<div class="ra-rep-cap">Consultado em ${ra.capturado_em}</div>` : '');
-
-  const vol = (typeof raVolume !== 'undefined' && raVolume) ? raVolume : null;
-  const signed = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n + '%');
-  const tiles = [
-    vol && vol.official.ultimos30 != null
-      ? { label: 'Reclamações — últimos 30 dias', value: vol.official.ultimos30.toLocaleString('pt-BR'), note: signed(vol.official.var30) + ' vs. a média mensal do semestre · ' + vol.official.semestre.toLocaleString('pt-BR') + ' no semestre' }
-      : { label: 'Reclamações no período', value: fmtViews(s6.reclamacoes || 0), note: '' },
-    { label: 'Respondidas (6 meses)', value: (s6.respondidas ?? '—') + '%', note: s6.tempoRespostaDias ? 'em ~' + (Math.round(s6.tempoRespostaDias * 10) / 10) + ' dias' : '' },
-    { label: 'Resolvidas (6 meses)', value: (s6.resolvidas ?? '—') + '%', note: 'das reclamações avaliadas' },
-    { label: 'Voltariam a fazer negócio (6 meses)', value: (s6.voltariam ?? '—') + '%', note: 'nota do consumidor ' + (s6.notaConsumidor ?? '—') },
-  ];
-  document.getElementById('raStatRow').innerHTML = tiles.map(t =>
-    `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note">${t.note}</div></div>`
-  ).join('');
-
-  renderRaVolume();
-  renderRaMonthly();
-
-  const statusLabel = { PENDING: 'não respondida', ANSWERED: 'respondida', EVALUATED: 'avaliada', PROCESSING: 'em tratativa' };
-  document.getElementById('raRecent').innerHTML = (ra.recentes || []).slice(0, 6).map(r => `
-    <div class="yt-theme">
-      <div class="yt-theme-head"><span class="yt-theme-label">${r.titulo}</span></div>
-      <div class="yt-quote-meta">${statusLabel[r.status] || (r.status || '').toLowerCase()}${r.data ? ' · ' + r.data : ''}</div>
-    </div>
-  `).join('') || '<div class="theme-trend-empty">Sem reclamações recentes.</div>';
-}
-renderReclameAqui();
-
-// Volume de reclamações no Reclame Aqui, mês a mês (estimativa ancorada no total oficial de 6 meses)
-function renderRaVolume() {
-  if (typeof raVolume === 'undefined' || !raVolume) return;
-  const o = raVolume.official, v = raVolume.monthly;
-  document.getElementById('raVolumeBlock').style.display = 'block';
+// ---- Reclame Aqui: página montada a partir de `raPage` (narrativa gerada no buildDashboard) ----
+// Cada seção = 1 manchete (a conclusão) + 1 gráfico/tabela que a sustenta. Notas de método no fim.
+function renderRaPage() {
+  if (typeof raPage === 'undefined' || !raPage) return;
+  const p = raPage;
   const mon = (m) => fmtRefMonth(m).split('/')[0];
-  document.getElementById('raVolumeWin').textContent = v
-    ? '· ' + mon(v.months[0]) + ' a ' + fmtRefMonth(v.refMonth)
-    : '· semestre ' + mon(o.de.slice(0, 7)) + '–' + fmtRefMonth(o.ate.slice(0, 7));
-  let chart = '';
-  if (v) {
-    const max = Math.max(...v.counts);
-    chart = '<div class="vol-chart">' + v.months.map((m, i) =>
-      `<div class="vol-col${m === v.refMonth ? ' is-ref' : ''}${v.partial[i] ? ' is-partial' : ''}"><div class="vol-val">${v.counts[i].toLocaleString('pt-BR')}${v.partial[i] ? '*' : ''}</div>` +
-      `<div class="vol-track"><div class="vol-bar" style="height:${Math.round((v.counts[i] / max) * 100)}%"></div></div>` +
-      `<div class="vol-lbl">${mon(m)}</div></div>`).join('') + '</div>';
-  }
-  let topTable = '';
-  if (v && raVolume.top.length) {
-    const rows = raVolume.top.map((a) => {
-      const d = a.ref - a.prev;
-      return `<tr><td>${a.nome}${raVolume.riser && raVolume.riser.nome === a.nome ? ' <span class="bench-sub-inline">· maior alta</span>' : ''}</td>` +
-        `<td class="num">${a.share}%</td><td class="num is-ref">${a.ref}</td><td class="num">${a.prev}</td>` +
-        `<td class="num ${d > 0 ? 'up' : d < 0 ? 'down' : ''}">${d > 0 ? '+' : ''}${d}</td></tr>`;
-    }).join('');
-    topTable = `<div class="yt-subtitle" style="margin-top:16px">O que mais pesou em ${fmtRefMonth(v.refMonth)}</div>` +
-      `<div style="overflow-x:auto"><table class="bench-table ra-month-table"><tr><th>Assunto</th><th class="num">% do mês</th><th class="num is-ref">${mon(v.refMonth)}</th><th class="num">${mon(v.prevMonth)}</th><th class="num">${mon(v.refMonth)} vs. ${mon(v.prevMonth)}</th></tr>${rows}</table></div>`;
-  }
-  const foot = v
-    ? `O Reclame Aqui só publica totais por período (6 meses, 12 meses, ano), sem série mensal. Por isso contamos mês a mês as reclamações que têm assunto informado — a grande maioria; cerca de 15% chegam sem assunto e não entram na contagem. Os números servem para ver a direção e o que mudou entre os meses; o total oficial do semestre é ${o.semestre.toLocaleString('pt-BR')}.${v.partial.some(Boolean) ? ' * Mês com contagem incompleta (um assunto muito volumoso não coube no limite da consulta) — fica fora das comparações.' : ''}`
-    : 'Totais oficiais do Reclame Aqui: o semestre atual, o semestre anterior (12 meses menos os 6 mais recentes) e os últimos 30 dias, comparados com a média mensal do semestre. O Reclame Aqui não publica a série mês a mês.';
-  // Sem a contagem mês a mês, o bloco do BMG só repetiria a linha dele na tabela de mercado
-  if (v) document.getElementById('raVolumeBmg').style.display = 'block';
-  document.getElementById('raVolume').innerHTML =
-    `<ul class="bench-story">${raVolume.story.map((s) => `<li class="${s.tone}">${s.html}</li>`).join('')}</ul>` +
-    chart + topTable + `<p class="desc" style="margin-top:10px">${foot}</p>`;
+  const signed = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n + '%');
+  const cls = (n) => (n > 0 ? 'up' : n < 0 ? 'down' : '');
+  const fmt = (n) => (n == null ? '—' : n.toLocaleString('pt-BR'));
+  const section = (n, title, headline, body) =>
+    `<div class="ra-section"><div class="ra-section-title">${n} · ${title}</div>` +
+    (headline ? `<div class="ra-headline">${headline}</div>` : '') + body + '</div>';
+  const table = (head, rows, extra) => `<div style="overflow-x:auto"><table class="bench-table ra-month-table ${extra || ''}">${head}${rows}</table></div>`;
 
-  // BMG vs. concorrentes: média de reclamações por mês, cada banco contra ele mesmo
-  const mk = raVolume.market;
-  if (mk) {
-    const signed = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n + '%');
-    const cls = (n) => (n > 0 ? 'up' : n < 0 ? 'down' : '');
-    const fmt = (n) => (n == null ? '—' : n.toLocaleString('pt-BR'));
-    const rows = mk.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+  // ---------- Card 1: BMG ----------
+  document.getElementById('raBmgCard').style.display = 'block';
+  if (p.mesRef) document.getElementById('raMonth').textContent = '· ' + fmtRefMonth(p.mesRef);
+  document.getElementById('raStatRow').innerHTML = p.kpis.map((t) =>
+    `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note}</div></div>`).join('');
+
+  let n = 0;
+  if (p.mes) {
+    const m = p.mes, c = m.chart;
+    const max = Math.max(...c.counts);
+    const chart = '<div class="ra-mini-title">Reclamações com assunto, por mês</div><div class="vol-chart">' + c.months.map((mo, i) =>
+      `<div class="vol-col${mo === c.refMonth ? ' is-ref' : ''}${c.partial[i] ? ' is-partial' : ''}"><div class="vol-val">${fmt(c.counts[i])}${c.partial[i] ? '*' : ''}</div>` +
+      `<div class="vol-track"><div class="vol-bar" style="height:${Math.round((c.counts[i] / max) * 100)}%"></div></div>` +
+      `<div class="vol-lbl">${mon(mo)}</div></div>`).join('') + '</div>';
+    const movers = m.movers.length
+      ? `<div class="ra-mini-title">Assuntos que mais mudaram (${mon(m.prevMonth)} → ${mon(m.refMonth)})</div>` +
+        table(`<tr><th>Assunto</th><th class="num">${mon(m.prevMonth)}</th><th class="num is-ref">${mon(m.refMonth)}</th><th class="num">Variação</th></tr>`,
+          m.movers.map((x) => `<tr><td>${x.nome}</td><td class="num">${x.prev}</td><td class="num is-ref">${x.ref}</td><td class="num ${cls(x.delta)}">${x.delta > 0 ? '+' : ''}${x.delta}</td></tr>`).join(''))
+      : '';
+    const maiores = m.maiores.length
+      ? `<p class="ra-foot">Maiores assuntos do mês: ${m.maiores.map((x) => `${x.nome} (${x.share}%)`).join(' · ')}.</p>` : '';
+    document.getElementById('raMes').innerHTML = section(++n, m.title, m.headline, `<div class="ra-grid"><div>${chart}</div><div>${movers}</div></div>${maiores}`);
+  }
+  if (p.app) {
+    const a = p.app;
+    const head = `<tr><th>Problema relatado</th>${a.months.map((mo) => `<th class="num${mo === a.refMonth ? ' is-ref' : ''}">${mon(mo)}</th>`).join('')}<th class="num">${mon(a.refMonth)} vs. ${mon(a.prevMonth)}</th></tr>`;
+    const rows = a.rows.map((r) => {
+      const d = r.ref - r.prev;
+      return `<tr><td>${r.nome}</td>${r.values.map((x, i) => `<td class="num${a.months[i] === a.refMonth ? ' is-ref' : ''}">${x}</td>`).join('')}<td class="num ${cls(d)}">${d > 0 ? '+' : ''}${d}</td></tr>`;
+    }).join('');
+    document.getElementById('raApp').innerHTML = section(++n, 'App e acesso', a.headline, table(head, rows) + (a.note ? `<p class="ra-foot">${a.note}</p>` : ''));
+  }
+
+  // ---------- Card 2: BMG vs. concorrentes ----------
+  if (!p.volume && !p.drivers && !p.reputacao) return;
+  document.getElementById('raMktCard').style.display = 'block';
+  if (p.volume) {
+    const v = p.volume;
+    const head = `<tr><th>Banco</th><th class="num">Média por mês<br>${v.semAnt}</th><th class="num">Média por mês<br>${v.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${v.semAtual}</th></tr>`;
+    const rows = v.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
       `<td class="num">${fmt(r.mediaAnterior)}</td><td class="num">${fmt(r.mediaMensal)}</td><td class="num ${cls(r.varSemestre)}">${signed(r.varSemestre)}</td>` +
       `<td class="num">${fmt(r.ultimos30)}</td><td class="num ${cls(r.var30)}">${signed(r.var30)}</td></tr>`).join('');
-    document.getElementById('raVolumeMarket').innerHTML =
-      `<div class="ra-headline">${mk.headline}</div><p class="ra-headline-sub">${mk.sub}</p>` +
-      `<div style="overflow-x:auto"><table class="bench-table ra-month-table vol-market-table"><tr><th>Banco</th><th class="num">Média por mês<br>${mk.semAnt}</th><th class="num">Média por mês<br>${mk.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${mk.semAtual}</th></tr>${rows}</table></div>` +
-      `<p class="desc" style="margin-top:10px">Totais oficiais do Reclame Aqui. Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação. Coleta de ${mk.capturado_em.split('-').reverse().join('/')}.</p>`;
+    document.getElementById('raSecVolume').innerHTML = section(++n, 'Volume de reclamações', v.headline, table(head, rows, 'vol-market-table'));
   }
-
-  // O volume mudou — mudou em quê? Assuntos do último mês por banco, com a variação vs. o anterior
-  const tp = raVolume.topics;
-  if (tp) {
-    const head = `<tr><th>Assunto (% das reclamações do banco em ${mon(tp.ref)})</th>${tp.banks.map((b) => `<th class="num${b.isBmg ? ' is-bmg-col' : ''}">${b.label}</th>`).join('')}</tr>`;
-    const rows = tp.matrix.map((r) => `<tr><td>${r.nome}</td>` + r.values.map((c, i) => {
-      const d = c.ref - c.prev;
-      return `<td class="num${tp.banks[i].isBmg ? ' is-bmg-col' : ''}">${c.share}% <span class="bench-sub-inline">(${c.ref}, ${d > 0 ? '+' : ''}${d} vs. ${mon(tp.prev)})</span></td>`;
-    }).join('') + '</tr>').join('');
-    document.getElementById('raVolumeTopics').innerHTML =
-      `<div class="yt-subtitle" style="margin-top:18px">O que se reclama — ${fmtRefMonth(tp.ref)} vs. ${mon(tp.prev)}</div>` +
-      `<div class="ra-headline" style="font-size:15px">${tp.headline}</div>` +
-      `<ul class="bench-story">${tp.story.map((s) => `<li class="${s.tone}">${s.html}</li>`).join('')}</ul>` +
-      `<div style="overflow-x:auto"><table class="bench-table ra-month-table ra-bench-table">${head}${rows}</table></div>` +
-      `<p class="desc" style="margin-top:10px">Contagem mês a mês das reclamações com assunto informado (cerca de 85% do total), feita do mesmo jeito nos três bancos. Entre parênteses: reclamações no mês e a diferença para ${mon(tp.prev)}.</p>`;
+  if (p.drivers) {
+    const d = p.drivers;
+    const head = `<tr><th>Banco</th><th class="num">${mon(d.refMonth)} vs. ${mon(d.prevMonth)}</th><th>O que mais mudou (${mon(d.prevMonth)} → ${mon(d.refMonth)})</th><th>Principais assuntos em ${mon(d.refMonth)}</th></tr>`;
+    const rows = d.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+      `<td class="num ${cls(r.varMes)}">${signed(r.varMes)}</td>` +
+      `<td>${r.puxou.length ? r.puxou.map((x) => `${x.nome} <span class="bench-sub-inline">(${x.prev} → ${x.ref})</span>`).join('<br>') : '<span class="bench-sub-inline">sem mudança relevante</span>'}</td>` +
+      `<td>${r.top.map((x) => `${x.nome} <span class="bench-sub-inline">${x.share}%</span>`).join('<br>')}</td></tr>`).join('');
+    document.getElementById('raSecDrivers').innerHTML = section(++n, d.title, d.headline, table(head, rows, 'ra-drivers-table'));
+  }
+  if (p.reputacao) {
+    const r = p.reputacao;
+    const head = `<tr><th>Métrica</th>${r.banks.map((b) => `<th class="num${b.isBmg ? ' is-bmg-col' : ''}">${b.label}</th>`).join('')}</tr>`;
+    const rows = r.rows.map((row) => `<tr><td>${row.label}</td>` + row.values.map((x, i) =>
+      `<td class="num${r.banks[i].isBmg ? ' is-bmg-col' : ''}${row.best === i ? ' is-best' : ''}">${x}${row.best === i ? '<span class="best-tag">melhor</span>' : ''}</td>`).join('') + '</tr>').join('');
+    document.getElementById('raSecReput').innerHTML = section(++n, 'Reputação e atendimento', r.headline, table(head, rows, 'ra-bench-table'));
+  }
+  if (p.notas.length) {
+    document.getElementById('raNotes').innerHTML = `<strong>Como ler esta página</strong><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul>`;
   }
 }
-
-// App e acesso no Reclame Aqui, mês a mês — leitura do último mês fechado vs. o anterior
-function renderRaMonthly() {
-  if (typeof raMensal === 'undefined' || !raMensal) return;
-  const rm = raMensal;
-  const mon = (m) => fmtRefMonth(m).split('/')[0];
-  document.getElementById('raMonthlyWin').textContent = '· ' + mon(rm.months[0]) + ' a ' + fmtRefMonth(rm.refMonth);
-  const cols = rm.months.length + 2;
-  const row = (r) => {
-    const d = r.ref - r.prev;
-    return `<tr><td>${r.nome}</td>` +
-      r.values.map((v, i) => `<td class="num${rm.months[i] === rm.refMonth ? ' is-ref' : ''}">${v}</td>`).join('') +
-      `<td class="num ${d > 0 ? 'up' : d < 0 ? 'down' : ''}">${d > 0 ? '+' : ''}${d}</td></tr>`;
-  };
-  const grp = (dim, title) => {
-    const rs = rm.rows.filter((r) => r.dim === dim);
-    return rs.length ? `<tr class="grp"><td colspan="${cols}">${title}</td></tr>` + rs.map(row).join('') : '';
-  };
-  const head = `<tr><th>Assunto</th>${rm.months.map((m) => `<th class="num${m === rm.refMonth ? ' is-ref' : ''}">${mon(m)}</th>`).join('')}<th class="num">${mon(rm.refMonth)} vs. ${mon(rm.prevMonth)}</th></tr>`;
-  document.getElementById('raMonthly').innerHTML =
-    `<ul class="bench-story">${rm.story.map((s) => `<li class="${s.tone}">${s.html}</li>`).join('')}</ul>` +
-    `<div style="overflow-x:auto"><table class="bench-table ra-month-table">${head}${grp('problem', 'Problema relatado pelo cliente')}${grp('category', 'Canal citado na reclamação')}</table></div>` +
-    `<p class="desc" style="margin-top:10px">Reclamações do BMG em cada assunto, mês a mês. "Problema relatado" e "canal citado" são classificações diferentes do Reclame Aqui e podem se sobrepor — não somar as duas.${rm.empty.length ? ` Sem reclamações no período: ${rm.empty.join(' e ')}.` : ''}</p>`;
-}
+renderRaPage();
 
 // ---- Benchmark competitivo (Mercantil, Agibank vs BMG) ----
 function fmtRefMonth(m) {
@@ -4833,23 +4590,6 @@ function renderCompetitors() {
 }
 renderCompetitors();
 
-// ---- Reclame Aqui: BMG vs. concorrentes (página do Reclame Aqui) ----
-function renderRaBenchmark() {
-  const rb = (typeof competitors !== 'undefined' && competitors) ? competitors.ra : null;
-  if (!rb) return;
-  document.getElementById('raBenchCard').style.display = 'block';
-  document.getElementById('raBenchDesc').innerHTML =
-    `Mesmas métricas públicas do Reclame Aqui para os três bancos, no mesmo período (<strong>${rb.periodo}</strong>). Em verde, o melhor de cada linha.`;
-  document.getElementById('raBenchStory').innerHTML = rb.story.map((s) => `<li class="${s.tone}">${s.html}</li>`).join('');
-  const head = `<tr><th>Métrica</th>${rb.banks.map((b) => `<th class="${b.isBmg ? 'is-bmg-col' : ''}">${b.label}${b.isBmg ? '<span class="ref-tag">referência</span>' : ''}</th>`).join('')}</tr>`;
-  const body = rb.table.map((r) => `<tr><td>${r.label}${r.note ? `<div class="bench-sub">${r.note}</div>` : ''}</td>` +
-    r.values.map((v, i) => `<td class="${rb.banks[i].isBmg ? 'is-bmg-col' : ''}${r.best === i ? ' is-best' : ''}">${v}${r.best === i ? '<span class="best-tag">melhor</span>' : ''}</td>`).join('') +
-    `</tr>`).join('');
-  document.getElementById('raBenchTable').innerHTML = head + body;
-  document.getElementById('raBenchFoot').textContent =
-    'Fonte: página pública de cada empresa no Reclame Aqui. Taxas e prazos são comparáveis entre bancos; o volume absoluto de reclamações depende do tamanho da base de clientes, por isso não entra no ranking.';
-}
-renderRaBenchmark();
 
 // ---- Data da última atualização ----
 if (typeof generatedAt !== 'undefined' && generatedAt) {
