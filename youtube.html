@@ -195,6 +195,15 @@
   .vlist a { color: var(--text); font-weight: 700; text-decoration: none; }
   .vlist a:hover { color: var(--accent); text-decoration: underline; }
 
+  /* ── Listas de análise (Resumo) ── */
+  .alist { list-style: none; margin-top: 12px; border-top: 1.5px solid var(--line); }
+  .alist li { position: relative; padding: 13px 4px 13px 24px; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.55; }
+  .alist li::before { content: ""; position: absolute; left: 4px; top: 21px; width: 9px; height: 9px; border-radius: 50%; background: var(--orange); }
+  .alist li.risk::before { background: var(--bad); }
+  .alist li.watch::before { background: #D97706; }
+  .alist li.good::before { background: var(--good); }
+  .alist li strong { font-weight: 800; }
+
   /* ── Notas ── */
   .ra-notes, .notes { margin-top: 36px; padding-top: 16px; border-top: 1.5px solid var(--line); font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
   .ra-notes strong, .notes strong { color: var(--text); }
@@ -416,309 +425,71 @@ const resumoPage = {
       "rodape": "Nota e resolvidas: janelas de 6 meses do próprio Reclame Aqui"
     }
   ],
-  "mudou": {
-    "titulo": "O que mudou de agosto para setembro",
-    "hero": {
-      "lead": "Onde a experiência trava:",
-      "resto": "cadastro e acesso são os alertas de setembro",
-      "sub": "Cadastro cresceu nas lojas (2 → 10 citações) e acesso no Reclame Aqui (23 → 56). A queixa nº 1 das lojas, travamento, recuou — mas segue no topo."
+  "destaques": [
+    {
+      "tone": "risk",
+      "html": "<strong>Em alta no Android:</strong> \"Erro no cadastro/abertura de conta (selfie, documentos)\" — de 2 para 10 citações (2% → 10% dos comentários negativos), de ago/2026 para set/2026."
     },
-    "rows": [
-      {
-        "titulo": "Erro no cadastro e na abertura de conta",
-        "onde": "Android · citações nos comentários negativos",
-        "prev": 2,
-        "ref": 10,
-        "wPrev": 20,
-        "wRef": 100,
-        "tone": "bad",
-        "chip": "+8 · +400%"
-      },
-      {
-        "titulo": "“Não consigo acessar minha conta”",
-        "onde": "Reclame Aqui · maior volume do semestre",
-        "prev": 23,
-        "ref": 56,
-        "wPrev": 41,
-        "wRef": 100,
-        "tone": "bad",
-        "chip": "+33 · +143%"
-      },
-      {
-        "titulo": "Limite",
-        "onde": "Reclame Aqui",
-        "prev": 55,
-        "ref": 85,
-        "wPrev": 65,
-        "wRef": 100,
-        "tone": "bad",
-        "chip": "+30 · +55%"
-      },
-      {
-        "titulo": "App trava, não abre ou fica fora do ar",
-        "onde": "Android · citações nos comentários negativos · ainda a queixa nº 1",
-        "prev": 26,
-        "ref": 17,
-        "wPrev": 100,
-        "wRef": 65,
-        "tone": "good",
-        "chip": "−9 · −35%"
-      },
-      {
-        "titulo": "Cobrança indevida",
-        "onde": "Reclame Aqui · assunto nº 1 (31% das reclamações do mês)",
-        "prev": 413,
-        "ref": 385,
-        "wPrev": 100,
-        "wRef": 93,
-        "tone": "good",
-        "chip": "−28 · −7%"
-      }
-    ],
-    "mesPrev": "ago",
-    "mesRef": "set",
-    "nota": "Lojas: citações entre os comentários negativos do mês. Reclame Aqui: reclamações com assunto informado."
-  },
-  "concorrencia": {
-    "sub": "Mercantil e Agibank, em três frentes: Android, iOS e Reclame Aqui.",
-    "blocks": [
-      {
-        "tag": "android",
-        "tagLabel": "Android",
-        "titulo": "Google Play · setembro",
-        "head": [
-          "Instituição",
-          "Nota na loja|média acumulada",
-          "Nota dos comentários|ago → set",
-          "Comentários negativos em setembro|menor é melhor"
-        ],
-        "rows": [
-          {
-            "label": "BMG",
-            "isBmg": true,
-            "cells": [
-              {
-                "txt": "4,72★"
-              },
-              {
-                "txt": "3,11 → <b>2,88</b> <span class=\"neg\">▼</span>"
-              },
-              {
-                "bar": 51.5,
-                "txt": "<span class=\"neg\">51,5%</span> <span class=\"muted\">· 194 comentários</span>",
-                "hl": true
-              }
-            ]
-          },
-          {
-            "label": "Mercantil",
-            "isBmg": false,
-            "cells": [
-              {
-                "txt": "4,8★"
-              },
-              {
-                "txt": "4,28 → <b>3,84</b> <span class=\"neg\">▼</span>"
-              },
-              {
-                "bar": 26.7,
-                "txt": "<span class=\"neg\">26,7%</span> <span class=\"muted\">· 845 comentários</span>",
-                "hl": false
-              }
-            ]
-          },
-          {
-            "label": "Agibank",
-            "isBmg": false,
-            "cells": [
-              {
-                "txt": "4,61★"
-              },
-              {
-                "txt": "3,31 → <b>3,16</b> <span class=\"neg\">▼</span>"
-              },
-              {
-                "bar": 45,
-                "txt": "<span class=\"neg\">45,0%</span> <span class=\"muted\">· 211 comentários</span>",
-                "hl": false
-              }
-            ]
-          }
-        ],
-        "leitura": "nas notas da loja, os três estão entre 4,61★ e 4,8★. No mês, a nota dos comentários caiu nos três bancos — e o BMG ficou com a menor nota e a maior proporção de comentários negativos."
-      },
-      {
-        "tag": "ios",
-        "tagLabel": "iOS",
-        "titulo": "App Store · jul–set/2026",
-        "head": [
-          "Instituição",
-          "Nota na loja|média acumulada",
-          "Comentários negativos em jul–set|menor é melhor"
-        ],
-        "rows": [
-          {
-            "label": "BMG",
-            "isBmg": true,
-            "cells": [
-              {
-                "txt": "4,7★"
-              },
-              {
-                "bar": 60.9,
-                "txt": "<span class=\"neg\">60,9%</span> <span class=\"muted\">· 23 comentários</span>",
-                "hl": false
-              }
-            ]
-          },
-          {
-            "label": "Mercantil",
-            "isBmg": false,
-            "cells": [
-              {
-                "txt": "4,82★"
-              },
-              {
-                "bar": 38.7,
-                "txt": "<span class=\"neg\">38,7%</span> <span class=\"muted\">· 62 comentários</span>",
-                "hl": false
-              }
-            ]
-          },
-          {
-            "label": "Agibank",
-            "isBmg": false,
-            "cells": [
-              {
-                "txt": "4,29★"
-              },
-              {
-                "bar": 76.1,
-                "txt": "<span class=\"neg\">76,1%</span> <span class=\"muted\">· 46 comentários</span>",
-                "hl": true
-              }
-            ]
-          }
-        ],
-        "leitura": "no iOS, o BMG fica no meio do trio: 60,9% de comentários negativos, contra 38,7% do Mercantil e 76,1% do Agibank. Na nota da loja, Mercantil 4,82★ · BMG 4,7★ · Agibank 4,29★. Bases pequenas nas três marcas."
-      },
-      {
-        "tag": "ra",
-        "tagLabel": "Reclame Aqui",
-        "titulo": "Volume e atendimento · últimos 6 meses",
-        "head": [
-          "Instituição",
-          "Nota de reputação|0 a 10",
-          "Volume|semestre vs. anterior",
-          "Últimos 30 dias|vs. média do semestre",
-          "Resolvidas",
-          "Prazo de resposta"
-        ],
-        "rows": [
-          {
-            "label": "BMG",
-            "isBmg": true,
-            "cells": [
-              {
-                "txt": "8,3 <span class=\"neg\">▼</span> <span class=\"muted\">ago 8,4</span>"
-              },
-              {
-                "txt": "−20%",
-                "cls": "pos"
-              },
-              {
-                "txt": "−13%",
-                "cls": "pos"
-              },
-              {
-                "txt": "90,6%",
-                "best": true
-              },
-              {
-                "txt": "10,7 dias",
-                "best": false
-              }
-            ]
-          },
-          {
-            "label": "Mercantil",
-            "isBmg": false,
-            "cells": [
-              {
-                "txt": "8,1"
-              },
-              {
-                "txt": "+24%",
-                "cls": "neg"
-              },
-              {
-                "txt": "+38%",
-                "cls": "neg"
-              },
-              {
-                "txt": "86,6%",
-                "best": false
-              },
-              {
-                "txt": "9,3 dias",
-                "best": false
-              }
-            ]
-          },
-          {
-            "label": "Agibank",
-            "isBmg": false,
-            "cells": [
-              {
-                "txt": "8,4"
-              },
-              {
-                "txt": "+10%",
-                "cls": "neg"
-              },
-              {
-                "txt": "+15%",
-                "cls": "neg"
-              },
-              {
-                "txt": "90,0%",
-                "best": false
-              },
-              {
-                "txt": "4,9 dias",
-                "best": true
-              }
-            ]
-          }
-        ],
-        "leitura": "o BMG é o único do trio recebendo menos reclamações e o que mais resolve — mas segue o mais lento para responder."
-      }
-    ],
-    "nota": "Android: setembro completo nos três bancos. iOS: trimestre, pelo baixo volume nas três marcas — ler como sinal; a evolução da nota dos comentários no iOS entra quando houver as avaliações do trimestre anterior dos três bancos. Reclame Aqui: totais oficiais, cada banco comparado com ele mesmo; nota dos concorrentes é a primeira leitura — a variação mensal entra a partir da próxima edição."
-  },
-  "versao": {
-    "prev": {
-      "nome": "3.94.3 · 30/08–04/10",
-      "neg": "44,3%"
+    {
+      "tone": "watch",
+      "html": "<strong>Tema nº1 das lojas:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 17 no Android (set/2026, contra 26 em ago/2026) e 6 no iOS (jul–set/2026)."
     },
-    "cur": {
-      "nome": "3.96.1 · 01/10–08/10",
-      "neg": "21,0%"
+    {
+      "tone": "watch",
+      "html": "<strong>Primeiros dias da versão 3.96.1 do Android com sentimento melhor:</strong> 21% de comentários negativos (81 comentários em 8 dias), contra 44,3% na 3.94.3 — sinal inicial, confirmar na próxima rodada."
     },
-    "nota": "−23,3 p.p. com 81 comentários na versão nova (122 na anterior). Sinal inicial — confirmar no fechamento do mês.",
-    "headline": "A versão 3.96.1 começou com menos comentários negativos que a 3.94.3: 21,0% contra 44,3%."
-  },
-  "sinais": [
-    "<b>iOS:</b> 6 dos 14 comentários negativos citam instabilidade (42,9%). Base pequena.",
-    "<b>YouTube:</b> a conversa é sobre RMC, cartão consignado e INSS — não sobre o app.",
-    "<b>Reputação:</b> RA1000 mantido; 70,6% voltariam a fazer negócio (70,9% no mês anterior)."
+    {
+      "tone": "info",
+      "html": "<strong>No YouTube, a conversa é outra:</strong> o tema que mais aparece é \"RMC / cartão consignado / INSS\" (6 comentários) — assunto que quase não surge nas lojas de app."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Reclame Aqui — O BMG recebe menos reclamações; Mercantil e Agibank, mais.</strong> Média mensal no semestre abr/26–set/26 contra out/25–mar/26: BMG -20% · Mercantil +24% · Agibank +10%. Reputação mantida: selo RA1000, nota 8,3/10, 90,6% resolvidas."
+    }
+  ],
+  "mercado": [
+    {
+      "tone": "info",
+      "html": "<strong>Comentários nas lojas (Android, set/2026):</strong> o BMG é o mais negativo do trio — BMG 51,5% · Agibank 45% · Mercantil 26,7% de comentários negativos. A dor é a mesma nos três: \"App trava / instabilidade\" e \"Cadastro / abertura de conta\"."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Volume no Reclame Aqui: o BMG é o único recebendo menos reclamações</strong> — média mensal no semestre vs. o anterior: BMG -20% · Mercantil +24% · Agibank +10%."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Reclame Aqui:</strong> o BMG é quem mais resolve (BMG 90,6% · Agibank 90% · Mercantil 86,6%), mas é o mais lento para responder (Agibank 4,9 dias · Mercantil 9,3 dias · BMG 10,7 dias)."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Nota na loja (Android):</strong> Mercantil 4,8★ · BMG 4,72★ · Agibank 4,61★ — média acumulada, se move pouco; a diferença de experiência recente aparece nos comentários."
+    }
+  ],
+  "mercadoTitulo": "BMG vs. mercado — Mercantil e Agibank",
+  "cruzada": [
+    {
+      "tone": "info",
+      "html": "<strong>Cada canal aponta uma dor diferente.</strong> Nas lojas, a reclamação nº1 é \"App trava / não abre / fica fora do ar / instabilidade\" — quem usa o app trava. No YouTube, o assunto nº1 é \"RMC / cartão consignado / INSS\" — quem fala do BMG em vídeo reclama de consignado/desconto. São dois problemas distintos, de dois times distintos (Produto/Engenharia vs. Crédito Consignado/Ouvidoria)."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>A instabilidade do app é transversal às duas lojas:</strong> 17% dos comentários negativos no Android (17 de 100 negativos) e 42,9% no iOS (6 de 14 negativos) citam travamento/fora do ar. Não é problema de um sistema só — é do app como um todo."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>O problema pesa mais no iOS:</strong> 42,9% dos comentários negativos do iPhone (6 de 14 negativos) são sobre \"App trava / não abre / fica fora do ar / instabilidade\", contra 17% no Android — a base do iOS é pequena, mas o padrão se repete nos últimos 3 trimestres; vale priorizar a investigação no iOS."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>A dificuldade de entrar no app aparece além das lojas:</strong> no Reclame Aqui, \"Não consigo acessar minha conta\" teve 56 reclamações em set/2026, mais que o dobro de ago/2026 (23) — o maior mês do semestre. O salto também aparece no Mercantil (37 → 101) e no Agibank (27 → 40), mas proporcionalmente o BMG segue com mais reclamações de app/acesso (BMG 3% · Mercantil 2% · Agibank 1,4% do total no semestre)."
+    }
   ],
   "notas": [
     "Lojas: “nota dos comentários” é a média de estrelas das avaliações com texto do período; a nota na loja é a média acumulada exibida ao público e passou a ser registrada em outubro — a variação mensal dela entra a partir da próxima edição.",
     "Sentimento pela estrela: 1–2 negativo, 3 neutro, 4–5 positivo. iOS por trimestre, pelo baixo volume.",
     "Reclame Aqui: reputação dos últimos 6 meses (janela do próprio site); reclamações com assunto informado.",
     "YouTube: janelas de 35 dias, sinal qualitativo.",
-    "p.p. = diferença entre percentuais."
+    "Detalhe completo nas páginas Lojas de app, YouTube e Reclame Aqui."
   ]
 };
 
@@ -1634,21 +1405,10 @@ function renderResumo() {
       `</div><div class="ch-foot">${c.rodape || ''}</div></div>`).join('');
     html += sectionHtml(++n, 'Principais números por canal', null, `<div class="channels">${cards}</div>`, 'Em destaque, a nota de cada canal. Embaixo, como foi o mês — lado a lado. Verde = melhorou; vermelho = piorou.');
   }
-  if (p.mudou) {
-    const m = p.mudou;
-    const rows = m.rows.map((r) => `<div class="chg"><div><div class="chg-title">${r.titulo}</div><div class="chg-where">${r.onde}</div></div>` +
-      `<div class="bars"><div class="bar-row">${m.mesPrev}<span class="bar prev"><i style="width:${r.wPrev}%"></i><b>${r.prev.toLocaleString('pt-BR')}</b></span></div>` +
-      `<div class="bar-row">${m.mesRef}<span class="bar now ${r.tone}"><i style="width:${r.wRef}%"></i><b>${r.ref.toLocaleString('pt-BR')}</b></span></div></div>` +
-      `<span class="chip ${r.tone}">${r.chip}</span></div>`).join('');
-    html += sectionHtml(++n, m.titulo, null, `<div class="hero"><h3><b>${m.hero.lead}</b> ${m.hero.resto}</h3>${m.hero.sub ? `<p>${m.hero.sub}</p>` : ''}</div><div class="changes">${rows}</div><p class="note">${m.nota}</p>`);
-  }
-  if (p.concorrencia) html += concorrenciaHtml(p.concorrencia, ++n);
-  if (p.versao || (p.sinais && p.sinais.length)) {
-    html += '<section class="duo">' +
-      (p.versao ? `<div class="card"><h3>Sentimento por versão · Android</h3><div class="vers"><div class="v"><div class="v-name">${p.versao.prev.nome}</div><div class="v-num">${p.versao.prev.neg} <small>negativo</small></div></div><span class="v-arrow">→</span><div class="v cur"><div class="v-name">${p.versao.cur.nome}</div><div class="v-num">${p.versao.cur.neg} <small>negativo</small></div></div></div><p class="note">${p.versao.nota}</p></div>` : '') +
-      (p.sinais && p.sinais.length ? `<div class="card"><h3>Sinais para acompanhar</h3><ul class="signals">${p.sinais.map((s) => `<li><span>${s}</span></li>`).join('')}</ul></div>` : '') +
-      '</section>';
-  }
+  const lista = (itens) => `<ul class="alist">${itens.map((x) => `<li class="${x.tone}">${x.html}</li>`).join('')}</ul>`;
+  if (p.destaques && p.destaques.length) html += sectionHtml(++n, 'Destaques do mês, por canal', null, lista(p.destaques));
+  if (p.mercado && p.mercado.length) html += sectionHtml(++n, p.mercadoTitulo, null, lista(p.mercado) + '<p class="note">Detalhe nas páginas Lojas de app (comentários e nota na loja) e Reclame Aqui (reputação, prazo e resolução).</p>');
+  if (p.cruzada && p.cruzada.length) html += sectionHtml(++n, 'Análise cruzada — o que só aparece olhando os canais juntos', null, lista(p.cruzada) + '<p class="note">Consolidado a partir dos números reais de cada canal.</p>');
   html += notesHtml(p.notas);
   document.getElementById('resumoRoot').innerHTML = html;
 }
