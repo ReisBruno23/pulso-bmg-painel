@@ -216,6 +216,11 @@
   .ra-month-table td.down { color: var(--good); font-weight: 600; }
   .ra-month-table tr.grp td { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; padding: 14px 10px 4px; border-bottom: none; }
   .bench-sub-inline { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+  .dev-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 20px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--gridline); }
+  .dev-row:last-child { border-bottom: 0; }
+  .dev-name { font-weight: 700; color: var(--text-primary); font-size: 14px; }
+  .dev-models { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  @media (max-width: 760px) { .dev-row { grid-template-columns: 1fr; gap: 4px; } }
   .ra-section { margin-top: 28px; }
   .ra-section-title { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
   .ra-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 28px; align-items: start; margin-top: 12px; }
@@ -333,6 +338,13 @@
     <h2>Sentimento por versão do app</h2>
     <p class="desc" id="versionCompareDesc">Compara as versões mais recentes com volume suficiente pra comparação ser confiável.</p>
     <div id="versionCompare"></div>
+  </div>
+
+  <div class="card" id="deviceCard" style="display:none">
+    <h2>Classificação de aparelho do cliente</h2>
+    <p class="desc">Grupos usados para ler o aparelho do cliente, do mais simples ao topo de linha.</p>
+    <div id="deviceRows"></div>
+    <p class="ra-foot" id="deviceFoot"></p>
   </div>
 
   <div class="card">
@@ -1807,7 +1819,7 @@ const execSummary = [
   }
 ];
 
-const generatedAt = "06/10/2026";
+const generatedAt = "09/10/2026";
 
 const statTiles = [
   {
@@ -2782,6 +2794,192 @@ const reclameAqui = {
             "ate": "2026-07-09"
           }
         ]
+      },
+      "mercantil": {
+        "janela": {
+          "de": "2026-08",
+          "ate": "2026-09"
+        },
+        "comAssunto": {
+          "2026-08": 2020,
+          "2026-09": 3247
+        },
+        "truncadas": [
+          {
+            "filtro": {
+              "problemType": "0000000000000075",
+              "category": "0000000000000001",
+              "status": "ANSWERED",
+              "evaluated": "bool:false"
+            },
+            "nome": "Cobrança indevida",
+            "ate": "2026-08-18"
+          }
+        ],
+        "porAssunto": {
+          "Cobrança indevida": {
+            "2026-09": 856,
+            "2026-08": 555
+          },
+          "Demora na execução": {
+            "2026-09": 150,
+            "2026-08": 116
+          },
+          "Cancelamento": {
+            "2026-09": 336,
+            "2026-08": 288
+          },
+          "Portabilidade do empréstimo": {
+            "2026-09": 314,
+            "2026-08": 119
+          },
+          "Mau Atendimento": {
+            "2026-09": 38,
+            "2026-08": 55
+          },
+          "Oferta indevida de empréstimo": {
+            "2026-09": 20,
+            "2026-08": 13
+          },
+          "Não recebi": {
+            "2026-09": 169,
+            "2026-08": 45
+          },
+          "Problema para quitar o empréstimo": {
+            "2026-09": 185,
+            "2026-08": 71
+          },
+          "Valor abusivo": {
+            "2026-09": 20,
+            "2026-08": 44
+          },
+          "Outro problema": {
+            "2026-09": 29,
+            "2026-08": 27
+          },
+          "Estorno do valor pago": {
+            "2026-09": 61,
+            "2026-08": 47
+          },
+          "Cobrança indevida de tarifas": {
+            "2026-09": 43,
+            "2026-08": 16
+          },
+          "Juros abusivos": {
+            "2026-09": 69,
+            "2026-08": 56
+          },
+          "Débito automático": {
+            "2026-09": 125,
+            "2026-08": 109
+          },
+          "Atraso na entrega": {
+            "2026-09": 8,
+            "2026-08": 9
+          },
+          "Empréstimo negado": {
+            "2026-09": 72,
+            "2026-08": 15
+          },
+          "Débito não autorizado em conta": {
+            "2026-09": 111,
+            "2026-08": 45
+          },
+          "Divergência de valores": {
+            "2026-09": 101,
+            "2026-08": 49
+          },
+          "Abertura de conta": {
+            "2026-09": 14,
+            "2026-08": 6
+          },
+          "Não consigo acessar minha conta": {
+            "2026-09": 101,
+            "2026-08": 37
+          },
+          "Renegociação de dívida": {
+            "2026-09": 51,
+            "2026-08": 33
+          },
+          "Mau atendimento do prestador de serviço": {
+            "2026-09": 9,
+            "2026-08": 2
+          },
+          "Venda casada de serviços": {
+            "2026-09": 58,
+            "2026-08": 86
+          },
+          "Pagamento não localizado": {
+            "2026-09": 39,
+            "2026-08": 17
+          },
+          "Propaganda enganosa": {
+            "2026-09": 7,
+            "2026-08": 14
+          },
+          "Demora no atendimento": {
+            "2026-09": 54,
+            "2026-08": 22
+          },
+          "Telemarketing": {
+            "2026-09": 12,
+            "2026-08": 16
+          },
+          "Problema com o cartão": {
+            "2026-09": 7,
+            "2026-08": 3
+          },
+          "Encerramento de conta": {
+            "2026-09": 22,
+            "2026-08": 10
+          },
+          "Demora no andamento do processo": {
+            "2026-09": 30,
+            "2026-08": 1
+          },
+          "Limite": {
+            "2026-09": 22,
+            "2026-08": 11
+          },
+          "Descumprimento de acordo": {
+            "2026-09": 7,
+            "2026-08": 4
+          },
+          "Contrato não recebido": {
+            "2026-09": 29,
+            "2026-08": 22
+          },
+          "SPC-Serasa": {
+            "2026-09": 38,
+            "2026-08": 16
+          },
+          "Oferta de serviços não solicitados": {
+            "2026-09": 7,
+            "2026-08": 9
+          },
+          "Renegociação": {
+            "2026-08": 9
+          },
+          "Bloqueio-desbloqueio de cartão": {
+            "2026-09": 17,
+            "2026-08": 6
+          },
+          "Assistência 24h": {
+            "2026-08": 1
+          },
+          "Segunda via de boleto": {
+            "2026-09": 7,
+            "2026-08": 8
+          },
+          "Cancelamento-Bloqueio": {
+            "2026-09": 6,
+            "2026-08": 7
+          },
+          "Problema de acesso ao Internet Banking": {
+            "2026-09": 3,
+            "2026-08": 1
+          }
+        }
       }
     }
   }
@@ -3084,6 +3282,37 @@ const raPage = {
     "Coleta em 06/10/2026."
   ],
   "mesRef": "2026-09"
+};
+
+const perfilAparelhos = {
+  "fonte": "Classificação de aparelhos definida pelo time de produto. As avaliações das lojas não informam o aparelho de quem comenta — por isso ainda não há leitura das reclamações por grupo.",
+  "atualizado_em": "2026-10-09",
+  "grupos": [
+    {
+      "grupo": "Entrada de baixo custo",
+      "modelos": "Samsung Galaxy A07, Samsung Galaxy A06 5G, Moto G17, Moto G15, Moto G35 5G, OPPO A6t, realme Note 80s, realme Note 70s, Xiaomi Redmi 15C, Xiaomi Redmi 14C, Xiaomi Poco C85, OPPO A5, chinesas massivas"
+    },
+    {
+      "grupo": "Entrada sem NFC",
+      "modelos": "Moto G06, Moto G15, marcas chinesas"
+    },
+    {
+      "grupo": "Intermediário · Equilibrado",
+      "modelos": "Samsung Galaxy A17, Samsung Galaxy A56 5G, Samsung Galaxy A57, Samsung Galaxy A37, Moto G86 5G, Moto G56 5G, sem marca chinesas"
+    },
+    {
+      "grupo": "Intermediário · Focado em desempenho (ex.: Redmi/POCO)",
+      "modelos": "Poco X7 Pro, realme 15 Pro, realme 15T, Poco X8 Pro, Motorola Edge 60 Neo, realme 14 Pro"
+    },
+    {
+      "grupo": "iPhone · Modelo antigo",
+      "modelos": "iPhone 11, iPhone 13, iPhone 14, iPhone 15, iPhones antigos e até fora de linha"
+    },
+    {
+      "grupo": "Premium, iPhone atual/flagship, especial",
+      "modelos": "Samsung Galaxy S25 FE, Samsung Galaxy S24, Galaxy S24 Plus, iPhone 15 Pro Max, iPhone 16, iPhone 17, iPhone 16 Pro Max, iPhone 17 Pro Max, Linha POCO Premium"
+    }
+  ]
 };
 
 const resumo = {
@@ -4542,6 +4771,17 @@ function renderRaPage() {
   }
 }
 renderRaPage();
+
+// ---- Classificação de aparelho do cliente (página de Lojas) ----
+function renderPerfilAparelhos() {
+  if (typeof perfilAparelhos === 'undefined' || !perfilAparelhos) return;
+  const p = perfilAparelhos;
+  document.getElementById('deviceCard').style.display = 'block';
+  document.getElementById('deviceRows').innerHTML = p.grupos.map((g) =>
+    `<div class="dev-row"><div class="dev-name">${g.grupo}</div><div class="dev-models">${g.modelos}</div></div>`).join('');
+  document.getElementById('deviceFoot').textContent = p.fonte;
+}
+renderPerfilAparelhos();
 
 // ---- Benchmark competitivo (Mercantil, Agibank vs BMG) ----
 function fmtRefMonth(m) {
