@@ -150,6 +150,12 @@
   .bench-sub-inline { font-size: 11.5px; color: var(--text-2); font-weight: 400; }
   tr.grp td { font-size: 11px; font-weight: 800; color: var(--text-2); text-transform: uppercase; letter-spacing: .04em; padding: 14px 8px 4px; border-bottom: 0; }
   .is-bmg-col { background: #FAFAFB; }
+  .bcb-cell { min-width: 96px; }
+  .bcb-cell b { font-weight: 800; }
+  .bcb-bar { height: 7px; background: var(--track); border-radius: 0 4px 4px 0; margin-top: 5px; }
+  .bcb-bar i { display: block; height: 100%; background: #8A91A0; border-radius: 0 4px 4px 0; }
+  tr.is-bmg .bcb-bar i { background: var(--purple-1); }
+  td.is-ref-col, th.is-ref-col { background: #FAFAFB; }
 
   /* ── Gráficos ── */
   .ra-grid, .grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 28px; align-items: start; margin-top: 14px; }
@@ -255,6 +261,7 @@
     <a class="tab" href="lojas.html" data-tab="lojas">Lojas de app</a>
     <a class="tab" href="youtube.html" data-tab="youtube" id="tabYoutubeBtn" hidden>YouTube</a>
     <a class="tab" href="reclame-aqui.html" data-tab="reclame-aqui" id="tabRaBtn" hidden>Reclame Aqui</a>
+    <a class="tab" href="banco-central.html" data-tab="banco-central" id="tabBcbBtn" hidden>Banco Central</a>
   </nav>
 
   <!-- ===================== RESUMO ===================== -->
@@ -281,6 +288,17 @@
       <div id="raApp"></div>
       <span id="raMonth" hidden></span>
     </div>
+    <section class="panel" id="raHelpCard" style="display:none">
+      <div class="panel-head"><div><h2>help! · Loja de Crédito do BMG</h2><p class="sub">A rede de lojas de crédito do BMG tem página própria no Reclame Aqui — mesmos indicadores, lidos à parte.</p></div></div>
+      <div class="cblock"><div class="stat-row" id="raHelpStats"></div></div>
+      <div class="cblock" id="raHelpVol"></div>
+      <div class="cblock" id="raHelpMes"></div>
+      <div class="cblock" id="raHelpComp"></div>
+    </section>
+    <section class="panel" id="raOutrasCard" style="display:none">
+      <div class="panel-head"><div><h2>Outras empresas do grupo no Reclame Aqui</h2><p class="sub">Empresas do grupo BMG com página própria, além do banco e da help!.</p></div></div>
+      <div class="cblock" id="raOutras"></div>
+    </section>
     <section class="panel" id="raMktCard" style="display:none">
       <div class="panel-head"><div><h2>BMG x concorrência</h2><p class="sub">Agibank e Mercantil no Reclame Aqui.</p></div></div>
       <div class="cblock" id="raSecVolume"></div>
@@ -290,12 +308,18 @@
     <div id="raNotes" class="ra-notes"></div>
   </main>
 
+  <!-- ===================== BANCO CENTRAL ===================== -->
+  <main class="tab-panel" id="tab-banco-central" hidden>
+    <div class="page-title"><h2>Banco Central</h2><p>Ranking oficial de reclamações: as queixas que chegam ao Banco Central e são consideradas procedentes, por milhão de clientes. Publicado por trimestre.</p></div>
+    <div id="bcbRoot"></div>
+  </main>
+
 </div>
 
 <script>
 // ===== DATA-INJECTION-START =====
 const activePage = "resumo";
-const versao = "202611101330";
+const versao = "202611101446";
 
 const edicao = {"mesRef":"Outubro · 2026","atualizado":"10/11"};
 
@@ -453,6 +477,10 @@ const resumoPage = {
     {
       "tone": "info",
       "html": "<strong>Reclame Aqui — O BMG recebe menos reclamações; Mercantil e Agibank, mais.</strong> Média mensal no semestre mai/26–out/26 contra nov/25–abr/26: BMG -24% · Mercantil +30% · Agibank +10%. Reputação melhorou: selo RA1000, nota 8,5/10 (era 8,3), 92,0% resolvidas."
+    },
+    {
+      "tone": "watch",
+      "html": "<strong>help! (Loja de Crédito do BMG) no Reclame Aqui:</strong> nota 8,1/10, selo Ótima. As reclamações subiram 18% no semestre, na contramão do BMG (-24%). Resolve 88,0% das reclamações e leva 11,7 dias para responder (BMG: 92,0% e 9,7 dias)."
     }
   ],
   "mercado": [
@@ -471,6 +499,10 @@ const resumoPage = {
     {
       "tone": "info",
       "html": "<strong>Nota na loja (Android):</strong> Mercantil 4,8★ · BMG 4,74★ · Agibank 4,6★ — média acumulada, se move pouco; a diferença de experiência recente aparece nos comentários."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Banco Central (3º tri/26):</strong> índice de reclamações procedentes por milhão de clientes — BMG 82,8 · Agibank 108,7 · Mercantil 206,6. O BMG tem o menor índice dos três (o do BMG caiu de 101,3 para 82,8 no trimestre)."
     }
   ],
   "mercadoTitulo": "BMG vs. mercado — Mercantil e Agibank",
@@ -493,7 +525,7 @@ const resumoPage = {
     "Sentimento pela estrela: 1–2 negativo, 3 neutro, 4–5 positivo. iOS por trimestre, pelo baixo volume.",
     "Reclame Aqui: reputação dos últimos 6 meses (janela do próprio site); reclamações com assunto informado.",
     "YouTube: janelas de 35 dias, sinal qualitativo.",
-    "Detalhe completo nas páginas Lojas de app, YouTube e Reclame Aqui."
+    "Detalhe completo nas páginas Lojas de app, YouTube, Reclame Aqui e Banco Central."
   ]
 };
 
@@ -1457,14 +1489,363 @@ const raPage = {
       }
     ]
   },
+  "help": {
+    "titulo": "help! Loja de Crédito",
+    "kpis": [
+      {
+        "label": "Nota de reputação (6 meses)",
+        "value": "8,1<span class=\"stat-unit\">/10</span>",
+        "note": "selo Ótima · primeira leitura"
+      },
+      {
+        "label": "Reclamações — últimos 30 dias",
+        "value": "746",
+        "note": "-2% vs. a média mensal do semestre",
+        "tone": ""
+      },
+      {
+        "label": "Resolvidas (6 meses)",
+        "value": "88,0%",
+        "note": "BMG: 92,0%"
+      },
+      {
+        "label": "Tempo de resposta (6 meses)",
+        "value": "11,7 dias",
+        "note": "BMG: 9,7 dias"
+      }
+    ],
+    "volume": {
+      "headline": "O volume de reclamações da help! cresceu 18% no semestre, na direção oposta à do BMG (-24%).",
+      "rows": [
+        {
+          "label": "help!",
+          "isBmg": false,
+          "mediaAnterior": 641,
+          "mediaMensal": 759,
+          "varSemestre": 18,
+          "ultimos30": 746,
+          "var30": -2
+        },
+        {
+          "label": "BMG",
+          "isBmg": true,
+          "mediaAnterior": 2091,
+          "mediaMensal": 1592,
+          "varSemestre": -24,
+          "ultimos30": 1477,
+          "var30": -7
+        }
+      ],
+      "semAtual": "mai/26–out/26",
+      "semAnt": "nov/25–abr/26"
+    },
+    "mes": {
+      "title": "O que mudou em out/2026",
+      "headline": "As reclamações caíram 4% em relação a set, puxadas por \"Cobrança indevida\", \"Débito automático\" e \"Pagamento não localizado\".",
+      "chart": {
+        "months": [
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "counts": [
+          503,
+          392,
+          533,
+          632,
+          632,
+          604
+        ],
+        "partial": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "refMonth": "2026-10"
+      },
+      "movers": [
+        {
+          "nome": "Cancelamento",
+          "prev": 77,
+          "ref": 91,
+          "delta": 14
+        },
+        {
+          "nome": "Não recebi",
+          "prev": 12,
+          "ref": 26,
+          "delta": 14
+        },
+        {
+          "nome": "Limite",
+          "prev": 5,
+          "ref": 18,
+          "delta": 13
+        },
+        {
+          "nome": "Cobrança indevida",
+          "prev": 134,
+          "ref": 109,
+          "delta": -25
+        },
+        {
+          "nome": "Débito automático",
+          "prev": 59,
+          "ref": 38,
+          "delta": -21
+        },
+        {
+          "nome": "Pagamento não localizado",
+          "prev": 25,
+          "ref": 11,
+          "delta": -14
+        }
+      ],
+      "maiores": [
+        {
+          "nome": "Cobrança indevida",
+          "share": "18"
+        },
+        {
+          "nome": "Cancelamento",
+          "share": "15,1"
+        },
+        {
+          "nome": "Problema para quitar o empréstimo",
+          "share": "9,8"
+        }
+      ],
+      "refMonth": "2026-10",
+      "prevMonth": "2026-09"
+    },
+    "comparacao": {
+      "headline": "A help! resolve menos e demora mais para responder que o BMG: 88,0% das reclamações resolvidas e 11,7 dias de prazo médio, contra 92,0% e 9,7 dias.",
+      "rows": [
+        {
+          "label": "Selo atual",
+          "help": "Ótima",
+          "bmg": "RA1000"
+        },
+        {
+          "label": "Nota (0 a 10)",
+          "help": "8,1",
+          "bmg": "8,5"
+        },
+        {
+          "label": "Reclamações (6 meses)",
+          "help": "4.554",
+          "bmg": "9.554"
+        },
+        {
+          "label": "Volume: semestre vs. anterior",
+          "help": "+18%",
+          "bmg": "-24%"
+        },
+        {
+          "label": "Resolvidas",
+          "help": "88,0%",
+          "bmg": "92,0%"
+        },
+        {
+          "label": "Tempo médio de resposta",
+          "help": "11,7 dias",
+          "bmg": "9,7 dias"
+        },
+        {
+          "label": "Voltariam a fazer negócio",
+          "help": "66,4%",
+          "bmg": "72,4%"
+        },
+        {
+          "label": "Nota do consumidor (0 a 10)",
+          "help": "7,41",
+          "bmg": "7,60"
+        }
+      ]
+    },
+    "notas": [
+      "help!: a Loja de Crédito do BMG tem página própria no Reclame Aqui. Mesmos indicadores e mesmo método do BMG (01/05/2026 a 31/10/2026), lidos à parte e fora do comparativo com concorrentes.",
+      "help!: primeira leitura da nota; a variação mês a mês entra a partir da próxima edição."
+    ]
+  },
+  "outras": {
+    "periodo": "mai/26–out/26",
+    "refLabel": "out",
+    "headline": "Bmg Seguradora: 24 reclamações em mai/26–out/26 (6 em out), 91,7% respondidas. Assuntos mais citados: cobrança indevida e divergência de valores.",
+    "rows": [
+      {
+        "nome": "Bmg Seguradora",
+        "relacao": "Empresa do grupo BMG (antiga MG Seguros), com página própria",
+        "reclamacoes": 24,
+        "ref": 6,
+        "prev": 7,
+        "respondidas": "91,7%",
+        "situacao": "Sem índice (poucas reclamações)",
+        "assuntos": "Cobrança indevida (8) · Divergência de valores (8)",
+        "recentes": [
+          "Estão descontando previdência privada da BMG Seguradora do meu contracheque sem autorização",
+          "Estão descontando previdência que nunca contratei e não consigo cancelar"
+        ]
+      }
+    ],
+    "nota": "Outras empresas do grupo: páginas próprias no Reclame Aqui de empresas do grupo BMG (além do banco e da help!), lidas pelo volume do período (mai/26–out/26), % respondidas e assuntos. Sem índice de reputação quando o volume é baixo."
+  },
   "notas": [
     "Mês a mês e assuntos: contagem das reclamações com assunto informado; as que chegam sem assunto ficam de fora, por isso a soma dos meses fica abaixo do total oficial do semestre. O Reclame Aqui não publica série mensal.",
     "* Mês com contagem incompleta — fica fora das comparações.",
     "Volume: totais oficiais do Reclame Aqui (semestre mai/26–out/26, semestre anterior nov/25–abr/26 e últimos 30 dias). Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação.",
     "Reputação e atendimento: números oficiais do Reclame Aqui nos últimos 6 meses (01/05/2026 a 31/10/2026). Em verde, o melhor de cada linha.",
+    "help!: a Loja de Crédito do BMG tem página própria no Reclame Aqui. Mesmos indicadores e mesmo método do BMG (01/05/2026 a 31/10/2026), lidos à parte e fora do comparativo com concorrentes.",
+    "help!: primeira leitura da nota; a variação mês a mês entra a partir da próxima edição.",
+    "Outras empresas do grupo: páginas próprias no Reclame Aqui de empresas do grupo BMG (além do banco e da help!), lidas pelo volume do período (mai/26–out/26), % respondidas e assuntos. Sem índice de reputação quando o volume é baixo.",
     "Dados do Reclame Aqui atualizados em 09/11/2026."
   ],
   "mesRef": "2026-10"
+};
+
+const bcbPage = {
+  "titulo": "3º tri/26",
+  "kpis": [
+    {
+      "label": "Índice de reclamações · 3º tri/26",
+      "value": "82,8",
+      "note": "−18,5 vs. 2º tri/26 (101,3) · por milhão de clientes",
+      "tone": "good"
+    },
+    {
+      "label": "Reclamações procedentes · 3º tri/26",
+      "value": "144",
+      "note": "189 no 2º tri/26"
+    },
+    {
+      "label": "Reclamações respondidas · 3º tri/26",
+      "value": "4.808",
+      "note": "4.883 no 2º tri/26"
+    },
+    {
+      "label": "Posição entre os três bancos",
+      "value": "1º",
+      "note": "menor índice do grupo"
+    }
+  ],
+  "serie": {
+    "headline": "O BMG tem o menor índice de reclamações dos três bancos no 3º tri/26: 82,8, contra Agibank 108,7 e Mercantil 206,6. É o menor em todos os quatro trimestres da série.",
+    "trimestres": [
+      "4º tri/25",
+      "1º tri/26",
+      "2º tri/26",
+      "3º tri/26"
+    ],
+    "rows": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "values": [
+          {
+            "txt": "83,2",
+            "w": 23
+          },
+          {
+            "txt": "77,0",
+            "w": 21
+          },
+          {
+            "txt": "101,3",
+            "w": 28
+          },
+          {
+            "txt": "82,8",
+            "w": 23
+          }
+        ]
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false,
+        "values": [
+          {
+            "txt": "362,4",
+            "w": 100
+          },
+          {
+            "txt": "218,6",
+            "w": 60
+          },
+          {
+            "txt": "152,0",
+            "w": 42
+          },
+          {
+            "txt": "108,7",
+            "w": 30
+          }
+        ]
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false,
+        "values": [
+          {
+            "txt": "221,1",
+            "w": 61
+          },
+          {
+            "txt": "178,9",
+            "w": 49
+          },
+          {
+            "txt": "200,8",
+            "w": 55
+          },
+          {
+            "txt": "206,6",
+            "w": 57
+          }
+        ]
+      }
+    ]
+  },
+  "detalhe": {
+    "headline": "O Agibank reduziu o índice em todos os trimestres da série (de 362,4 para 108,7).",
+    "rows": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "indice": "82,8",
+        "procedentes": "144",
+        "respondidas": "4.808",
+        "clientes": "9,2 mi"
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false,
+        "indice": "108,7",
+        "procedentes": "173",
+        "respondidas": "3.892",
+        "clientes": "8,7 mi"
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false,
+        "indice": "206,6",
+        "procedentes": "336",
+        "respondidas": "4.924",
+        "clientes": "9,3 mi"
+      }
+    ]
+  },
+  "notas": [
+    "Fonte: ranking de reclamações do Banco Central, publicado por trimestre. O BC analisa as reclamações que recebe, projeta as procedentes (em que o banco descumpriu regra ou contrato) para o total e divide pelo número de clientes, em milhões. Quanto menor o índice, melhor.",
+    "Reclamações respondidas: total que o banco respondeu ao BC no trimestre. Procedentes: as que o BC considerou com razão, dentro das analisadas.",
+    "BMG, Agibank e Mercantil ficam no grupo \"Demais\" do ranking. No grupo dos 15 maiores, o índice do 3º tri/26 vai de 6,0 a 57,2.",
+    "Dados do Banco Central atualizados em 10/11/2026."
+  ]
 };
 
 const reclameAqui = {"ok":true};
@@ -1529,6 +1910,7 @@ function lineChartSvg(pts) {
   const active = (typeof activePage !== 'undefined') ? activePage : 'resumo';
   if (typeof youtubePage !== 'undefined' && youtubePage) document.getElementById('tabYoutubeBtn').hidden = false;
   if (typeof reclameAqui !== 'undefined' && reclameAqui) document.getElementById('tabRaBtn').hidden = false;
+  if (typeof bcbPage !== 'undefined' && bcbPage) document.getElementById('tabBcbBtn').hidden = false;
   document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.dataset.tab === active));
   document.querySelectorAll('.tab-panel').forEach((p) => { p.hidden = (p.id !== 'tab-' + active); });
   document.getElementById('edMes').textContent = edicao.mesRef || '';
@@ -1562,7 +1944,7 @@ function renderResumo() {
   }
   const lista = (itens) => `<ul class="alist">${itens.map((x) => `<li class="${x.tone}">${x.html}</li>`).join('')}</ul>`;
   if (p.destaques && p.destaques.length) html += sectionHtml(++n, 'Destaques do mês, por canal', null, lista(p.destaques));
-  if (p.mercado && p.mercado.length) html += sectionHtml(++n, p.mercadoTitulo, null, lista(p.mercado) + '<p class="note">Detalhe nas páginas Lojas de app (comentários e nota na loja) e Reclame Aqui (reputação, prazo e resolução).</p>');
+  if (p.mercado && p.mercado.length) html += sectionHtml(++n, p.mercadoTitulo, null, lista(p.mercado) + '<p class="note">Detalhe nas páginas Lojas de app (comentários e nota na loja), Reclame Aqui (reputação, prazo e resolução)' + (typeof bcbPage !== 'undefined' && bcbPage ? ' e Banco Central (índice oficial de reclamações)' : '') + '.</p>');
   if (p.cruzada && p.cruzada.length) html += sectionHtml(++n, 'Análise cruzada — o que só aparece olhando os canais juntos', null, lista(p.cruzada) + '<p class="note">Consolidado a partir dos números reais de cada canal.</p>');
   html += notesHtml(p.notas);
   document.getElementById('resumoRoot').innerHTML = html;
@@ -1666,12 +2048,10 @@ function renderRaPage() {
   // ---------- Card 1: BMG ----------
   document.getElementById('raBmgCard').style.display = 'block';
   if (p.mesRef) document.getElementById('raMonth').textContent = '· ' + fmtRefMonth(p.mesRef);
-  document.getElementById('raStatRow').innerHTML = p.kpis.map((t) =>
-    `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note}</div></div>`).join('');
 
-  let n = 0;
-  if (p.mes) {
-    const m = p.mes, c = m.chart;
+  // gráfico mês a mês + assuntos que mais mudaram (mesmo desenho para o BMG e a help!)
+  const mesBody = (m) => {
+    const c = m.chart;
     const max = Math.max(...c.counts);
     const chart = '<div class="ra-mini-title">Reclamações com assunto, por mês</div><div class="vol-chart">' + c.months.map((mo, i) =>
       `<div class="vol-col${mo === c.refMonth ? ' is-ref' : ''}${c.partial[i] ? ' is-partial' : ''}"><div class="vol-val">${fmt(c.counts[i])}${c.partial[i] ? '*' : ''}</div>` +
@@ -1683,9 +2063,19 @@ function renderRaPage() {
           m.movers.map((x) => `<tr><td>${x.nome}</td><td class="num">${x.prev}</td><td class="num is-ref">${x.ref}</td><td class="num ${cls(x.delta)}">${x.delta > 0 ? '+' : ''}${x.delta}</td></tr>`).join(''))
       : '';
     const maiores = m.maiores.length
-      ? `<p class="ra-foot">Maiores assuntos do mês: ${m.maiores.map((x) => `${x.nome} (${x.share}%)`).join(' · ')}.</p>` : '';
-    document.getElementById('raMes').innerHTML = section(++n, m.title, m.headline, `<div class="ra-grid"><div>${chart}</div><div>${movers}</div></div>${maiores}`);
-  }
+      ? `<p class="ra-foot">Maiores assuntos do mês: ${m.maiores.map((x) => `${x.nome} (${String(x.share).replace('.', ',')}%)`).join(' · ')}.</p>` : '';
+    return `<div class="ra-grid"><div>${chart}</div><div>${movers}</div></div>${maiores}`;
+  };
+  const tile = (t) => `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note}</div></div>`;
+  const volTable = (v) => table(`<tr><th>${v.rows.length > 1 && v.rows.some((r) => !r.isBmg && r.label !== 'help!') ? 'Banco' : 'Marca'}</th><th class="num">Média por mês<br>${v.semAnt}</th><th class="num">Média por mês<br>${v.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${v.semAtual}</th></tr>`,
+    v.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+      `<td class="num">${fmt(r.mediaAnterior)}</td><td class="num">${fmt(r.mediaMensal)}</td><td class="num ${cls(r.varSemestre)}">${signed(r.varSemestre)}</td>` +
+      `<td class="num">${fmt(r.ultimos30)}</td><td class="num ${cls(r.var30)}">${signed(r.var30)}</td></tr>`).join(''), 'vol-market-table');
+
+  document.getElementById('raStatRow').innerHTML = p.kpis.map(tile).join('');
+
+  let n = 0;
+  if (p.mes) document.getElementById('raMes').innerHTML = section(++n, p.mes.title, p.mes.headline, mesBody(p.mes));
   if (p.app) {
     const a = p.app;
     const head = `<tr><th>Problema relatado</th>${a.months.map((mo) => `<th class="num${mo === a.refMonth ? ' is-ref' : ''}">${mon(mo)}</th>`).join('')}<th class="num">${mon(a.refMonth)} vs. ${mon(a.prevMonth)}</th></tr>`;
@@ -1696,17 +2086,35 @@ function renderRaPage() {
     document.getElementById('raApp').innerHTML = section(++n, 'App e acesso', a.headline, table(head, rows) + (a.note ? `<p class="ra-foot">${a.note}</p>` : ''));
   }
 
+  // ---------- Card help! (Loja de Crédito do BMG) ----------
+  if (p.help) {
+    const hp = p.help;
+    document.getElementById('raHelpCard').style.display = 'block';
+    document.getElementById('raHelpStats').innerHTML = hp.kpis.map(tile).join('');
+    if (hp.volume) document.getElementById('raHelpVol').innerHTML = section(++n, 'Volume de reclamações · help!', hp.volume.headline, volTable(hp.volume));
+    else document.getElementById('raHelpVol').remove();
+    if (hp.mes) document.getElementById('raHelpMes').innerHTML = section(++n, hp.mes.title + ' · help!', hp.mes.headline, mesBody(hp.mes));
+    else document.getElementById('raHelpMes').remove();
+    const c = hp.comparacao;
+    document.getElementById('raHelpComp').innerHTML = section(++n, 'help! x BMG', c.headline,
+      table('<tr><th>Métrica</th><th class="num">help!</th><th class="num is-bmg-col">BMG</th></tr>',
+        c.rows.map((r) => `<tr><td>${r.label}</td><td class="num">${r.help}</td><td class="num is-bmg-col">${r.bmg}</td></tr>`).join(''), 'ra-bench-table'));
+  }
+
+  // ---------- Outras empresas do grupo ----------
+  if (p.outras) {
+    const o = p.outras;
+    document.getElementById('raOutrasCard').style.display = 'block';
+    const head = `<tr><th>Empresa</th><th class="num">Reclamações<br>${o.periodo}</th><th class="num">Em ${o.refLabel}</th><th class="num">Respondidas</th><th>Situação</th><th>Assuntos mais citados</th></tr>`;
+    const rows = o.rows.map((r) => `<tr><td><span class="bench-bank">${r.nome}</span><br><span class="bench-sub-inline">${r.relacao}</span></td><td class="num">${r.reclamacoes}</td><td class="num">${r.ref}</td><td class="num">${r.respondidas}</td><td>${r.situacao}</td><td>${r.assuntos}</td></tr>`).join('');
+    const recentes = o.rows.flatMap((r) => r.recentes.map((x) => `<div class="quote">“${x}”<div class="quote-meta">${r.nome}</div></div>`)).join('');
+    document.getElementById('raOutras').innerHTML = section(++n, 'Outras empresas do grupo', o.headline, table(head, rows) + (recentes ? `<div class="ra-mini-title">Reclamações recentes</div>${recentes}` : ''));
+  }
+
   // ---------- Card 2: BMG vs. concorrentes ----------
   if (!p.volume && !p.drivers && !p.reputacao) return;
   document.getElementById('raMktCard').style.display = 'block';
-  if (p.volume) {
-    const v = p.volume;
-    const head = `<tr><th>Banco</th><th class="num">Média por mês<br>${v.semAnt}</th><th class="num">Média por mês<br>${v.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${v.semAtual}</th></tr>`;
-    const rows = v.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
-      `<td class="num">${fmt(r.mediaAnterior)}</td><td class="num">${fmt(r.mediaMensal)}</td><td class="num ${cls(r.varSemestre)}">${signed(r.varSemestre)}</td>` +
-      `<td class="num">${fmt(r.ultimos30)}</td><td class="num ${cls(r.var30)}">${signed(r.var30)}</td></tr>`).join('');
-    document.getElementById('raSecVolume').innerHTML = section(++n, 'Volume de reclamações', v.headline, table(head, rows, 'vol-market-table'));
-  }
+  if (p.volume) document.getElementById('raSecVolume').innerHTML = section(++n, 'Volume de reclamações', p.volume.headline, volTable(p.volume));
   if (p.drivers) {
     const d = p.drivers;
     const head = `<tr><th>Banco</th><th class="num">${mon(d.refMonth)} vs. ${mon(d.prevMonth)}</th><th>O que mais mudou (${mon(d.prevMonth)} → ${mon(d.refMonth)})</th><th>Principais assuntos em ${mon(d.refMonth)}</th></tr>`;
@@ -1728,6 +2136,27 @@ function renderRaPage() {
   }
 }
 renderRaPage();
+
+function renderBancoCentral() {
+  if (typeof bcbPage === 'undefined' || !bcbPage) return;
+  const p = bcbPage;
+  const sec = (n, title, headline, body) => `<div class="ra-section"><div class="ra-section-title">${n} · ${title}</div>` + (headline ? `<div class="ra-headline">${headline}</div>` : '') + body + '</div>';
+  const tile = (t) => `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note}</div></div>`;
+  const last = p.serie.trimestres.length - 1;
+  const serieHead = '<tr><th>Banco</th>' + p.serie.trimestres.map((t, i) => `<th class="num${i === last ? ' is-ref-col' : ''}">${t}</th>`).join('') + '</tr>';
+  const serieRows = p.serie.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+    r.values.map((v, i) => `<td class="bcb-cell${i === last ? ' is-ref-col' : ''}"><b>${v.txt}</b><div class="bcb-bar"><i style="width:${v.w}%"></i></div></td>`).join('') + '</tr>').join('');
+  const det = p.detalhe;
+  const detHead = `<tr><th>Banco</th><th class="num">Índice</th><th class="num">Reclamações procedentes</th><th class="num">Reclamações respondidas</th><th class="num">Clientes</th></tr>`;
+  const detRows = det.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td><td class="num">${r.indice}</td><td class="num">${r.procedentes}</td><td class="num">${r.respondidas}</td><td class="num">${r.clientes}</td></tr>`).join('');
+  const tbl = (h, r) => `<div style="overflow-x:auto"><table class="bench-table">${h}${r}</table></div>`;
+  document.getElementById('bcbRoot').innerHTML =
+    `<div class="stat-row">${p.kpis.map(tile).join('')}</div>` +
+    sec(1, 'Índice de reclamações por trimestre', p.serie.headline, tbl(serieHead, serieRows) + '<p class="ra-foot">Reclamações procedentes por milhão de clientes — quanto menor, melhor. BMG em roxo.</p>') +
+    sec(2, `Detalhe do ${p.titulo}`, det.headline, tbl(detHead, detRows)) +
+    `<div class="ra-notes"><strong>Como ler esta página</strong><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
+}
+renderBancoCentral();
 </script>
 </body>
 </html>

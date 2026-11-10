@@ -1,0 +1,2162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pulso Bmg — a voz do cliente do Banco Bmg nas lojas de app, no YouTube e no Reclame Aqui, atualizada todo mês.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2246%22 fill=%22%23F04F1B%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;800;900&display=swap" rel="stylesheet">
+<title>Pulso Bmg — Painel</title>
+<style>
+  /* Identidade do Pulso Bmg (a mesma do resumo mensal em HTML) */
+  :root {
+    --orange: #F04F1B;  --accent: #BA3510;  --accent-soft: #FFF1EB;
+    --purple-1: #522979; --purple-2: #673E8B;
+    --bad: #B42318;  --bad-soft: #FFF1F0;  --good: #107348;  --good-soft: #E8F6EF;  --flat-soft: #EEF0F4;
+    --bg: #FFFFFF;  --card: #EDEDEE;  --card-border: #DCDDE1;  --line: #E8ECF3;  --row: #E3E5EA;
+    --text: #242633;  --text-2: #667187;  --prev: #AEB4C0;  --track: #E2E5EB;
+    /* nomes usados pelo desenho da página do Reclame Aqui */
+    --text-primary: var(--text); --text-muted: var(--text-2); --gridline: var(--row); --page: #FFFFFF;
+    --neutral: var(--prev); --critical: var(--bad); --border: var(--card-border);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: "Lato", "Segoe UI", system-ui, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 32px 32px 48px; }
+
+  /* ── Cabeçalho ── */
+  .head { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .head img { height: 46px; width: auto; display: block; }
+  .head-title { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; flex: 1; padding-left: 22px; border-left: 1.5px solid #C9CDD6; min-height: 54px; align-content: center; }
+  .head-title h1 { font-size: 30px; font-weight: 900; letter-spacing: -0.3px; }
+  .head-title span { font-size: 17px; }
+  .edition { border: 1px solid var(--card-border); border-radius: 10px; padding: 9px 14px; text-align: right; line-height: 1.3; }
+  .edition b { display: block; color: var(--orange); font-size: 13.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .edition small { display: block; font-size: 12px; font-weight: 700; color: var(--text-2); }
+  .tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 22px; border-bottom: 1.5px solid var(--line); }
+  .tab { padding: 10px 14px; font-size: 14.5px; font-weight: 800; color: var(--text-2); text-decoration: none; border-bottom: 3px solid transparent; margin-bottom: -1.5px; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .page-title { margin-top: 26px; }
+  .page-title h2 { font-size: 24px; font-weight: 900; letter-spacing: -0.2px; }
+  .page-title p { font-size: 14px; color: var(--text-2); margin-top: 2px; }
+
+  /* ── Seções: título numerado + manchete + 1 visual ── */
+  section, .ra-section { margin-top: 34px; }
+  .eyebrow, .ra-section-title { display: flex; align-items: center; gap: 14px; font-size: 13px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; color: var(--accent); }
+  .eyebrow::after, .ra-section-title::after { content: ""; flex: 1; height: 1.5px; background: var(--line); }
+  .sub { font-size: 13.5px; color: var(--text-2); margin-top: 6px; }
+  .headline, .ra-headline { font-size: 19px; font-weight: 800; line-height: 1.35; margin-top: 8px; text-wrap: balance; }
+  .note, .ra-foot { font-size: 12.5px; color: var(--text-2); margin-top: 10px; }
+  .muted { color: var(--text-2); font-size: 12.5px; }
+  .neg { color: var(--bad); font-weight: 800; }
+  .pos { color: var(--good); font-weight: 800; }
+
+  /* ── Chips ── */
+  .chip { display: inline-block; font-size: 12px; font-weight: 800; border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+  .chip.bad { color: var(--bad); background: var(--bad-soft); }
+  .chip.good { color: var(--good); background: var(--good-soft); }
+  .chip.flat { color: var(--text-2); background: var(--flat-soft); }
+
+  /* ── Indicadores (KPIs) ── */
+  .stat-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+  .stat-tile { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 15px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .stat-label { font-size: 12.5px; font-weight: 800; color: #3E4456; }
+  .stat-value { font-size: 30px; font-weight: 900; letter-spacing: -0.4px; line-height: 1.15; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .stat-unit { font-size: 16px; font-weight: 700; color: var(--text-2); letter-spacing: 0; margin-left: 3px; }
+  .stat-note { font-size: 12px; color: var(--text-2); margin-top: 2px; line-height: 1.4; }
+  .stat-note.tone-good { color: var(--good); font-weight: 700; }
+  .stat-note.tone-risk { color: var(--bad); font-weight: 700; }
+
+  /* ── Cards por canal (nota cheia + como foi o mês), alinhados por subgrid ── */
+  .channels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 14px; row-gap: 0; margin-top: 16px; }
+  .ch { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 15px 15px 13px; box-shadow: 0 1px 3px rgba(0,0,0,.06); display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 0; margin-bottom: 14px; }
+  .ch-name { font-size: 14px; font-weight: 800; color: #3E4456; }
+  .big { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-self: start; }
+  .big .val { font-size: 36px; font-weight: 900; letter-spacing: -0.5px; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .big .star { font-size: 26px; margin-left: 1px; }
+  .big .unit { font-size: 16px; font-weight: 700; color: var(--text-2); letter-spacing: 0; }
+  .big-sub { font-size: 12.5px; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
+  .month { display: contents; }
+  .month-h { font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); margin-top: 13px; padding: 11px 0 2px; border-top: 1px solid var(--card-border); }
+  .month-h span { display: block; color: var(--text-2); font-weight: 700; text-transform: none; letter-spacing: 0; margin-top: 1px; }
+  .mrow { padding: 7px 0; }
+  .mrow + .mrow { border-top: 1px dashed var(--card-border); }
+  .mrow .lbl { font-size: 12.5px; font-weight: 700; color: var(--text-2); }
+  .mrow .vals { font-size: 15px; color: var(--prev); font-variant-numeric: tabular-nums; white-space: nowrap; margin-top: 1px; }
+  .mrow .vals .p { color: var(--prev); font-weight: 700; }
+  .mrow .vals b { color: var(--text); font-weight: 900; font-size: 17px; }
+  .mrow .chip { margin-top: 4px; }
+  .ch-foot { align-self: end; padding-top: 11px; font-size: 12px; color: var(--text-2); line-height: 1.45; }
+
+  /* ── O que mudou ── */
+  .hero { margin-top: 16px; background: linear-gradient(90deg, var(--purple-1), var(--purple-2)); color: #fff; border-radius: 10px; padding: 22px 26px; }
+  .hero h3 { font-size: 22px; line-height: 1.3; font-weight: 400; }
+  .hero h3 b { font-weight: 900; }
+  .hero p { margin-top: 8px; font-size: 15px; color: rgba(255,255,255,.9); }
+  .changes { margin-top: 10px; }
+  .chg { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) 140px; gap: 20px; align-items: center; padding: 15px 4px; border-bottom: 1px solid var(--line); }
+  .chg:last-child { border-bottom: 0; }
+  .chg-title { font-size: 16px; font-weight: 800; }
+  .chg-where { font-size: 12.5px; color: var(--text-2); margin-top: 2px; }
+  .bars { display: flex; flex-direction: column; gap: 5px; }
+  .bar-row { display: grid; grid-template-columns: 30px minmax(0, 1fr); align-items: center; gap: 8px; font-size: 11.5px; font-weight: 700; color: var(--text-2); text-transform: uppercase; }
+  .bar { display: flex; align-items: center; gap: 7px; }
+  .bar i { display: block; height: 10px; border-radius: 3px; min-width: 3px; }
+  .bar b { font-size: 13.5px; color: var(--text); font-variant-numeric: tabular-nums; text-transform: none; }
+  .bar.prev i { background: var(--prev); }
+  .bar.prev b { color: var(--text-2); font-weight: 700; }
+  .bar.now.bad i { background: var(--bad); }
+  .bar.now.good i { background: var(--good); }
+  .bar.now.flat i { background: var(--text-2); }
+  .chg .chip { justify-self: end; font-size: 13px; padding: 4px 11px; }
+
+  /* ── Painel de comparação (BMG x concorrência) ── */
+  .panel { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 22px 24px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .panel h2 { font-size: 20px; font-weight: 800; }
+  .badge { font-size: 12px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; color: #116744; background: #DCF2E5; border-radius: 6px; padding: 4px 10px; }
+  .cblock { background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 18px 16px; margin-top: 16px; }
+  .cblock .ra-section { margin-top: 0; }
+  .cblock:empty { display: none; }
+  .cblock-head { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 2px solid var(--line); }
+  .cblock-head h3 { font-size: 15px; font-weight: 800; }
+  .ctag { font-size: 11.5px; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; border-radius: 6px; padding: 4px 9px; white-space: nowrap; }
+  .ctag-android { background: #EDE7F5; color: #522979; }
+  .ctag-ios { background: #E6E8EE; color: #242633; }
+  .ctag-ra { background: #FFF1EB; color: #BA3510; }
+  .read { font-size: 14px; margin-top: 12px; }
+  .read b { font-weight: 800; }
+
+  /* ── Tabelas ── */
+  .tbl-wrap { overflow-x: auto; }
+  .tbl, .bench-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+  .tbl th, .bench-table th { text-align: left; font-size: 12.5px; font-weight: 700; color: var(--text-2); padding: 6px 8px 8px; vertical-align: bottom; line-height: 1.3; border-bottom: 1px solid var(--row); }
+  .tbl td, .bench-table td { padding: 11px 8px; border-bottom: 1px solid var(--row); vertical-align: middle; font-variant-numeric: tabular-nums; }
+  .tbl tr:last-child td, .bench-table tr:last-child td { border-bottom: 0; }
+  .tbl .bank, .bench-bank { font-weight: 800; }
+  .tbl tr.bmg .bank, tr.is-bmg .bench-bank { color: var(--accent); }
+  .tbl td.hl-bad { background: var(--bad-soft); }
+  .tbl td.best, .bench-table td.is-best { background: var(--good-soft); color: var(--good); font-weight: 800; }
+  .tbl td.best small { display: block; font-size: 11.5px; font-weight: 800; }
+  .negbar { display: block; height: 7px; background: var(--track); border-radius: 4px; margin-top: 6px; overflow: hidden; max-width: 240px; }
+  .negbar i { display: block; height: 100%; background: var(--bad); border-radius: 4px; }
+  .num, .tbl td.num, .tbl th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .is-ref { font-weight: 800; color: var(--text); }
+  td.up { color: var(--bad); font-weight: 800; }
+  td.down { color: var(--good); font-weight: 800; }
+  .best-tag { font-size: 10.5px; font-weight: 800; color: var(--good); border: 1px solid var(--good); border-radius: 999px; padding: 0 6px; margin-left: 4px; white-space: nowrap; }
+  .bench-sub-inline { font-size: 11.5px; color: var(--text-2); font-weight: 400; }
+  tr.grp td { font-size: 11px; font-weight: 800; color: var(--text-2); text-transform: uppercase; letter-spacing: .04em; padding: 14px 8px 4px; border-bottom: 0; }
+  .is-bmg-col { background: #FAFAFB; }
+  .bcb-cell { min-width: 96px; }
+  .bcb-cell b { font-weight: 800; }
+  .bcb-bar { height: 7px; background: var(--track); border-radius: 0 4px 4px 0; margin-top: 5px; }
+  .bcb-bar i { display: block; height: 100%; background: #8A91A0; border-radius: 0 4px 4px 0; }
+  tr.is-bmg .bcb-bar i { background: var(--purple-1); }
+  td.is-ref-col, th.is-ref-col { background: #FAFAFB; }
+
+  /* ── Gráficos ── */
+  .ra-grid, .grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 28px; align-items: start; margin-top: 14px; }
+  .grid2.even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ra-mini-title { font-size: 12.5px; font-weight: 800; color: var(--text-2); margin-bottom: 6px; }
+  .vol-chart { display: flex; gap: 10px; margin: 10px 0 6px; max-width: 520px; }
+  .vol-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .vol-track { height: 120px; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+  .vol-bar { width: 100%; max-width: 46px; background: var(--prev); border-radius: 4px 4px 0 0; min-height: 2px; }
+  .vol-col.is-ref .vol-bar { background: var(--accent); }
+  .vol-col.is-partial .vol-bar { opacity: .45; }
+  .vol-val { font-size: 11.5px; color: var(--text-2); margin-bottom: 4px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .vol-col.is-ref .vol-val, .vol-col.is-ref .vol-lbl { color: var(--text); font-weight: 800; }
+  .vol-lbl { font-size: 11.5px; color: var(--text-2); margin-top: 6px; }
+  .line-chart { width: 100%; height: auto; display: block; }
+  .chart-card { background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 16px; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--text-2); margin-top: 6px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+
+  /* ── Listas, citações, versões, sinais ── */
+  .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .card h3 { font-size: 17px; font-weight: 800; margin-bottom: 14px; }
+  .vers { display: flex; align-items: center; gap: 12px; }
+  .v { flex: 1; border: 1px solid var(--card-border); background: #F6F6F7; border-radius: 10px; padding: 12px 14px; }
+  .v.cur { border-color: var(--orange); background: #FFF5F1; }
+  .v-name { font-size: 12.5px; font-weight: 800; color: var(--text-2); }
+  .v.cur .v-name { color: var(--accent); }
+  .v-num { font-size: 26px; font-weight: 900; letter-spacing: -0.3px; }
+  .v-num small { font-size: 13px; font-weight: 400; color: var(--text-2); letter-spacing: 0; }
+  .v-arrow { color: var(--prev); }
+  .card .note { font-weight: 700; }
+  .signals { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .signals li { display: flex; gap: 10px; font-size: 14.5px; }
+  .signals li::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); margin-top: 8px; }
+  .signals b { font-weight: 800; }
+  .quote { font-size: 13.5px; font-style: italic; color: #3E4456; border-left: 3px solid var(--purple-1); padding: 2px 0 2px 12px; line-height: 1.55; }
+  .quote-meta { font-size: 11.5px; color: var(--text-2); font-style: normal; margin-top: 3px; }
+  .quotes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+  .qcard { background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 12px 14px; }
+  .qcard h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
+  .qcard h4.negativo { color: var(--bad); } .qcard h4.neutro { color: var(--text-2); } .qcard h4.positivo { color: var(--good); }
+  .qcard .quote + .quote { margin-top: 10px; }
+  .vlist a { color: var(--text); font-weight: 700; text-decoration: none; }
+  .vlist a:hover { color: var(--accent); text-decoration: underline; }
+
+  /* ── Listas de análise (Resumo) ── */
+  .alist { list-style: none; margin-top: 12px; border-top: 1.5px solid var(--line); }
+  .alist li { position: relative; padding: 13px 4px 13px 24px; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.55; }
+  .alist li::before { content: ""; position: absolute; left: 4px; top: 21px; width: 9px; height: 9px; border-radius: 50%; background: var(--orange); }
+  .alist li.risk::before { background: var(--bad); }
+  .alist li.watch::before { background: #D97706; }
+  .alist li.good::before { background: var(--good); }
+  .alist li strong { font-weight: 800; }
+
+  /* ── Partes por plataforma (Lojas) ── */
+  .platform { margin-top: 30px; background: #fff; border: 1px solid var(--card-border); border-top: 5px solid var(--purple-1); border-radius: 14px; padding: 20px 24px 26px; }
+  .platform-ios { border-top-color: var(--text); }
+  .platform-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .platform-head h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.2px; }
+  .platform-head .ctag { font-size: 13px; padding: 5px 11px; }
+  .platform-sub { font-size: 13.5px; color: var(--text-2); }
+  .platform .stat-row { margin-top: 14px; }
+  .platform section { margin-top: 30px; }
+
+  /* ── Notas ── */
+  .ra-notes, .notes { margin-top: 36px; padding-top: 16px; border-top: 1.5px solid var(--line); font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+  .ra-notes strong, .notes strong { color: var(--text); }
+  .ra-notes ul, .notes ul { margin: 6px 0 0; padding-left: 18px; }
+  .foot { margin-top: 28px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-2); }
+
+  @media screen and (max-width: 900px) {
+    .channels, .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .duo, .ra-grid, .grid2, .grid2.even { grid-template-columns: 1fr; }
+    .quotes { grid-template-columns: 1fr; }
+  }
+  @media screen and (max-width: 560px) {
+    .platform { padding: 16px 14px 20px; }
+    .wrap { padding: 22px 16px 32px; }
+    .head-title { border-left: 0; padding-left: 0; }
+    .channels, .stat-row { grid-template-columns: 1fr; }
+    .chg { grid-template-columns: 1fr; gap: 10px; }
+    .chg .chip { justify-self: start; }
+    .panel { padding: 18px 14px; }
+  }
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tabs { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap viz-root">
+
+  <header class="head">
+    <img src="data:image/png;base64,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" alt="Banco Bmg">
+    <div class="head-title"><h1>Pulso Bmg</h1><span>· a voz do cliente em canais externos</span></div>
+    <div class="edition"><b>Resumo do mês</b><small id="edMes"></small><small id="edAtualizado"></small></div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <a class="tab" href="index.html" data-tab="resumo">Resumo</a>
+    <a class="tab" href="lojas.html" data-tab="lojas">Lojas de app</a>
+    <a class="tab" href="youtube.html" data-tab="youtube" id="tabYoutubeBtn" hidden>YouTube</a>
+    <a class="tab" href="reclame-aqui.html" data-tab="reclame-aqui" id="tabRaBtn" hidden>Reclame Aqui</a>
+    <a class="tab" href="banco-central.html" data-tab="banco-central" id="tabBcbBtn" hidden>Banco Central</a>
+  </nav>
+
+  <!-- ===================== RESUMO ===================== -->
+  <main class="tab-panel" id="tab-resumo" hidden>
+    <div id="resumoRoot"></div>
+  </main>
+
+  <!-- ===================== LOJAS DE APP ===================== -->
+  <main class="tab-panel" id="tab-lojas" hidden>
+    <div id="lojasRoot"></div>
+  </main>
+
+  <!-- ===================== YOUTUBE ===================== -->
+  <main class="tab-panel" id="tab-youtube" hidden>
+    <div id="youtubeRoot"></div>
+  </main>
+
+  <!-- ===================== RECLAME AQUI ===================== -->
+  <main class="tab-panel" id="tab-reclame-aqui" hidden>
+    <div class="page-title"><h2>Reclame Aqui</h2><p>O ângulo de crédito e cobrança que as lojas de app não capturam. Leitura do último mês fechado, com os 6 meses como contexto.</p></div>
+    <div id="raBmgCard" style="display:none">
+      <div class="stat-row" id="raStatRow"></div>
+      <div id="raMes"></div>
+      <div id="raApp"></div>
+      <span id="raMonth" hidden></span>
+    </div>
+    <section class="panel" id="raHelpCard" style="display:none">
+      <div class="panel-head"><div><h2>help! · Loja de Crédito do BMG</h2><p class="sub">A rede de lojas de crédito do BMG tem página própria no Reclame Aqui — mesmos indicadores, lidos à parte.</p></div></div>
+      <div class="cblock"><div class="stat-row" id="raHelpStats"></div></div>
+      <div class="cblock" id="raHelpVol"></div>
+      <div class="cblock" id="raHelpMes"></div>
+      <div class="cblock" id="raHelpComp"></div>
+    </section>
+    <section class="panel" id="raOutrasCard" style="display:none">
+      <div class="panel-head"><div><h2>Outras empresas do grupo no Reclame Aqui</h2><p class="sub">Empresas do grupo BMG com página própria, além do banco e da help!.</p></div></div>
+      <div class="cblock" id="raOutras"></div>
+    </section>
+    <section class="panel" id="raMktCard" style="display:none">
+      <div class="panel-head"><div><h2>BMG x concorrência</h2><p class="sub">Agibank e Mercantil no Reclame Aqui.</p></div></div>
+      <div class="cblock" id="raSecVolume"></div>
+      <div class="cblock" id="raSecDrivers"></div>
+      <div class="cblock" id="raSecReput"></div>
+    </section>
+    <div id="raNotes" class="ra-notes"></div>
+  </main>
+
+  <!-- ===================== BANCO CENTRAL ===================== -->
+  <main class="tab-panel" id="tab-banco-central" hidden>
+    <div class="page-title"><h2>Banco Central</h2><p>Ranking oficial de reclamações: as queixas que chegam ao Banco Central e são consideradas procedentes, por milhão de clientes. Publicado por trimestre.</p></div>
+    <div id="bcbRoot"></div>
+  </main>
+
+</div>
+
+<script>
+// ===== DATA-INJECTION-START =====
+const activePage = "banco-central";
+const versao = "202611101446";
+
+const edicao = {"mesRef":"Outubro · 2026","atualizado":"10/11"};
+
+const resumoPage = {
+  "canais": [
+    {
+      "canal": "Google Play · Android",
+      "nota": {
+        "valor": "4,74",
+        "estrela": true,
+        "chip": {
+          "txt": "▲ +0,02",
+          "tone": "good"
+        }
+      },
+      "legenda": "nota na loja · 437,2 mil avaliações",
+      "periodoTitulo": "Como foi o mês",
+      "periodo": "set → out",
+      "metricas": [
+        {
+          "label": "Nota dos comentários",
+          "prev": "2,88",
+          "ref": "3,85",
+          "chip": {
+            "txt": "▲ +0,97",
+            "tone": "good"
+          }
+        },
+        {
+          "label": "Comentários negativos",
+          "prev": "51,5%",
+          "ref": "26,9%",
+          "chip": {
+            "txt": "▼ −24,6 p.p.",
+            "tone": "good"
+          }
+        }
+      ],
+      "rodape": "350 comentários em outubro"
+    },
+    {
+      "canal": "App Store · iOS",
+      "nota": {
+        "valor": "4,71",
+        "estrela": true,
+        "chip": {
+          "txt": "▲ +0,01",
+          "tone": "good"
+        }
+      },
+      "legenda": "nota na loja · 89,1 mil avaliações",
+      "periodoTitulo": "Como foi o trimestre",
+      "periodo": "abr–jun → jul–set",
+      "metricas": [
+        {
+          "label": "Nota dos comentários",
+          "prev": "1,35",
+          "ref": "2,26",
+          "chip": {
+            "txt": "▲ +0,91",
+            "tone": "good"
+          }
+        },
+        {
+          "label": "Comentários negativos",
+          "prev": "95,0%",
+          "ref": "60,9%",
+          "chip": {
+            "txt": "▼ −34,1 p.p.",
+            "tone": "good"
+          }
+        }
+      ],
+      "rodape": "23 comentários em jul–set · por trimestre, pelo baixo volume"
+    },
+    {
+      "canal": "YouTube",
+      "nota": {
+        "valor": "4",
+        "unidade": "comentários"
+      },
+      "legenda": "sobre o BMG na janela de 35 dias, sem tema que se destaque — o canal não tem nota",
+      "periodoTitulo": "Como foi o mês",
+      "periodo": "set → out",
+      "metricas": [
+        {
+          "label": "Comentários sobre o BMG",
+          "prev": "9",
+          "ref": "4",
+          "chip": {
+            "txt": "▼ −5",
+            "tone": "flat"
+          }
+        }
+      ],
+      "rodape": "Janelas de 35 dias até 05/10 e até 09/11 · amostra pequena"
+    },
+    {
+      "canal": "Reclame Aqui",
+      "nota": {
+        "valor": "8,5",
+        "unidade": "/10",
+        "chip": {
+          "txt": "▲ +0,2",
+          "tone": "good"
+        }
+      },
+      "legenda": "nota de reputação · era 8,3 em setembro · selo RA1000 mantido",
+      "periodoTitulo": "Como foi o mês",
+      "periodo": "set → out",
+      "metricas": [
+        {
+          "label": "Reclamações com assunto",
+          "prev": "1.240",
+          "ref": "1.141",
+          "chip": {
+            "txt": "▼ −8,0%",
+            "tone": "good"
+          }
+        },
+        {
+          "label": "Resolvidas (6 meses)",
+          "prev": "90,6%",
+          "ref": "92,0%",
+          "chip": {
+            "txt": "▲ +1,4 p.p.",
+            "tone": "good"
+          }
+        }
+      ],
+      "rodape": "Nota e resolvidas: janelas de 6 meses do próprio Reclame Aqui"
+    }
+  ],
+  "destaques": [
+    {
+      "tone": "good",
+      "html": "<strong>Android melhorou em out/2026:</strong> comentários negativos caíram de 51,5% para 26,9% e a nota dos comentários subiu de 2,88 para 3,85, com 350 comentários no mês (194 em set/2026) — o menor índice de negativos dos últimos 5 meses."
+    },
+    {
+      "tone": "watch",
+      "html": "<strong>Tema nº1 das lojas:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 20 no Android (out/2026, contra 17 em set/2026) e 6 no iOS (jul–set/2026)."
+    },
+    {
+      "tone": "watch",
+      "html": "<strong>Primeiros dias da versão 3.99.0 do Android com sentimento pior:</strong> 36,7% de comentários negativos (60 comentários em 11 dias), contra 28,3% na 3.97.2 — sinal inicial, confirmar na próxima rodada."
+    },
+    {
+      "tone": "good",
+      "html": "<strong>Em queda no Android:</strong> \"Erro no cadastro/abertura de conta (selfie, documentos)\" — de 10 para 2 citações (10% → 2,1% dos comentários negativos)."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>YouTube com pouca conversa no período:</strong> 4 comentários sobre o BMG na janela de 35 dias, sem tema que se destaque."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Reclame Aqui — O BMG recebe menos reclamações; Mercantil e Agibank, mais.</strong> Média mensal no semestre mai/26–out/26 contra nov/25–abr/26: BMG -24% · Mercantil +30% · Agibank +10%. Reputação melhorou: selo RA1000, nota 8,5/10 (era 8,3), 92,0% resolvidas."
+    },
+    {
+      "tone": "watch",
+      "html": "<strong>help! (Loja de Crédito do BMG) no Reclame Aqui:</strong> nota 8,1/10, selo Ótima. As reclamações subiram 18% no semestre, na contramão do BMG (-24%). Resolve 88,0% das reclamações e leva 11,7 dias para responder (BMG: 92,0% e 9,7 dias)."
+    }
+  ],
+  "mercado": [
+    {
+      "tone": "info",
+      "html": "<strong>Comentários nas lojas (Android, out/2026):</strong> o BMG fica no meio do trio — Agibank 41,7% · BMG 26,9% · Mercantil 21,7% de comentários negativos. \"App trava / instabilidade\" aparece entre as principais queixas dos três."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Volume no Reclame Aqui: o BMG é o único recebendo menos reclamações</strong> — média mensal no semestre vs. o anterior: BMG -24% · Mercantil +30% · Agibank +10%."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Reclame Aqui:</strong> o BMG é quem mais resolve (BMG 92% · Agibank 89,2% · Mercantil 84,6%), mas é o mais lento para responder (Agibank 5,1 dias · Mercantil 7,8 dias · BMG 9,7 dias)."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Nota na loja (Android):</strong> Mercantil 4,8★ · BMG 4,74★ · Agibank 4,6★ — média acumulada, se move pouco; a diferença de experiência recente aparece nos comentários."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>Banco Central (3º tri/26):</strong> índice de reclamações procedentes por milhão de clientes — BMG 82,8 · Agibank 108,7 · Mercantil 206,6. O BMG tem o menor índice dos três (o do BMG caiu de 101,3 para 82,8 no trimestre)."
+    }
+  ],
+  "mercadoTitulo": "BMG vs. mercado — Mercantil e Agibank",
+  "cruzada": [
+    {
+      "tone": "info",
+      "html": "<strong>A instabilidade do app é transversal às duas lojas:</strong> 21,3% dos comentários negativos no Android (20 de 94 negativos) e 42,9% no iOS (6 de 14 negativos) citam travamento/fora do ar. Não é problema de um sistema só — é do app como um todo."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>O problema pesa mais no iOS:</strong> 42,9% dos comentários negativos do iPhone (6 de 14 negativos) são sobre \"App trava / não abre / fica fora do ar / instabilidade\", contra 21,3% no Android — a base do iOS é pequena, mas o padrão se repete nos últimos 3 trimestres; vale priorizar a investigação no iOS."
+    },
+    {
+      "tone": "info",
+      "html": "<strong>A dificuldade de entrar no app aparece além das lojas:</strong> no Reclame Aqui, \"Não consigo acessar minha conta\" teve 56 reclamações em out/2026, estável em relação a set/2026 (55) — segue no patamar mais alto do semestre. Entre os concorrentes, subiu no Agibank (39 → 56), mas proporcionalmente o BMG segue com mais reclamações de app/acesso (BMG 3,2% · Mercantil 2,2% · Agibank 1,5% do total no semestre)."
+    }
+  ],
+  "notas": [
+    "Lojas: “nota dos comentários” é a média de estrelas das avaliações com texto do período; a nota na loja é a média acumulada exibida ao público; a variação compara a leitura de cada rodada mensal (dia 9) com a da rodada anterior.",
+    "Sentimento pela estrela: 1–2 negativo, 3 neutro, 4–5 positivo. iOS por trimestre, pelo baixo volume.",
+    "Reclame Aqui: reputação dos últimos 6 meses (janela do próprio site); reclamações com assunto informado.",
+    "YouTube: janelas de 35 dias, sinal qualitativo.",
+    "Detalhe completo nas páginas Lojas de app, YouTube, Reclame Aqui e Banco Central."
+  ]
+};
+
+const lojasPage = {
+  "android": {
+    "titulo": "Google Play",
+    "periodo": "mês a mês",
+    "kpis": [
+      {
+        "label": "Nota na loja",
+        "value": "4,74★",
+        "note": "+0,02 vs. leitura de out (4,72) · 437,2 mil avaliações",
+        "tone": "good"
+      },
+      {
+        "label": "Nota dos comentários · outubro",
+        "value": "3,85",
+        "note": "+0,97 vs. setembro (2,88)",
+        "tone": "good"
+      },
+      {
+        "label": "Comentários negativos · outubro",
+        "value": "26,9%",
+        "note": "−24,6 p.p. vs. setembro (51,5%)",
+        "tone": "good"
+      },
+      {
+        "label": "Comentários · outubro",
+        "value": "350",
+        "note": "194 em setembro"
+      }
+    ],
+    "nota": {
+      "headline": "A nota dos comentários subiu de 2,88 em setembro para 3,85 em outubro — a maior do período.",
+      "pontos": [
+        {
+          "label": "jun",
+          "nota": "3,20",
+          "h": 55,
+          "neg": "42,6%",
+          "total": 188
+        },
+        {
+          "label": "jul",
+          "nota": "2,81",
+          "h": 45,
+          "neg": "53,7%",
+          "total": 244
+        },
+        {
+          "label": "ago",
+          "nota": "3,11",
+          "h": 53,
+          "neg": "47,0%",
+          "total": 217
+        },
+        {
+          "label": "set",
+          "nota": "2,88",
+          "h": 47,
+          "neg": "51,5%",
+          "total": 194
+        },
+        {
+          "label": "out",
+          "nota": "3,85",
+          "h": 71,
+          "neg": "26,9%",
+          "total": 350
+        }
+      ],
+      "refLabel": "out"
+    },
+    "temas": {
+      "headline": "“App trava, não abre ou fica fora do ar” segue como a queixa nº 1 (20 citações em outubro).",
+      "prevLabel": "set",
+      "refLabel": "out",
+      "rows": [
+        {
+          "nome": "App trava, não abre ou fica fora do ar",
+          "prev": 17,
+          "ref": 20,
+          "share": 21.3,
+          "shareTxt": "21,3%",
+          "quote": {
+            "text": "Estou muito mais do que aborrecida... Faz mais de quinze dias que não consigo acessar o aplicativo 🤨 Aff... A \"BELEZA\" do aplicativo simplesmente não abre. Não consigo fazer absolutamente nada 😠 Já registrei o problema na quarta ou qui…",
+            "rating": 1,
+            "date": "2026-10-26"
+          }
+        },
+        {
+          "nome": "Falha em Pix, pagamentos e resgates",
+          "prev": 2,
+          "ref": 3,
+          "share": 3.2,
+          "shareTxt": "3,2%",
+          "quote": {
+            "text": "abri minha conta neste banco dia 08/10/26 coloquei 3 mil no app do cofrinho até hoje não funciona é um absurdo. liguei na ouvidoria me deram um prazo que terminou ontem e mesmo assim não esta funcionando., resumindo meu dinheiro ta travado",
+            "rating": 1,
+            "date": "2026-10-20"
+          }
+        },
+        {
+          "nome": "Atendimento não resolve",
+          "prev": 0,
+          "ref": 3,
+          "share": 3.2,
+          "shareTxt": "3,2%",
+          "quote": {
+            "text": "sou cliente e não indico pra ninguém pra passar oq estou passando,tive um saldo bloqueado e entrei em contato desbloquearam o saldo mas não caiu na conta estou a dias tentando resolver e ninguém resolve me sentindo lesado ,conseguir reso…",
+            "rating": 1,
+            "date": "2026-10-29"
+          }
+        },
+        {
+          "nome": "Erro no cadastro e na abertura de conta",
+          "prev": 10,
+          "ref": 2,
+          "share": 2.1,
+          "shareTxt": "2,1%",
+          "quote": {
+            "text": "O aplicativo exige o cadastro de dados pessoais, endereço, renda e envio de foto da CNH. No entanto, após coletar todas as minhas informações, a conta foi rejeitada sem qualquer justificativa e sem disponibilizar a opção de excluir os me…",
+            "rating": 1,
+            "date": "2026-10-15"
+          }
+        },
+        {
+          "nome": "Não consegue cancelar ou encerrar a conta",
+          "prev": 0,
+          "ref": 2,
+          "share": 2.1,
+          "shareTxt": "2,1%",
+          "quote": {
+            "text": "mais uma vez vindo reclamar do péssimo app do BMG, tomem vergonha na cara, quase um mês em manutenção, isso não existe, tive muita dificuldade de pagar a fatura do cartão BMG, o app fica o dia inteiro em manutenção, tive sorte no dia do …",
+            "rating": 1,
+            "date": "2026-10-14"
+          }
+        },
+        {
+          "nome": "Login e autenticação",
+          "prev": 3,
+          "ref": 0,
+          "share": 0,
+          "shareTxt": "0%",
+          "quote": null
+        },
+        {
+          "nome": "Não aumenta o limite de crédito",
+          "prev": 1,
+          "ref": 0,
+          "share": 0,
+          "shareTxt": "0%",
+          "quote": null
+        }
+      ]
+    },
+    "versao": {
+      "headline": "A versão 3.99.0 começou com mais comentários negativos que a 3.97.2: 36,7% contra 28,3%.",
+      "nota": "+8,4 p.p. com 60 comentários na versão nova (99 na anterior). Sinal inicial — confirmar no fechamento do mês.",
+      "rows": [
+        {
+          "versao": "3.97.2",
+          "periodo": "17/10–06/11",
+          "total": 99,
+          "neg": 28.3,
+          "negTxt": "28,3%",
+          "atual": false
+        },
+        {
+          "versao": "3.99.0",
+          "periodo": "29/10–08/11 (atual)",
+          "total": 60,
+          "neg": 36.7,
+          "negTxt": "36,7%",
+          "atual": true
+        }
+      ]
+    },
+    "exemplos": [
+      {
+        "tipo": "negativo",
+        "itens": [
+          {
+            "text": "mais uma vez vindo reclamar do péssimo app do BMG, tomem vergonha na cara, quase um mês em manutenção, isso não existe, tive muita dificuldade de pagar a fatura do cartão BMG, o app fica o dia inteiro em manutenção, tive sorte no dia do …",
+            "rating": 1,
+            "date": "2026-10-14"
+          }
+        ]
+      },
+      {
+        "tipo": "neutro",
+        "itens": [
+          {
+            "text": "estou usando agora essa conta espero que me aprove com cartão de crédito",
+            "rating": 3,
+            "date": "2026-10-15"
+          },
+          {
+            "text": "o cartão seria bom, mais ele quando não que abrir o app somente no outro dia. Desinstala e instala novamente",
+            "rating": 3,
+            "date": "2026-10-08"
+          }
+        ]
+      },
+      {
+        "tipo": "positivo",
+        "itens": [
+          {
+            "text": "Estou satisfeito com tudo mas ainda sim tenho bug qdo quero acessar fatura cartão de crédito....e sai msg que não tenho cartão... Tenho cartão multi e app aparece bloqueado por dívida, mas consultando por whatsapp me.diz que não tenho pe…",
+            "rating": 4,
+            "date": "2026-10-07"
+          },
+          {
+            "text": "venha para o bmg esse eo melhor banco do mundo otimo para o seu dia dia com facilidade",
+            "rating": 5,
+            "date": "2026-10-12"
+          }
+        ]
+      }
+    ]
+  },
+  "ios": {
+    "titulo": "App Store",
+    "periodo": "por trimestre, pelo volume baixo",
+    "kpis": [
+      {
+        "label": "Nota na loja",
+        "value": "4,71★",
+        "note": "+0,01 vs. leitura de out (4,7) · 89,1 mil avaliações",
+        "tone": "good"
+      },
+      {
+        "label": "Nota dos comentários · jul–set",
+        "value": "2,26",
+        "note": "+0,91 vs. abr–jun (1,35)",
+        "tone": "good"
+      },
+      {
+        "label": "Comentários negativos · jul–set",
+        "value": "60,9%",
+        "note": "−34,1 p.p. vs. abr–jun (95,0%)",
+        "tone": "good"
+      },
+      {
+        "label": "Comentários · jul–set",
+        "value": "23",
+        "note": "20 em abr–jun · volume baixo"
+      }
+    ],
+    "nota": {
+      "headline": "A nota dos comentários subiu de 1,35 em abr–jun para 2,26 em jul–set — com só 23 comentários no trimestre, ler como sinal.",
+      "pontos": [
+        {
+          "label": "abr–jun/26",
+          "nota": "1,35",
+          "h": 9,
+          "neg": "95,0%",
+          "total": 20
+        },
+        {
+          "label": "jul–set/26",
+          "nota": "2,26",
+          "h": 31,
+          "neg": "60,9%",
+          "total": 23
+        }
+      ],
+      "refLabel": "jul–set/26",
+      "negSerie": [
+        {
+          "label": "jul–set/25",
+          "neg": "70,0%",
+          "total": 40
+        },
+        {
+          "label": "out–dez/25",
+          "neg": "70,7%",
+          "total": 41
+        },
+        {
+          "label": "jan–mar/26",
+          "neg": "79,4%",
+          "total": 34
+        },
+        {
+          "label": "abr–jun/26",
+          "neg": "95,0%",
+          "total": 20
+        },
+        {
+          "label": "jul–set/26",
+          "neg": "60,9%",
+          "total": 23
+        }
+      ],
+      "faltam": [
+        "jul–set/25",
+        "out–dez/25",
+        "jan–mar/26"
+      ]
+    },
+    "temas": {
+      "headline": "“App trava, não abre ou fica fora do ar” é o tema mais citado no iOS: 6 dos 14 comentários negativos de jul–set (42,9%).",
+      "prevLabel": "abr–jun",
+      "refLabel": "jul–set",
+      "rows": [
+        {
+          "nome": "App trava, não abre ou fica fora do ar",
+          "prev": 8,
+          "ref": 6,
+          "share": 42.9,
+          "shareTxt": "42,9%",
+          "quote": {
+            "text": "Aplicativo completamente instável, transferi um valor para fazer uma aplicação financeira. App não consegues efetivar o investimento e também não consigo transferir o dinheiro de volta para minha conta via pix. Não confiem nesse banco, e…",
+            "rating": 1,
+            "date": "2026-07-31"
+          }
+        },
+        {
+          "nome": "Erro no cadastro e na abertura de conta",
+          "prev": 3,
+          "ref": 1,
+          "share": 7.1,
+          "shareTxt": "7,1%",
+          "quote": {
+            "text": "Péssimo, péssimo, péssimo. Tentei abrir conta somente para aplicar no CDB e não consegui, tentaram me empurrar um cartão, o aplicativo pedia tudo em dobro na hora de cadastrar e travava quando era para ler e aceitar os termos.. uma pena …",
+            "rating": 1,
+            "date": "2026-09-08"
+          }
+        },
+        {
+          "nome": "Falha em Pix, pagamentos e resgates",
+          "prev": 1,
+          "ref": 1,
+          "share": 7.1,
+          "shareTxt": "7,1%",
+          "quote": {
+            "text": "O APLICATIVO ESTÁ SOMANDO AS FATURAS DE JULHO, QUE NEM VENCEU AINDA, VENCE DIA 25, COM A DE AGOSTO. ELE SIMPLESMENTE ESTÁ \"PULANDO A DE JULHO\". Android e Ios. a de JULHO NEM FECHOU, E VENCE DIA 25 DE JULHO, O APP NOVO, DE HOJE, 16/07, ES…",
+            "rating": 1,
+            "date": "2026-07-16"
+          }
+        },
+        {
+          "nome": "Atendimento não resolve",
+          "prev": 1,
+          "ref": 1,
+          "share": 7.1,
+          "shareTxt": "7,1%",
+          "quote": {
+            "text": "Não consigo acessar, não consigo resolução do contato, faz um mês que tento acessar a conta e ninguém resolve.",
+            "rating": 1,
+            "date": "2026-09-20"
+          }
+        },
+        {
+          "nome": "Login e autenticação",
+          "prev": 1,
+          "ref": 0,
+          "share": 0,
+          "shareTxt": "0%",
+          "quote": null
+        }
+      ]
+    }
+  },
+  "concorrencia": {
+    "sub": "Mercantil e Agibank, no Android e no iOS.",
+    "blocks": [
+      {
+        "tag": "android",
+        "tagLabel": "Android",
+        "titulo": "Google Play · outubro",
+        "head": [
+          "Instituição",
+          "Nota na loja|média acumulada",
+          "Nota dos comentários|set → out",
+          "Comentários negativos em outubro|menor é melhor"
+        ],
+        "rows": [
+          {
+            "label": "BMG",
+            "isBmg": true,
+            "cells": [
+              {
+                "txt": "4,74★"
+              },
+              {
+                "txt": "2,89 → <b>3,85</b> <span class=\"pos\">▲</span>"
+              },
+              {
+                "bar": 26.9,
+                "txt": "<span class=\"neg\">26,9%</span> <span class=\"muted\">· 350 comentários</span>",
+                "hl": false
+              }
+            ]
+          },
+          {
+            "label": "Mercantil",
+            "isBmg": false,
+            "cells": [
+              {
+                "txt": "4,8★"
+              },
+              {
+                "txt": "3,85 → <b>4,04</b> <span class=\"pos\">▲</span>"
+              },
+              {
+                "bar": 21.7,
+                "txt": "<span class=\"neg\">21,7%</span> <span class=\"muted\">· 806 comentários</span>",
+                "hl": false
+              }
+            ]
+          },
+          {
+            "label": "Agibank",
+            "isBmg": false,
+            "cells": [
+              {
+                "txt": "4,6★"
+              },
+              {
+                "txt": "3,16 → <b>3,22</b> <span class=\"pos\">▲</span>"
+              },
+              {
+                "bar": 41.7,
+                "txt": "<span class=\"neg\">41,7%</span> <span class=\"muted\">· 302 comentários</span>",
+                "hl": true
+              }
+            ]
+          }
+        ],
+        "leitura": "nas notas da loja, os três estão entre 4,6★ e 4,8★. No mês, a nota dos comentários variou entre os bancos."
+      },
+      {
+        "tag": "ios",
+        "tagLabel": "iOS",
+        "titulo": "App Store · ago–out/2026",
+        "head": [
+          "Instituição",
+          "Nota na loja|média acumulada",
+          "Comentários negativos em ago–out|menor é melhor"
+        ],
+        "rows": [
+          {
+            "label": "BMG",
+            "isBmg": true,
+            "cells": [
+              {
+                "txt": "4,71★"
+              },
+              {
+                "bar": 61.9,
+                "txt": "<span class=\"neg\">61,9%</span> <span class=\"muted\">· 21 comentários</span>",
+                "hl": false
+              }
+            ]
+          },
+          {
+            "label": "Mercantil",
+            "isBmg": false,
+            "cells": [
+              {
+                "txt": "4,82★"
+              },
+              {
+                "bar": 50,
+                "txt": "<span class=\"neg\">50,0%</span> <span class=\"muted\">· 108 comentários</span>",
+                "hl": false
+              }
+            ]
+          },
+          {
+            "label": "Agibank",
+            "isBmg": false,
+            "cells": [
+              {
+                "txt": "4,29★"
+              },
+              {
+                "bar": 73.8,
+                "txt": "<span class=\"neg\">73,8%</span> <span class=\"muted\">· 42 comentários</span>",
+                "hl": true
+              }
+            ]
+          }
+        ],
+        "leitura": "no iOS, o BMG fica no meio do trio: 61,9% de comentários negativos, contra 50,0% do Mercantil e 73,8% do Agibank. Na nota da loja, Mercantil 4,82★ · BMG 4,71★ · Agibank 4,29★. Bases pequenas nas três marcas."
+      }
+    ],
+    "nota": "Android: outubro completo nos três bancos. iOS: trimestre, pelo baixo volume nas três marcas — ler como sinal; a evolução da nota dos comentários no iOS entra quando houver as avaliações do trimestre anterior dos três bancos."
+  },
+  "notas": [
+    "Nota na loja: média acumulada exibida ao público, de toda a vida do app (a maioria só com estrela, sem texto) — por isso quase não se move. A variação compara a leitura de cada rodada mensal (dia 9) com a da rodada anterior.",
+    "Nota dos comentários: média de estrelas das avaliações com texto do período (escala de 1 a 5). É ela que mostra a direção do mês.",
+    "Cobertura: o Google Play soma 437.154 avaliações e a App Store 89.053. Sentimento pela estrela: 1–2 negativo, 3 neutro, 4–5 positivo.",
+    "iOS por trimestre, pelo volume baixo; trimestres sem a nota dos comentários ficam de fora do gráfico.",
+    "Temas: classificação por palavras-chave nos comentários negativos; um comentário pode citar mais de um tema."
+  ]
+};
+
+const youtubePage = {
+  "janela": "05/10 a 09/11/2026",
+  "kpis": [
+    {
+      "label": "Comentários de terceiros",
+      "value": "4",
+      "note": "9 na edição anterior"
+    },
+    {
+      "label": "Vídeos do canal oficial",
+      "value": "2",
+      "note": "978 visualizações"
+    },
+    {
+      "label": "Comentários no canal oficial",
+      "value": "—",
+      "note": "vídeos da janela sem comentários abertos"
+    }
+  ],
+  "conversa": {
+    "headline": "Pouca conversa na janela: 4 comentários de terceiros sobre o BMG, sem tema que se destaque.",
+    "temas": [
+      {
+        "label": "Desconto indevido, empréstimo não autorizado",
+        "count": 1,
+        "quote": {
+          "text": "Preciso d comprovação d empréstimo pois foi encontrado empréstimo sem autorização B MG JÁ SENDO DESCONTADO",
+          "video": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados",
+          "date": "2026-11-09"
+        }
+      },
+      {
+        "label": "RMC, cartão consignado, INSS",
+        "count": 1,
+        "quote": {
+          "text": "estou indgnado com bmg, RMC DEPOIS QUE BOTEI UM ADVOGADO, não cancelou,RMC, e agora tem RCC, não tem fiscalização, estamos prontos para quebrar esse Bmg, vamos tocar fogo.",
+          "video": "🚨 Banco BMG e os Empréstimos Eternos (RMC e RCC) | Paulinelli Advogados",
+          "date": "2026-11-07"
+        }
+      }
+    ]
+  },
+  "videos": [
+    {
+      "title": "O que esperar do Banco BMG (BMGB4) nos próximos anos?",
+      "channel": "AGF",
+      "views": "13,3 mil",
+      "comments": 10,
+      "url": "https://youtu.be/lqin5DeYC_k"
+    },
+    {
+      "title": "BMGB4: ESSA AÇÃO PODE DISPARAR? ATENÇÃO, ACIONISTAS! #BMGB4 #Banco BMG, #ações #dividendos #investir",
+      "channel": "Tiago - Dividendos em Ação",
+      "views": "7,3 mil",
+      "comments": 42,
+      "url": "https://youtu.be/7_jGCVaWdNI"
+    },
+    {
+      "title": "BMGB4: DIVIDENDO E VALORIZAÇÃO EM UMA AÇÃO DE R$ 5,00! BANCO BMG VALE A PENA?",
+      "channel": "Adan Paulo - Adapta Partners",
+      "views": "3,3 mil",
+      "comments": 6,
+      "url": "https://youtu.be/qN6gpztfU7w"
+    },
+    {
+      "title": "BOLSA EM LIQUIDAÇÃO | NÃO SEJA SARDINHA!!! | BANCO BANRISUL | BANCO BMG | CEMIG",
+      "channel": "Seven Investimentos",
+      "views": "2,0 mil",
+      "comments": 18,
+      "url": "https://youtu.be/WsJaGqGaCfg"
+    },
+    {
+      "title": "URGENTE! TJ BARRA BMG E MANTÉM SUSPENSOS DESCONTOS DE EMPRÉSTIMOS CONSIGNADOS",
+      "channel": "Sandra Silva INSS",
+      "views": "1,9 mil",
+      "comments": 12,
+      "url": "https://youtu.be/nOTwKdCk7Ec"
+    }
+  ],
+  "canal": {
+    "headline": "2 vídeos publicados, 978 visualizações — 1 vídeo concentra 63%, sem comentários abertos.",
+    "videos": [
+      {
+        "title": "#BMGB4 Resultados 3T26 Banco Bmg",
+        "views": "614",
+        "comments": "—",
+        "url": "https://youtu.be/4REQe2BFqfM",
+        "date": "2026-11-05"
+      },
+      {
+        "title": "#BMGB4 Videoconferência de Resultados 3T26 do Banco Bmg",
+        "views": "364",
+        "comments": "—",
+        "url": "https://youtu.be/wswfKVJ2HDw",
+        "date": "2026-11-06"
+      }
+    ]
+  },
+  "notas": [
+    "Janela de 35 dias (05/10 a 09/11/2026). Menções de terceiros: comentários em vídeos de outros canais que citam o BMG — sinal qualitativo, amostra pequena.",
+    "Canal oficial: vídeos publicados pelo BMG na janela, com visualizações e comentários.",
+    "Temas: classificação por palavras-chave; um comentário pode citar mais de um tema."
+  ]
+};
+
+const raPage = {
+  "kpis": [
+    {
+      "label": "Nota de reputação (6 meses)",
+      "value": "8,5<span class=\"stat-unit\">/10</span>",
+      "note": "<span class=\"pos\">▲ +0,2</span> vs. setembro (8,3) · selo RA1000"
+    },
+    {
+      "label": "Reclamações — últimos 30 dias",
+      "value": "1.477",
+      "note": "-7% vs. a média mensal do semestre",
+      "tone": "good"
+    },
+    {
+      "label": "Resolvidas (6 meses)",
+      "value": "92,0%",
+      "note": "das reclamações avaliadas pelo cliente"
+    },
+    {
+      "label": "Tempo de resposta (6 meses)",
+      "value": "9,7 dias",
+      "note": "média"
+    }
+  ],
+  "mes": {
+    "title": "O que mudou em out/2026",
+    "headline": "As reclamações caíram 8% em relação a set, puxadas por \"Cobrança indevida\", \"Mau Atendimento\" e \"Cancelamento\".",
+    "chart": {
+      "months": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "counts": [
+        1197,
+        997,
+        923,
+        1165,
+        1240,
+        1141
+      ],
+      "partial": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "refMonth": "2026-10"
+    },
+    "movers": [
+      {
+        "nome": "Estorno do valor pago",
+        "prev": 25,
+        "ref": 45,
+        "delta": 20
+      },
+      {
+        "nome": "Limite",
+        "prev": 85,
+        "ref": 104,
+        "delta": 19
+      },
+      {
+        "nome": "Problema para quitar o empréstimo",
+        "prev": 70,
+        "ref": 87,
+        "delta": 17
+      },
+      {
+        "nome": "Cobrança indevida-duplicada de conta",
+        "prev": 3,
+        "ref": 13,
+        "delta": 10
+      },
+      {
+        "nome": "Cobrança indevida",
+        "prev": 385,
+        "ref": 318,
+        "delta": -67
+      },
+      {
+        "nome": "Mau Atendimento",
+        "prev": 20,
+        "ref": 6,
+        "delta": -14
+      },
+      {
+        "nome": "Cancelamento",
+        "prev": 123,
+        "ref": 110,
+        "delta": -13
+      }
+    ],
+    "maiores": [
+      {
+        "nome": "Cobrança indevida",
+        "share": "27,9"
+      },
+      {
+        "nome": "Cancelamento",
+        "share": "9,6"
+      },
+      {
+        "nome": "Limite",
+        "share": "9,1"
+      }
+    ],
+    "refMonth": "2026-10",
+    "prevMonth": "2026-09"
+  },
+  "app": {
+    "headline": "\"Não consigo acessar minha conta\": 56 reclamações em out/2026, estável em relação a set (55) — segue no patamar mais alto do semestre.",
+    "months": [
+      "2026-05",
+      "2026-06",
+      "2026-07",
+      "2026-08",
+      "2026-09",
+      "2026-10"
+    ],
+    "refMonth": "2026-10",
+    "prevMonth": "2026-09",
+    "rows": [
+      {
+        "nome": "Não consigo acessar minha conta",
+        "values": [
+          36,
+          36,
+          27,
+          23,
+          55,
+          56
+        ],
+        "ref": 56,
+        "prev": 55
+      },
+      {
+        "nome": "Abertura de conta",
+        "values": [
+          9,
+          13,
+          6,
+          9,
+          11,
+          4
+        ],
+        "ref": 4,
+        "prev": 11
+      },
+      {
+        "nome": "Problema de acesso ao Internet Banking",
+        "values": [
+          4,
+          2,
+          0,
+          3,
+          7,
+          3
+        ],
+        "ref": 3,
+        "prev": 7
+      }
+    ],
+    "note": "App e acesso somam 3,2% das reclamações do BMG no semestre (304 de 9.554)."
+  },
+  "volume": {
+    "headline": "O BMG recebe menos reclamações; Mercantil e Agibank, mais.",
+    "sub": "Média mensal no semestre mai/26–out/26 contra nov/25–abr/26: BMG -24% · Mercantil +30% · Agibank +10%.",
+    "semAnt": "nov/25–abr/26",
+    "semAtual": "mai/26–out/26",
+    "capturado_em": "2026-11-09",
+    "rows": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "mediaAnterior": 2091,
+        "mediaMensal": 1592,
+        "varSemestre": -24,
+        "ultimos30": 1477,
+        "var30": -7
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false,
+        "mediaAnterior": 2231,
+        "mediaMensal": 2891,
+        "varSemestre": 30,
+        "ultimos30": 3528,
+        "var30": 22
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false,
+        "mediaAnterior": 3147,
+        "mediaMensal": 3466,
+        "varSemestre": 10,
+        "ultimos30": 4165,
+        "var30": 20
+      }
+    ]
+  },
+  "drivers": {
+    "title": "O que puxou a variação em out/2026",
+    "headline": "O que se reclama em out/2026 em cada banco.",
+    "refMonth": "2026-10",
+    "prevMonth": "2026-09",
+    "rows": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "varMes": -8,
+        "puxou": [
+          {
+            "nome": "Cobrança indevida",
+            "prev": 385,
+            "ref": 318
+          },
+          {
+            "nome": "Mau Atendimento",
+            "prev": 20,
+            "ref": 6
+          }
+        ],
+        "top": [
+          {
+            "nome": "Cobrança indevida",
+            "share": 27.9
+          },
+          {
+            "nome": "Cancelamento",
+            "share": 9.6
+          },
+          {
+            "nome": "Limite",
+            "share": 9.1
+          }
+        ]
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false,
+        "varMes": -3,
+        "puxou": [
+          {
+            "nome": "Cobrança indevida",
+            "prev": 856,
+            "ref": 700
+          },
+          {
+            "nome": "Portabilidade do empréstimo",
+            "prev": 314,
+            "ref": 269
+          }
+        ],
+        "top": [
+          {
+            "nome": "Cobrança indevida",
+            "share": 22.2
+          },
+          {
+            "nome": "Cancelamento",
+            "share": 10.6
+          },
+          {
+            "nome": "Não recebi",
+            "share": 8.6
+          }
+        ]
+      }
+    ]
+  },
+  "reputacao": {
+    "headline": "O BMG é quem mais resolve, mas é o mais lento para responder.",
+    "banks": [
+      {
+        "label": "BMG",
+        "isBmg": true
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false
+      }
+    ],
+    "rows": [
+      {
+        "label": "Selo atual",
+        "values": [
+          "RA1000",
+          "Ótima",
+          "Ótima"
+        ],
+        "best": null
+      },
+      {
+        "label": "Meses com RA1000 (de 6)",
+        "values": [
+          "3",
+          "0",
+          "4"
+        ],
+        "best": 2
+      },
+      {
+        "label": "Nota (0 a 10)",
+        "values": [
+          "8,5",
+          "8,0",
+          "8,3"
+        ],
+        "best": 0
+      },
+      {
+        "label": "Resolvidas",
+        "values": [
+          "92%",
+          "84,6%",
+          "89,2%"
+        ],
+        "best": 0
+      },
+      {
+        "label": "Tempo médio de resposta",
+        "values": [
+          "9,7 dias",
+          "7,8 dias",
+          "5,1 dias"
+        ],
+        "best": 2
+      },
+      {
+        "label": "Voltariam a fazer negócio",
+        "values": [
+          "72,4%",
+          "65,9%",
+          "72,8%"
+        ],
+        "best": 2
+      },
+      {
+        "label": "App e acesso (% das reclamações)",
+        "values": [
+          "3,2%",
+          "2,2%",
+          "1,5%"
+        ],
+        "best": 2
+      }
+    ]
+  },
+  "help": {
+    "titulo": "help! Loja de Crédito",
+    "kpis": [
+      {
+        "label": "Nota de reputação (6 meses)",
+        "value": "8,1<span class=\"stat-unit\">/10</span>",
+        "note": "selo Ótima · primeira leitura"
+      },
+      {
+        "label": "Reclamações — últimos 30 dias",
+        "value": "746",
+        "note": "-2% vs. a média mensal do semestre",
+        "tone": ""
+      },
+      {
+        "label": "Resolvidas (6 meses)",
+        "value": "88,0%",
+        "note": "BMG: 92,0%"
+      },
+      {
+        "label": "Tempo de resposta (6 meses)",
+        "value": "11,7 dias",
+        "note": "BMG: 9,7 dias"
+      }
+    ],
+    "volume": {
+      "headline": "O volume de reclamações da help! cresceu 18% no semestre, na direção oposta à do BMG (-24%).",
+      "rows": [
+        {
+          "label": "help!",
+          "isBmg": false,
+          "mediaAnterior": 641,
+          "mediaMensal": 759,
+          "varSemestre": 18,
+          "ultimos30": 746,
+          "var30": -2
+        },
+        {
+          "label": "BMG",
+          "isBmg": true,
+          "mediaAnterior": 2091,
+          "mediaMensal": 1592,
+          "varSemestre": -24,
+          "ultimos30": 1477,
+          "var30": -7
+        }
+      ],
+      "semAtual": "mai/26–out/26",
+      "semAnt": "nov/25–abr/26"
+    },
+    "mes": {
+      "title": "O que mudou em out/2026",
+      "headline": "As reclamações caíram 4% em relação a set, puxadas por \"Cobrança indevida\", \"Débito automático\" e \"Pagamento não localizado\".",
+      "chart": {
+        "months": [
+          "2026-05",
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09",
+          "2026-10"
+        ],
+        "counts": [
+          503,
+          392,
+          533,
+          632,
+          632,
+          604
+        ],
+        "partial": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "refMonth": "2026-10"
+      },
+      "movers": [
+        {
+          "nome": "Cancelamento",
+          "prev": 77,
+          "ref": 91,
+          "delta": 14
+        },
+        {
+          "nome": "Não recebi",
+          "prev": 12,
+          "ref": 26,
+          "delta": 14
+        },
+        {
+          "nome": "Limite",
+          "prev": 5,
+          "ref": 18,
+          "delta": 13
+        },
+        {
+          "nome": "Cobrança indevida",
+          "prev": 134,
+          "ref": 109,
+          "delta": -25
+        },
+        {
+          "nome": "Débito automático",
+          "prev": 59,
+          "ref": 38,
+          "delta": -21
+        },
+        {
+          "nome": "Pagamento não localizado",
+          "prev": 25,
+          "ref": 11,
+          "delta": -14
+        }
+      ],
+      "maiores": [
+        {
+          "nome": "Cobrança indevida",
+          "share": "18"
+        },
+        {
+          "nome": "Cancelamento",
+          "share": "15,1"
+        },
+        {
+          "nome": "Problema para quitar o empréstimo",
+          "share": "9,8"
+        }
+      ],
+      "refMonth": "2026-10",
+      "prevMonth": "2026-09"
+    },
+    "comparacao": {
+      "headline": "A help! resolve menos e demora mais para responder que o BMG: 88,0% das reclamações resolvidas e 11,7 dias de prazo médio, contra 92,0% e 9,7 dias.",
+      "rows": [
+        {
+          "label": "Selo atual",
+          "help": "Ótima",
+          "bmg": "RA1000"
+        },
+        {
+          "label": "Nota (0 a 10)",
+          "help": "8,1",
+          "bmg": "8,5"
+        },
+        {
+          "label": "Reclamações (6 meses)",
+          "help": "4.554",
+          "bmg": "9.554"
+        },
+        {
+          "label": "Volume: semestre vs. anterior",
+          "help": "+18%",
+          "bmg": "-24%"
+        },
+        {
+          "label": "Resolvidas",
+          "help": "88,0%",
+          "bmg": "92,0%"
+        },
+        {
+          "label": "Tempo médio de resposta",
+          "help": "11,7 dias",
+          "bmg": "9,7 dias"
+        },
+        {
+          "label": "Voltariam a fazer negócio",
+          "help": "66,4%",
+          "bmg": "72,4%"
+        },
+        {
+          "label": "Nota do consumidor (0 a 10)",
+          "help": "7,41",
+          "bmg": "7,60"
+        }
+      ]
+    },
+    "notas": [
+      "help!: a Loja de Crédito do BMG tem página própria no Reclame Aqui. Mesmos indicadores e mesmo método do BMG (01/05/2026 a 31/10/2026), lidos à parte e fora do comparativo com concorrentes.",
+      "help!: primeira leitura da nota; a variação mês a mês entra a partir da próxima edição."
+    ]
+  },
+  "outras": {
+    "periodo": "mai/26–out/26",
+    "refLabel": "out",
+    "headline": "Bmg Seguradora: 24 reclamações em mai/26–out/26 (6 em out), 91,7% respondidas. Assuntos mais citados: cobrança indevida e divergência de valores.",
+    "rows": [
+      {
+        "nome": "Bmg Seguradora",
+        "relacao": "Empresa do grupo BMG (antiga MG Seguros), com página própria",
+        "reclamacoes": 24,
+        "ref": 6,
+        "prev": 7,
+        "respondidas": "91,7%",
+        "situacao": "Sem índice (poucas reclamações)",
+        "assuntos": "Cobrança indevida (8) · Divergência de valores (8)",
+        "recentes": [
+          "Estão descontando previdência privada da BMG Seguradora do meu contracheque sem autorização",
+          "Estão descontando previdência que nunca contratei e não consigo cancelar"
+        ]
+      }
+    ],
+    "nota": "Outras empresas do grupo: páginas próprias no Reclame Aqui de empresas do grupo BMG (além do banco e da help!), lidas pelo volume do período (mai/26–out/26), % respondidas e assuntos. Sem índice de reputação quando o volume é baixo."
+  },
+  "notas": [
+    "Mês a mês e assuntos: contagem das reclamações com assunto informado; as que chegam sem assunto ficam de fora, por isso a soma dos meses fica abaixo do total oficial do semestre. O Reclame Aqui não publica série mensal.",
+    "* Mês com contagem incompleta — fica fora das comparações.",
+    "Volume: totais oficiais do Reclame Aqui (semestre mai/26–out/26, semestre anterior nov/25–abr/26 e últimos 30 dias). Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação.",
+    "Reputação e atendimento: números oficiais do Reclame Aqui nos últimos 6 meses (01/05/2026 a 31/10/2026). Em verde, o melhor de cada linha.",
+    "help!: a Loja de Crédito do BMG tem página própria no Reclame Aqui. Mesmos indicadores e mesmo método do BMG (01/05/2026 a 31/10/2026), lidos à parte e fora do comparativo com concorrentes.",
+    "help!: primeira leitura da nota; a variação mês a mês entra a partir da próxima edição.",
+    "Outras empresas do grupo: páginas próprias no Reclame Aqui de empresas do grupo BMG (além do banco e da help!), lidas pelo volume do período (mai/26–out/26), % respondidas e assuntos. Sem índice de reputação quando o volume é baixo.",
+    "Dados do Reclame Aqui atualizados em 09/11/2026."
+  ],
+  "mesRef": "2026-10"
+};
+
+const bcbPage = {
+  "titulo": "3º tri/26",
+  "kpis": [
+    {
+      "label": "Índice de reclamações · 3º tri/26",
+      "value": "82,8",
+      "note": "−18,5 vs. 2º tri/26 (101,3) · por milhão de clientes",
+      "tone": "good"
+    },
+    {
+      "label": "Reclamações procedentes · 3º tri/26",
+      "value": "144",
+      "note": "189 no 2º tri/26"
+    },
+    {
+      "label": "Reclamações respondidas · 3º tri/26",
+      "value": "4.808",
+      "note": "4.883 no 2º tri/26"
+    },
+    {
+      "label": "Posição entre os três bancos",
+      "value": "1º",
+      "note": "menor índice do grupo"
+    }
+  ],
+  "serie": {
+    "headline": "O BMG tem o menor índice de reclamações dos três bancos no 3º tri/26: 82,8, contra Agibank 108,7 e Mercantil 206,6. É o menor em todos os quatro trimestres da série.",
+    "trimestres": [
+      "4º tri/25",
+      "1º tri/26",
+      "2º tri/26",
+      "3º tri/26"
+    ],
+    "rows": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "values": [
+          {
+            "txt": "83,2",
+            "w": 23
+          },
+          {
+            "txt": "77,0",
+            "w": 21
+          },
+          {
+            "txt": "101,3",
+            "w": 28
+          },
+          {
+            "txt": "82,8",
+            "w": 23
+          }
+        ]
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false,
+        "values": [
+          {
+            "txt": "362,4",
+            "w": 100
+          },
+          {
+            "txt": "218,6",
+            "w": 60
+          },
+          {
+            "txt": "152,0",
+            "w": 42
+          },
+          {
+            "txt": "108,7",
+            "w": 30
+          }
+        ]
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false,
+        "values": [
+          {
+            "txt": "221,1",
+            "w": 61
+          },
+          {
+            "txt": "178,9",
+            "w": 49
+          },
+          {
+            "txt": "200,8",
+            "w": 55
+          },
+          {
+            "txt": "206,6",
+            "w": 57
+          }
+        ]
+      }
+    ]
+  },
+  "detalhe": {
+    "headline": "O Agibank reduziu o índice em todos os trimestres da série (de 362,4 para 108,7).",
+    "rows": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "indice": "82,8",
+        "procedentes": "144",
+        "respondidas": "4.808",
+        "clientes": "9,2 mi"
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false,
+        "indice": "108,7",
+        "procedentes": "173",
+        "respondidas": "3.892",
+        "clientes": "8,7 mi"
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false,
+        "indice": "206,6",
+        "procedentes": "336",
+        "respondidas": "4.924",
+        "clientes": "9,3 mi"
+      }
+    ]
+  },
+  "notas": [
+    "Fonte: ranking de reclamações do Banco Central, publicado por trimestre. O BC analisa as reclamações que recebe, projeta as procedentes (em que o banco descumpriu regra ou contrato) para o total e divide pelo número de clientes, em milhões. Quanto menor o índice, melhor.",
+    "Reclamações respondidas: total que o banco respondeu ao BC no trimestre. Procedentes: as que o BC considerou com razão, dentro das analisadas.",
+    "BMG, Agibank e Mercantil ficam no grupo \"Demais\" do ranking. No grupo dos 15 maiores, o índice do 3º tri/26 vai de 6,0 a 57,2.",
+    "Dados do Banco Central atualizados em 10/11/2026."
+  ]
+};
+
+const reclameAqui = {"ok":true};
+// ===== DATA-INJECTION-END =====
+
+// ---------- helpers ----------
+function fmtRefMonth(m) {
+  const M = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const [y, mo] = m.split('-');
+  return M[+mo - 1] + '/' + y;
+}
+// "2026-07-31" → "31/07/2026" nas citações
+const fmtDate = (d) => (/^\d{4}-\d{2}-\d{2}$/.test(d || '') ? d.split('-').reverse().join('/') : (d || ''));
+const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const chipHtml = (c) => (c ? `<span class="chip ${c.tone}">${c.txt}</span>` : '');
+function sectionHtml(n, title, headline, body, sub) {
+  return `<section><div class="eyebrow">${n ? n + ' · ' : ''}${title}</div>` + (sub ? `<p class="sub">${sub}</p>` : '') +
+    (headline ? `<div class="headline">${headline}</div>` : '') + body + '</section>';
+}
+function kpiHtml(kpis) {
+  return `<div class="stat-row">${kpis.map((t) => `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note || ''}</div></div>`).join('')}</div>`;
+}
+function notesHtml(notas) {
+  return notas && notas.length ? `<div class="notes"><strong>Como ler esta página</strong><ul>${notas.map((n) => `<li>${n}</li>`).join('')}</ul></div>` : '';
+}
+// tabela de comparação genérica (blocos Android / iOS / Reclame Aqui)
+function compBlockHtml(b) {
+  const head = b.head.map((h, i) => { const [t, s] = h.split('|'); return `<th>${t}${s ? `<br><span class="muted">${s}</span>` : ''}</th>`; }).join('');
+  const rows = b.rows.map((r) => `<tr class="${r.isBmg ? 'bmg' : ''}"><td class="bank">${r.label}</td>` + r.cells.map((c) => {
+    const cls = [c.hl ? 'hl-bad' : '', c.best ? 'best' : '', c.cls || ''].filter(Boolean).join(' ');
+    return `<td class="${cls}">${c.txt}${c.best ? '<small>melhor</small>' : ''}${c.bar != null ? `<span class="negbar"><i style="width:${c.bar}%"></i></span>` : ''}</td>`;
+  }).join('') + '</tr>').join('');
+  return `<div class="cblock"><div class="cblock-head"><span class="ctag ctag-${b.tag}">${b.tagLabel}</span><h3>${b.titulo}</h3></div>` +
+    `<div class="tbl-wrap"><table class="tbl"><tr>${head}</tr>${rows}</table></div>` +
+    (b.leitura ? `<p class="read"><b>Leitura:</b> ${b.leitura}</p>` : '') + '</div>';
+}
+function concorrenciaHtml(c, n) {
+  if (!c) return '';
+  return `<section class="panel"><div class="panel-head"><div><h2>${n ? n + ' · ' : ''}BMG x concorrência</h2><p class="sub">${c.sub}</p></div></div>` +
+    c.blocks.map(compBlockHtml).join('') + `<p class="note">${c.nota}</p></section>`;
+}
+// gráfico de linha (% negativo e % positivo por período)
+function lineChartSvg(pts) {
+  const W = 460, H = 200, L = 34, R = 30, T = 16, B = 26;
+  const pw = W - L - R, ph = H - T - B;
+  const x = (i) => L + (pts.length === 1 ? pw / 2 : (i * pw) / (pts.length - 1));
+  const y = (v) => T + ph - (v / 100) * ph;
+  let g = '';
+  for (const v of [0, 25, 50, 75, 100]) g += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#E8ECF3"/><text x="${L - 6}" y="${y(v) + 4}" font-size="10" text-anchor="end" fill="#667187">${v}%</text>`;
+  const line = (key, color) => {
+    const d = pts.map((p, i) => `${i ? 'L' : 'M'}${x(i)},${y(p[key])}`).join(' ');
+    const dots = pts.map((p, i) => `<circle cx="${x(i)}" cy="${y(p[key])}" r="${p.parcial ? 3.5 : 4}" fill="${p.parcial ? '#fff' : color}" stroke="${color}" stroke-width="2"/>` +
+      (i === pts.length - 1 ? `<text x="${x(i) - 6}" y="${y(p[key]) + (key === 'negativo' ? (p.negativo >= p.positivo ? -10 : 18) : (p.positivo > p.negativo ? -10 : 18))}" font-size="12" font-weight="800" text-anchor="end" fill="${color}">${p[key].toLocaleString('pt-BR')}%</text>` : '')).join('');
+    return `<path d="${d}" fill="none" stroke="${color}" stroke-width="2.5"/>${dots}`;
+  };
+  const labels = pts.map((p, i) => `<text x="${x(i)}" y="${H - 6}" font-size="11" text-anchor="middle" fill="#667187">${p.label}${p.parcial ? '*' : ''}</text>`).join('');
+  return `<svg class="line-chart" viewBox="0 0 ${W} ${H}" role="img">${g}${line('positivo', '#107348')}${line('negativo', '#B42318')}${labels}</svg>`;
+}
+
+// ---------- navegação ----------
+(function setupNav() {
+  const active = (typeof activePage !== 'undefined') ? activePage : 'resumo';
+  if (typeof youtubePage !== 'undefined' && youtubePage) document.getElementById('tabYoutubeBtn').hidden = false;
+  if (typeof reclameAqui !== 'undefined' && reclameAqui) document.getElementById('tabRaBtn').hidden = false;
+  if (typeof bcbPage !== 'undefined' && bcbPage) document.getElementById('tabBcbBtn').hidden = false;
+  document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.dataset.tab === active));
+  document.querySelectorAll('.tab-panel').forEach((p) => { p.hidden = (p.id !== 'tab-' + active); });
+  document.getElementById('edMes').textContent = edicao.mesRef || '';
+  document.getElementById('edAtualizado').textContent = edicao.atualizado ? 'Atualizado em ' + edicao.atualizado : '';
+  // Redes corporativas guardam cópias do site e seguem entregando a edição antiga. Cada publicação
+  // tem uma versão: as abas levam a versão no endereço (cópia nova garantida) e, se a página aberta
+  // for mais velha que a publicada, ela se recarrega sozinha na versão nova (uma vez, sem laço).
+  if (typeof versao !== 'undefined' && location.protocol.startsWith('http')) {
+    document.querySelectorAll('.tab').forEach((t) => { t.href = t.getAttribute('href').split('?')[0] + '?v=' + versao; });
+    fetch('versao.json?t=' + Date.now(), { cache: 'no-store' }).then((r) => r.json()).then((j) => {
+      const u = new URL(location.href);
+      if (j.v && j.v !== versao && u.searchParams.get('v') !== j.v) { u.searchParams.set('v', j.v); location.replace(u.toString()); }
+    }).catch(() => {});
+  }
+})();
+
+// ---------- RESUMO ----------
+function renderResumo() {
+  if (typeof resumoPage === 'undefined' || !resumoPage) return;
+  const p = resumoPage;
+  let html = '';
+  let n = 0;
+  if (p.canais && p.canais.length) {
+    const cards = p.canais.map((c) => `<div class="ch"><div class="ch-name">${c.canal}</div>` +
+      `<div class="big">${c.nota ? `<span class="val">${c.nota.valor}${c.nota.estrela ? '<span class="star">★</span>' : ''}${c.nota.unidade ? ` <span class="unit">${c.nota.unidade}</span>` : ''}</span>${chipHtml(c.nota.chip)}` : ''}</div>` +
+      `<div class="big-sub">${c.legenda}</div>` +
+      `<div class="month"><div class="month-h">${c.periodoTitulo}<span>${c.periodo}</span></div>` +
+      [0, 1].map((i) => { const m = c.metricas[i]; return m ? `<div class="mrow"><div class="lbl">${m.label}</div><div class="vals"><span class="p">${m.prev}</span> → <b>${m.ref}</b></div>${chipHtml(m.chip)}</div>` : '<div class="mrow"></div>'; }).join('') +
+      `</div><div class="ch-foot">${c.rodape || ''}</div></div>`).join('');
+    html += sectionHtml(++n, 'Principais números por canal', null, `<div class="channels">${cards}</div>`, 'Em destaque, a nota de cada canal. Embaixo, como foi o mês — lado a lado. Verde = melhorou; vermelho = piorou.');
+  }
+  const lista = (itens) => `<ul class="alist">${itens.map((x) => `<li class="${x.tone}">${x.html}</li>`).join('')}</ul>`;
+  if (p.destaques && p.destaques.length) html += sectionHtml(++n, 'Destaques do mês, por canal', null, lista(p.destaques));
+  if (p.mercado && p.mercado.length) html += sectionHtml(++n, p.mercadoTitulo, null, lista(p.mercado) + '<p class="note">Detalhe nas páginas Lojas de app (comentários e nota na loja), Reclame Aqui (reputação, prazo e resolução)' + (typeof bcbPage !== 'undefined' && bcbPage ? ' e Banco Central (índice oficial de reclamações)' : '') + '.</p>');
+  if (p.cruzada && p.cruzada.length) html += sectionHtml(++n, 'Análise cruzada — o que só aparece olhando os canais juntos', null, lista(p.cruzada) + '<p class="note">Consolidado a partir dos números reais de cada canal.</p>');
+  html += notesHtml(p.notas);
+  document.getElementById('resumoRoot').innerHTML = html;
+}
+renderResumo();
+
+// ---------- LOJAS ----------
+// Duas partes separadas (Android mês a mês, iOS por trimestre), cada uma com indicadores, nota consolidada
+// por período (barras, como o volume do Reclame Aqui), temas e leitura própria.
+function notaChartHtml(nt) {
+  return '<div class="ra-mini-title">Nota dos comentários (1 a 5)</div><div class="vol-chart">' + nt.pontos.map((p) =>
+    `<div class="vol-col${p.label === nt.refLabel ? ' is-ref' : ''}"><div class="vol-val">${p.nota}</div>` +
+    `<div class="vol-track"><div class="vol-bar" style="height:${Math.max(4, p.h)}%"></div></div><div class="vol-lbl">${p.label}</div></div>`).join('') + '</div>';
+}
+function platformHtml(tag, label, pl, n) {
+  let html = `<section class="platform platform-${tag}"><div class="platform-head"><span class="ctag ctag-${tag}">${label}</span><h2>${pl.titulo}</h2><span class="platform-sub">${pl.periodo}</span></div>`;
+  html += kpiHtml(pl.kpis);
+  if (pl.nota) {
+    const nt = pl.nota;
+    const linhas = (nt.negSerie || nt.pontos).map((r) => {
+      const pt = nt.pontos.find((x) => x.label === r.label);
+      const ref = r.label === nt.refLabel;
+      return `<tr><td class="${ref ? 'is-ref' : ''}">${r.label}</td><td class="num${ref ? ' is-ref' : ''}">${pt ? pt.nota : '—'}</td><td class="num${ref ? ' is-ref' : ''}">${r.neg}</td><td class="num">${r.total}</td></tr>`;
+    }).join('');
+    html += sectionHtml(++n.v, 'Nota consolidada', nt.headline,
+      `<div class="ra-grid"><div>${notaChartHtml(nt)}</div><div><div class="ra-mini-title">Por período</div><div class="tbl-wrap"><table class="tbl"><tr><th>Período</th><th class="num">Nota dos comentários</th><th class="num">Comentários negativos</th><th class="num">Comentários</th></tr>${linhas}</table></div></div></div>` +
+      (nt.faltam && nt.faltam.length ? `<p class="note">${nt.faltam.join(', ')}: sem a nota dos comentários registrada — ficam só com o % de negativos.</p>` : ''));
+  }
+  if (pl.temas) {
+    const t = pl.temas;
+    const rows = t.rows.map((r) => { const d = r.ref - r.prev; return `<tr><td><b>${r.nome}</b></td><td class="num">${r.prev}</td><td class="num is-ref">${r.ref}</td><td class="num ${d > 0 ? 'up' : d < 0 ? 'down' : ''}">${d > 0 ? '+' : ''}${d}</td><td class="num">${r.shareTxt}</td></tr>`; }).join('');
+    const quotes = t.rows.filter((r) => r.quote && r.ref).slice(0, 3).map((r) => `<div class="qcard"><h4 class="negativo">${r.nome}</h4><div class="quote">“${esc(r.quote.text)}”<div class="quote-meta">${r.quote.rating ? r.quote.rating + '★ · ' : ''}${fmtDate(r.quote.date)}</div></div></div>`).join('');
+    html += sectionHtml(++n.v, 'O que mais pesa nos comentários negativos', t.headline,
+      `<div class="tbl-wrap"><table class="tbl"><tr><th>Tema</th><th class="num">${t.prevLabel}</th><th class="num is-ref">${t.refLabel}</th><th class="num">Variação</th><th class="num">% dos negativos<br>em ${t.refLabel}</th></tr>${rows}</table></div>` +
+      (quotes ? `<div class="quotes">${quotes}</div>` : ''));
+  }
+  if (pl.versao) {
+    const v = pl.versao;
+    const rows = v.rows.map((r) => `<tr class="${r.atual ? 'bmg' : ''}"><td class="bank">${r.versao}${r.atual ? ' <span class="chip flat">atual</span>' : ''}</td><td>${r.periodo.replace(' (atual)', '')}</td><td class="num">${r.total}</td><td><span class="neg">${r.negTxt}</span><span class="negbar"><i style="width:${r.neg}%"></i></span></td></tr>`).join('');
+    html += sectionHtml(++n.v, 'Sentimento por versão', v.headline,
+      `<div class="tbl-wrap"><table class="tbl"><tr><th>Versão</th><th>Período</th><th class="num">Comentários</th><th>Comentários negativos</th></tr>${rows}</table></div><p class="note">${v.nota}</p>`);
+  }
+  if (pl.exemplos && pl.exemplos.length) {
+    const nome = { negativo: 'Negativos', neutro: 'Neutros', positivo: 'Positivos' };
+    html += sectionHtml(++n.v, 'Na voz do cliente', null,
+      `<div class="quotes">${pl.exemplos.map((g) => `<div class="qcard"><h4 class="${g.tipo}">${nome[g.tipo]}</h4>${g.itens.map((q) => `<div class="quote">“${esc(q.text)}”<div class="quote-meta">${q.rating}★ · ${fmtDate(q.date)}</div></div>`).join('')}</div>`).join('')}</div>`);
+  }
+  return html + '</section>';
+}
+function renderLojas() {
+  if (typeof lojasPage === 'undefined' || !lojasPage) return;
+  const p = lojasPage;
+  const n = { v: 0 };
+  let html = '<div class="page-title"><h2>Lojas de app</h2><p>Comentários do app BMG em duas partes: Android (Google Play, mês a mês) e iOS (App Store, por trimestre).</p></div>';
+  if (p.android) html += platformHtml('android', 'Android', p.android, n);
+  if (p.ios) html += platformHtml('ios', 'iOS', p.ios, n);
+  if (p.concorrencia) html += concorrenciaHtml(p.concorrencia, ++n.v);
+  html += notesHtml(p.notas);
+  document.getElementById('lojasRoot').innerHTML = html;
+}
+renderLojas();
+
+// ---------- YOUTUBE ----------
+function renderYoutube() {
+  if (typeof youtubePage === 'undefined' || !youtubePage) return;
+  const p = youtubePage;
+  let html = `<div class="page-title"><h2>YouTube</h2><p>O que terceiros falam do BMG em vídeo e o alcance do canal oficial · ${p.janela}.</p></div>`;
+  html += kpiHtml(p.kpis);
+  let n = 0;
+  if (p.conversa) {
+    const rows = p.conversa.temas.map((t) => `<tr><td><b>${t.label}</b>${t.quote ? `<div class="quote" style="margin-top:6px">“${esc(t.quote.text)}”<div class="quote-meta">${esc(t.quote.video || '')}${t.quote.date ? ' · ' + fmtDate(t.quote.date) : ''}</div></div>` : ''}</td><td class="num is-ref">${t.count}</td></tr>`).join('');
+    html += sectionHtml(++n, 'O que falam do BMG', p.conversa.headline, `<div class="tbl-wrap"><table class="tbl"><tr><th>Tema</th><th class="num">Comentários</th></tr>${rows}</table></div>`);
+  }
+  if (p.videos && p.videos.length) {
+    const rows = p.videos.map((v) => `<tr><td class="vlist"><a href="${v.url}" target="_blank" rel="noopener">${esc(v.title)}</a><div class="muted">${esc(v.channel)}</div></td><td class="num">${v.views}</td><td class="num">${v.comments}</td></tr>`).join('');
+    html += sectionHtml(++n, 'Vídeos de terceiros em alta', null, `<div class="tbl-wrap"><table class="tbl"><tr><th>Vídeo</th><th class="num">Visualizações</th><th class="num">Comentários</th></tr>${rows}</table></div>`);
+  }
+  if (p.canal) {
+    const rows = p.canal.videos.map((v) => `<tr><td class="vlist"><a href="${v.url}" target="_blank" rel="noopener">${esc(v.title)}</a><div class="muted">${fmtDate(v.date)}</div></td><td class="num">${v.views}</td><td class="num">${v.comments}</td></tr>`).join('');
+    html += sectionHtml(++n, 'Canal oficial do BMG', p.canal.headline, `<div class="tbl-wrap"><table class="tbl"><tr><th>Vídeo</th><th class="num">Visualizações</th><th class="num">Comentários</th></tr>${rows}</table></div>`);
+  }
+  html += notesHtml(p.notas);
+  document.getElementById('youtubeRoot').innerHTML = html;
+}
+renderYoutube();
+
+// ---- Reclame Aqui: página montada a partir de `raPage` (narrativa gerada no buildDashboard) ----
+// Cada seção = 1 manchete (a conclusão) + 1 gráfico/tabela que a sustenta. Notas de método no fim.
+function renderRaPage() {
+  if (typeof raPage === 'undefined' || !raPage) return;
+  const p = raPage;
+  const mon = (m) => fmtRefMonth(m).split('/')[0];
+  const signed = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n + '%');
+  const cls = (n) => (n > 0 ? 'up' : n < 0 ? 'down' : '');
+  const fmt = (n) => (n == null ? '—' : n.toLocaleString('pt-BR'));
+  const section = (n, title, headline, body) =>
+    `<div class="ra-section"><div class="ra-section-title">${n} · ${title}</div>` +
+    (headline ? `<div class="ra-headline">${headline}</div>` : '') + body + '</div>';
+  const table = (head, rows, extra) => `<div style="overflow-x:auto"><table class="bench-table ra-month-table ${extra || ''}">${head}${rows}</table></div>`;
+
+  // ---------- Card 1: BMG ----------
+  document.getElementById('raBmgCard').style.display = 'block';
+  if (p.mesRef) document.getElementById('raMonth').textContent = '· ' + fmtRefMonth(p.mesRef);
+
+  // gráfico mês a mês + assuntos que mais mudaram (mesmo desenho para o BMG e a help!)
+  const mesBody = (m) => {
+    const c = m.chart;
+    const max = Math.max(...c.counts);
+    const chart = '<div class="ra-mini-title">Reclamações com assunto, por mês</div><div class="vol-chart">' + c.months.map((mo, i) =>
+      `<div class="vol-col${mo === c.refMonth ? ' is-ref' : ''}${c.partial[i] ? ' is-partial' : ''}"><div class="vol-val">${fmt(c.counts[i])}${c.partial[i] ? '*' : ''}</div>` +
+      `<div class="vol-track"><div class="vol-bar" style="height:${Math.round((c.counts[i] / max) * 100)}%"></div></div>` +
+      `<div class="vol-lbl">${mon(mo)}</div></div>`).join('') + '</div>';
+    const movers = m.movers.length
+      ? `<div class="ra-mini-title">Assuntos que mais mudaram (${mon(m.prevMonth)} → ${mon(m.refMonth)})</div>` +
+        table(`<tr><th>Assunto</th><th class="num">${mon(m.prevMonth)}</th><th class="num is-ref">${mon(m.refMonth)}</th><th class="num">Variação</th></tr>`,
+          m.movers.map((x) => `<tr><td>${x.nome}</td><td class="num">${x.prev}</td><td class="num is-ref">${x.ref}</td><td class="num ${cls(x.delta)}">${x.delta > 0 ? '+' : ''}${x.delta}</td></tr>`).join(''))
+      : '';
+    const maiores = m.maiores.length
+      ? `<p class="ra-foot">Maiores assuntos do mês: ${m.maiores.map((x) => `${x.nome} (${String(x.share).replace('.', ',')}%)`).join(' · ')}.</p>` : '';
+    return `<div class="ra-grid"><div>${chart}</div><div>${movers}</div></div>${maiores}`;
+  };
+  const tile = (t) => `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note}</div></div>`;
+  const volTable = (v) => table(`<tr><th>${v.rows.length > 1 && v.rows.some((r) => !r.isBmg && r.label !== 'help!') ? 'Banco' : 'Marca'}</th><th class="num">Média por mês<br>${v.semAnt}</th><th class="num">Média por mês<br>${v.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${v.semAtual}</th></tr>`,
+    v.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+      `<td class="num">${fmt(r.mediaAnterior)}</td><td class="num">${fmt(r.mediaMensal)}</td><td class="num ${cls(r.varSemestre)}">${signed(r.varSemestre)}</td>` +
+      `<td class="num">${fmt(r.ultimos30)}</td><td class="num ${cls(r.var30)}">${signed(r.var30)}</td></tr>`).join(''), 'vol-market-table');
+
+  document.getElementById('raStatRow').innerHTML = p.kpis.map(tile).join('');
+
+  let n = 0;
+  if (p.mes) document.getElementById('raMes').innerHTML = section(++n, p.mes.title, p.mes.headline, mesBody(p.mes));
+  if (p.app) {
+    const a = p.app;
+    const head = `<tr><th>Problema relatado</th>${a.months.map((mo) => `<th class="num${mo === a.refMonth ? ' is-ref' : ''}">${mon(mo)}</th>`).join('')}<th class="num">${mon(a.refMonth)} vs. ${mon(a.prevMonth)}</th></tr>`;
+    const rows = a.rows.map((r) => {
+      const d = r.ref - r.prev;
+      return `<tr><td>${r.nome}</td>${r.values.map((x, i) => `<td class="num${a.months[i] === a.refMonth ? ' is-ref' : ''}">${x}</td>`).join('')}<td class="num ${cls(d)}">${d > 0 ? '+' : ''}${d}</td></tr>`;
+    }).join('');
+    document.getElementById('raApp').innerHTML = section(++n, 'App e acesso', a.headline, table(head, rows) + (a.note ? `<p class="ra-foot">${a.note}</p>` : ''));
+  }
+
+  // ---------- Card help! (Loja de Crédito do BMG) ----------
+  if (p.help) {
+    const hp = p.help;
+    document.getElementById('raHelpCard').style.display = 'block';
+    document.getElementById('raHelpStats').innerHTML = hp.kpis.map(tile).join('');
+    if (hp.volume) document.getElementById('raHelpVol').innerHTML = section(++n, 'Volume de reclamações · help!', hp.volume.headline, volTable(hp.volume));
+    else document.getElementById('raHelpVol').remove();
+    if (hp.mes) document.getElementById('raHelpMes').innerHTML = section(++n, hp.mes.title + ' · help!', hp.mes.headline, mesBody(hp.mes));
+    else document.getElementById('raHelpMes').remove();
+    const c = hp.comparacao;
+    document.getElementById('raHelpComp').innerHTML = section(++n, 'help! x BMG', c.headline,
+      table('<tr><th>Métrica</th><th class="num">help!</th><th class="num is-bmg-col">BMG</th></tr>',
+        c.rows.map((r) => `<tr><td>${r.label}</td><td class="num">${r.help}</td><td class="num is-bmg-col">${r.bmg}</td></tr>`).join(''), 'ra-bench-table'));
+  }
+
+  // ---------- Outras empresas do grupo ----------
+  if (p.outras) {
+    const o = p.outras;
+    document.getElementById('raOutrasCard').style.display = 'block';
+    const head = `<tr><th>Empresa</th><th class="num">Reclamações<br>${o.periodo}</th><th class="num">Em ${o.refLabel}</th><th class="num">Respondidas</th><th>Situação</th><th>Assuntos mais citados</th></tr>`;
+    const rows = o.rows.map((r) => `<tr><td><span class="bench-bank">${r.nome}</span><br><span class="bench-sub-inline">${r.relacao}</span></td><td class="num">${r.reclamacoes}</td><td class="num">${r.ref}</td><td class="num">${r.respondidas}</td><td>${r.situacao}</td><td>${r.assuntos}</td></tr>`).join('');
+    const recentes = o.rows.flatMap((r) => r.recentes.map((x) => `<div class="quote">“${x}”<div class="quote-meta">${r.nome}</div></div>`)).join('');
+    document.getElementById('raOutras').innerHTML = section(++n, 'Outras empresas do grupo', o.headline, table(head, rows) + (recentes ? `<div class="ra-mini-title">Reclamações recentes</div>${recentes}` : ''));
+  }
+
+  // ---------- Card 2: BMG vs. concorrentes ----------
+  if (!p.volume && !p.drivers && !p.reputacao) return;
+  document.getElementById('raMktCard').style.display = 'block';
+  if (p.volume) document.getElementById('raSecVolume').innerHTML = section(++n, 'Volume de reclamações', p.volume.headline, volTable(p.volume));
+  if (p.drivers) {
+    const d = p.drivers;
+    const head = `<tr><th>Banco</th><th class="num">${mon(d.refMonth)} vs. ${mon(d.prevMonth)}</th><th>O que mais mudou (${mon(d.prevMonth)} → ${mon(d.refMonth)})</th><th>Principais assuntos em ${mon(d.refMonth)}</th></tr>`;
+    const rows = d.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+      `<td class="num ${cls(r.varMes)}">${signed(r.varMes)}</td>` +
+      `<td>${r.puxou.length ? r.puxou.map((x) => `${x.nome} <span class="bench-sub-inline">(${x.prev} → ${x.ref})</span>`).join('<br>') : '<span class="bench-sub-inline">sem mudança relevante</span>'}</td>` +
+      `<td>${r.top.map((x) => `${x.nome} <span class="bench-sub-inline">${String(x.share).replace('.', ',')}%</span>`).join('<br>')}</td></tr>`).join('');
+    document.getElementById('raSecDrivers').innerHTML = section(++n, d.title, d.headline, table(head, rows, 'ra-drivers-table'));
+  }
+  if (p.reputacao) {
+    const r = p.reputacao;
+    const head = `<tr><th>Métrica</th>${r.banks.map((b) => `<th class="num${b.isBmg ? ' is-bmg-col' : ''}">${b.label}</th>`).join('')}</tr>`;
+    const rows = r.rows.map((row) => `<tr><td>${row.label}</td>` + row.values.map((x, i) =>
+      `<td class="num${r.banks[i].isBmg ? ' is-bmg-col' : ''}${row.best === i ? ' is-best' : ''}">${x}${row.best === i ? '<span class="best-tag">melhor</span>' : ''}</td>`).join('') + '</tr>').join('');
+    document.getElementById('raSecReput').innerHTML = section(++n, 'Reputação e atendimento', r.headline, table(head, rows, 'ra-bench-table'));
+  }
+  if (p.notas.length) {
+    document.getElementById('raNotes').innerHTML = `<strong>Como ler esta página</strong><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul>`;
+  }
+}
+renderRaPage();
+
+function renderBancoCentral() {
+  if (typeof bcbPage === 'undefined' || !bcbPage) return;
+  const p = bcbPage;
+  const sec = (n, title, headline, body) => `<div class="ra-section"><div class="ra-section-title">${n} · ${title}</div>` + (headline ? `<div class="ra-headline">${headline}</div>` : '') + body + '</div>';
+  const tile = (t) => `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note}</div></div>`;
+  const last = p.serie.trimestres.length - 1;
+  const serieHead = '<tr><th>Banco</th>' + p.serie.trimestres.map((t, i) => `<th class="num${i === last ? ' is-ref-col' : ''}">${t}</th>`).join('') + '</tr>';
+  const serieRows = p.serie.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+    r.values.map((v, i) => `<td class="bcb-cell${i === last ? ' is-ref-col' : ''}"><b>${v.txt}</b><div class="bcb-bar"><i style="width:${v.w}%"></i></div></td>`).join('') + '</tr>').join('');
+  const det = p.detalhe;
+  const detHead = `<tr><th>Banco</th><th class="num">Índice</th><th class="num">Reclamações procedentes</th><th class="num">Reclamações respondidas</th><th class="num">Clientes</th></tr>`;
+  const detRows = det.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td><td class="num">${r.indice}</td><td class="num">${r.procedentes}</td><td class="num">${r.respondidas}</td><td class="num">${r.clientes}</td></tr>`).join('');
+  const tbl = (h, r) => `<div style="overflow-x:auto"><table class="bench-table">${h}${r}</table></div>`;
+  document.getElementById('bcbRoot').innerHTML =
+    `<div class="stat-row">${p.kpis.map(tile).join('')}</div>` +
+    sec(1, 'Índice de reclamações por trimestre', p.serie.headline, tbl(serieHead, serieRows) + '<p class="ra-foot">Reclamações procedentes por milhão de clientes — quanto menor, melhor. BMG em roxo.</p>') +
+    sec(2, `Detalhe do ${p.titulo}`, det.headline, tbl(detHead, detRows)) +
+    `<div class="ra-notes"><strong>Como ler esta página</strong><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
+}
+renderBancoCentral();
+</script>
+</body>
+</html>
