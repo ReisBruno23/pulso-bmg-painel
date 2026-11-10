@@ -295,6 +295,7 @@
 <script>
 // ===== DATA-INJECTION-START =====
 const activePage = "reclame-aqui";
+const versao = "202611101330";
 
 const edicao = {"mesRef":"Outubro · 2026","atualizado":"10/11"};
 
@@ -1532,6 +1533,16 @@ function lineChartSvg(pts) {
   document.querySelectorAll('.tab-panel').forEach((p) => { p.hidden = (p.id !== 'tab-' + active); });
   document.getElementById('edMes').textContent = edicao.mesRef || '';
   document.getElementById('edAtualizado').textContent = edicao.atualizado ? 'Atualizado em ' + edicao.atualizado : '';
+  // Redes corporativas guardam cópias do site e seguem entregando a edição antiga. Cada publicação
+  // tem uma versão: as abas levam a versão no endereço (cópia nova garantida) e, se a página aberta
+  // for mais velha que a publicada, ela se recarrega sozinha na versão nova (uma vez, sem laço).
+  if (typeof versao !== 'undefined' && location.protocol.startsWith('http')) {
+    document.querySelectorAll('.tab').forEach((t) => { t.href = t.getAttribute('href').split('?')[0] + '?v=' + versao; });
+    fetch('versao.json?t=' + Date.now(), { cache: 'no-store' }).then((r) => r.json()).then((j) => {
+      const u = new URL(location.href);
+      if (j.v && j.v !== versao && u.searchParams.get('v') !== j.v) { u.searchParams.set('v', j.v); location.replace(u.toString()); }
+    }).catch(() => {});
+  }
 })();
 
 // ---------- RESUMO ----------
