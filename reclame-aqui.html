@@ -261,6 +261,8 @@
     <a class="tab" href="lojas.html" data-tab="lojas">Lojas de app</a>
     <a class="tab" href="youtube.html" data-tab="youtube" id="tabYoutubeBtn" hidden>YouTube</a>
     <a class="tab" href="reclame-aqui.html" data-tab="reclame-aqui" id="tabRaBtn" hidden>Reclame Aqui</a>
+    <a class="tab" href="help.html" data-tab="help" id="tabHelpBtn" hidden>help!</a>
+    <a class="tab" href="bmg-seguradora.html" data-tab="seguradora" id="tabSegBtn" hidden>Bmg Seguradora</a>
     <a class="tab" href="banco-central.html" data-tab="banco-central" id="tabBcbBtn" hidden>Banco Central</a>
   </nav>
 
@@ -288,17 +290,6 @@
       <div id="raApp"></div>
       <span id="raMonth" hidden></span>
     </div>
-    <section class="panel" id="raHelpCard" style="display:none">
-      <div class="panel-head"><div><h2>help! · Loja de Crédito do BMG</h2><p class="sub">A rede de lojas de crédito do BMG tem página própria no Reclame Aqui — mesmos indicadores, lidos à parte.</p></div></div>
-      <div class="cblock"><div class="stat-row" id="raHelpStats"></div></div>
-      <div class="cblock" id="raHelpVol"></div>
-      <div class="cblock" id="raHelpMes"></div>
-      <div class="cblock" id="raHelpComp"></div>
-    </section>
-    <section class="panel" id="raOutrasCard" style="display:none">
-      <div class="panel-head"><div><h2>Outras empresas do grupo no Reclame Aqui</h2><p class="sub">Empresas do grupo BMG com página própria, além do banco e da help!.</p></div></div>
-      <div class="cblock" id="raOutras"></div>
-    </section>
     <section class="panel" id="raMktCard" style="display:none">
       <div class="panel-head"><div><h2>BMG x concorrência</h2><p class="sub">Agibank e Mercantil no Reclame Aqui.</p></div></div>
       <div class="cblock" id="raSecVolume"></div>
@@ -306,6 +297,18 @@
       <div class="cblock" id="raSecReput"></div>
     </section>
     <div id="raNotes" class="ra-notes"></div>
+  </main>
+
+  <!-- ===================== HELP! ===================== -->
+  <main class="tab-panel" id="tab-help" hidden>
+    <div class="page-title"><h2>help! · Loja de Crédito do BMG</h2><p>A rede de lojas de crédito do BMG tem página própria no Reclame Aqui. Leitura do último mês fechado, com os 6 meses como contexto e o BMG como referência.</p></div>
+    <div id="helpRoot"></div>
+  </main>
+
+  <!-- ===================== BMG SEGURADORA ===================== -->
+  <main class="tab-panel" id="tab-seguradora" hidden>
+    <div class="page-title"><h2>Bmg Seguradora</h2><p>Empresa do grupo BMG (antiga MG Seguros), com página própria no Reclame Aqui. Volume baixo: leitura pelo número de reclamações, pelo % respondidas e pelos assuntos.</p></div>
+    <div id="seguradoraRoot"></div>
   </main>
 
   <!-- ===================== BANCO CENTRAL ===================== -->
@@ -319,7 +322,7 @@
 <script>
 // ===== DATA-INJECTION-START =====
 const activePage = "reclame-aqui";
-const versao = "202611101446";
+const versao = "202611101456";
 
 const edicao = {"mesRef":"Outubro · 2026","atualizado":"10/11"};
 
@@ -1489,221 +1492,12 @@ const raPage = {
       }
     ]
   },
-  "help": {
-    "titulo": "help! Loja de Crédito",
-    "kpis": [
-      {
-        "label": "Nota de reputação (6 meses)",
-        "value": "8,1<span class=\"stat-unit\">/10</span>",
-        "note": "selo Ótima · primeira leitura"
-      },
-      {
-        "label": "Reclamações — últimos 30 dias",
-        "value": "746",
-        "note": "-2% vs. a média mensal do semestre",
-        "tone": ""
-      },
-      {
-        "label": "Resolvidas (6 meses)",
-        "value": "88,0%",
-        "note": "BMG: 92,0%"
-      },
-      {
-        "label": "Tempo de resposta (6 meses)",
-        "value": "11,7 dias",
-        "note": "BMG: 9,7 dias"
-      }
-    ],
-    "volume": {
-      "headline": "O volume de reclamações da help! cresceu 18% no semestre, na direção oposta à do BMG (-24%).",
-      "rows": [
-        {
-          "label": "help!",
-          "isBmg": false,
-          "mediaAnterior": 641,
-          "mediaMensal": 759,
-          "varSemestre": 18,
-          "ultimos30": 746,
-          "var30": -2
-        },
-        {
-          "label": "BMG",
-          "isBmg": true,
-          "mediaAnterior": 2091,
-          "mediaMensal": 1592,
-          "varSemestre": -24,
-          "ultimos30": 1477,
-          "var30": -7
-        }
-      ],
-      "semAtual": "mai/26–out/26",
-      "semAnt": "nov/25–abr/26"
-    },
-    "mes": {
-      "title": "O que mudou em out/2026",
-      "headline": "As reclamações caíram 4% em relação a set, puxadas por \"Cobrança indevida\", \"Débito automático\" e \"Pagamento não localizado\".",
-      "chart": {
-        "months": [
-          "2026-05",
-          "2026-06",
-          "2026-07",
-          "2026-08",
-          "2026-09",
-          "2026-10"
-        ],
-        "counts": [
-          503,
-          392,
-          533,
-          632,
-          632,
-          604
-        ],
-        "partial": [
-          false,
-          false,
-          false,
-          false,
-          false,
-          false
-        ],
-        "refMonth": "2026-10"
-      },
-      "movers": [
-        {
-          "nome": "Cancelamento",
-          "prev": 77,
-          "ref": 91,
-          "delta": 14
-        },
-        {
-          "nome": "Não recebi",
-          "prev": 12,
-          "ref": 26,
-          "delta": 14
-        },
-        {
-          "nome": "Limite",
-          "prev": 5,
-          "ref": 18,
-          "delta": 13
-        },
-        {
-          "nome": "Cobrança indevida",
-          "prev": 134,
-          "ref": 109,
-          "delta": -25
-        },
-        {
-          "nome": "Débito automático",
-          "prev": 59,
-          "ref": 38,
-          "delta": -21
-        },
-        {
-          "nome": "Pagamento não localizado",
-          "prev": 25,
-          "ref": 11,
-          "delta": -14
-        }
-      ],
-      "maiores": [
-        {
-          "nome": "Cobrança indevida",
-          "share": "18"
-        },
-        {
-          "nome": "Cancelamento",
-          "share": "15,1"
-        },
-        {
-          "nome": "Problema para quitar o empréstimo",
-          "share": "9,8"
-        }
-      ],
-      "refMonth": "2026-10",
-      "prevMonth": "2026-09"
-    },
-    "comparacao": {
-      "headline": "A help! resolve menos e demora mais para responder que o BMG: 88,0% das reclamações resolvidas e 11,7 dias de prazo médio, contra 92,0% e 9,7 dias.",
-      "rows": [
-        {
-          "label": "Selo atual",
-          "help": "Ótima",
-          "bmg": "RA1000"
-        },
-        {
-          "label": "Nota (0 a 10)",
-          "help": "8,1",
-          "bmg": "8,5"
-        },
-        {
-          "label": "Reclamações (6 meses)",
-          "help": "4.554",
-          "bmg": "9.554"
-        },
-        {
-          "label": "Volume: semestre vs. anterior",
-          "help": "+18%",
-          "bmg": "-24%"
-        },
-        {
-          "label": "Resolvidas",
-          "help": "88,0%",
-          "bmg": "92,0%"
-        },
-        {
-          "label": "Tempo médio de resposta",
-          "help": "11,7 dias",
-          "bmg": "9,7 dias"
-        },
-        {
-          "label": "Voltariam a fazer negócio",
-          "help": "66,4%",
-          "bmg": "72,4%"
-        },
-        {
-          "label": "Nota do consumidor (0 a 10)",
-          "help": "7,41",
-          "bmg": "7,60"
-        }
-      ]
-    },
-    "notas": [
-      "help!: a Loja de Crédito do BMG tem página própria no Reclame Aqui. Mesmos indicadores e mesmo método do BMG (01/05/2026 a 31/10/2026), lidos à parte e fora do comparativo com concorrentes.",
-      "help!: primeira leitura da nota; a variação mês a mês entra a partir da próxima edição."
-    ]
-  },
-  "outras": {
-    "periodo": "mai/26–out/26",
-    "refLabel": "out",
-    "headline": "Bmg Seguradora: 24 reclamações em mai/26–out/26 (6 em out), 91,7% respondidas. Assuntos mais citados: cobrança indevida e divergência de valores.",
-    "rows": [
-      {
-        "nome": "Bmg Seguradora",
-        "relacao": "Empresa do grupo BMG (antiga MG Seguros), com página própria",
-        "reclamacoes": 24,
-        "ref": 6,
-        "prev": 7,
-        "respondidas": "91,7%",
-        "situacao": "Sem índice (poucas reclamações)",
-        "assuntos": "Cobrança indevida (8) · Divergência de valores (8)",
-        "recentes": [
-          "Estão descontando previdência privada da BMG Seguradora do meu contracheque sem autorização",
-          "Estão descontando previdência que nunca contratei e não consigo cancelar"
-        ]
-      }
-    ],
-    "nota": "Outras empresas do grupo: páginas próprias no Reclame Aqui de empresas do grupo BMG (além do banco e da help!), lidas pelo volume do período (mai/26–out/26), % respondidas e assuntos. Sem índice de reputação quando o volume é baixo."
-  },
   "notas": [
     "Mês a mês e assuntos: contagem das reclamações com assunto informado; as que chegam sem assunto ficam de fora, por isso a soma dos meses fica abaixo do total oficial do semestre. O Reclame Aqui não publica série mensal.",
     "* Mês com contagem incompleta — fica fora das comparações.",
     "Volume: totais oficiais do Reclame Aqui (semestre mai/26–out/26, semestre anterior nov/25–abr/26 e últimos 30 dias). Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação.",
     "Reputação e atendimento: números oficiais do Reclame Aqui nos últimos 6 meses (01/05/2026 a 31/10/2026). Em verde, o melhor de cada linha.",
-    "help!: a Loja de Crédito do BMG tem página própria no Reclame Aqui. Mesmos indicadores e mesmo método do BMG (01/05/2026 a 31/10/2026), lidos à parte e fora do comparativo com concorrentes.",
-    "help!: primeira leitura da nota; a variação mês a mês entra a partir da próxima edição.",
-    "Outras empresas do grupo: páginas próprias no Reclame Aqui de empresas do grupo BMG (além do banco e da help!), lidas pelo volume do período (mai/26–out/26), % respondidas e assuntos. Sem índice de reputação quando o volume é baixo.",
+    "help! e Bmg Seguradora têm páginas próprias no painel.",
     "Dados do Reclame Aqui atualizados em 09/11/2026."
   ],
   "mesRef": "2026-10"
@@ -1848,6 +1642,302 @@ const bcbPage = {
   ]
 };
 
+const helpPage = {
+  "titulo": "help! Loja de Crédito",
+  "kpis": [
+    {
+      "label": "Nota de reputação (6 meses)",
+      "value": "8,1<span class=\"stat-unit\">/10</span>",
+      "note": "selo Ótima em todos os 6 meses · primeira leitura da nota"
+    },
+    {
+      "label": "Reclamações — últimos 30 dias",
+      "value": "746",
+      "note": "-2% vs. a média mensal do semestre",
+      "tone": ""
+    },
+    {
+      "label": "Resolvidas (6 meses)",
+      "value": "88,0%",
+      "note": "BMG: 92,0%"
+    },
+    {
+      "label": "Tempo de resposta (6 meses)",
+      "value": "11,7 dias",
+      "note": "BMG: 9,7 dias"
+    }
+  ],
+  "volume": {
+    "headline": "O volume de reclamações da help! cresceu 18% no semestre, na direção oposta à do BMG (-24%).",
+    "rows": [
+      {
+        "label": "help!",
+        "isBmg": false,
+        "mediaAnterior": 641,
+        "mediaMensal": 759,
+        "varSemestre": 18,
+        "ultimos30": 746,
+        "var30": -2
+      },
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "mediaAnterior": 2091,
+        "mediaMensal": 1592,
+        "varSemestre": -24,
+        "ultimos30": 1477,
+        "var30": -7
+      }
+    ],
+    "semAtual": "mai/26–out/26",
+    "semAnt": "nov/25–abr/26"
+  },
+  "mes": {
+    "title": "O que mudou em out/2026",
+    "headline": "As reclamações caíram 4% em relação a set, puxadas por \"Cobrança indevida\", \"Débito automático\" e \"Pagamento não localizado\".",
+    "chart": {
+      "months": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "counts": [
+        503,
+        392,
+        533,
+        632,
+        632,
+        604
+      ],
+      "partial": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "refMonth": "2026-10"
+    },
+    "movers": [
+      {
+        "nome": "Cancelamento",
+        "prev": 77,
+        "ref": 91,
+        "delta": 14
+      },
+      {
+        "nome": "Não recebi",
+        "prev": 12,
+        "ref": 26,
+        "delta": 14
+      },
+      {
+        "nome": "Limite",
+        "prev": 5,
+        "ref": 18,
+        "delta": 13
+      },
+      {
+        "nome": "Cobrança indevida",
+        "prev": 134,
+        "ref": 109,
+        "delta": -25
+      },
+      {
+        "nome": "Débito automático",
+        "prev": 59,
+        "ref": 38,
+        "delta": -21
+      },
+      {
+        "nome": "Pagamento não localizado",
+        "prev": 25,
+        "ref": 11,
+        "delta": -14
+      }
+    ],
+    "maiores": [
+      {
+        "nome": "Cobrança indevida",
+        "share": "18"
+      },
+      {
+        "nome": "Cancelamento",
+        "share": "15,1"
+      },
+      {
+        "nome": "Problema para quitar o empréstimo",
+        "share": "9,8"
+      }
+    ],
+    "refMonth": "2026-10",
+    "prevMonth": "2026-09"
+  },
+  "comparacao": {
+    "headline": "A help! resolve menos e demora mais para responder que o BMG: 88,0% das reclamações resolvidas e 11,7 dias de prazo médio, contra 92,0% e 9,7 dias.",
+    "rows": [
+      {
+        "label": "Selo atual",
+        "help": "Ótima",
+        "bmg": "RA1000"
+      },
+      {
+        "label": "Nota (0 a 10)",
+        "help": "8,1",
+        "bmg": "8,5"
+      },
+      {
+        "label": "Reclamações (6 meses)",
+        "help": "4.554",
+        "bmg": "9.554"
+      },
+      {
+        "label": "Volume: semestre vs. anterior",
+        "help": "+18%",
+        "bmg": "-24%"
+      },
+      {
+        "label": "Resolvidas",
+        "help": "88,0%",
+        "bmg": "92,0%"
+      },
+      {
+        "label": "Tempo médio de resposta",
+        "help": "11,7 dias",
+        "bmg": "9,7 dias"
+      },
+      {
+        "label": "Voltariam a fazer negócio",
+        "help": "66,4%",
+        "bmg": "72,4%"
+      },
+      {
+        "label": "Nota do consumidor (0 a 10)",
+        "help": "7,41",
+        "bmg": "7,60"
+      }
+    ]
+  },
+  "notas": [
+    "Mês a mês e assuntos: contagem das reclamações com assunto informado; as que chegam sem assunto ficam de fora, por isso a soma dos meses fica abaixo do total oficial do semestre.",
+    "Indicadores, volume e comparação com o BMG: números oficiais do Reclame Aqui nos últimos 6 meses (01/05/2026 a 31/10/2026). A help! fica fora do comparativo com concorrentes, por ser do grupo.",
+    "Primeira leitura da nota da help!; a variação mês a mês entra a partir da próxima edição.",
+    "Dados do Reclame Aqui atualizados em 10/11/2026."
+  ],
+  "recentes": [
+    {
+      "data": "2026-11-10",
+      "titulo": "Banco BMG não me deixa encerrar conta e transferiu meu benefício do INSS sem consentimento"
+    },
+    {
+      "data": "2026-11-10",
+      "titulo": "Meu consignado BMG não reflete parcelas pagas no novo hollerith"
+    },
+    {
+      "data": "2026-11-10",
+      "titulo": "Quero desativar débito automático e reclamar de descontos abusivos na minha conta"
+    }
+  ],
+  "mesRef": "2026-10"
+};
+
+const seguradoraPage = {
+  "titulo": "Bmg Seguradora",
+  "relacao": "Empresa do grupo BMG (antiga MG Seguros), com página própria",
+  "kpis": [
+    {
+      "label": "Reclamações · mai–out",
+      "value": "24",
+      "note": "6 em outubro · 7 em setembro"
+    },
+    {
+      "label": "Respondidas (6 meses)",
+      "value": "91,7%",
+      "note": "2 ainda sem resposta"
+    },
+    {
+      "label": "Selo no Reclame Aqui",
+      "value": "Sem índice",
+      "note": "poucas reclamações para ter nota"
+    },
+    {
+      "label": "Reclamações (12 meses)",
+      "value": "58",
+      "note": "volume do último ano"
+    }
+  ],
+  "volume": {
+    "headline": "Volume baixo: 24 reclamações em seis meses, mas 13 delas em setembro e outubro.",
+    "chart": {
+      "months": [
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "counts": [
+        3,
+        2,
+        4,
+        2,
+        7,
+        6
+      ],
+      "partial": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "refMonth": "2026-10"
+    }
+  },
+  "temas": {
+    "headline": "Os assuntos mais citados são cobrança indevida e divergência de valores (8 cada).",
+    "rows": [
+      {
+        "nome": "Cobrança indevida",
+        "n": 8
+      },
+      {
+        "nome": "Divergência de valores",
+        "n": 8
+      },
+      {
+        "nome": "Cancelamentos de apólice",
+        "n": 1
+      },
+      {
+        "nome": "Estorno do valor pago",
+        "n": 1
+      }
+    ],
+    "recentes": [
+      {
+        "data": "2026-11-05",
+        "titulo": "Estão descontando previdência privada da BMG Seguradora do meu contracheque sem autorização"
+      },
+      {
+        "data": "2026-10-22",
+        "titulo": "Estão descontando previdência que nunca contratei e não consigo cancelar"
+      }
+    ]
+  },
+  "notas": [
+    "Bmg Seguradora: empresa do grupo BMG (antiga MG Seguros), com página própria no Reclame Aqui. Com volume baixo, o site não calcula nota nem selo; a leitura é pelo volume, pelo % respondidas e pelos assuntos.",
+    "Período: 01/05/2026 a 31/10/2026 (6 meses do próprio site); mês a mês e assuntos contados reclamação por reclamação.",
+    "Dados do Reclame Aqui atualizados em 10/11/2026."
+  ]
+};
+
 const reclameAqui = {"ok":true};
 // ===== DATA-INJECTION-END =====
 
@@ -1911,6 +2001,8 @@ function lineChartSvg(pts) {
   if (typeof youtubePage !== 'undefined' && youtubePage) document.getElementById('tabYoutubeBtn').hidden = false;
   if (typeof reclameAqui !== 'undefined' && reclameAqui) document.getElementById('tabRaBtn').hidden = false;
   if (typeof bcbPage !== 'undefined' && bcbPage) document.getElementById('tabBcbBtn').hidden = false;
+  if (typeof helpPage !== 'undefined' && helpPage) document.getElementById('tabHelpBtn').hidden = false;
+  if (typeof seguradoraPage !== 'undefined' && seguradoraPage) document.getElementById('tabSegBtn').hidden = false;
   document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.dataset.tab === active));
   document.querySelectorAll('.tab-panel').forEach((p) => { p.hidden = (p.id !== 'tab-' + active); });
   document.getElementById('edMes').textContent = edicao.mesRef || '';
@@ -2033,9 +2125,8 @@ renderYoutube();
 
 // ---- Reclame Aqui: página montada a partir de `raPage` (narrativa gerada no buildDashboard) ----
 // Cada seção = 1 manchete (a conclusão) + 1 gráfico/tabela que a sustenta. Notas de método no fim.
-function renderRaPage() {
-  if (typeof raPage === 'undefined' || !raPage) return;
-  const p = raPage;
+// ---------- peças do desenho do Reclame Aqui (BMG, help! e Bmg Seguradora usam as mesmas) ----------
+const RAK = (() => {
   const mon = (m) => fmtRefMonth(m).split('/')[0];
   const signed = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n + '%');
   const cls = (n) => (n > 0 ? 'up' : n < 0 ? 'down' : '');
@@ -2044,19 +2135,12 @@ function renderRaPage() {
     `<div class="ra-section"><div class="ra-section-title">${n} · ${title}</div>` +
     (headline ? `<div class="ra-headline">${headline}</div>` : '') + body + '</div>';
   const table = (head, rows, extra) => `<div style="overflow-x:auto"><table class="bench-table ra-month-table ${extra || ''}">${head}${rows}</table></div>`;
-
-  // ---------- Card 1: BMG ----------
-  document.getElementById('raBmgCard').style.display = 'block';
-  if (p.mesRef) document.getElementById('raMonth').textContent = '· ' + fmtRefMonth(p.mesRef);
-
-  // gráfico mês a mês + assuntos que mais mudaram (mesmo desenho para o BMG e a help!)
+  const chart = (c, titulo) => `<div class="ra-mini-title">${titulo || 'Reclamações com assunto, por mês'}</div><div class="vol-chart">` + c.months.map((mo, i) =>
+    `<div class="vol-col${mo === c.refMonth ? ' is-ref' : ''}${c.partial[i] ? ' is-partial' : ''}"><div class="vol-val">${fmt(c.counts[i])}${c.partial[i] ? '*' : ''}</div>` +
+    `<div class="vol-track"><div class="vol-bar" style="height:${Math.round((c.counts[i] / Math.max(...c.counts)) * 100)}%"></div></div>` +
+    `<div class="vol-lbl">${mon(mo)}</div></div>`).join('') + '</div>';
+  // gráfico mês a mês + assuntos que mais mudaram
   const mesBody = (m) => {
-    const c = m.chart;
-    const max = Math.max(...c.counts);
-    const chart = '<div class="ra-mini-title">Reclamações com assunto, por mês</div><div class="vol-chart">' + c.months.map((mo, i) =>
-      `<div class="vol-col${mo === c.refMonth ? ' is-ref' : ''}${c.partial[i] ? ' is-partial' : ''}"><div class="vol-val">${fmt(c.counts[i])}${c.partial[i] ? '*' : ''}</div>` +
-      `<div class="vol-track"><div class="vol-bar" style="height:${Math.round((c.counts[i] / max) * 100)}%"></div></div>` +
-      `<div class="vol-lbl">${mon(mo)}</div></div>`).join('') + '</div>';
     const movers = m.movers.length
       ? `<div class="ra-mini-title">Assuntos que mais mudaram (${mon(m.prevMonth)} → ${mon(m.refMonth)})</div>` +
         table(`<tr><th>Assunto</th><th class="num">${mon(m.prevMonth)}</th><th class="num is-ref">${mon(m.refMonth)}</th><th class="num">Variação</th></tr>`,
@@ -2064,14 +2148,26 @@ function renderRaPage() {
       : '';
     const maiores = m.maiores.length
       ? `<p class="ra-foot">Maiores assuntos do mês: ${m.maiores.map((x) => `${x.nome} (${String(x.share).replace('.', ',')}%)`).join(' · ')}.</p>` : '';
-    return `<div class="ra-grid"><div>${chart}</div><div>${movers}</div></div>${maiores}`;
+    return `<div class="ra-grid"><div>${chart(m.chart)}</div><div>${movers}</div></div>${maiores}`;
   };
   const tile = (t) => `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note}</div></div>`;
-  const volTable = (v) => table(`<tr><th>${v.rows.length > 1 && v.rows.some((r) => !r.isBmg && r.label !== 'help!') ? 'Banco' : 'Marca'}</th><th class="num">Média por mês<br>${v.semAnt}</th><th class="num">Média por mês<br>${v.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${v.semAtual}</th></tr>`,
+  const volTable = (v) => table(`<tr><th>${v.rows.some((r) => !r.isBmg && r.label !== 'help!') ? 'Banco' : 'Marca'}</th><th class="num">Média por mês<br>${v.semAnt}</th><th class="num">Média por mês<br>${v.semAtual}</th><th class="num">Variação</th><th class="num">Últimos 30 dias</th><th class="num">vs. média<br>${v.semAtual}</th></tr>`,
     v.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
       `<td class="num">${fmt(r.mediaAnterior)}</td><td class="num">${fmt(r.mediaMensal)}</td><td class="num ${cls(r.varSemestre)}">${signed(r.varSemestre)}</td>` +
       `<td class="num">${fmt(r.ultimos30)}</td><td class="num ${cls(r.var30)}">${signed(r.var30)}</td></tr>`).join(''), 'vol-market-table');
+  const recentes = (lista, quem) => lista.map((r) => `<div class="quote">“${r.titulo}”<div class="quote-meta">${quem}${r.data ? ' · ' + fmtDate(r.data) : ''}</div></div>`).join('');
+  const notas = (lista) => `<div class="ra-notes"><strong>Como ler esta página</strong><ul>${lista.map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
+  return { mon, signed, cls, fmt, section, table, chart, mesBody, tile, volTable, recentes, notas };
+})();
 
+function renderRaPage() {
+  if (typeof raPage === 'undefined' || !raPage) return;
+  const p = raPage;
+  const { mon, signed, cls, section, table, mesBody, tile, volTable } = RAK;
+
+  // ---------- Card 1: BMG ----------
+  document.getElementById('raBmgCard').style.display = 'block';
+  if (p.mesRef) document.getElementById('raMonth').textContent = '· ' + fmtRefMonth(p.mesRef);
   document.getElementById('raStatRow').innerHTML = p.kpis.map(tile).join('');
 
   let n = 0;
@@ -2086,56 +2182,68 @@ function renderRaPage() {
     document.getElementById('raApp').innerHTML = section(++n, 'App e acesso', a.headline, table(head, rows) + (a.note ? `<p class="ra-foot">${a.note}</p>` : ''));
   }
 
-  // ---------- Card help! (Loja de Crédito do BMG) ----------
-  if (p.help) {
-    const hp = p.help;
-    document.getElementById('raHelpCard').style.display = 'block';
-    document.getElementById('raHelpStats').innerHTML = hp.kpis.map(tile).join('');
-    if (hp.volume) document.getElementById('raHelpVol').innerHTML = section(++n, 'Volume de reclamações · help!', hp.volume.headline, volTable(hp.volume));
-    else document.getElementById('raHelpVol').remove();
-    if (hp.mes) document.getElementById('raHelpMes').innerHTML = section(++n, hp.mes.title + ' · help!', hp.mes.headline, mesBody(hp.mes));
-    else document.getElementById('raHelpMes').remove();
-    const c = hp.comparacao;
-    document.getElementById('raHelpComp').innerHTML = section(++n, 'help! x BMG', c.headline,
-      table('<tr><th>Métrica</th><th class="num">help!</th><th class="num is-bmg-col">BMG</th></tr>',
-        c.rows.map((r) => `<tr><td>${r.label}</td><td class="num">${r.help}</td><td class="num is-bmg-col">${r.bmg}</td></tr>`).join(''), 'ra-bench-table'));
-  }
-
-  // ---------- Outras empresas do grupo ----------
-  if (p.outras) {
-    const o = p.outras;
-    document.getElementById('raOutrasCard').style.display = 'block';
-    const head = `<tr><th>Empresa</th><th class="num">Reclamações<br>${o.periodo}</th><th class="num">Em ${o.refLabel}</th><th class="num">Respondidas</th><th>Situação</th><th>Assuntos mais citados</th></tr>`;
-    const rows = o.rows.map((r) => `<tr><td><span class="bench-bank">${r.nome}</span><br><span class="bench-sub-inline">${r.relacao}</span></td><td class="num">${r.reclamacoes}</td><td class="num">${r.ref}</td><td class="num">${r.respondidas}</td><td>${r.situacao}</td><td>${r.assuntos}</td></tr>`).join('');
-    const recentes = o.rows.flatMap((r) => r.recentes.map((x) => `<div class="quote">“${x}”<div class="quote-meta">${r.nome}</div></div>`)).join('');
-    document.getElementById('raOutras').innerHTML = section(++n, 'Outras empresas do grupo', o.headline, table(head, rows) + (recentes ? `<div class="ra-mini-title">Reclamações recentes</div>${recentes}` : ''));
-  }
-
   // ---------- Card 2: BMG vs. concorrentes ----------
-  if (!p.volume && !p.drivers && !p.reputacao) return;
-  document.getElementById('raMktCard').style.display = 'block';
-  if (p.volume) document.getElementById('raSecVolume').innerHTML = section(++n, 'Volume de reclamações', p.volume.headline, volTable(p.volume));
-  if (p.drivers) {
-    const d = p.drivers;
-    const head = `<tr><th>Banco</th><th class="num">${mon(d.refMonth)} vs. ${mon(d.prevMonth)}</th><th>O que mais mudou (${mon(d.prevMonth)} → ${mon(d.refMonth)})</th><th>Principais assuntos em ${mon(d.refMonth)}</th></tr>`;
-    const rows = d.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
-      `<td class="num ${cls(r.varMes)}">${signed(r.varMes)}</td>` +
-      `<td>${r.puxou.length ? r.puxou.map((x) => `${x.nome} <span class="bench-sub-inline">(${x.prev} → ${x.ref})</span>`).join('<br>') : '<span class="bench-sub-inline">sem mudança relevante</span>'}</td>` +
-      `<td>${r.top.map((x) => `${x.nome} <span class="bench-sub-inline">${String(x.share).replace('.', ',')}%</span>`).join('<br>')}</td></tr>`).join('');
-    document.getElementById('raSecDrivers').innerHTML = section(++n, d.title, d.headline, table(head, rows, 'ra-drivers-table'));
-  }
-  if (p.reputacao) {
-    const r = p.reputacao;
-    const head = `<tr><th>Métrica</th>${r.banks.map((b) => `<th class="num${b.isBmg ? ' is-bmg-col' : ''}">${b.label}</th>`).join('')}</tr>`;
-    const rows = r.rows.map((row) => `<tr><td>${row.label}</td>` + row.values.map((x, i) =>
-      `<td class="num${r.banks[i].isBmg ? ' is-bmg-col' : ''}${row.best === i ? ' is-best' : ''}">${x}${row.best === i ? '<span class="best-tag">melhor</span>' : ''}</td>`).join('') + '</tr>').join('');
-    document.getElementById('raSecReput').innerHTML = section(++n, 'Reputação e atendimento', r.headline, table(head, rows, 'ra-bench-table'));
+  if (p.volume || p.drivers || p.reputacao) {
+    document.getElementById('raMktCard').style.display = 'block';
+    if (p.volume) document.getElementById('raSecVolume').innerHTML = section(++n, 'Volume de reclamações', p.volume.headline, volTable(p.volume));
+    if (p.drivers) {
+      const d = p.drivers;
+      const head = `<tr><th>Banco</th><th class="num">${mon(d.refMonth)} vs. ${mon(d.prevMonth)}</th><th>O que mais mudou (${mon(d.prevMonth)} → ${mon(d.refMonth)})</th><th>Principais assuntos em ${mon(d.refMonth)}</th></tr>`;
+      const rows = d.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
+        `<td class="num ${cls(r.varMes)}">${signed(r.varMes)}</td>` +
+        `<td>${r.puxou.length ? r.puxou.map((x) => `${x.nome} <span class="bench-sub-inline">(${x.prev} → ${x.ref})</span>`).join('<br>') : '<span class="bench-sub-inline">sem mudança relevante</span>'}</td>` +
+        `<td>${r.top.map((x) => `${x.nome} <span class="bench-sub-inline">${String(x.share).replace('.', ',')}%</span>`).join('<br>')}</td></tr>`).join('');
+      document.getElementById('raSecDrivers').innerHTML = section(++n, d.title, d.headline, table(head, rows, 'ra-drivers-table'));
+    }
+    if (p.reputacao) {
+      const r = p.reputacao;
+      const head = `<tr><th>Métrica</th>${r.banks.map((b) => `<th class="num${b.isBmg ? ' is-bmg-col' : ''}">${b.label}</th>`).join('')}</tr>`;
+      const rows = r.rows.map((row) => `<tr><td>${row.label}</td>` + row.values.map((x, i) =>
+        `<td class="num${r.banks[i].isBmg ? ' is-bmg-col' : ''}${row.best === i ? ' is-best' : ''}">${x}${row.best === i ? '<span class="best-tag">melhor</span>' : ''}</td>`).join('') + '</tr>').join('');
+      document.getElementById('raSecReput').innerHTML = section(++n, 'Reputação e atendimento', r.headline, table(head, rows, 'ra-bench-table'));
+    }
   }
   if (p.notas.length) {
     document.getElementById('raNotes').innerHTML = `<strong>Como ler esta página</strong><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul>`;
   }
 }
 renderRaPage();
+
+// ---------- help! (Loja de Crédito do BMG) — página própria ----------
+function renderHelpPage() {
+  if (typeof helpPage === 'undefined' || !helpPage) return;
+  const hp = helpPage;
+  const { section, table, mesBody, tile, volTable, recentes, notas } = RAK;
+  let n = 0;
+  let html = `<div class="stat-row">${hp.kpis.map(tile).join('')}</div>`;
+  if (hp.mes) html += section(++n, hp.mes.title, hp.mes.headline, mesBody(hp.mes));
+  if (hp.volume) html += section(++n, 'Volume de reclamações', hp.volume.headline, volTable(hp.volume));
+  const c = hp.comparacao;
+  html += section(++n, 'help! x BMG', c.headline,
+    table('<tr><th>Métrica</th><th class="num">help!</th><th class="num is-bmg-col">BMG</th></tr>',
+      c.rows.map((r) => `<tr><td>${r.label}</td><td class="num">${r.help}</td><td class="num is-bmg-col">${r.bmg}</td></tr>`).join(''), 'ra-bench-table'));
+  if (hp.recentes && hp.recentes.length) html += section(++n, 'Na voz do cliente', `As ${hp.recentes.length} reclamações mais recentes da página`, recentes(hp.recentes, 'help!'));
+  html += notas(hp.notas);
+  document.getElementById('helpRoot').innerHTML = html;
+}
+renderHelpPage();
+
+// ---------- Bmg Seguradora — página própria ----------
+function renderSeguradoraPage() {
+  if (typeof seguradoraPage === 'undefined' || !seguradoraPage) return;
+  const sp = seguradoraPage;
+  const { section, table, chart, tile, recentes, notas } = RAK;
+  let n = 0;
+  let html = `<div class="stat-row">${sp.kpis.map(tile).join('')}</div>`;
+  html += section(++n, 'Reclamações por mês', sp.volume.headline, chart(sp.volume.chart, 'Reclamações por mês'));
+  const t = sp.temas;
+  html += section(++n, 'Do que se reclama', t.headline,
+    `<div class="ra-grid"><div>${table('<tr><th>Assunto</th><th class="num">Reclamações (6 meses)</th></tr>', t.rows.map((r) => `<tr><td>${r.nome}</td><td class="num">${r.n}</td></tr>`).join(''))}</div>` +
+    `<div>${t.recentes.length ? `<div class="ra-mini-title">Reclamações recentes</div>${recentes(t.recentes, sp.titulo)}` : ''}</div></div>`);
+  html += notas(sp.notas);
+  document.getElementById('seguradoraRoot').innerHTML = html;
+}
+renderSeguradoraPage();
 
 function renderBancoCentral() {
   if (typeof bcbPage === 'undefined' || !bcbPage) return;
