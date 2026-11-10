@@ -126,6 +126,55 @@
   .ctag-android { background: #EDE7F5; color: #522979; }
   .ctag-ios { background: #E6E8EE; color: #242633; }
   .ctag-ra { background: #FFF1EB; color: #BA3510; }
+  .ctag-bcb { background: #E6ECF5; color: #23395B; }
+
+  /* ── Resumo visual ── */
+  .channels.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mv-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+  .mv-h { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; padding-bottom: 8px; }
+  .mv-h.good { color: var(--good); } .mv-h.bad { color: var(--bad); }
+  .mv-h::after { content: ""; flex: 1; height: 1.5px; background: currentColor; opacity: .25; }
+  .mv { background: #fff; border: 1px solid var(--card-border); border-left: 4px solid var(--prev); border-radius: 10px; padding: 13px 16px 14px; margin-bottom: 10px; }
+  .mv.good { border-left-color: var(--good); } .mv.bad { border-left-color: var(--bad); } .mv.flat { border-left-color: #8A91A0; }
+  .mv-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .mv .chg-title { font-size: 15px; line-height: 1.3; }
+  .mv .chip { flex: none; margin: 1px 0 0; }
+  .mv .bars { margin-top: 10px; }
+  .bar.now.flat i { background: #8A91A0; }
+  .mx-table th small, .bench-table th small { display: block; font-weight: 400; font-size: 11px; color: var(--text-2); margin-top: 2px; line-height: 1.3; }
+  .mx-table td.mxc { min-width: 104px; }
+  .mx-table td.mxc b { font-weight: 800; }
+  .mx-table td.mxc .best-tag { margin-left: 6px; }
+  .mxb, .mxd { position: relative; height: 6px; margin-top: 6px; }
+  .mxb { background: var(--track); border-radius: 0 3px 3px 0; }
+  .mxb i { display: block; height: 100%; background: #8A91A0; border-radius: 0 3px 3px 0; }
+  .mxd::before { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1.5px; background: #9AA0AE; }
+  .mxd i { position: absolute; top: 0; height: 100%; background: #8A91A0; }
+  .mxd i.l { right: 50%; border-radius: 3px 0 0 3px; } .mxd i.r { left: 50%; border-radius: 0 3px 3px 0; }
+  tr.is-bmg .mxb i, tr.is-bmg .mxd i { background: var(--purple-1); }
+  .mx-table td.mxc.best { background: var(--good-soft); }
+  .ins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; margin-top: 14px; }
+  .ins { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px 18px; }
+  .ins h4 { font-size: 15.5px; font-weight: 900; line-height: 1.3; }
+  .ins p { font-size: 13px; color: var(--text-2); margin-top: 10px; line-height: 1.45; }
+  .ins-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) 54px; align-items: center; column-gap: 8px; margin-top: 12px; font-size: 12.5px; }
+  .ins-row small { grid-column: 2 / 4; font-size: 11px; color: var(--text-2); }
+  .ins-track { height: 10px; background: var(--track); border-radius: 0 5px 5px 0; }
+  .ins-track i { display: block; height: 100%; background: var(--bad); border-radius: 0 5px 5px 0; }
+  .ins-row b { text-align: right; font-weight: 900; }
+  .ins-spark { display: flex; align-items: flex-end; gap: 6px; height: 78px; margin-top: 14px; border-bottom: 1px solid #C9CDD6; }
+  .ins-spark div { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+  .ins-spark b { font-size: 10.5px; font-weight: 700; color: var(--text-2); margin-bottom: 3px; }
+  .ins-spark i { display: block; width: 100%; max-width: 26px; background: var(--prev); border-radius: 4px 4px 0 0; }
+  .ins-spark .ref i { background: var(--accent); } .ins-spark .ref b { color: var(--text); font-weight: 900; }
+  .ins-spark-x { display: flex; gap: 6px; margin-top: 4px; }
+  .ins-spark-x span { flex: 1; text-align: center; font-size: 10.5px; color: var(--text-2); }
+  .ins-spark-x span.ref { color: var(--text); font-weight: 800; }
+  @media screen and (max-width: 860px) { .channels.c3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mv-cols { grid-template-columns: minmax(0, 1fr); } }
+  @media screen and (max-width: 560px) { .channels.c3 { grid-template-columns: minmax(0, 1fr); } }
+  .fonte { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-2); margin-top: 10px; }
+  .fonte:empty { display: none; }
+  .fonte a { color: var(--text-2); font-weight: 700; }
   .read { font-size: 14px; margin-top: 12px; }
   .read b { font-weight: 800; }
 
@@ -229,15 +278,16 @@
 
   @media screen and (max-width: 900px) {
     .channels, .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .duo, .ra-grid, .grid2, .grid2.even { grid-template-columns: 1fr; }
-    .quotes { grid-template-columns: 1fr; }
+    /* minmax(0, 1fr): a coluna encolhe até a tela e a tabela larga rola dentro do próprio quadro */
+    .duo, .ra-grid, .grid2, .grid2.even { grid-template-columns: minmax(0, 1fr); }
+    .quotes { grid-template-columns: minmax(0, 1fr); }
   }
   @media screen and (max-width: 560px) {
     .platform { padding: 16px 14px 20px; }
     .wrap { padding: 22px 16px 32px; }
     .head-title { border-left: 0; padding-left: 0; }
-    .channels, .stat-row { grid-template-columns: 1fr; }
-    .chg { grid-template-columns: 1fr; gap: 10px; }
+    .channels, .stat-row { grid-template-columns: minmax(0, 1fr); }
+    .chg { grid-template-columns: minmax(0, 1fr); gap: 10px; }
     .chg .chip { justify-self: start; }
     .panel { padding: 18px 14px; }
   }
@@ -260,9 +310,9 @@
     <a class="tab" href="index.html" data-tab="resumo">Resumo</a>
     <a class="tab" href="lojas.html" data-tab="lojas">Lojas de app</a>
     <a class="tab" href="youtube.html" data-tab="youtube" id="tabYoutubeBtn" hidden>YouTube</a>
-    <a class="tab" href="reclame-aqui.html" data-tab="reclame-aqui" id="tabRaBtn" hidden>Reclame Aqui</a>
-    <a class="tab" href="help.html" data-tab="help" id="tabHelpBtn" hidden>help!</a>
-    <a class="tab" href="bmg-seguradora.html" data-tab="seguradora" id="tabSegBtn" hidden>Bmg Seguradora</a>
+    <a class="tab" href="reclame-aqui.html" data-tab="reclame-aqui" id="tabRaBtn" hidden>Reclame Aqui · BMG</a>
+    <a class="tab" href="help.html" data-tab="help" id="tabHelpBtn" hidden>Reclame Aqui · help!</a>
+    <a class="tab" href="bmg-seguradora.html" data-tab="seguradora" id="tabSegBtn" hidden>Reclame Aqui · Seguradora</a>
     <a class="tab" href="banco-central.html" data-tab="banco-central" id="tabBcbBtn" hidden>Banco Central</a>
   </nav>
 
@@ -283,7 +333,7 @@
 
   <!-- ===================== RECLAME AQUI ===================== -->
   <main class="tab-panel" id="tab-reclame-aqui" hidden>
-    <div class="page-title"><h2>Reclame Aqui</h2><p>O ângulo de crédito e cobrança que as lojas de app não capturam. Leitura do último mês fechado, com os 6 meses como contexto.</p></div>
+    <div class="page-title"><h2>Reclame Aqui · BMG</h2><p>O ângulo de crédito e cobrança que as lojas de app não capturam. Leitura do último mês fechado, com os 6 meses como contexto.</p><p class="fonte" id="raFonte"></p></div>
     <div id="raBmgCard" style="display:none">
       <div class="stat-row" id="raStatRow"></div>
       <div id="raMes"></div>
@@ -301,19 +351,19 @@
 
   <!-- ===================== HELP! ===================== -->
   <main class="tab-panel" id="tab-help" hidden>
-    <div class="page-title"><h2>help! · Loja de Crédito do BMG</h2><p>A rede de lojas de crédito do BMG tem página própria no Reclame Aqui. Leitura do último mês fechado, com os 6 meses como contexto e o BMG como referência.</p></div>
+    <div class="page-title"><h2>Reclame Aqui · help!</h2><p>A help! Loja de Crédito, rede de lojas de crédito do BMG, tem página própria no Reclame Aqui. Tudo nesta página vem dessa página: leitura do último mês fechado, com os 6 meses como contexto e o BMG como referência.</p><p class="fonte" id="helpFonte"></p></div>
     <div id="helpRoot"></div>
   </main>
 
   <!-- ===================== BMG SEGURADORA ===================== -->
   <main class="tab-panel" id="tab-seguradora" hidden>
-    <div class="page-title"><h2>Bmg Seguradora</h2><p>Empresa do grupo BMG (antiga MG Seguros), com página própria no Reclame Aqui. Volume baixo: leitura pelo número de reclamações, pelo % respondidas e pelos assuntos.</p></div>
+    <div class="page-title"><h2>Reclame Aqui · Bmg Seguradora</h2><p>A Bmg Seguradora, empresa do grupo BMG (antiga MG Seguros), tem página própria no Reclame Aqui. Tudo nesta página vem dessa página. Volume baixo: leitura pelo número de reclamações, pelo % respondidas e pelos assuntos.</p><p class="fonte" id="segFonte"></p></div>
     <div id="seguradoraRoot"></div>
   </main>
 
   <!-- ===================== BANCO CENTRAL ===================== -->
   <main class="tab-panel" id="tab-banco-central" hidden>
-    <div class="page-title"><h2>Banco Central</h2><p>Ranking oficial de reclamações: as queixas que chegam ao Banco Central e são consideradas procedentes, por milhão de clientes. Publicado por trimestre.</p></div>
+    <div class="page-title"><h2>Banco Central</h2><p>Ranking oficial do Banco Central: para cada milhão de clientes, quantas reclamações deram razão ao cliente (as “procedentes”). Publicado por trimestre; quanto menor, melhor.</p><p class="fonte" id="bcbFonte"></p></div>
     <div id="bcbRoot"></div>
   </main>
 
@@ -322,7 +372,7 @@
 <script>
 // ===== DATA-INJECTION-START =====
 const activePage = "lojas";
-const versao = "202611101456";
+const versao = "202611101516";
 
 const edicao = {"mesRef":"Outubro · 2026","atualizado":"10/11"};
 
@@ -421,7 +471,7 @@ const resumoPage = {
       "rodape": "Janelas de 35 dias até 05/10 e até 09/11 · amostra pequena"
     },
     {
-      "canal": "Reclame Aqui",
+      "canal": "Reclame Aqui · BMG",
       "nota": {
         "valor": "8,5",
         "unidade": "/10",
@@ -430,7 +480,7 @@ const resumoPage = {
           "tone": "good"
         }
       },
-      "legenda": "nota de reputação · era 8,3 em setembro · selo RA1000 mantido",
+      "legenda": "nota de reputação · era 8,3 em setembro · selo RA1000 mantido (o mais alto do site)",
       "periodoTitulo": "Como foi o mês",
       "periodo": "set → out",
       "metricas": [
@@ -453,82 +503,532 @@ const resumoPage = {
           }
         }
       ],
-      "rodape": "Nota e resolvidas: janelas de 6 meses do próprio Reclame Aqui"
+      "rodape": "Com assunto = o cliente informou o assunto. Resolvidas = o cliente considerou resolvida."
+    },
+    {
+      "canal": "Reclame Aqui · help!",
+      "nota": {
+        "valor": "8,1",
+        "unidade": "/10",
+        "chip": {
+          "txt": "1ª leitura",
+          "tone": "flat"
+        }
+      },
+      "legenda": "nota de reputação · selo Ótima (logo abaixo do RA1000) · Loja de Crédito do BMG",
+      "periodoTitulo": "Como foi o mês",
+      "periodo": "set → out",
+      "metricas": [
+        {
+          "label": "Reclamações com assunto",
+          "prev": "632",
+          "ref": "604",
+          "chip": {
+            "txt": "▼ −4,4%",
+            "tone": "good"
+          }
+        },
+        {
+          "label": "Média por mês no semestre",
+          "prev": "641",
+          "ref": "759",
+          "chip": {
+            "txt": "▲ +18%",
+            "tone": "bad"
+          }
+        }
+      ],
+      "rodape": "Semestre: os 6 meses até o mês fechado contra os 6 anteriores."
+    },
+    {
+      "canal": "Banco Central",
+      "nota": {
+        "valor": "82,8",
+        "unidade": "índice",
+        "chip": {
+          "txt": "▼ −18,5",
+          "tone": "good"
+        }
+      },
+      "legenda": "reclamações em que o BC deu razão ao cliente, por milhão de clientes · menor é melhor · 1º entre os três bancos",
+      "periodoTitulo": "Como foi o trimestre",
+      "periodo": "2º tri → 3º tri",
+      "metricas": [
+        {
+          "label": "Reclamações procedentes",
+          "prev": "189",
+          "ref": "144",
+          "chip": {
+            "txt": "▼ −24%",
+            "tone": "good"
+          }
+        },
+        {
+          "label": "Reclamações respondidas",
+          "prev": "4.883",
+          "ref": "4.808",
+          "chip": {
+            "txt": "▼ −2%",
+            "tone": "good"
+          }
+        }
+      ],
+      "rodape": "Procedentes = o BC deu razão ao cliente. Respondidas = o banco respondeu ao BC."
     }
   ],
-  "destaques": [
-    {
-      "tone": "good",
-      "html": "<strong>Android melhorou em out/2026:</strong> comentários negativos caíram de 51,5% para 26,9% e a nota dos comentários subiu de 2,88 para 3,85, com 350 comentários no mês (194 em set/2026) — o menor índice de negativos dos últimos 5 meses."
-    },
-    {
-      "tone": "watch",
-      "html": "<strong>Tema nº1 das lojas:</strong> \"App trava / não abre / fica fora do ar / instabilidade\" — 20 no Android (out/2026, contra 17 em set/2026) e 6 no iOS (jul–set/2026)."
-    },
-    {
-      "tone": "watch",
-      "html": "<strong>Primeiros dias da versão 3.99.0 do Android com sentimento pior:</strong> 36,7% de comentários negativos (60 comentários em 11 dias), contra 28,3% na 3.97.2 — sinal inicial, confirmar na próxima rodada."
-    },
-    {
-      "tone": "good",
-      "html": "<strong>Em queda no Android:</strong> \"Erro no cadastro/abertura de conta (selfie, documentos)\" — de 10 para 2 citações (10% → 2,1% dos comentários negativos)."
-    },
-    {
-      "tone": "info",
-      "html": "<strong>YouTube com pouca conversa no período:</strong> 4 comentários sobre o BMG na janela de 35 dias, sem tema que se destaque."
-    },
-    {
-      "tone": "info",
-      "html": "<strong>Reclame Aqui — O BMG recebe menos reclamações; Mercantil e Agibank, mais.</strong> Média mensal no semestre mai/26–out/26 contra nov/25–abr/26: BMG -24% · Mercantil +30% · Agibank +10%. Reputação melhorou: selo RA1000, nota 8,5/10 (era 8,3), 92,0% resolvidas."
-    },
-    {
-      "tone": "watch",
-      "html": "<strong>help! (Loja de Crédito do BMG) no Reclame Aqui:</strong> nota 8,1/10, selo Ótima. As reclamações subiram 18% no semestre, na contramão do BMG (-24%). Resolve 88,0% das reclamações e leva 11,7 dias para responder (BMG: 92,0% e 9,7 dias)."
-    }
-  ],
-  "mercado": [
-    {
-      "tone": "info",
-      "html": "<strong>Comentários nas lojas (Android, out/2026):</strong> o BMG fica no meio do trio — Agibank 41,7% · BMG 26,9% · Mercantil 21,7% de comentários negativos. \"App trava / instabilidade\" aparece entre as principais queixas dos três."
-    },
-    {
-      "tone": "info",
-      "html": "<strong>Volume no Reclame Aqui: o BMG é o único recebendo menos reclamações</strong> — média mensal no semestre vs. o anterior: BMG -24% · Mercantil +30% · Agibank +10%."
-    },
-    {
-      "tone": "info",
-      "html": "<strong>Reclame Aqui:</strong> o BMG é quem mais resolve (BMG 92% · Agibank 89,2% · Mercantil 84,6%), mas é o mais lento para responder (Agibank 5,1 dias · Mercantil 7,8 dias · BMG 9,7 dias)."
-    },
-    {
-      "tone": "info",
-      "html": "<strong>Nota na loja (Android):</strong> Mercantil 4,8★ · BMG 4,74★ · Agibank 4,6★ — média acumulada, se move pouco; a diferença de experiência recente aparece nos comentários."
-    },
-    {
-      "tone": "info",
-      "html": "<strong>Banco Central (3º tri/26):</strong> índice de reclamações procedentes por milhão de clientes — BMG 82,8 · Agibank 108,7 · Mercantil 206,6. O BMG tem o menor índice dos três (o do BMG caiu de 101,3 para 82,8 no trimestre)."
-    }
-  ],
-  "mercadoTitulo": "BMG vs. mercado — Mercantil e Agibank",
+  "hero": {
+    "lead": "Android melhorou em outubro:",
+    "resto": "comentários negativos caíram de 51,5% para 26,9%",
+    "sub": "A menor proporção desde junho, início da série."
+  },
+  "mudancas": {
+    "mesPrev": "set",
+    "mesRef": "out",
+    "melhorou": [
+      {
+        "titulo": "Erro no cadastro e na abertura de conta",
+        "onde": "Android · citações nos comentários negativos",
+        "tone": "good",
+        "prevTxt": "10",
+        "refTxt": "2",
+        "wPrev": 100,
+        "wRef": 20,
+        "chip": "−8 · −80%"
+      },
+      {
+        "titulo": "Cobrança indevida",
+        "onde": "Reclame Aqui · BMG",
+        "tone": "good",
+        "prevTxt": "385",
+        "refTxt": "318",
+        "wPrev": 100,
+        "wRef": 83,
+        "chip": "−67 · −17%"
+      },
+      {
+        "titulo": "“Não consigo acessar minha conta”",
+        "onde": "Reclame Aqui · BMG · patamar mais alto do semestre",
+        "tone": "flat",
+        "prevTxt": "55",
+        "refTxt": "56",
+        "wPrev": 98,
+        "wRef": 100,
+        "chip": "+1 · estável"
+      }
+    ],
+    "piorou": [
+      {
+        "titulo": "App trava, não abre ou fica fora do ar",
+        "onde": "Android · citações nos comentários negativos",
+        "tone": "bad",
+        "prevTxt": "17",
+        "refTxt": "20",
+        "wPrev": 85,
+        "wRef": 100,
+        "chip": "+3 · +18%"
+      },
+      {
+        "titulo": "Estorno do valor pago",
+        "onde": "Reclame Aqui · BMG",
+        "tone": "bad",
+        "prevTxt": "25",
+        "refTxt": "45",
+        "wPrev": 56,
+        "wRef": 100,
+        "chip": "+20 · +80%"
+      },
+      {
+        "titulo": "Limite",
+        "onde": "Reclame Aqui · BMG",
+        "tone": "bad",
+        "prevTxt": "85",
+        "refTxt": "104",
+        "wPrev": 82,
+        "wRef": 100,
+        "chip": "+19 · +22%"
+      },
+      {
+        "titulo": "Problema para quitar o empréstimo",
+        "onde": "Reclame Aqui · BMG",
+        "tone": "bad",
+        "prevTxt": "70",
+        "refTxt": "87",
+        "wPrev": 80,
+        "wRef": 100,
+        "chip": "+17 · +24%"
+      },
+      {
+        "titulo": "Versão 3.99.0 do Android",
+        "onde": "% de comentários negativos (3.97.2 → 3.99.0) · versão nova, com poucos dias: sinal inicial",
+        "tone": "bad",
+        "prevTxt": "28,3%",
+        "refTxt": "36,7%",
+        "wPrev": 77,
+        "wRef": 100,
+        "chip": "+8,4 p.p."
+      }
+    ]
+  },
+  "mercado": {
+    "titulo": "BMG vs. mercado — Mercantil e Agibank",
+    "headline": "O BMG é o melhor dos três em 3 de 6 indicadores (volume no Reclame Aqui, resolução no Reclame Aqui e índice do Banco Central) e o pior no prazo de resposta.",
+    "cols": [
+      {
+        "label": "Comentários negativos",
+        "sub": "Android · out"
+      },
+      {
+        "label": "Nota na loja",
+        "sub": "Android · média de todas as avaliações"
+      },
+      {
+        "label": "Volume no Reclame Aqui",
+        "sub": "reclamações no semestre contra o anterior"
+      },
+      {
+        "label": "Resolvidas",
+        "sub": "Reclame Aqui · % que o cliente considerou resolvida"
+      },
+      {
+        "label": "Prazo de resposta",
+        "sub": "Reclame Aqui · média em dias"
+      },
+      {
+        "label": "Índice do Banco Central",
+        "sub": "3º tri/26 · reclamações em que o BC deu razão ao cliente, por milhão de clientes"
+      }
+    ],
+    "linhas": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "cells": [
+          {
+            "txt": "26,9%",
+            "w": 27,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "4,74★",
+            "w": 95,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "−24%",
+            "w": 80,
+            "diverge": true,
+            "neg": true,
+            "best": true
+          },
+          {
+            "txt": "92,0%",
+            "w": 92,
+            "diverge": false,
+            "neg": false,
+            "best": true
+          },
+          {
+            "txt": "9,7 dias",
+            "w": 100,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "82,8",
+            "w": 40,
+            "diverge": false,
+            "neg": false,
+            "best": true
+          }
+        ]
+      },
+      {
+        "label": "Mercantil",
+        "isBmg": false,
+        "cells": [
+          {
+            "txt": "21,7%",
+            "w": 22,
+            "diverge": false,
+            "neg": false,
+            "best": true
+          },
+          {
+            "txt": "4,8★",
+            "w": 96,
+            "diverge": false,
+            "neg": false,
+            "best": true
+          },
+          {
+            "txt": "+30%",
+            "w": 100,
+            "diverge": true,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "84,6%",
+            "w": 85,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "7,8 dias",
+            "w": 80,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "206,6",
+            "w": 100,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          }
+        ]
+      },
+      {
+        "label": "Agibank",
+        "isBmg": false,
+        "cells": [
+          {
+            "txt": "41,7%",
+            "w": 42,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "4,6★",
+            "w": 92,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "+10%",
+            "w": 33,
+            "diverge": true,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "89,2%",
+            "w": 89,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          },
+          {
+            "txt": "5,1 dias",
+            "w": 53,
+            "diverge": false,
+            "neg": false,
+            "best": true
+          },
+          {
+            "txt": "108,7",
+            "w": 53,
+            "diverge": false,
+            "neg": false,
+            "best": false
+          }
+        ]
+      }
+    ]
+  },
+  "grupo": {
+    "headline": "A help! vai na contramão do BMG: as reclamações subiram 18% no semestre (BMG: −24%), e ela resolve menos e demora mais para responder.",
+    "linhas": [
+      {
+        "label": "BMG",
+        "isBmg": true,
+        "cells": [
+          {
+            "txt": "RA1000 · 8,5"
+          },
+          {
+            "txt": "9.554",
+            "w": 100
+          },
+          {
+            "txt": "−24%",
+            "w": 83,
+            "diverge": true,
+            "neg": true
+          },
+          {
+            "txt": "98,5%",
+            "w": 99
+          },
+          {
+            "txt": "92,0%",
+            "w": 92
+          },
+          {
+            "txt": "9,7 dias",
+            "w": 83
+          }
+        ]
+      },
+      {
+        "label": "help!",
+        "isBmg": false,
+        "cells": [
+          {
+            "txt": "Ótima · 8,1"
+          },
+          {
+            "txt": "4.554",
+            "w": 48
+          },
+          {
+            "txt": "+18%",
+            "w": 62,
+            "diverge": true,
+            "neg": false
+          },
+          {
+            "txt": "97,2%",
+            "w": 97
+          },
+          {
+            "txt": "88,0%",
+            "w": 88
+          },
+          {
+            "txt": "11,7 dias",
+            "w": 100
+          }
+        ]
+      },
+      {
+        "label": "Bmg Seguradora",
+        "isBmg": false,
+        "cells": [
+          {
+            "txt": "Sem índice"
+          },
+          {
+            "txt": "24",
+            "w": 0
+          },
+          {
+            "txt": "−29%",
+            "w": 100,
+            "diverge": true,
+            "neg": true
+          },
+          {
+            "txt": "91,7%",
+            "w": 92
+          },
+          {
+            "txt": "—"
+          },
+          {
+            "txt": "—"
+          }
+        ]
+      }
+    ],
+    "cols": [
+      {
+        "label": "Selo e nota",
+        "sub": "RA1000 é o selo mais alto; Ótima vem logo abaixo"
+      },
+      {
+        "label": "Reclamações",
+        "sub": "últimos 6 meses"
+      },
+      {
+        "label": "Volume",
+        "sub": "semestre contra o anterior"
+      },
+      {
+        "label": "Respondidas",
+        "sub": "% que a empresa respondeu"
+      },
+      {
+        "label": "Resolvidas",
+        "sub": "% que o cliente considerou resolvida"
+      },
+      {
+        "label": "Prazo de resposta",
+        "sub": "média em dias"
+      }
+    ]
+  },
   "cruzada": [
     {
-      "tone": "info",
-      "html": "<strong>A instabilidade do app é transversal às duas lojas:</strong> 21,3% dos comentários negativos no Android (20 de 94 negativos) e 42,9% no iOS (6 de 14 negativos) citam travamento/fora do ar. Não é problema de um sistema só — é do app como um todo."
+      "titulo": "A instabilidade do app aparece nas duas lojas",
+      "texto": "% dos comentários negativos que citam app travando, sem abrir ou fora do ar. No iOS a base é pequena.",
+      "barras": [
+        {
+          "label": "Android · out",
+          "v": 21.3,
+          "txt": "21,3%",
+          "sub": "20 de 94 negativos"
+        },
+        {
+          "label": "iOS · jul–set",
+          "v": 42.9,
+          "txt": "42,9%",
+          "sub": "6 de 14 negativos"
+        }
+      ]
     },
     {
-      "tone": "info",
-      "html": "<strong>O problema pesa mais no iOS:</strong> 42,9% dos comentários negativos do iPhone (6 de 14 negativos) são sobre \"App trava / não abre / fica fora do ar / instabilidade\", contra 21,3% no Android — a base do iOS é pequena, mas o padrão se repete nos últimos 3 trimestres; vale priorizar a investigação no iOS."
-    },
-    {
-      "tone": "info",
-      "html": "<strong>A dificuldade de entrar no app aparece além das lojas:</strong> no Reclame Aqui, \"Não consigo acessar minha conta\" teve 56 reclamações em out/2026, estável em relação a set/2026 (55) — segue no patamar mais alto do semestre. Entre os concorrentes, subiu no Agibank (39 → 56), mas proporcionalmente o BMG segue com mais reclamações de app/acesso (BMG 3,2% · Mercantil 2,2% · Agibank 1,5% do total no semestre)."
+      "titulo": "A dificuldade de acesso também aparece no Reclame Aqui",
+      "texto": "“Não consigo acessar minha conta”: 56 reclamações em outubro, o patamar mais alto do semestre.",
+      "serie": [
+        {
+          "label": "mai",
+          "v": 36,
+          "ref": false
+        },
+        {
+          "label": "jun",
+          "v": 36,
+          "ref": false
+        },
+        {
+          "label": "jul",
+          "v": 27,
+          "ref": false
+        },
+        {
+          "label": "ago",
+          "v": 23,
+          "ref": false
+        },
+        {
+          "label": "set",
+          "v": 55,
+          "ref": false
+        },
+        {
+          "label": "out",
+          "v": 56,
+          "ref": true
+        }
+      ]
     }
   ],
   "notas": [
-    "Lojas: “nota dos comentários” é a média de estrelas das avaliações com texto do período; a nota na loja é a média acumulada exibida ao público; a variação compara a leitura de cada rodada mensal (dia 9) com a da rodada anterior.",
-    "Sentimento pela estrela: 1–2 negativo, 3 neutro, 4–5 positivo. iOS por trimestre, pelo baixo volume.",
-    "Reclame Aqui: reputação dos últimos 6 meses (janela do próprio site); reclamações com assunto informado.",
-    "YouTube: janelas de 35 dias, sinal qualitativo.",
-    "Detalhe completo nas páginas Lojas de app, YouTube, Reclame Aqui e Banco Central."
+    "Verde = melhorou; vermelho = piorou. p.p. = pontos percentuais, a diferença entre dois percentuais.",
+    "Lojas: “nota na loja” é a média de todas as avaliações do app, de toda a vida (por isso muda devagar); “nota dos comentários” é a média só das avaliações com texto do período. Sentimento pela estrela: 1–2 negativo, 3 neutro, 4–5 positivo. iOS por trimestre, pelo baixo volume.",
+    "Reclame Aqui: números dos últimos 6 meses do próprio site. “Com assunto” = reclamações em que o cliente informou o assunto (a grande maioria). RA1000 é o selo mais alto do site; “Ótima” vem logo abaixo.",
+    "Banco Central: ranking trimestral. “Procedentes” são as reclamações em que o BC deu razão ao cliente; o índice divide essas reclamações pelo número de clientes (por milhão) — quanto menor, melhor.",
+    "YouTube: janelas de 35 dias, sinal qualitativo. Detalhe completo nas outras abas."
   ]
 };
 
@@ -540,13 +1040,13 @@ const lojasPage = {
       {
         "label": "Nota na loja",
         "value": "4,74★",
-        "note": "+0,02 vs. leitura de out (4,72) · 437,2 mil avaliações",
+        "note": "média de todas as 437,2 mil avaliações · +0,02 vs. leitura de out (4,72)",
         "tone": "good"
       },
       {
         "label": "Nota dos comentários · outubro",
         "value": "3,85",
-        "note": "+0,97 vs. setembro (2,88)",
+        "note": "só as avaliações com texto do mês · +0,97 vs. setembro (2,88)",
         "tone": "good"
       },
       {
@@ -757,13 +1257,13 @@ const lojasPage = {
       {
         "label": "Nota na loja",
         "value": "4,71★",
-        "note": "+0,01 vs. leitura de out (4,7) · 89,1 mil avaliações",
+        "note": "média de todas as 89,1 mil avaliações · +0,01 vs. leitura de out (4,7)",
         "tone": "good"
       },
       {
         "label": "Nota dos comentários · jul–set",
         "value": "2,26",
-        "note": "+0,91 vs. abr–jun (1,35)",
+        "note": "só as avaliações com texto do trimestre · +0,91 vs. abr–jun (1,35)",
         "tone": "good"
       },
       {
@@ -1139,7 +1639,7 @@ const raPage = {
     {
       "label": "Nota de reputação (6 meses)",
       "value": "8,5<span class=\"stat-unit\">/10</span>",
-      "note": "<span class=\"pos\">▲ +0,2</span> vs. setembro (8,3) · selo RA1000"
+      "note": "<span class=\"pos\">▲ +0,2</span> vs. setembro (8,3) · selo RA1000 (o mais alto do site)"
     },
     {
       "label": "Reclamações — últimos 30 dias",
@@ -1497,9 +1997,16 @@ const raPage = {
     "* Mês com contagem incompleta — fica fora das comparações.",
     "Volume: totais oficiais do Reclame Aqui (semestre mai/26–out/26, semestre anterior nov/25–abr/26 e últimos 30 dias). Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação.",
     "Reputação e atendimento: números oficiais do Reclame Aqui nos últimos 6 meses (01/05/2026 a 31/10/2026). Em verde, o melhor de cada linha.",
-    "help! e Bmg Seguradora têm páginas próprias no painel.",
+    "help! e Bmg Seguradora têm abas próprias no painel (Reclame Aqui · help! e Reclame Aqui · Seguradora).",
     "Dados do Reclame Aqui atualizados em 09/11/2026."
   ],
+  "fonte": {
+    "tag": "ctag-ra",
+    "nome": "Reclame Aqui",
+    "texto": "página “Banco Bmg” · dados de 01/05/26 a 31/10/26 · lidos em 09/11/2026",
+    "url": "https://www.reclameaqui.com.br/empresa/banco-bmg/",
+    "linkTxt": "abrir no Reclame Aqui"
+  },
   "mesRef": "2026-10"
 };
 
@@ -1509,18 +2016,17 @@ const bcbPage = {
     {
       "label": "Índice de reclamações · 3º tri/26",
       "value": "82,8",
-      "note": "−18,5 vs. 2º tri/26 (101,3) · por milhão de clientes",
-      "tone": "good"
+      "note": "<span class=\"pos\">▼ −18,5</span> vs. 2º tri/26 (101,3) · reclamações procedentes por milhão de clientes; menor é melhor"
     },
     {
       "label": "Reclamações procedentes · 3º tri/26",
       "value": "144",
-      "note": "189 no 2º tri/26"
+      "note": "o BC deu razão ao cliente · 189 no 2º tri/26"
     },
     {
       "label": "Reclamações respondidas · 3º tri/26",
       "value": "4.808",
-      "note": "4.883 no 2º tri/26"
+      "note": "chegaram ao BC e o banco respondeu · 4.883 no 2º tri/26"
     },
     {
       "label": "Posição entre os três bancos",
@@ -1634,6 +2140,13 @@ const bcbPage = {
       }
     ]
   },
+  "fonte": {
+    "tag": "ctag-bcb",
+    "nome": "Banco Central",
+    "texto": "ranking de reclamações · 4º tri/25 a 3º tri/26 · lido em 10/11/2026",
+    "url": "https://www.bcb.gov.br/estabilidadefinanceira/rankingsbc",
+    "linkTxt": "ver no Banco Central"
+  },
   "notas": [
     "Fonte: ranking de reclamações do Banco Central, publicado por trimestre. O BC analisa as reclamações que recebe, projeta as procedentes (em que o banco descumpriu regra ou contrato) para o total e divide pelo número de clientes, em milhões. Quanto menor o índice, melhor.",
     "Reclamações respondidas: total que o banco respondeu ao BC no trimestre. Procedentes: as que o BC considerou com razão, dentro das analisadas.",
@@ -1646,9 +2159,9 @@ const helpPage = {
   "titulo": "help! Loja de Crédito",
   "kpis": [
     {
-      "label": "Nota de reputação (6 meses)",
+      "label": "Nota no Reclame Aqui (6 meses)",
       "value": "8,1<span class=\"stat-unit\">/10</span>",
-      "note": "selo Ótima em todos os 6 meses · primeira leitura da nota"
+      "note": "selo Ótima (logo abaixo do RA1000) em todos os 6 meses · primeira leitura da nota"
     },
     {
       "label": "Reclamações — últimos 30 dias",
@@ -1828,6 +2341,13 @@ const helpPage = {
     "Primeira leitura da nota da help!; a variação mês a mês entra a partir da próxima edição.",
     "Dados do Reclame Aqui atualizados em 10/11/2026."
   ],
+  "fonte": {
+    "tag": "ctag-ra",
+    "nome": "Reclame Aqui",
+    "texto": "página “help! Loja de Crédito” · dados de 01/05/26 a 31/10/26 · lidos em 10/11/2026",
+    "url": "https://www.reclameaqui.com.br/empresa/help-loja-de-credito/",
+    "linkTxt": "abrir no Reclame Aqui"
+  },
   "recentes": [
     {
       "data": "2026-11-10",
@@ -1850,7 +2370,7 @@ const seguradoraPage = {
   "relacao": "Empresa do grupo BMG (antiga MG Seguros), com página própria",
   "kpis": [
     {
-      "label": "Reclamações · mai–out",
+      "label": "Reclamações no Reclame Aqui · mai–out",
       "value": "24",
       "note": "6 em outubro · 7 em setembro"
     },
@@ -1930,6 +2450,13 @@ const seguradoraPage = {
         "titulo": "Estão descontando previdência que nunca contratei e não consigo cancelar"
       }
     ]
+  },
+  "fonte": {
+    "tag": "ctag-ra",
+    "nome": "Reclame Aqui",
+    "texto": "página “Bmg Seguradora” · dados de 01/05/26 a 31/10/26 · lidos em 10/11/2026",
+    "url": "https://www.reclameaqui.com.br/empresa/mg-seguros-vida-e-previdencia/",
+    "linkTxt": "abrir no Reclame Aqui"
   },
   "notas": [
     "Bmg Seguradora: empresa do grupo BMG (antiga MG Seguros), com página própria no Reclame Aqui. Com volume baixo, o site não calcula nota nem selo; a leitura é pelo volume, pelo % respondidas e pelos assuntos.",
@@ -2025,6 +2552,8 @@ function renderResumo() {
   const p = resumoPage;
   let html = '';
   let n = 0;
+
+  // 1) principais números por canal (cards; com 6 canais, 3 por linha)
   if (p.canais && p.canais.length) {
     const cards = p.canais.map((c) => `<div class="ch"><div class="ch-name">${c.canal}</div>` +
       `<div class="big">${c.nota ? `<span class="val">${c.nota.valor}${c.nota.estrela ? '<span class="star">★</span>' : ''}${c.nota.unidade ? ` <span class="unit">${c.nota.unidade}</span>` : ''}</span>${chipHtml(c.nota.chip)}` : ''}</div>` +
@@ -2032,12 +2561,44 @@ function renderResumo() {
       `<div class="month"><div class="month-h">${c.periodoTitulo}<span>${c.periodo}</span></div>` +
       [0, 1].map((i) => { const m = c.metricas[i]; return m ? `<div class="mrow"><div class="lbl">${m.label}</div><div class="vals"><span class="p">${m.prev}</span> → <b>${m.ref}</b></div>${chipHtml(m.chip)}</div>` : '<div class="mrow"></div>'; }).join('') +
       `</div><div class="ch-foot">${c.rodape || ''}</div></div>`).join('');
-    html += sectionHtml(++n, 'Principais números por canal', null, `<div class="channels">${cards}</div>`, 'Em destaque, a nota de cada canal. Embaixo, como foi o mês — lado a lado. Verde = melhorou; vermelho = piorou.');
+    const cols = p.canais.length % 3 === 0 ? ' c3' : '';
+    html += sectionHtml(++n, 'Principais números por canal', null, `<div class="channels${cols}">${cards}</div>`, 'Em destaque, o número principal de cada canal; embaixo, como foi o período, lado a lado. Verde = melhorou; vermelho = piorou.');
   }
-  const lista = (itens) => `<ul class="alist">${itens.map((x) => `<li class="${x.tone}">${x.html}</li>`).join('')}</ul>`;
-  if (p.destaques && p.destaques.length) html += sectionHtml(++n, 'Destaques do mês, por canal', null, lista(p.destaques));
-  if (p.mercado && p.mercado.length) html += sectionHtml(++n, p.mercadoTitulo, null, lista(p.mercado) + '<p class="note">Detalhe nas páginas Lojas de app (comentários e nota na loja), Reclame Aqui (reputação, prazo e resolução)' + (typeof bcbPage !== 'undefined' && bcbPage ? ' e Banco Central (índice oficial de reclamações)' : '') + '.</p>');
-  if (p.cruzada && p.cruzada.length) html += sectionHtml(++n, 'Análise cruzada — o que só aparece olhando os canais juntos', null, lista(p.cruzada) + '<p class="note">Consolidado a partir dos números reais de cada canal.</p>');
+
+  // 2) o que mudou no mês: manchete + cartões antes → depois
+  const m = p.mudancas;
+  if (m && (m.melhorou.length || m.piorou.length)) {
+    const card = (c) => `<div class="mv ${c.tone}"><div class="mv-top"><div><div class="chg-title">${c.titulo}</div><div class="chg-where">${c.onde}</div></div><span class="chip ${c.tone}">${c.chip}</span></div>` +
+      `<div class="bars"><div class="bar-row">${m.mesPrev}<span class="bar prev"><i style="width:${Math.max(2, c.wPrev)}%"></i><b>${c.prevTxt}</b></span></div>` +
+      `<div class="bar-row">${m.mesRef}<span class="bar now ${c.tone}"><i style="width:${Math.max(2, c.wRef)}%"></i><b>${c.refTxt}</b></span></div></div></div>`;
+    const hero = p.hero ? `<div class="hero"><h3><b>${p.hero.lead}</b> ${p.hero.resto}</h3>${p.hero.sub ? `<p>${p.hero.sub}</p>` : ''}</div>` : '';
+    const col = (cls, titulo, itens) => itens.length ? `<div><div class="mv-h ${cls}">${titulo}</div>${itens.map(card).join('')}</div>` : '<div></div>';
+    html += sectionHtml(++n, 'O que mudou no mês', null, hero +
+      `<div class="mv-cols">${col('good', '▼ Caiu ou ficou estável', m.melhorou)}${col('bad', '▲ Subiu', m.piorou)}</div>` +
+      '<p class="note">Lojas: citações entre os comentários negativos do mês. Reclame Aqui: reclamações em que o cliente informou o assunto.</p>');
+  }
+
+  // tabela com barra em cada célula (BMG em roxo; em verde, o melhor da coluna)
+  const matriz = (mx) => `<div style="overflow-x:auto"><table class="bench-table mx-table"><tr><th></th>${mx.cols.map((c) => `<th>${c.label}${c.sub ? `<small>${c.sub}</small>` : ''}</th>`).join('')}</tr>` +
+    mx.linhas.map((l) => `<tr class="${l.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${l.label}</span></td>` + l.cells.map((c) =>
+      `<td class="mxc${c.best ? ' best' : ''}"><b>${c.txt}</b>${c.best ? '<span class="best-tag">melhor</span>' : ''}` +
+      (c.w == null ? '' : c.diverge ? `<div class="mxd"><i class="${c.neg ? 'l' : 'r'}" style="width:${c.w / 2}%"></i></div>` : `<div class="mxb"><i style="width:${Math.max(2, c.w)}%"></i></div>`) + '</td>').join('') + '</tr>').join('') +
+    '</table></div>';
+
+  // 3) BMG vs. mercado
+  if (p.mercado) html += sectionHtml(++n, p.mercado.titulo, p.mercado.headline, matriz(p.mercado) + '<p class="note">Em verde, o melhor de cada coluna. Detalhe nas abas Lojas de app, Reclame Aqui · BMG e Banco Central.</p>');
+
+  // 4) grupo BMG no Reclame Aqui
+  if (p.grupo) html += sectionHtml(++n, 'Grupo BMG no Reclame Aqui', p.grupo.headline, matriz(p.grupo) + '<p class="note">Detalhe nas abas Reclame Aqui · help! e Reclame Aqui · Seguradora. A Bmg Seguradora tem poucas reclamações e, por isso, não tem nota no site.</p>');
+
+  // 5) análise cruzada: achados curtos com mini gráfico
+  if (p.cruzada && p.cruzada.length) {
+    const ins = (c) => `<div class="ins"><h4>${c.titulo}</h4>` +
+      (c.barras ? c.barras.map((b) => `<div class="ins-row"><span>${b.label}</span><div class="ins-track"><i style="width:${Math.min(100, Math.max(2, b.v))}%"></i></div><b>${b.txt}</b><small>${b.sub}</small></div>`).join('') : '') +
+      (c.serie ? (() => { const max = Math.max(...c.serie.map((s) => s.v), 1); return `<div class="ins-spark">${c.serie.map((s) => `<div class="${s.ref ? 'ref' : ''}"><b>${s.v}</b><i style="height:${Math.max(3, Math.round((s.v / max) * 52))}px"></i></div>`).join('')}</div><div class="ins-spark-x">${c.serie.map((s) => `<span class="${s.ref ? 'ref' : ''}">${s.label}</span>`).join('')}</div>`; })() : '') +
+      `<p>${c.texto}</p></div>`;
+    html += sectionHtml(++n, 'Análise cruzada — o que só aparece olhando os canais juntos', null, `<div class="ins-grid">${p.cruzada.map(ins).join('')}</div>`);
+  }
   html += notesHtml(p.notas);
   document.getElementById('resumoRoot').innerHTML = html;
 }
@@ -2157,7 +2718,12 @@ const RAK = (() => {
       `<td class="num">${fmt(r.ultimos30)}</td><td class="num ${cls(r.var30)}">${signed(r.var30)}</td></tr>`).join(''), 'vol-market-table');
   const recentes = (lista, quem) => lista.map((r) => `<div class="quote">“${r.titulo}”<div class="quote-meta">${quem}${r.data ? ' · ' + fmtDate(r.data) : ''}</div></div>`).join('');
   const notas = (lista) => `<div class="ra-notes"><strong>Como ler esta página</strong><ul>${lista.map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
-  return { mon, signed, cls, fmt, section, table, chart, mesBody, tile, volTable, recentes, notas };
+  // linha "Fonte" logo abaixo do título: de onde vem o dado, período, data da leitura e link
+  const fonte = (id, f) => {
+    const el = document.getElementById(id);
+    if (el && f) el.innerHTML = `<span class="ctag ${f.tag}">Fonte: ${f.nome}</span><span>${f.texto}</span>${f.url ? `<a href="${f.url}" target="_blank" rel="noopener">${f.linkTxt}</a>` : ''}`;
+  };
+  return { mon, signed, cls, fmt, section, table, chart, mesBody, tile, volTable, recentes, notas, fonte };
 })();
 
 function renderRaPage() {
@@ -2167,6 +2733,7 @@ function renderRaPage() {
 
   // ---------- Card 1: BMG ----------
   document.getElementById('raBmgCard').style.display = 'block';
+  RAK.fonte('raFonte', p.fonte);
   if (p.mesRef) document.getElementById('raMonth').textContent = '· ' + fmtRefMonth(p.mesRef);
   document.getElementById('raStatRow').innerHTML = p.kpis.map(tile).join('');
 
@@ -2213,6 +2780,7 @@ renderRaPage();
 function renderHelpPage() {
   if (typeof helpPage === 'undefined' || !helpPage) return;
   const hp = helpPage;
+  RAK.fonte('helpFonte', hp.fonte);
   const { section, table, mesBody, tile, volTable, recentes, notas } = RAK;
   let n = 0;
   let html = `<div class="stat-row">${hp.kpis.map(tile).join('')}</div>`;
@@ -2232,6 +2800,7 @@ renderHelpPage();
 function renderSeguradoraPage() {
   if (typeof seguradoraPage === 'undefined' || !seguradoraPage) return;
   const sp = seguradoraPage;
+  RAK.fonte('segFonte', sp.fonte);
   const { section, table, chart, tile, recentes, notas } = RAK;
   let n = 0;
   let html = `<div class="stat-row">${sp.kpis.map(tile).join('')}</div>`;
@@ -2248,6 +2817,7 @@ renderSeguradoraPage();
 function renderBancoCentral() {
   if (typeof bcbPage === 'undefined' || !bcbPage) return;
   const p = bcbPage;
+  RAK.fonte('bcbFonte', p.fonte);
   const sec = (n, title, headline, body) => `<div class="ra-section"><div class="ra-section-title">${n} · ${title}</div>` + (headline ? `<div class="ra-headline">${headline}</div>` : '') + body + '</div>';
   const tile = (t) => `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note}</div></div>`;
   const last = p.serie.trimestres.length - 1;
@@ -2255,12 +2825,12 @@ function renderBancoCentral() {
   const serieRows = p.serie.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td>` +
     r.values.map((v, i) => `<td class="bcb-cell${i === last ? ' is-ref-col' : ''}"><b>${v.txt}</b><div class="bcb-bar"><i style="width:${v.w}%"></i></div></td>`).join('') + '</tr>').join('');
   const det = p.detalhe;
-  const detHead = `<tr><th>Banco</th><th class="num">Índice</th><th class="num">Reclamações procedentes</th><th class="num">Reclamações respondidas</th><th class="num">Clientes</th></tr>`;
+  const detHead = `<tr><th>Banco</th><th class="num">Índice<small>procedentes por milhão de clientes</small></th><th class="num">Reclamações procedentes<small>o BC deu razão ao cliente</small></th><th class="num">Reclamações respondidas<small>o banco respondeu ao BC</small></th><th class="num">Clientes<small>base do índice</small></th></tr>`;
   const detRows = det.rows.map((r) => `<tr class="${r.isBmg ? 'is-bmg' : ''}"><td><span class="bench-bank">${r.label}</span></td><td class="num">${r.indice}</td><td class="num">${r.procedentes}</td><td class="num">${r.respondidas}</td><td class="num">${r.clientes}</td></tr>`).join('');
   const tbl = (h, r) => `<div style="overflow-x:auto"><table class="bench-table">${h}${r}</table></div>`;
   document.getElementById('bcbRoot').innerHTML =
     `<div class="stat-row">${p.kpis.map(tile).join('')}</div>` +
-    sec(1, 'Índice de reclamações por trimestre', p.serie.headline, tbl(serieHead, serieRows) + '<p class="ra-foot">Reclamações procedentes por milhão de clientes — quanto menor, melhor. BMG em roxo.</p>') +
+    sec(1, 'Índice de reclamações por trimestre', p.serie.headline, tbl(serieHead, serieRows) + '<p class="ra-foot">Índice = reclamações em que o BC deu razão ao cliente (procedentes), por milhão de clientes — quanto menor, melhor. BMG em roxo.</p>') +
     sec(2, `Detalhe do ${p.titulo}`, det.headline, tbl(detHead, detRows)) +
     `<div class="ra-notes"><strong>Como ler esta página</strong><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
 }
