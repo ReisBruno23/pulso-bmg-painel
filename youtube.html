@@ -296,7 +296,7 @@
 // ===== DATA-INJECTION-START =====
 const activePage = "youtube";
 
-const edicao = {"mesRef":"Outubro · 2026","atualizado":"09/11"};
+const edicao = {"mesRef":"Outubro · 2026","atualizado":"10/11"};
 
 const resumoPage = {
   "canais": [
@@ -457,7 +457,7 @@ const resumoPage = {
   "mercado": [
     {
       "tone": "info",
-      "html": "<strong>Comentários nas lojas (Android, out/2026):</strong> o BMG fica no meio do trio — Agibank 41,7% · BMG 26,9% · Mercantil 21,7% de comentários negativos. A dor é a mesma nos três: \"App trava / instabilidade\"."
+      "html": "<strong>Comentários nas lojas (Android, out/2026):</strong> o BMG fica no meio do trio — Agibank 41,7% · BMG 26,9% · Mercantil 21,7% de comentários negativos. \"App trava / instabilidade\" aparece entre as principais queixas dos três."
     },
     {
       "tone": "info",
@@ -1457,11 +1457,11 @@ const raPage = {
     ]
   },
   "notas": [
-    "Mês a mês e assuntos: contagem das reclamações com assunto informado — a grande maioria; cerca de 15% chegam sem assunto e ficam de fora. O Reclame Aqui não publica série mensal.",
-    "* Mês com contagem incompleta (um assunto muito volumoso não coube no limite da consulta) — fica fora das comparações.",
+    "Mês a mês e assuntos: contagem das reclamações com assunto informado; as que chegam sem assunto ficam de fora, por isso a soma dos meses fica abaixo do total oficial do semestre. O Reclame Aqui não publica série mensal.",
+    "* Mês com contagem incompleta — fica fora das comparações.",
     "Volume: totais oficiais do Reclame Aqui (semestre mai/26–out/26, semestre anterior nov/25–abr/26 e últimos 30 dias). Cada banco é comparado com ele mesmo — o tamanho da base de clientes não interfere na variação.",
     "Reputação e atendimento: números oficiais do Reclame Aqui nos últimos 6 meses (01/05/2026 a 31/10/2026). Em verde, o melhor de cada linha.",
-    "Coleta em 09/11/2026."
+    "Dados do Reclame Aqui atualizados em 09/11/2026."
   ],
   "mesRef": "2026-10"
 };
@@ -1476,7 +1476,7 @@ function fmtRefMonth(m) {
   return M[+mo - 1] + '/' + y;
 }
 // "2026-07-31" → "31/07/2026" nas citações
-const fmtDate = (d) => (/^d{4}-d{2}-d{2}$/.test(d || '') ? d.split('-').reverse().join('/') : (d || ''));
+const fmtDate = (d) => (/^\d{4}-\d{2}-\d{2}$/.test(d || '') ? d.split('-').reverse().join('/') : (d || ''));
 const esc = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const chipHtml = (c) => (c ? `<span class="chip ${c.tone}">${c.txt}</span>` : '');
 function sectionHtml(n, title, headline, body, sub) {
