@@ -16,6 +16,7 @@
     --bad: #B42318;  --bad-soft: #FFF1F0;  --good: #107348;  --good-soft: #E8F6EF;  --flat-soft: #EEF0F4;
     --bg: #FFFFFF;  --card: #EDEDEE;  --card-border: #DCDDE1;  --line: #E8ECF3;  --row: #E3E5EA;
     --text: #242633;  --text-2: #667187;  --prev: #AEB4C0;  --track: #E2E5EB;
+    --surface: #FFFFFF; --edge: #E4E7EC; --lift: 0 1px 2px rgba(16, 24, 40, .05), 0 2px 8px rgba(16, 24, 40, .04);
     /* nomes usados pelo desenho da página do Reclame Aqui */
     --text-primary: var(--text); --text-muted: var(--text-2); --gridline: var(--row); --page: #FFFFFF;
     --neutral: var(--prev); --critical: var(--bad); --border: var(--card-border);
@@ -43,7 +44,7 @@
   .page-title p { font-size: 14px; color: var(--text-2); margin-top: 2px; }
 
   /* ── Seções: título numerado + manchete + 1 visual ── */
-  section, .ra-section { margin-top: 34px; }
+  section, .ra-section { margin-top: 30px; }
   .eyebrow, .ra-section-title { display: flex; align-items: center; gap: 14px; font-size: 13px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; color: var(--accent); }
   .eyebrow::after, .ra-section-title::after { content: ""; flex: 1; height: 1.5px; background: var(--line); }
   .sub { font-size: 13.5px; color: var(--text-2); margin-top: 6px; }
@@ -61,34 +62,36 @@
 
   /* ── Indicadores (KPIs) ── */
   .stat-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
-  .stat-tile { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 15px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .stat-tile { background: var(--surface); border: 1px solid var(--edge); border-radius: 12px; padding: 12px 14px; box-shadow: var(--lift); }
   .stat-label { font-size: 12.5px; font-weight: 800; color: #3E4456; }
-  .stat-value { font-size: 30px; font-weight: 900; letter-spacing: -0.4px; line-height: 1.15; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .stat-value { font-size: 27px; font-weight: 900; letter-spacing: -0.4px; line-height: 1.15; margin-top: 4px; font-variant-numeric: tabular-nums; }
   .stat-unit { font-size: 16px; font-weight: 700; color: var(--text-2); letter-spacing: 0; margin-left: 3px; }
   .stat-note { font-size: 12px; color: var(--text-2); margin-top: 2px; line-height: 1.4; }
   .stat-note.tone-good { color: var(--good); font-weight: 700; }
   .stat-note.tone-risk { color: var(--bad); font-weight: 700; }
 
-  /* ── Cards por canal (nota cheia + como foi o mês), alinhados por subgrid ── */
-  .channels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 14px; row-gap: 0; margin-top: 16px; }
-  .ch { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 15px 15px 13px; box-shadow: 0 1px 3px rgba(0,0,0,.06); display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 0; margin-bottom: 14px; }
-  .ch-name { font-size: 14px; font-weight: 800; color: #3E4456; }
-  .big { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-self: start; }
-  .big .val { font-size: 36px; font-weight: 900; letter-spacing: -0.5px; line-height: 1.05; font-variant-numeric: tabular-nums; }
-  .big .star { font-size: 26px; margin-left: 1px; }
-  .big .unit { font-size: 16px; font-weight: 700; color: var(--text-2); letter-spacing: 0; }
-  .big-sub { font-size: 12.5px; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
-  .month { display: contents; }
-  .month-h { font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); margin-top: 13px; padding: 11px 0 2px; border-top: 1px solid var(--card-border); }
-  .month-h span { display: block; color: var(--text-2); font-weight: 700; text-transform: none; letter-spacing: 0; margin-top: 1px; }
-  .mrow { padding: 7px 0; }
-  .mrow + .mrow { border-top: 1px dashed var(--card-border); }
-  .mrow .lbl { font-size: 12.5px; font-weight: 700; color: var(--text-2); }
-  .mrow .vals { font-size: 15px; color: var(--prev); font-variant-numeric: tabular-nums; white-space: nowrap; margin-top: 1px; }
-  .mrow .vals .p { color: var(--prev); font-weight: 700; }
-  .mrow .vals b { color: var(--text); font-weight: 900; font-size: 17px; }
-  .mrow .chip { margin-top: 4px; }
-  .ch-foot { align-self: end; padding-top: 11px; font-size: 12px; color: var(--text-2); line-height: 1.45; }
+  /* ── Cards por canal (Resumo): número principal + mini gráfico da tendência + 1 linha de explicação ── */
+  .chs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+  .cht { background: var(--surface); border: 1px solid var(--edge); border-radius: 12px; padding: 12px 14px 10px; box-shadow: var(--lift); display: flex; flex-direction: column; min-width: 0; }
+  .cht-name { font-size: 12.5px; font-weight: 800; color: #3E4456; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cht-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 14px; align-items: start; margin-top: 6px; }
+  .cht-val { font-size: 28px; font-weight: 900; letter-spacing: -0.4px; line-height: 1.05; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cht-val .star { font-size: 19px; margin-left: 1px; }
+  .cht-val .unit { font-size: 12.5px; font-weight: 700; color: var(--text-2); letter-spacing: 0; margin-left: 3px; }
+  .cht-main .chip { margin-top: 6px; }
+  .cht-lbl { font-size: 11.5px; color: var(--text-2); margin-top: 4px; line-height: 1.3; }
+  .spk-t { font-size: 11px; font-weight: 700; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .spk-bars, .spk-x { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: 4px; }
+  .spk-bars { grid-template-rows: 36px; height: 36px; margin-top: 5px; border-bottom: 1px solid #C9CDD6; }
+  .spk-bars span { display: flex; align-items: flex-end; justify-content: center; height: 100%; }
+  .spk-bars i { display: block; width: 100%; max-width: 18px; background: var(--prev); border-radius: 3px 3px 0 0; }
+  .spk-bars .ref i { background: var(--purple-1); }
+  .spk-x span { text-align: center; font-size: 9.5px; color: var(--text-2); margin-top: 2px; white-space: nowrap; }
+  .spk-x span.ref { color: var(--text); font-weight: 800; }
+  .spk-v { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
+  .spk-v b { font-size: 14px; font-weight: 900; font-variant-numeric: tabular-nums; }
+  .spk-v .chip { font-size: 11px; padding: 1px 7px; }
+  .cht-foot { margin-top: auto; padding-top: 9px; font-size: 11px; color: var(--text-2); line-height: 1.35; }
 
   /* ── O que mudou ── */
   .hero { margin-top: 16px; background: linear-gradient(90deg, var(--purple-1), var(--purple-2)); color: #fff; border-radius: 10px; padding: 22px 26px; }
@@ -113,11 +116,11 @@
   .chg .chip { justify-self: end; font-size: 13px; padding: 4px 11px; }
 
   /* ── Painel de comparação (BMG x concorrência) ── */
-  .panel { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 22px 24px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .panel { background: transparent; border: 0; border-top: 1.5px solid var(--line); border-radius: 0; padding: 22px 0 0; box-shadow: none; }
   .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .panel h2 { font-size: 20px; font-weight: 800; }
   .badge { font-size: 12px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; color: #116744; background: #DCF2E5; border-radius: 6px; padding: 4px 10px; }
-  .cblock { background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 18px 16px; margin-top: 16px; }
+  .cblock { background: var(--surface); border: 1px solid var(--edge); border-radius: 12px; padding: 14px 18px 16px; margin-top: 16px; box-shadow: var(--lift); }
   .cblock .ra-section { margin-top: 0; }
   .cblock:empty { display: none; }
   .cblock-head { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 2px solid var(--line); }
@@ -129,19 +132,28 @@
   .ctag-bcb { background: #E6ECF5; color: #23395B; }
 
   /* ── Resumo visual ── */
-  .channels.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .mv-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
-  .mv-h { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; padding-bottom: 8px; }
+  .hero.hero-c { padding: 14px 20px; }
+  .hero.hero-c h3 { font-size: 18px; }
+  .hero.hero-c p { margin-top: 3px; font-size: 13.5px; }
+  .mv-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; margin-top: 14px; }
+  .mv-h { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; padding-bottom: 3px; }
   .mv-h.good { color: var(--good); } .mv-h.bad { color: var(--bad); }
   .mv-h::after { content: ""; flex: 1; height: 1.5px; background: currentColor; opacity: .25; }
-  .mv { background: #fff; border: 1px solid var(--card-border); border-left: 4px solid var(--prev); border-radius: 10px; padding: 13px 16px 14px; margin-bottom: 10px; }
-  .mv.good { border-left-color: var(--good); } .mv.bad { border-left-color: var(--bad); } .mv.flat { border-left-color: #8A91A0; }
-  .mv-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .mv .chg-title { font-size: 15px; line-height: 1.3; }
-  .mv .chip { flex: none; margin: 1px 0 0; }
-  .mv .bars { margin-top: 10px; }
+  .mv-h em { order: 2; font-style: normal; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--text-2); font-size: 11px; }
+  .mvr { display: grid; grid-template-columns: minmax(0, 1fr) 112px 58px; align-items: center; column-gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .mvr:last-child { border-bottom: 0; }
+  .mvr-t b { display: block; font-size: 13.5px; font-weight: 800; line-height: 1.3; }
+  .mvr-t small { display: block; font-size: 11px; color: var(--text-2); margin-top: 1px; line-height: 1.3; }
+  .mvr-b > div { display: flex; align-items: center; gap: 5px; height: 14px; }
+  .mvr-b i { display: block; height: 6px; min-width: 2px; border-radius: 0 3px 3px 0; background: var(--prev); }
+  .mvr-b span { font-size: 11.5px; font-weight: 700; color: var(--text-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mvr-b .now span { color: var(--text); font-weight: 900; }
+  .mvr.good .now i { background: var(--good); } .mvr.bad .now i { background: var(--bad); } .mvr.flat .now i { background: #8A91A0; }
+  .mvr .chip { justify-self: end; }
   .bar.now.flat i { background: #8A91A0; }
   .mx-table th small, .bench-table th small { display: block; font-weight: 400; font-size: 11px; color: var(--text-2); margin-top: 2px; line-height: 1.3; }
+  .mx-table th { padding: 4px 8px 6px; }
+  .mx-table td { padding: 8px 8px; }
   .mx-table td.mxc { min-width: 104px; }
   .mx-table td.mxc b { font-weight: 800; }
   .mx-table td.mxc .best-tag { margin-left: 6px; }
@@ -154,15 +166,15 @@
   tr.is-bmg .mxb i, tr.is-bmg .mxd i { background: var(--purple-1); }
   .mx-table td.mxc.best { background: var(--good-soft); }
   .ins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; margin-top: 14px; }
-  .ins { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px 18px; }
+  .ins { background: var(--surface); border: 1px solid var(--edge); border-radius: 12px; padding: 13px 16px; box-shadow: var(--lift); }
   .ins h4 { font-size: 15.5px; font-weight: 900; line-height: 1.3; }
-  .ins p { font-size: 13px; color: var(--text-2); margin-top: 10px; line-height: 1.45; }
+  .ins p { font-size: 12.5px; color: var(--text-2); margin-top: 8px; line-height: 1.45; }
   .ins-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) 54px; align-items: center; column-gap: 8px; margin-top: 12px; font-size: 12.5px; }
   .ins-row small { grid-column: 2 / 4; font-size: 11px; color: var(--text-2); }
   .ins-track { height: 10px; background: var(--track); border-radius: 0 5px 5px 0; }
   .ins-track i { display: block; height: 100%; background: var(--bad); border-radius: 0 5px 5px 0; }
   .ins-row b { text-align: right; font-weight: 900; }
-  .ins-spark { display: flex; align-items: flex-end; gap: 6px; height: 78px; margin-top: 14px; border-bottom: 1px solid #C9CDD6; }
+  .ins-spark { display: flex; align-items: flex-end; gap: 6px; height: 62px; margin-top: 10px; border-bottom: 1px solid #C9CDD6; }
   .ins-spark div { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
   .ins-spark b { font-size: 10.5px; font-weight: 700; color: var(--text-2); margin-bottom: 3px; }
   .ins-spark i { display: block; width: 100%; max-width: 26px; background: var(--prev); border-radius: 4px 4px 0 0; }
@@ -170,8 +182,13 @@
   .ins-spark-x { display: flex; gap: 6px; margin-top: 4px; }
   .ins-spark-x span { flex: 1; text-align: center; font-size: 10.5px; color: var(--text-2); }
   .ins-spark-x span.ref { color: var(--text); font-weight: 800; }
-  @media screen and (max-width: 860px) { .channels.c3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mv-cols { grid-template-columns: minmax(0, 1fr); } }
-  @media screen and (max-width: 560px) { .channels.c3 { grid-template-columns: minmax(0, 1fr); } }
+  @media screen and (max-width: 900px) { .chs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media screen and (max-width: 860px) { .mv-cols { grid-template-columns: minmax(0, 1fr); } }
+  @media screen and (max-width: 560px) {
+    .chs { gap: 10px; } .cht { padding: 10px 11px 9px; } .cht-val { font-size: 24px; }
+    .cht-body { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
+    .mvr { grid-template-columns: minmax(0, 1fr) 92px 54px; column-gap: 8px; }
+  }
   .fonte { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-2); margin-top: 10px; }
   .fonte:empty { display: none; }
   .fonte a { color: var(--text-2); font-weight: 700; }
@@ -226,10 +243,10 @@
 
   /* ── Listas, citações, versões, sinais ── */
   .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .card { background: var(--surface); border: 1px solid var(--edge); border-radius: 12px; padding: 18px 20px; box-shadow: var(--lift); }
   .card h3 { font-size: 17px; font-weight: 800; margin-bottom: 14px; }
   .vers { display: flex; align-items: center; gap: 12px; }
-  .v { flex: 1; border: 1px solid var(--card-border); background: #F6F6F7; border-radius: 10px; padding: 12px 14px; }
+  .v { flex: 1; border: 1px solid var(--edge); background: var(--surface); border-radius: 10px; padding: 12px 14px; }
   .v.cur { border-color: var(--orange); background: #FFF5F1; }
   .v-name { font-size: 12.5px; font-weight: 800; color: var(--text-2); }
   .v.cur .v-name { color: var(--accent); }
@@ -271,13 +288,18 @@
   .platform section { margin-top: 30px; }
 
   /* ── Notas ── */
-  .ra-notes, .notes { margin-top: 36px; padding-top: 16px; border-top: 1.5px solid var(--line); font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+  .ra-notes, .notes { margin-top: 30px; padding-top: 12px; border-top: 1.5px solid var(--line); font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+  .ra-notes summary, .notes summary { cursor: pointer; font-weight: 800; color: var(--text); list-style: none; display: inline-flex; align-items: center; gap: 7px; }
+  .ra-notes summary::-webkit-details-marker, .notes summary::-webkit-details-marker { display: none; }
+  .ra-notes summary::before, .notes summary::before { content: "▸"; color: var(--text-2); font-size: 12px; transition: transform .15s; }
+  .ra-notes details[open] > summary::before, .notes details[open] > summary::before { transform: rotate(90deg); }
+  .ra-notes summary small, .notes summary small { font-weight: 400; color: var(--text-2); font-size: 12px; }
   .ra-notes strong, .notes strong { color: var(--text); }
   .ra-notes ul, .notes ul { margin: 6px 0 0; padding-left: 18px; }
   .foot { margin-top: 28px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-2); }
 
   @media screen and (max-width: 900px) {
-    .channels, .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     /* minmax(0, 1fr): a coluna encolhe até a tela e a tabela larga rola dentro do próprio quadro */
     .duo, .ra-grid, .grid2, .grid2.even { grid-template-columns: minmax(0, 1fr); }
     .quotes { grid-template-columns: minmax(0, 1fr); }
@@ -286,7 +308,7 @@
     .platform { padding: 16px 14px 20px; }
     .wrap { padding: 22px 16px 32px; }
     .head-title { border-left: 0; padding-left: 0; }
-    .channels, .stat-row { grid-template-columns: minmax(0, 1fr); }
+    .stat-row { grid-template-columns: minmax(0, 1fr); }
     .chg { grid-template-columns: minmax(0, 1fr); gap: 10px; }
     .chg .chip { justify-self: start; }
     .panel { padding: 18px 14px; }
@@ -372,7 +394,7 @@
 <script>
 // ===== DATA-INJECTION-START =====
 const activePage = "youtube";
-const versao = "202611101516";
+const versao = "202611101538";
 
 const edicao = {"mesRef":"Outubro · 2026","atualizado":"10/11"};
 
@@ -388,30 +410,48 @@ const resumoPage = {
           "tone": "good"
         }
       },
-      "legenda": "nota na loja · 437,2 mil avaliações",
-      "periodoTitulo": "Como foi o mês",
-      "periodo": "set → out",
-      "metricas": [
-        {
-          "label": "Nota dos comentários",
-          "prev": "2,88",
-          "ref": "3,85",
-          "chip": {
-            "txt": "▲ +0,97",
-            "tone": "good"
-          }
+      "legenda": "nota na loja",
+      "serie": {
+        "titulo": "Comentários negativos",
+        "valor": "26,9%",
+        "chip": {
+          "txt": "▼ −24,6 p.p.",
+          "tone": "good"
         },
-        {
-          "label": "Comentários negativos",
-          "prev": "51,5%",
-          "ref": "26,9%",
-          "chip": {
-            "txt": "▼ −24,6 p.p.",
-            "tone": "good"
+        "pontos": [
+          {
+            "l": "jun",
+            "txt": "42,6%",
+            "h": 79,
+            "ref": false
+          },
+          {
+            "l": "jul",
+            "txt": "53,7%",
+            "h": 100,
+            "ref": false
+          },
+          {
+            "l": "ago",
+            "txt": "47,0%",
+            "h": 88,
+            "ref": false
+          },
+          {
+            "l": "set",
+            "txt": "51,5%",
+            "h": 96,
+            "ref": false
+          },
+          {
+            "l": "out",
+            "txt": "26,9%",
+            "h": 50,
+            "ref": true
           }
-        }
-      ],
-      "rodape": "350 comentários em outubro"
+        ]
+      },
+      "rodape": "Nota na loja: média de todas as avaliações do app."
     },
     {
       "canal": "App Store · iOS",
@@ -423,52 +463,80 @@ const resumoPage = {
           "tone": "good"
         }
       },
-      "legenda": "nota na loja · 89,1 mil avaliações",
-      "periodoTitulo": "Como foi o trimestre",
-      "periodo": "abr–jun → jul–set",
-      "metricas": [
-        {
-          "label": "Nota dos comentários",
-          "prev": "1,35",
-          "ref": "2,26",
-          "chip": {
-            "txt": "▲ +0,91",
-            "tone": "good"
-          }
+      "legenda": "nota na loja",
+      "serie": {
+        "titulo": "Comentários negativos",
+        "valor": "60,9%",
+        "chip": {
+          "txt": "▼ −34,1 p.p.",
+          "tone": "good"
         },
-        {
-          "label": "Comentários negativos",
-          "prev": "95,0%",
-          "ref": "60,9%",
-          "chip": {
-            "txt": "▼ −34,1 p.p.",
-            "tone": "good"
+        "pontos": [
+          {
+            "l": "4T25",
+            "txt": "70,7%",
+            "h": 74,
+            "ref": false
+          },
+          {
+            "l": "1T26",
+            "txt": "79,4%",
+            "h": 84,
+            "ref": false
+          },
+          {
+            "l": "2T26",
+            "txt": "95,0%",
+            "h": 100,
+            "ref": false
+          },
+          {
+            "l": "3T26",
+            "txt": "60,9%",
+            "h": 64,
+            "ref": true
           }
-        }
-      ],
-      "rodape": "23 comentários em jul–set · por trimestre, pelo baixo volume"
+        ]
+      },
+      "rodape": "Por trimestre, pelo baixo volume de comentários no iOS."
     },
     {
       "canal": "YouTube",
       "nota": {
         "valor": "4",
-        "unidade": "comentários"
-      },
-      "legenda": "sobre o BMG na janela de 35 dias, sem tema que se destaque — o canal não tem nota",
-      "periodoTitulo": "Como foi o mês",
-      "periodo": "set → out",
-      "metricas": [
-        {
-          "label": "Comentários sobre o BMG",
-          "prev": "9",
-          "ref": "4",
-          "chip": {
-            "txt": "▼ −5",
-            "tone": "flat"
-          }
+        "unidade": "comentários",
+        "chip": {
+          "txt": "▼ −5",
+          "tone": "flat"
         }
-      ],
-      "rodape": "Janelas de 35 dias até 05/10 e até 09/11 · amostra pequena"
+      },
+      "legenda": "sobre o BMG",
+      "serie": {
+        "titulo": "Comentários por mês",
+        "valor": null,
+        "chip": null,
+        "pontos": [
+          {
+            "l": "ago",
+            "txt": "20",
+            "h": 100,
+            "ref": false
+          },
+          {
+            "l": "set",
+            "txt": "9",
+            "h": 45,
+            "ref": false
+          },
+          {
+            "l": "out",
+            "txt": "4",
+            "h": 20,
+            "ref": true
+          }
+        ]
+      },
+      "rodape": "Janelas de 35 dias; amostra pequena e sem nota."
     },
     {
       "canal": "Reclame Aqui · BMG",
@@ -480,30 +548,54 @@ const resumoPage = {
           "tone": "good"
         }
       },
-      "legenda": "nota de reputação · era 8,3 em setembro · selo RA1000 mantido (o mais alto do site)",
-      "periodoTitulo": "Como foi o mês",
-      "periodo": "set → out",
-      "metricas": [
-        {
-          "label": "Reclamações com assunto",
-          "prev": "1.240",
-          "ref": "1.141",
-          "chip": {
-            "txt": "▼ −8,0%",
-            "tone": "good"
-          }
+      "legenda": "nota · selo RA1000",
+      "serie": {
+        "titulo": "Reclamações por mês",
+        "valor": "1.141",
+        "chip": {
+          "txt": "▼ −8,0%",
+          "tone": "good"
         },
-        {
-          "label": "Resolvidas (6 meses)",
-          "prev": "90,6%",
-          "ref": "92,0%",
-          "chip": {
-            "txt": "▲ +1,4 p.p.",
-            "tone": "good"
+        "pontos": [
+          {
+            "l": "mai",
+            "txt": "1.197",
+            "h": 97,
+            "ref": false
+          },
+          {
+            "l": "jun",
+            "txt": "997",
+            "h": 80,
+            "ref": false
+          },
+          {
+            "l": "jul",
+            "txt": "923",
+            "h": 74,
+            "ref": false
+          },
+          {
+            "l": "ago",
+            "txt": "1.165",
+            "h": 94,
+            "ref": false
+          },
+          {
+            "l": "set",
+            "txt": "1.240",
+            "h": 100,
+            "ref": false
+          },
+          {
+            "l": "out",
+            "txt": "1.141",
+            "h": 92,
+            "ref": true
           }
-        }
-      ],
-      "rodape": "Com assunto = o cliente informou o assunto. Resolvidas = o cliente considerou resolvida."
+        ]
+      },
+      "rodape": "RA1000 é o selo mais alto do site."
     },
     {
       "canal": "Reclame Aqui · help!",
@@ -515,30 +607,54 @@ const resumoPage = {
           "tone": "flat"
         }
       },
-      "legenda": "nota de reputação · selo Ótima (logo abaixo do RA1000) · Loja de Crédito do BMG",
-      "periodoTitulo": "Como foi o mês",
-      "periodo": "set → out",
-      "metricas": [
-        {
-          "label": "Reclamações com assunto",
-          "prev": "632",
-          "ref": "604",
-          "chip": {
-            "txt": "▼ −4,4%",
-            "tone": "good"
-          }
+      "legenda": "nota · selo Ótima",
+      "serie": {
+        "titulo": "Reclamações por mês",
+        "valor": "604",
+        "chip": {
+          "txt": "▼ −4,4%",
+          "tone": "good"
         },
-        {
-          "label": "Média por mês no semestre",
-          "prev": "641",
-          "ref": "759",
-          "chip": {
-            "txt": "▲ +18%",
-            "tone": "bad"
+        "pontos": [
+          {
+            "l": "mai",
+            "txt": "503",
+            "h": 80,
+            "ref": false
+          },
+          {
+            "l": "jun",
+            "txt": "392",
+            "h": 62,
+            "ref": false
+          },
+          {
+            "l": "jul",
+            "txt": "533",
+            "h": 84,
+            "ref": false
+          },
+          {
+            "l": "ago",
+            "txt": "632",
+            "h": 100,
+            "ref": false
+          },
+          {
+            "l": "set",
+            "txt": "632",
+            "h": 100,
+            "ref": false
+          },
+          {
+            "l": "out",
+            "txt": "604",
+            "h": 96,
+            "ref": true
           }
-        }
-      ],
-      "rodape": "Semestre: os 6 meses até o mês fechado contra os 6 anteriores."
+        ]
+      },
+      "rodape": "Loja de Crédito do BMG. Ótima vem logo abaixo do RA1000."
     },
     {
       "canal": "Banco Central",
@@ -550,30 +666,42 @@ const resumoPage = {
           "tone": "good"
         }
       },
-      "legenda": "reclamações em que o BC deu razão ao cliente, por milhão de clientes · menor é melhor · 1º entre os três bancos",
-      "periodoTitulo": "Como foi o trimestre",
-      "periodo": "2º tri → 3º tri",
-      "metricas": [
-        {
-          "label": "Reclamações procedentes",
-          "prev": "189",
-          "ref": "144",
-          "chip": {
-            "txt": "▼ −24%",
-            "tone": "good"
-          }
+      "legenda": "menor é melhor",
+      "serie": {
+        "titulo": "Reclamações procedentes",
+        "valor": "144",
+        "chip": {
+          "txt": "▼ −24%",
+          "tone": "good"
         },
-        {
-          "label": "Reclamações respondidas",
-          "prev": "4.883",
-          "ref": "4.808",
-          "chip": {
-            "txt": "▼ −2%",
-            "tone": "good"
+        "pontos": [
+          {
+            "l": "4T25",
+            "txt": "198",
+            "h": 100,
+            "ref": false
+          },
+          {
+            "l": "1T26",
+            "txt": "174",
+            "h": 88,
+            "ref": false
+          },
+          {
+            "l": "2T26",
+            "txt": "189",
+            "h": 95,
+            "ref": false
+          },
+          {
+            "l": "3T26",
+            "txt": "144",
+            "h": 73,
+            "ref": true
           }
-        }
-      ],
-      "rodape": "Procedentes = o BC deu razão ao cliente. Respondidas = o banco respondeu ao BC."
+        ]
+      },
+      "rodape": "Procedentes: o BC deu razão ao cliente. Índice: procedentes por milhão de clientes."
     }
   ],
   "hero": {
@@ -587,79 +715,79 @@ const resumoPage = {
     "melhorou": [
       {
         "titulo": "Erro no cadastro e na abertura de conta",
-        "onde": "Android · citações nos comentários negativos",
+        "onde": "Android",
         "tone": "good",
         "prevTxt": "10",
         "refTxt": "2",
         "wPrev": 100,
         "wRef": 20,
-        "chip": "−8 · −80%"
+        "chip": "−80%"
       },
       {
         "titulo": "Cobrança indevida",
-        "onde": "Reclame Aqui · BMG",
+        "onde": "Reclame Aqui",
         "tone": "good",
         "prevTxt": "385",
         "refTxt": "318",
         "wPrev": 100,
         "wRef": 83,
-        "chip": "−67 · −17%"
+        "chip": "−17%"
       },
       {
         "titulo": "“Não consigo acessar minha conta”",
-        "onde": "Reclame Aqui · BMG · patamar mais alto do semestre",
+        "onde": "Reclame Aqui · patamar mais alto do semestre",
         "tone": "flat",
         "prevTxt": "55",
         "refTxt": "56",
         "wPrev": 98,
         "wRef": 100,
-        "chip": "+1 · estável"
+        "chip": "estável"
       }
     ],
     "piorou": [
       {
         "titulo": "App trava, não abre ou fica fora do ar",
-        "onde": "Android · citações nos comentários negativos",
+        "onde": "Android",
         "tone": "bad",
         "prevTxt": "17",
         "refTxt": "20",
         "wPrev": 85,
         "wRef": 100,
-        "chip": "+3 · +18%"
+        "chip": "+18%"
       },
       {
         "titulo": "Estorno do valor pago",
-        "onde": "Reclame Aqui · BMG",
+        "onde": "Reclame Aqui",
         "tone": "bad",
         "prevTxt": "25",
         "refTxt": "45",
         "wPrev": 56,
         "wRef": 100,
-        "chip": "+20 · +80%"
+        "chip": "+80%"
       },
       {
         "titulo": "Limite",
-        "onde": "Reclame Aqui · BMG",
+        "onde": "Reclame Aqui",
         "tone": "bad",
         "prevTxt": "85",
         "refTxt": "104",
         "wPrev": 82,
         "wRef": 100,
-        "chip": "+19 · +22%"
+        "chip": "+22%"
       },
       {
         "titulo": "Problema para quitar o empréstimo",
-        "onde": "Reclame Aqui · BMG",
+        "onde": "Reclame Aqui",
         "tone": "bad",
         "prevTxt": "70",
         "refTxt": "87",
         "wPrev": 80,
         "wRef": 100,
-        "chip": "+17 · +24%"
+        "chip": "+24%"
       },
       {
         "titulo": "Versão 3.99.0 do Android",
-        "onde": "% de comentários negativos (3.97.2 → 3.99.0) · versão nova, com poucos dias: sinal inicial",
+        "onde": "% de negativos contra a 3.97.2 · versão nova: sinal inicial",
         "tone": "bad",
         "prevTxt": "28,3%",
         "refTxt": "36,7%",
@@ -679,15 +807,15 @@ const resumoPage = {
       },
       {
         "label": "Nota na loja",
-        "sub": "Android · média de todas as avaliações"
+        "sub": "Android · todas as avaliações"
       },
       {
         "label": "Volume no Reclame Aqui",
-        "sub": "reclamações no semestre contra o anterior"
+        "sub": "semestre vs. anterior"
       },
       {
         "label": "Resolvidas",
-        "sub": "Reclame Aqui · % que o cliente considerou resolvida"
+        "sub": "Reclame Aqui · segundo o cliente"
       },
       {
         "label": "Prazo de resposta",
@@ -695,7 +823,7 @@ const resumoPage = {
       },
       {
         "label": "Índice do Banco Central",
-        "sub": "3º tri/26 · reclamações em que o BC deu razão ao cliente, por milhão de clientes"
+        "sub": "3º tri/26 · por milhão de clientes"
       }
     ],
     "linhas": [
@@ -943,7 +1071,7 @@ const resumoPage = {
     "cols": [
       {
         "label": "Selo e nota",
-        "sub": "RA1000 é o selo mais alto; Ótima vem logo abaixo"
+        "sub": "RA1000 é o selo mais alto"
       },
       {
         "label": "Reclamações",
@@ -951,7 +1079,7 @@ const resumoPage = {
       },
       {
         "label": "Volume",
-        "sub": "semestre contra o anterior"
+        "sub": "semestre vs. anterior"
       },
       {
         "label": "Respondidas",
@@ -959,7 +1087,7 @@ const resumoPage = {
       },
       {
         "label": "Resolvidas",
-        "sub": "% que o cliente considerou resolvida"
+        "sub": "segundo o cliente"
       },
       {
         "label": "Prazo de resposta",
@@ -2486,7 +2614,7 @@ function kpiHtml(kpis) {
   return `<div class="stat-row">${kpis.map((t) => `<div class="stat-tile"><div class="stat-label">${t.label}</div><div class="stat-value">${t.value}</div><div class="stat-note${t.tone ? ' tone-' + t.tone : ''}">${t.note || ''}</div></div>`).join('')}</div>`;
 }
 function notesHtml(notas) {
-  return notas && notas.length ? `<div class="notes"><strong>Como ler esta página</strong><ul>${notas.map((n) => `<li>${n}</li>`).join('')}</ul></div>` : '';
+  return notas && notas.length ? `<div class="notes"><details><summary>Como ler esta página <small>(clique para abrir)</small></summary><ul>${notas.map((n) => `<li>${n}</li>`).join('')}</ul></details></div>` : '';
 }
 // tabela de comparação genérica (blocos Android / iOS / Reclame Aqui)
 function compBlockHtml(b) {
@@ -2553,29 +2681,32 @@ function renderResumo() {
   let html = '';
   let n = 0;
 
-  // 1) principais números por canal (cards; com 6 canais, 3 por linha)
+  // 1) principais números por canal: card compacto = número + mini gráfico da tendência + 1 linha de explicação
   if (p.canais && p.canais.length) {
-    const cards = p.canais.map((c) => `<div class="ch"><div class="ch-name">${c.canal}</div>` +
-      `<div class="big">${c.nota ? `<span class="val">${c.nota.valor}${c.nota.estrela ? '<span class="star">★</span>' : ''}${c.nota.unidade ? ` <span class="unit">${c.nota.unidade}</span>` : ''}</span>${chipHtml(c.nota.chip)}` : ''}</div>` +
-      `<div class="big-sub">${c.legenda}</div>` +
-      `<div class="month"><div class="month-h">${c.periodoTitulo}<span>${c.periodo}</span></div>` +
-      [0, 1].map((i) => { const m = c.metricas[i]; return m ? `<div class="mrow"><div class="lbl">${m.label}</div><div class="vals"><span class="p">${m.prev}</span> → <b>${m.ref}</b></div>${chipHtml(m.chip)}</div>` : '<div class="mrow"></div>'; }).join('') +
-      `</div><div class="ch-foot">${c.rodape || ''}</div></div>`).join('');
-    const cols = p.canais.length % 3 === 0 ? ' c3' : '';
-    html += sectionHtml(++n, 'Principais números por canal', null, `<div class="channels${cols}">${cards}</div>`, 'Em destaque, o número principal de cada canal; embaixo, como foi o período, lado a lado. Verde = melhorou; vermelho = piorou.');
+    const serieHtml = (sr) => sr ? '<div class="spk"><div class="spk-t">' + sr.titulo + '</div>' +
+      '<div class="spk-bars">' + sr.pontos.map((q) => `<span class="${q.ref ? 'ref' : ''}" title="${q.l}: ${q.txt}"><i style="height:${q.h}%"></i></span>`).join('') + '</div>' +
+      '<div class="spk-x">' + sr.pontos.map((q) => `<span class="${q.ref ? 'ref' : ''}">${q.l}</span>`).join('') + '</div>' +
+      (sr.valor ? `<div class="spk-v"><b>${sr.valor}</b>${chipHtml(sr.chip)}</div>` : '') + '</div>' : '<div></div>';
+    const cards = p.canais.map((c) => `<div class="cht"><div class="cht-name">${c.canal}</div><div class="cht-body"><div class="cht-main">` +
+      (c.nota ? `<div class="cht-val">${c.nota.valor}${c.nota.estrela ? '<span class="star">★</span>' : ''}${c.nota.unidade ? `<span class="unit">${c.nota.unidade}</span>` : ''}</div>${chipHtml(c.nota.chip)}` : '') +
+      `<div class="cht-lbl">${c.legenda || ''}</div></div>${serieHtml(c.serie)}</div>` +
+      (c.rodape ? `<div class="cht-foot">${c.rodape}</div>` : '') + '</div>').join('');
+    html += sectionHtml(++n, 'Principais números por canal', null, `<div class="chs">${cards}</div>`, 'O número de cada canal e, no gráfico, a tendência das queixas — o período atual em roxo. Verde = melhorou; vermelho = piorou.');
   }
 
-  // 2) o que mudou no mês: manchete + cartões antes → depois
+  // 2) o que mudou no mês: manchete curta + linhas antes → depois (barra cinza = mês anterior; colorida = mês atual)
   const m = p.mudancas;
   if (m && (m.melhorou.length || m.piorou.length)) {
-    const card = (c) => `<div class="mv ${c.tone}"><div class="mv-top"><div><div class="chg-title">${c.titulo}</div><div class="chg-where">${c.onde}</div></div><span class="chip ${c.tone}">${c.chip}</span></div>` +
-      `<div class="bars"><div class="bar-row">${m.mesPrev}<span class="bar prev"><i style="width:${Math.max(2, c.wPrev)}%"></i><b>${c.prevTxt}</b></span></div>` +
-      `<div class="bar-row">${m.mesRef}<span class="bar now ${c.tone}"><i style="width:${Math.max(2, c.wRef)}%"></i><b>${c.refTxt}</b></span></div></div></div>`;
-    const hero = p.hero ? `<div class="hero"><h3><b>${p.hero.lead}</b> ${p.hero.resto}</h3>${p.hero.sub ? `<p>${p.hero.sub}</p>` : ''}</div>` : '';
-    const col = (cls, titulo, itens) => itens.length ? `<div><div class="mv-h ${cls}">${titulo}</div>${itens.map(card).join('')}</div>` : '<div></div>';
+    const w = (v) => Math.max(2, Math.round(v * 0.66));
+    const row = (c) => `<div class="mvr ${c.tone}"><div class="mvr-t"><b>${c.titulo}</b><small>${c.onde}</small></div>` +
+      `<div class="mvr-b"><div title="${m.mesPrev}: ${c.prevTxt}"><i style="width:${w(c.wPrev)}%"></i><span>${c.prevTxt}</span></div>` +
+      `<div class="now" title="${m.mesRef}: ${c.refTxt}"><i style="width:${w(c.wRef)}%"></i><span>${c.refTxt}</span></div></div>` +
+      `<span class="chip ${c.tone}">${c.chip}</span></div>`;
+    const hero = p.hero ? `<div class="hero hero-c"><h3><b>${p.hero.lead}</b> ${p.hero.resto}</h3>${p.hero.sub ? `<p>${p.hero.sub}</p>` : ''}</div>` : '';
+    const col = (cls, titulo, itens) => itens.length ? `<div><div class="mv-h ${cls}">${titulo}<em>${m.mesPrev} → ${m.mesRef}</em></div>${itens.map(row).join('')}</div>` : '<div></div>';
     html += sectionHtml(++n, 'O que mudou no mês', null, hero +
       `<div class="mv-cols">${col('good', '▼ Caiu ou ficou estável', m.melhorou)}${col('bad', '▲ Subiu', m.piorou)}</div>` +
-      '<p class="note">Lojas: citações entre os comentários negativos do mês. Reclame Aqui: reclamações em que o cliente informou o assunto.</p>');
+      `<p class="note">Barra cinza = ${m.mesPrev}; colorida = ${m.mesRef}. Lojas: citações nos comentários negativos. Reclame Aqui: reclamações em que o cliente informou o assunto.</p>`);
   }
 
   // tabela com barra em cada célula (BMG em roxo; em verde, o melhor da coluna)
@@ -2595,7 +2726,7 @@ function renderResumo() {
   if (p.cruzada && p.cruzada.length) {
     const ins = (c) => `<div class="ins"><h4>${c.titulo}</h4>` +
       (c.barras ? c.barras.map((b) => `<div class="ins-row"><span>${b.label}</span><div class="ins-track"><i style="width:${Math.min(100, Math.max(2, b.v))}%"></i></div><b>${b.txt}</b><small>${b.sub}</small></div>`).join('') : '') +
-      (c.serie ? (() => { const max = Math.max(...c.serie.map((s) => s.v), 1); return `<div class="ins-spark">${c.serie.map((s) => `<div class="${s.ref ? 'ref' : ''}"><b>${s.v}</b><i style="height:${Math.max(3, Math.round((s.v / max) * 52))}px"></i></div>`).join('')}</div><div class="ins-spark-x">${c.serie.map((s) => `<span class="${s.ref ? 'ref' : ''}">${s.label}</span>`).join('')}</div>`; })() : '') +
+      (c.serie ? (() => { const max = Math.max(...c.serie.map((s) => s.v), 1); return `<div class="ins-spark">${c.serie.map((s) => `<div class="${s.ref ? 'ref' : ''}"><b>${s.v}</b><i style="height:${Math.max(3, Math.round((s.v / max) * 40))}px"></i></div>`).join('')}</div><div class="ins-spark-x">${c.serie.map((s) => `<span class="${s.ref ? 'ref' : ''}">${s.label}</span>`).join('')}</div>`; })() : '') +
       `<p>${c.texto}</p></div>`;
     html += sectionHtml(++n, 'Análise cruzada — o que só aparece olhando os canais juntos', null, `<div class="ins-grid">${p.cruzada.map(ins).join('')}</div>`);
   }
@@ -2717,7 +2848,7 @@ const RAK = (() => {
       `<td class="num">${fmt(r.mediaAnterior)}</td><td class="num">${fmt(r.mediaMensal)}</td><td class="num ${cls(r.varSemestre)}">${signed(r.varSemestre)}</td>` +
       `<td class="num">${fmt(r.ultimos30)}</td><td class="num ${cls(r.var30)}">${signed(r.var30)}</td></tr>`).join(''), 'vol-market-table');
   const recentes = (lista, quem) => lista.map((r) => `<div class="quote">“${r.titulo}”<div class="quote-meta">${quem}${r.data ? ' · ' + fmtDate(r.data) : ''}</div></div>`).join('');
-  const notas = (lista) => `<div class="ra-notes"><strong>Como ler esta página</strong><ul>${lista.map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
+  const notas = (lista) => `<div class="ra-notes"><details><summary>Como ler esta página <small>(clique para abrir)</small></summary><ul>${lista.map((x) => `<li>${x}</li>`).join('')}</ul></details></div>`;
   // linha "Fonte" logo abaixo do título: de onde vem o dado, período, data da leitura e link
   const fonte = (id, f) => {
     const el = document.getElementById(id);
@@ -2771,7 +2902,7 @@ function renderRaPage() {
     }
   }
   if (p.notas.length) {
-    document.getElementById('raNotes').innerHTML = `<strong>Como ler esta página</strong><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul>`;
+    document.getElementById('raNotes').innerHTML = `<details><summary>Como ler esta página <small>(clique para abrir)</small></summary><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul></details>`;
   }
 }
 renderRaPage();
@@ -2832,7 +2963,7 @@ function renderBancoCentral() {
     `<div class="stat-row">${p.kpis.map(tile).join('')}</div>` +
     sec(1, 'Índice de reclamações por trimestre', p.serie.headline, tbl(serieHead, serieRows) + '<p class="ra-foot">Índice = reclamações em que o BC deu razão ao cliente (procedentes), por milhão de clientes — quanto menor, melhor. BMG em roxo.</p>') +
     sec(2, `Detalhe do ${p.titulo}`, det.headline, tbl(detHead, detRows)) +
-    `<div class="ra-notes"><strong>Como ler esta página</strong><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
+    `<div class="ra-notes"><details><summary>Como ler esta página <small>(clique para abrir)</small></summary><ul>${p.notas.map((x) => `<li>${x}</li>`).join('')}</ul></details></div>`;
 }
 renderBancoCentral();
 </script>
